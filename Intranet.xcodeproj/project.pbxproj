@@ -10,7 +10,10 @@
 		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
+		0C908333181EAB040084994D /* RKClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C908332181EAB040084994D /* RKClient.m */; };
+		0C908336181EAB2D0084994D /* RKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C908335181EAB2D0084994D /* RKRequest.m */; };
 		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
+		0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */; };
 		0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */; };
 		0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
@@ -42,9 +45,15 @@
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0C908331181EAB040084994D /* RKClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKClient.h; sourceTree = "<group>"; };
+		0C908332181EAB040084994D /* RKClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKClient.m; sourceTree = "<group>"; };
+		0C908334181EAB2D0084994D /* RKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKRequest.h; sourceTree = "<group>"; };
+		0C908335181EAB2D0084994D /* RKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKRequest.m; sourceTree = "<group>"; };
 		0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlusConfig.h; sourceTree = "<group>"; };
 		0C9E8724181EA39800E90F5E /* GooglePlusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusClient.h; sourceTree = "<group>"; };
 		0C9E8725181EA39800E90F5E /* GooglePlusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusClient.m; sourceTree = "<group>"; };
+		0C9E8728181EA9EF00E90F5E /* RestKitMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestKitMappings.h; sourceTree = "<group>"; };
+		0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestKitMappings.m; sourceTree = "<group>"; };
 		0CE37C49181E8ED10087C96E /* Intranet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intranet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C4C181E8ED10087C96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,6 +117,19 @@
 			name = GooglePlus;
 			sourceTree = "<group>";
 		};
+		0C9E8727181EA9C900E90F5E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0C9E8728181EA9EF00E90F5E /* RestKitMappings.h */,
+				0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */,
+				0C908331181EAB040084994D /* RKClient.h */,
+				0C908332181EAB040084994D /* RKClient.m */,
+				0C908334181EAB2D0084994D /* RKRequest.h */,
+				0C908335181EAB2D0084994D /* RKRequest.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		0CE37C40181E8ED10087C96E = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +167,7 @@
 		0CE37C52181E8ED10087C96E /* Intranet */ = {
 			isa = PBXGroup;
 			children = (
+				0C9E8727181EA9C900E90F5E /* API */,
 				0C9E8722181EA27200E90F5E /* GooglePlus */,
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
@@ -325,8 +348,11 @@
 				0CE37C69181E8ED10087C96E /* SecondViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
+				0C908333181EAB040084994D /* RKClient.m in Sources */,
+				0C908336181EAB2D0084994D /* RKRequest.m in Sources */,
 				0CE37C66181E8ED10087C96E /* FirstViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
+				0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

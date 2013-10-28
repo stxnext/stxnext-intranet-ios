@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "GooglePlusClient.h"
+#import "RKClient.h"
 
 @interface FirstViewController ()
 
@@ -20,7 +21,20 @@
     [super viewDidLoad];
     
     [[GooglePlusClient singleton] authenticateWithCompletionBlock:^(GTMOAuth2Authentication *auth, NSError *error) {
-        NSLog(@"auth: %@, error: %@", auth, error);
+        NSLog(@"%@", auth);
+        [RKClient performRequest:[RKRequest loginWithOauth:auth.code]
+                withSuccessBlock:^(NSArray *result) {
+                    [RKClient performRequest:[RKRequest users]
+                            withSuccessBlock:^(NSArray *result) {
+                                NSLog(@"result: %@", result);
+                            }
+                            withFailureBlock:^(NSError *error) {
+                                NSLog(@"error: %@", error);
+                            }];
+                }
+                withFailureBlock:^(NSError *error) {
+                    NSLog(@"error: %@", error);
+                }];
     }];
 }
 

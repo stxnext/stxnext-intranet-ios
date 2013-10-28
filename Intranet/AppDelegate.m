@@ -12,6 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // RestKit logs
+    RKLogConfigureByName("*", RKLogLevelTrace);
+    
     // Override point for customization after application launch.
     return YES;
 }

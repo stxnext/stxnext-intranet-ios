@@ -11,6 +11,7 @@
 @interface GooglePlusClient : NSObject<GPPSignInDelegate>
 {
     void (^_completionBlock)(GTMOAuth2Authentication* auth, NSError* error);
+    GPPSignIn* _signIn;
 }
 
 + (GooglePlusClient*)singleton;

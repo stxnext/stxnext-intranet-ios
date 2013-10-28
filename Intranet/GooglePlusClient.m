@@ -24,23 +24,46 @@ static GooglePlusClient* _singleton = nil;
     // Retain completion block
     _completionBlock = completionBlock;
     
+    // Send sign in request
+    if ([self.signIn hasAuthInKeychain])
+        [self.signIn trySilentAuthentication];
+    else
+        [self.signIn authenticate];
+}
+
+#pragma mark Private methods
+
+- (id)init
+{
+    self = [super init];
+    
+    if (self)
+    {
+        _completionBlock = nil;
+        _signIn = nil;
+    }
+    
+    return self;
+}
+
+- (GPPSignIn*)signIn
+{
+    if (_signIn)
+        return _signIn;
+    
     // Setup sign in request
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    _signIn = [GPPSignIn sharedInstance];
     
-    signIn.clientID = [[NSBundle mainBundle] infoDictionary][@"CCGooglePlusClientID"];
+    _signIn.clientID = [[NSBundle mainBundle] infoDictionary][@"CCGooglePlusClientID"];
     
-    signIn.scopes = @[ kGTLAuthScopePlusUserEmail,
+    _signIn.scopes = @[ kGTLAuthScopePlusUserEmail,
                        kGTLAuthScopePlusUserProfile,
                        kGTLAuthScopePlusCalendar,
                        kGTLAuthScopePlusCalendarReadonly ];
     
-    signIn.delegate = self;
+    _signIn.delegate = self;
     
-    // Send sign in request
-    if ([signIn hasAuthInKeychain])
-        [signIn trySilentAuthentication];
-    else
-        [signIn authenticate];
+    return _signIn;
 }
 
 #pragma mark Google Plus sign in delegate
