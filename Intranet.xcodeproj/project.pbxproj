@@ -22,7 +22,7 @@
 		0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C5C181E8ED10087C96E /* AppDelegate.m */; };
 		0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */; };
 		0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */; };
-		0CE37C66181E8ED10087C96E /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C65181E8ED10087C96E /* FirstViewController.m */; };
+		0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C65181E8ED10087C96E /* LoginViewController.m */; };
 		0CE37C69181E8ED10087C96E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C68181E8ED10087C96E /* SecondViewController.m */; };
 		0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C6A181E8ED10087C96E /* Images.xcassets */; };
 		0CE37C72181E8ED10087C96E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
@@ -30,6 +30,8 @@
 		0CE37C74181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
 		0CE37C7C181E8ED10087C96E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C7A181E8ED10087C96E /* InfoPlist.strings */; };
 		0CE37C7E181E8ED10087C96E /* IntranetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C7D181E8ED10087C96E /* IntranetTests.m */; };
+		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
+		0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +68,8 @@
 		0CE37C5C181E8ED10087C96E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0CE37C5F181E8ED10087C96E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0CE37C62181E8ED10087C96E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		0CE37C64181E8ED10087C96E /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		0CE37C65181E8ED10087C96E /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		0CE37C64181E8ED10087C96E /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0CE37C65181E8ED10087C96E /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0CE37C67181E8ED10087C96E /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		0CE37C68181E8ED10087C96E /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		0CE37C6A181E8ED10087C96E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -76,6 +78,10 @@
 		0CE37C79181E8ED10087C96E /* IntranetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IntranetTests-Info.plist"; sourceTree = "<group>"; };
 		0CE37C7B181E8ED10087C96E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0CE37C7D181E8ED10087C96E /* IntranetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntranetTests.m; sourceTree = "<group>"; };
+		0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Modals.h"; sourceTree = "<group>"; };
+		0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Modals.m"; sourceTree = "<group>"; };
+		0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModalViewController.h; sourceTree = "<group>"; };
+		0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIModalViewController.m; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -167,17 +173,12 @@
 		0CE37C52181E8ED10087C96E /* Intranet */ = {
 			isa = PBXGroup;
 			children = (
+				0CF44E88181FE4AE005CC12B /* Application */,
+				0CF44E89181FE4BB005CC12B /* Controllers */,
+				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* API */,
-				0C9E8722181EA27200E90F5E /* GooglePlus */,
-				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
-				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
-				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
-				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
-				0CE37C64181E8ED10087C96E /* FirstViewController.h */,
-				0CE37C65181E8ED10087C96E /* FirstViewController.m */,
-				0CE37C67181E8ED10087C96E /* SecondViewController.h */,
-				0CE37C68181E8ED10087C96E /* SecondViewController.m */,
-				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
+				0CF7CACC181FF2F400AAB9D4 /* Categories */,
+				0CF7CACD181FF30000AAB9D4 /* Externals */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
 			);
 			path = Intranet;
@@ -186,6 +187,7 @@
 		0CE37C53181E8ED10087C96E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
 				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
 				0CE37C55181E8ED10087C96E /* InfoPlist.strings */,
 				0CE37C58181E8ED10087C96E /* main.m */,
@@ -210,6 +212,54 @@
 				0CE37C7A181E8ED10087C96E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0CF44E87181FE49E005CC12B /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
+				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		0CF44E88181FE4AE005CC12B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
+				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		0CF44E89181FE4BB005CC12B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
+				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
+				0CE37C67181E8ED10087C96E /* SecondViewController.h */,
+				0CE37C68181E8ED10087C96E /* SecondViewController.m */,
+				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
+				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0CF7CACC181FF2F400AAB9D4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
+				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		0CF7CACD181FF30000AAB9D4 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				0C9E8722181EA27200E90F5E /* GooglePlus */,
+			);
+			name = Externals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,13 +395,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				0CE37C69181E8ED10087C96E /* SecondViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				0C908333181EAB040084994D /* RKClient.m in Sources */,
 				0C908336181EAB2D0084994D /* RKRequest.m in Sources */,
-				0CE37C66181E8ED10087C96E /* FirstViewController.m in Sources */,
+				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
+				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
