@@ -10,13 +10,15 @@
 
 @protocol UIModalViewControllerDelegate <NSObject>
 
-- (NSString*)storyboardIdentifier;
-- (NSString*)viewControllerIdentifier;
++ (NSString*)storyboardIdentifier;
++ (NSString*)viewControllerIdentifier;
 
 @end
 
 @interface UIModalViewController : UIViewController<UIModalViewControllerDelegate>
 
 - (IBAction)close;
++ (void)presentAfterSetupWithDecorator:(void (^)(UIModalViewController* controller))decoratorBlock;
++ (void)present;
 
 @end

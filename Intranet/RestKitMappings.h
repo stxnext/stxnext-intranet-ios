@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSNumber* id;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSString* imageURL;
+@property (nonatomic, strong) NSString* avatarURL;
 @property (nonatomic, strong) NSString* location;
 @property (nonatomic, strong) NSNumber* isFreelancer;
 @property (nonatomic, strong) NSNumber* isClient;

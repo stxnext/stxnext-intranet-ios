@@ -9,9 +9,13 @@
 #import "AppDelegate.h"
 
 #define kStoryboardName(name)  [NSString stringWithFormat:@"%@_%@", name, INTERFACE_IS_PAD ? @"iPad" : @"iPhone"]
-#define kMainStoryboardName    kStoryboardName(@"Main")
 
-#define kStoryboardLoginIdentifier @"LoginViewController"
+// Storyboards
+#define kStoryboardNameMain             kStoryboardName(@"Main")
+#define kStoryboardNameModals           kStoryboardName(@"Modals")
+
+// View controllers
+#define kStoryboardControllerNameLogin  @"LoginViewController"
 
 @interface AppDelegate (Modals)
 

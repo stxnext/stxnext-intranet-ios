@@ -28,9 +28,16 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 
+// Custom categories
+#import "AppDelegate+Modals.h"
+#import "NSError+CustomError.h"
+
 // Custom headers
 #import "GooglePlusConfig.h"
-#import "AppDelegate+Modals.h"
+#import "RestKitMappings.h"
+#import "RKClient.h"
+#import "RKRequest.h"
+#import "HTTPClient.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))

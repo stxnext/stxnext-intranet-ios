@@ -15,9 +15,8 @@
 @property (nonatomic, strong) NSString* method;
 @property (nonatomic, strong) RMGeneric* argument;
 @property (nonatomic, strong) Class returnedClass;
-@property (nonatomic) BOOL usingSession;
+@property (nonatomic, strong) NSString* collectionPath;
 
-+ (RKRequest*)loginWithOauth:(NSString*)oauth;
 + (RKRequest*)users;
 
 @end

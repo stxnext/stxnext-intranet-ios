@@ -33,7 +33,7 @@
         [manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:[RMGeneric responseMappingForClass:request.returnedClass]
                                                                                     method:RKRequestMethodAny
                                                                                pathPattern:nil
-                                                                                   keyPath:nil
+                                                                                   keyPath:request.collectionPath
                                                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     }
     
@@ -49,10 +49,20 @@
             failureBlock(error);
     };
     
-    switch (request.HTTPType)
+    if (request.collectionPath)
     {
-        case RKRequestMethodGET:  [manager getObject:request.argument path:request.method parameters:nil success:successDispatchBlock failure:failureDispatchBlock]; break;
-        case RKRequestMethodPOST: [manager postObject:request.argument path:request.method parameters:nil success:successDispatchBlock failure:failureDispatchBlock]; break;
+        switch (request.HTTPType)
+        {
+            case RKRequestMethodGET:  [manager getObjectsAtPath:request.method parameters:nil success:successDispatchBlock failure:failureDispatchBlock]; break;
+        }
+    }
+    else
+    {
+        switch (request.HTTPType)
+        {
+            case RKRequestMethodGET:  [manager getObject:request.argument path:request.method parameters:nil success:successDispatchBlock failure:failureDispatchBlock]; break;
+            case RKRequestMethodPOST: [manager postObject:request.argument path:request.method parameters:nil success:successDispatchBlock failure:failureDispatchBlock]; break;
+        }
     }
 }
 

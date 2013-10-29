@@ -25,28 +25,6 @@
     // Setup web view
     _webView.scrollView.bounces = NO;
     _webView.delegate = self;
-    
-    
-    // Temporarily self is delegate for tests
-    self.delegate = self;
-}
-
-// Temp
-- (void)finishedLoginWithCode:(NSString*)code withError:(NSError*)error
-{
-    [RKClient performRequest:[RKRequest loginWithOauth:code]
-            withSuccessBlock:^(NSArray *result) {
-                [RKClient performRequest:[RKRequest users]
-                        withSuccessBlock:^(NSArray *result) {
-                            NSLog(@"result: %@", result);
-                        }
-                        withFailureBlock:^(NSError *error) {
-                            NSLog(@"error: %@", error);
-                        }];
-            }
-            withFailureBlock:^(NSError *error) {
-                NSLog(@"error: %@", error);
-            }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,20 +76,28 @@
     // Call delegate
     [_delegate finishedLoginWithCode:_code withError:nil];
     
+    // Dismiss modal
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        [self close];
+    });
+    
     // Prevent any further calls
     return NO;
 }
 
 #pragma mark Modal delegate
 
-- (NSString*)storyboardIdentifier
++ (NSString*)storyboardIdentifier
 {
-    return kMainStoryboardName;
+    return kStoryboardNameModals;
 }
 
-- (NSString*)viewControllerIdentifier
++ (NSString*)viewControllerIdentifier
 {
-    return kStoryboardLoginIdentifier;
+    return kStoryboardControllerNameLogin;
 }
 
 @end

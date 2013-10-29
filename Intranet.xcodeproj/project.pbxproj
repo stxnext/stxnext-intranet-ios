@@ -23,7 +23,6 @@
 		0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */; };
 		0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */; };
 		0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C65181E8ED10087C96E /* LoginViewController.m */; };
-		0CE37C69181E8ED10087C96E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C68181E8ED10087C96E /* SecondViewController.m */; };
 		0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C6A181E8ED10087C96E /* Images.xcassets */; };
 		0CE37C72181E8ED10087C96E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
 		0CE37C73181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
@@ -32,6 +31,11 @@
 		0CE37C7E181E8ED10087C96E /* IntranetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C7D181E8ED10087C96E /* IntranetTests.m */; };
 		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
 		0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */; };
+		0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */; };
+		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
+		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
+		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
+		0CF7CAE51820111E00AAB9D4 /* NSAsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +74,6 @@
 		0CE37C62181E8ED10087C96E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		0CE37C64181E8ED10087C96E /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0CE37C65181E8ED10087C96E /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		0CE37C67181E8ED10087C96E /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		0CE37C68181E8ED10087C96E /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		0CE37C6A181E8ED10087C96E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0CE37C70181E8ED10087C96E /* IntranetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntranetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C71181E8ED10087C96E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -82,6 +84,15 @@
 		0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Modals.m"; sourceTree = "<group>"; };
 		0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModalViewController.h; sourceTree = "<group>"; };
 		0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIModalViewController.m; sourceTree = "<group>"; };
+		0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Modals_iPhone.storyboard; sourceTree = "<group>"; };
+		0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewController.h; sourceTree = "<group>"; };
+		0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewController.m; sourceTree = "<group>"; };
+		0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
+		0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
+		0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+CustomError.h"; path = "../NSError+CustomError.h"; sourceTree = "<group>"; };
+		0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+CustomError.m"; path = "../NSError+CustomError.m"; sourceTree = "<group>"; };
+		0CF7CAE31820111E00AAB9D4 /* NSAsyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAsyncRequest.h; sourceTree = "<group>"; };
+		0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAsyncRequest.m; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,6 +143,10 @@
 				0C908332181EAB040084994D /* RKClient.m */,
 				0C908334181EAB2D0084994D /* RKRequest.h */,
 				0C908335181EAB2D0084994D /* RKRequest.m */,
+				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
+				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
+				0CF7CAE31820111E00AAB9D4 /* NSAsyncRequest.h */,
+				0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -219,6 +234,7 @@
 			children = (
 				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
 				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
+				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -235,10 +251,10 @@
 		0CF44E89181FE4BB005CC12B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
+				0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
-				0CE37C67181E8ED10087C96E /* SecondViewController.h */,
-				0CE37C68181E8ED10087C96E /* SecondViewController.m */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 			);
@@ -250,6 +266,8 @@
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
+				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -344,6 +362,7 @@
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
 				0CE37C57181E8ED10087C96E /* InfoPlist.strings in Resources */,
+				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,15 +415,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
-				0CE37C69181E8ED10087C96E /* SecondViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
+				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				0C908333181EAB040084994D /* RKClient.m in Sources */,
 				0C908336181EAB2D0084994D /* RKRequest.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
+				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
+				0CF7CAE51820111E00AAB9D4 /* NSAsyncRequest.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */,
+				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

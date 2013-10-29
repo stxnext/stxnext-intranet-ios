@@ -24,14 +24,29 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
++ (void)presentAfterSetupWithDecorator:(void (^)(UIModalViewController* controller))decoratorBlock
+{
+    [AppDelegate presentViewControllerWithIdentifier:[self viewControllerIdentifier]
+                                   inStoryboardNamed:[self storyboardIdentifier]
+                             withControllerDecorator:^(UIViewController *viewController) {
+                                 if (decoratorBlock && [viewController isKindOfClass:[UIModalViewController class]])
+                                     decoratorBlock((UIModalViewController*)viewController);
+                             }];
+}
+
++ (void)present
+{
+    [self presentAfterSetupWithDecorator:nil];
+}
+
 #pragma mark Modal delegate
 
-- (NSString*)storyboardIdentifier
++ (NSString*)storyboardIdentifier
 {
     @throw [NSException exceptionWithName:@"Not implemented" reason:nil userInfo:nil];
 }
 
-- (NSString*)viewControllerIdentifier
++ (NSString*)viewControllerIdentifier
 {
     @throw [NSException exceptionWithName:@"Not implemented" reason:nil userInfo:nil];
 }
