@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-EGOCache.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-EGOImageLoading.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-google-plus-ios-sdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06ECC0E2CB4A4997BCA604CB</key>
+		<key>421656BD521E4FB9990372F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>17B287354E5A4569A2CE6130</key>
+		<key>BCECCAF2102847099F76A492</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F43753F39A14128BB5A6F2C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B7260A49DD6B4D53B4D517F2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D4D228EBA9E04E7596842FFA</key>
+		<key>BD9C686484584BAA8D3FAC09</key>
 		<dict>
 			<key>primary</key>
 			<true/>

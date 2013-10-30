@@ -48,18 +48,6 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 0
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 2
 
-// EGOCache
-#define COCOAPODS_POD_AVAILABLE_EGOCache
-#define COCOAPODS_VERSION_MAJOR_EGOCache 2
-#define COCOAPODS_VERSION_MINOR_EGOCache 0
-#define COCOAPODS_VERSION_PATCH_EGOCache 0
-
-// EGOImageLoading
-#define COCOAPODS_POD_AVAILABLE_EGOImageLoading
-#define COCOAPODS_VERSION_MAJOR_EGOImageLoading 0
-#define COCOAPODS_VERSION_MINOR_EGOImageLoading 0
-#define COCOAPODS_VERSION_PATCH_EGOImageLoading 1
-
 // google-plus-ios-sdk
 #define COCOAPODS_POD_AVAILABLE_google_plus_ios_sdk
 #define COCOAPODS_VERSION_MAJOR_google_plus_ios_sdk 1
