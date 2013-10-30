@@ -9,6 +9,8 @@
 #import "UserTableViewController.h"
 #import "APIMapping.h"
 #import "APIRequest.h"
+#import "UserListCell.h"
+#import "UserDetailsTableViewController.h"
 
 @implementation UserTableViewController
 
@@ -77,17 +79,31 @@
 {
     RMUser* user = _userList[indexPath.row];
     
+    NSLog(@"%@", user);
+    
     static NSString *CellIdentifier = @"UserCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = user.name;
+    cell.userName.text = user.name;
+    [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
     
     return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
+    {
+        UserListCell *cell = (UserListCell *)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+        
+    }
 }
 
 @end

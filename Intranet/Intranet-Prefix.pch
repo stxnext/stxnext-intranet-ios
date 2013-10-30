@@ -27,10 +27,13 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
+//#import <EGOImageLoading/EGOImageView.h>
 
 // Custom categories
 #import "AppDelegate+Modals.h"
 #import "NSError+CustomError.h"
+#import "UITableView+Additions.h"
+#import <UIImageView+AFNetworking.h>
 
 // Custom headers
 #import "GooglePlusConfig.h"

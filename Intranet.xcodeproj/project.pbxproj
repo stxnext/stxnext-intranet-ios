@@ -35,6 +35,9 @@
 		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
 		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
+		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
+		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
+		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +94,12 @@
 		0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+CustomError.h"; path = "../NSError+CustomError.h"; sourceTree = "<group>"; };
 		0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+CustomError.m"; path = "../NSError+CustomError.m"; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
+		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
+		66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewController.h; sourceTree = "<group>"; };
+		66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewController.m; sourceTree = "<group>"; };
+		66063DCC182149C700C30C93 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
+		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -230,6 +239,8 @@
 				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
 				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
 				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
+				66063DC6182149A300C30C93 /* UserListCell.h */,
+				66063DC7182149A300C30C93 /* UserListCell.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -252,6 +263,8 @@
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
+				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
+				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -260,9 +273,11 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
-				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
+				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
+				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
+				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -409,12 +424,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
+				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
+				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
