@@ -19,14 +19,20 @@ PODS:
   - AFNetworking/Serialization (2.0.2)
   - AFNetworking/UIKit (2.0.2):
     - AFNetworking/NSURLConnection
+  - EGOCache (2.0)
+  - EGOImageLoading (0.0.1):
+    - EGOCache
   - google-plus-ios-sdk (1.4.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0.2)
+  - EGOImageLoading
   - google-plus-ios-sdk (~> 1.4.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 22de50ae71ab1c4859773f61068d6fcd1d8f9a4d
+  EGOCache: c7116e8a6692eecb542f001a9c71f9b71ae9644b
+  EGOImageLoading: 36f4b972563da7dcd32d3e04027b4fe2d3ec0ae7
   google-plus-ios-sdk: d04d1f5791e3a304144995a2af7b10629d21da4c
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.27.1
