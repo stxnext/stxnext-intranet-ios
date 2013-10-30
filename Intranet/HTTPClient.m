@@ -7,52 +7,86 @@
 //
 
 #import "HTTPClient.h"
-#import "NSAsyncRequest.h"
 
-#define kHTTPClientRequestTimeout 60.0
+#define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
 
 @implementation HTTPClient
 
-+ (void)loadURLString:(NSString*)urlString
-     withSuccessBlock:(void (^)(NSHTTPURLResponse* response, NSData* data))successBlock
-     withFailureBlock:(void (^)(NSHTTPURLResponse* response, NSError* error))failureBlock
+static HTTPClient* _sharedClient = nil;
+
++ (HTTPClient*)sharedClient
 {
-    NSURL* url = [NSURL URLWithString:urlString];
-    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:url
-                                                  cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                              timeoutInterval:kHTTPClientRequestTimeout];
+    if (_sharedClient)
+        return _sharedClient;
     
-    __block NSAsyncRequest* asyncRequest = [[NSAsyncRequest alloc] initWithRequest:request
-                                                                  responseCallback:^(NSData *data, NSError *error) {
-                                                                      //[self logResponse:asyncRequest.serverResponse withData:data];
-                                                                      
-                                                                      if (error)
-                                                                      {
-                                                                          if (failureBlock)
-                                                                              failureBlock(asyncRequest.serverResponse, error);
-                                                                          
-                                                                          return;
-                                                                      }
-                                                                      
-                                                                      if (successBlock)
-                                                                          successBlock(asyncRequest.serverResponse, data);
-                                                                  } expectedType:nil
-                                                                 allowRedirections:NO];
+    NSURL* baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
+    _sharedClient = [[HTTPClient alloc] initWithBaseURL:baseUrl];
+    //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [asyncRequest start];
+    [_sharedClient.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status)
+        {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [_sharedClient.operationQueue setSuspended:NO];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                [_sharedClient.operationQueue setSuspended:YES];
+                break;
+        }
+    }];
+    
+    return _sharedClient;
 }
 
-+ (void)logResponse:(NSHTTPURLResponse*)response withData:(NSData*)data
+#pragma mark Utility private methods
+
++ (NSString*)nameForMethod:(HTTPMethod)method
 {
-    NSStringEncoding encoding = NSUTF8StringEncoding;
-    //NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef)[response textEncodingName]));
-    NSString* responseString = [[NSString alloc] initWithData:data encoding:encoding];
+    switch (method)
+    {
+        case HTTPMethodGET: return @"GET";
+        case HTTPMethodHEAD: return @"HEAD";
+        case HTTPMethodPOST: return @"POST";
+        case HTTPMethodPUT: return @"PUT";
+        case HTTPMethodPATCH: return @"PATCH";
+        case HTTPMethodDELETE: return @"DELETE";
+        default: return nil;
+    }
+}
+
+#pragma mark Client public methods
+
+- (AFHTTPRequestOperation*)startOperation:(AFHTTPRequestOperation*)operation
+                                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    [operation setCompletionBlockWithSuccess:success failure:failure];
+    [self.operationQueue addOperation:operation];
     
-    NSLog(@"Called URL: %@\nResponse code: %d\nResponse headers: %@\nResponse data: %@",
-          response.URL,
-          response.statusCode,
-          response.allHeaderFields,
-          responseString);
+    return operation;
+}
+
+- (AFHTTPRequestOperation *)requestOperationWithMethod:(HTTPMethod)method
+                                               action:(NSString *)URLString
+                                           parameters:(NSDictionary *)parameters
+{
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
+    
+    return operation;
+}
+
+- (AFHTTPRequestOperation *)requestOperationWithMethod:(HTTPMethod)method
+                                                action:(NSString *)URLString
+                                            parameters:(NSDictionary *)parameters
+                             constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+{
+    NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
+    
+    return operation;
 }
 
 @end

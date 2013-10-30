@@ -24,9 +24,9 @@
 #endif
 
 // External headers
-#import <RestKit/RestKit.h>
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
+#import <AFNetworking/AFNetworking.h>
 
 // Custom categories
 #import "AppDelegate+Modals.h"
@@ -34,9 +34,6 @@
 
 // Custom headers
 #import "GooglePlusConfig.h"
-#import "RestKitMappings.h"
-#import "RKClient.h"
-#import "RKRequest.h"
 #import "HTTPClient.h"
 
 // Convenience functions

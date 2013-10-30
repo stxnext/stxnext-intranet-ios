@@ -8,10 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HTTPClient : NSObject
+typedef enum {
+    HTTPMethodGET = 0,
+    HTTPMethodHEAD,
+    HTTPMethodPOST,
+    HTTPMethodPUT,
+    HTTPMethodPATCH,
+    HTTPMethodDELETE,
+} HTTPMethod;
 
-+ (void)loadURLString:(NSString*)urlString
-     withSuccessBlock:(void (^)(NSHTTPURLResponse* response, NSData* data))successBlock
-     withFailureBlock:(void (^)(NSHTTPURLResponse* response, NSError* error))failureBlock;
+@interface HTTPClient : AFHTTPRequestOperationManager
+
+#pragma mark Client public methods
+
++ (HTTPClient*)sharedClient;
+
+- (AFHTTPRequestOperation*)startOperation:(AFHTTPRequestOperation*)operation
+                                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *)requestOperationWithMethod:(HTTPMethod)method
+                                                action:(NSString *)URLString
+                                            parameters:(NSDictionary *)parameters;
+
+- (AFHTTPRequestOperation *)requestOperationWithMethod:(HTTPMethod)method
+                                                action:(NSString *)URLString
+                                            parameters:(NSDictionary *)parameters
+                             constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block;
 
 @end

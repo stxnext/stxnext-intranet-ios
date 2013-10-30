@@ -10,10 +10,10 @@
 		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
-		0C908333181EAB040084994D /* RKClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C908332181EAB040084994D /* RKClient.m */; };
-		0C908336181EAB2D0084994D /* RKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C908335181EAB2D0084994D /* RKRequest.m */; };
+		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
+		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
-		0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */; };
+		0C9E872A181EA9EF00E90F5E /* APIMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8729181EA9EF00E90F5E /* APIMapping.m */; };
 		0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */; };
 		0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
@@ -35,7 +35,6 @@
 		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
 		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
-		0CF7CAE51820111E00AAB9D4 /* NSAsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,15 +50,15 @@
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		0C908331181EAB040084994D /* RKClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKClient.h; sourceTree = "<group>"; };
-		0C908332181EAB040084994D /* RKClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKClient.m; sourceTree = "<group>"; };
-		0C908334181EAB2D0084994D /* RKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKRequest.h; sourceTree = "<group>"; };
-		0C908335181EAB2D0084994D /* RKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKRequest.m; sourceTree = "<group>"; };
+		0C853D7D182109DE008D0516 /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
+		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
+		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
+		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
 		0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlusConfig.h; sourceTree = "<group>"; };
 		0C9E8724181EA39800E90F5E /* GooglePlusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusClient.h; sourceTree = "<group>"; };
 		0C9E8725181EA39800E90F5E /* GooglePlusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusClient.m; sourceTree = "<group>"; };
-		0C9E8728181EA9EF00E90F5E /* RestKitMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestKitMappings.h; sourceTree = "<group>"; };
-		0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestKitMappings.m; sourceTree = "<group>"; };
+		0C9E8728181EA9EF00E90F5E /* APIMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIMapping.h; sourceTree = "<group>"; };
+		0C9E8729181EA9EF00E90F5E /* APIMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMapping.m; sourceTree = "<group>"; };
 		0CE37C49181E8ED10087C96E /* Intranet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intranet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C4C181E8ED10087C96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -91,8 +90,6 @@
 		0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
 		0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+CustomError.h"; path = "../NSError+CustomError.h"; sourceTree = "<group>"; };
 		0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+CustomError.m"; path = "../NSError+CustomError.m"; sourceTree = "<group>"; };
-		0CF7CAE31820111E00AAB9D4 /* NSAsyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAsyncRequest.h; sourceTree = "<group>"; };
-		0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAsyncRequest.m; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -137,16 +134,14 @@
 		0C9E8727181EA9C900E90F5E /* API */ = {
 			isa = PBXGroup;
 			children = (
-				0C9E8728181EA9EF00E90F5E /* RestKitMappings.h */,
-				0C9E8729181EA9EF00E90F5E /* RestKitMappings.m */,
-				0C908331181EAB040084994D /* RKClient.h */,
-				0C908332181EAB040084994D /* RKClient.m */,
-				0C908334181EAB2D0084994D /* RKRequest.h */,
-				0C908335181EAB2D0084994D /* RKRequest.m */,
+				0C9E8728181EA9EF00E90F5E /* APIMapping.h */,
+				0C9E8729181EA9EF00E90F5E /* APIMapping.m */,
 				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
 				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
-				0CF7CAE31820111E00AAB9D4 /* NSAsyncRequest.h */,
-				0CF7CAE41820111E00AAB9D4 /* NSAsyncRequest.m */,
+				0C853D7D182109DE008D0516 /* APIRequest.h */,
+				0C853D7E182109DE008D0516 /* APIRequest.m */,
+				0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */,
+				0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -416,16 +411,15 @@
 			files = (
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
+				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
-				0C908333181EAB040084994D /* RKClient.m in Sources */,
-				0C908336181EAB2D0084994D /* RKRequest.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
-				0CF7CAE51820111E00AAB9D4 /* NSAsyncRequest.m in Sources */,
+				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
-				0C9E872A181EA9EF00E90F5E /* RestKitMappings.m in Sources */,
+				0C9E872A181EA9EF00E90F5E /* APIMapping.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

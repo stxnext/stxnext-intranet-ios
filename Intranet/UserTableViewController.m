@@ -7,6 +7,8 @@
 //
 
 #import "UserTableViewController.h"
+#import "APIMapping.h"
+#import "APIRequest.h"
 
 @implementation UserTableViewController
 
@@ -37,22 +39,31 @@
 - (void)finishedLoginWithCode:(NSString*)code withError:(NSError*)error
 {
     // Assume success, use code to fetch cookies
-    [HTTPClient loadURLString:[NSString stringWithFormat:@"https://intranet.stxnext.pl/auth/callback?code=%@", code]
-             withSuccessBlock:^(NSHTTPURLResponse *response, NSData *data) {
-                 // Assume success, use cookies to fetch users
-                 //NSLog(@"Cookies: %@", [NSHTTPCookie cookiesWithResponseHeaderFields:response.allHeaderFields forURL:response.URL]);
-                 
-                 [RKClient performRequest:[RKRequest users]
-                         withSuccessBlock:^(NSArray *result) {
-                             _userList = result;
-                             [self.tableView reloadData];
-                         }
-                         withFailureBlock:^(NSError *error) {
-                         }];
-             }
-             withFailureBlock:^(NSHTTPURLResponse *response, NSError *error) {
-                 
-             }];
+    [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:code]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          // We expect 302
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSArray* cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields forURL:operation.response.URL];
+                                          
+                                          // If redirected properly
+                                          if (operation.response.statusCode == 302 && cookies)
+                                          {
+                                              [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+                                                                                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                                    NSMutableArray* users = [NSMutableArray array];
+                                                                                    
+                                                                                    for (id user in responseObject[@"users"])
+                                                                                        [users addObject:[RMUser mapFromJSON:user]];
+                                                                                    
+                                                                                    _userList = users;
+                                                                                    [self.tableView reloadData];
+                                                                                }
+                                                                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                                    // Handle error
+                                                                                }];
+                                          }
+                                      }];
 }
 
 #pragma mark - Table view data source
