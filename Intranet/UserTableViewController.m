@@ -93,8 +93,6 @@
                                           {
                                               RMUser *mapedUser = (RMUser *)[RMUser mapFromJSON:user];
                                               
-//                                              NSLog(@"%@", mapedUser.isClient);
-
                                               if ([mapedUser.isClient boolValue] == NO && [mapedUser.isFreelancer boolValue] == NO)
                                               {
                                                   [users addObject:mapedUser];
@@ -108,7 +106,7 @@
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
-    
+    /*
     [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           //NSLog(@"%@", responseObject);return;
@@ -126,6 +124,7 @@
                                           NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
                                       }
                                       failure:nil];
+     */
 }
 
 #pragma mark - Table view data source
