@@ -16,11 +16,14 @@
 + (NSManagedObject<JSONMapping>*)objectWithClass:(Class<JSONMapping>)class
                                           withId:(NSNumber*)id
                                 inManagedContext:(NSManagedObjectContext*)context
-                           withCreationDecorator:(void (^)(NSManagedObject<JSONMapping>* object))creationDecorator;
+                                   withDecorator:(void (^)(NSManagedObject<JSONMapping>* object))decorator;
 {
     NSManagedObject<JSONMapping>* object = (NSManagedObject<JSONMapping>*)[context fetchObjectForEntityName:[class coreDataEntityName]
                                                                                          withSortDescriptor:nil
                                                                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %d", id.integerValue]];
+    
+    if (decorator)
+        decorator(object);
     
     if (object)
         return object;
@@ -28,8 +31,8 @@
     object = [NSEntityDescription insertNewObjectForEntityForName:[class coreDataEntityName] inManagedObjectContext:context];
     [object setValue:id forKey:@"id"];
     
-    if (creationDecorator)
-        creationDecorator(object);
+    if (decorator)
+        decorator(object);
     
     return object;
 }

@@ -25,7 +25,7 @@
 + (NSManagedObject<JSONMapping>*)objectWithClass:(Class<JSONMapping>)class
                                           withId:(NSNumber*)id
                                 inManagedContext:(NSManagedObjectContext*)context
-                           withCreationDecorator:(void (^)(NSManagedObject<JSONMapping>* object))creationDecorator;
+                                   withDecorator:(void (^)(NSManagedObject<JSONMapping>* object))decorator;
 
 + (NSArray*)objectsWithClass:(Class<JSONMapping>)class
           withSortDescriptor:(NSSortDescriptor*)sortDescriptor

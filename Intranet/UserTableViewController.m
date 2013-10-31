@@ -105,50 +105,50 @@
 - (void)loadUsersFromDatabase
 {
     NSLog(@"Loading from: Database");
-    _userList = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                       withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
-                                            withPredicate:nil
-                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
-    NSLog(@"Loaded: %d", _userList.count);
+    NSArray* users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                    withPredicate:nil
+                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    
+    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+    
+    NSLog(@"Loaded: %d users", _userList.count);
+    
+    [self.tableView reloadData];
 }
 
 - (void)loadUsersFromAPI
 {
+    __block NSInteger operations = 2;
+    __block BOOL deletedUsers = NO;
+    
     NSLog(@"Loading from: API");
     [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
-                                          [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
-                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          @synchronized (self)
+                                          {
+                                              if (!deletedUsers)
+                                              {
+                                                  [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                                  deletedUsers = YES;
+                                              }
+                                          }
                                           
                                           // Add to database
                                           for (id user in responseObject[@"users"])
                                               [RMUser mapFromJSON:user];
                                           
                                           // Load from database
-                                          NSMutableArray* users = [NSMutableArray array];
+                                          [self loadUsersFromDatabase];
                                           
-                                          NSArray* allUsers = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
-                                                                      withPredicate:nil
-                                                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                          
-                                          for (RMUser* user in allUsers)
-                                          {
-                                              if ([user.isClient boolValue] == NO && [user.isFreelancer boolValue] == NO)
-                                                  [users addObject:user];
-                                          }
-                                          
-                                          // Display in table
-                                          _userList = users;
-                                          NSLog(@"Loaded: %d", _userList.count);
-                                          
-                                          [self.tableView reloadData];
-                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          if (--operations == 0)
+                                              [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"Loaded: 0");
+                                          NSLog(@"Loaded: 0 users");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           
                                           if ([operation redirectToLoginView])
@@ -157,23 +157,40 @@
                                           }
                                       }];
     
-    /*[[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
+    [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          //NSLog(@"%@", responseObject);return;
-                                          NSMutableArray* absences = [NSMutableArray array];
+                                          // Delete from database
+                                          @synchronized (self)
+                                          {
+                                              if (!deletedUsers)
+                                              {
+                                                  [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                                  deletedUsers = YES;
+                                              }
+                                              
+                                              [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
+                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                              [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
+                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          }
                                           
+                                          // Add to database
                                           for (id absence in responseObject[@"absences"])
-                                              [absences addObject:[RMAbsence mapFromJSON:absence]];
-                                          
-                                          NSMutableArray* lates = [NSMutableArray array];
+                                              [RMAbsence mapFromJSON:absence];
                                           
                                           for (id late in responseObject[@"lates"])
-                                              [lates addObject:[RMLate mapFromJSON:late]];
+                                              [RMLate mapFromJSON:late];
                                           
-                                          NSLog(@"Absences: %@\nLates: %@", absences, lates);
-                                          NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
+                                          NSLog(@"Loaded: absences and lates");
+                                          
+                                          // Load from database
+                                          [self loadUsersFromDatabase];
+                                          
+                                          if (--operations == 0)
+                                              [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
-                                      failure:nil];*/
+                                      failure:nil];
 }
 
 #pragma mark - Table view data source
@@ -187,8 +204,6 @@
 {
     RMUser* user = _userList[indexPath.row];
     
-    //NSLog(@"%@", user);
-    
     static NSString *CellIdentifier = @"UserCell";
     UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -200,6 +215,7 @@
     cell.userName.text = user.name;
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
+    cell.warningImage.hidden = ((user.lates.count + user.absences.count) == 0);
     
     if (user.avatarURL)
         [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];

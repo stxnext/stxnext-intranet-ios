@@ -32,21 +32,22 @@ const NSString* MapKeyLateUserName = @"name";
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
-                              withCreationDecorator:^(NSManagedObject<JSONMapping>* object) {
-                                  RMLate* late = (RMLate*)object;
-                                  late.id = [json[MapKeyLateId] validObject];
-                                  late.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStart] validObject] withDateFormat:@"dd.MM.yy"];
-                                  late.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStop] validObject] withDateFormat:@"dd.MM.yy"];
-                                  late.explanation = [json[MapKeyLateExplanation] validObject];
-                                  late.isWorkingFromHome = [json[MapKeyLateIsWorkingFromHome] validObject];
-                                  late.user = (RMUser*)[JSONSerializationHelper objectWithClass:[RMUser class]
-                                                                                         withId:[json[MapKeyLateUserId] validObject]
-                                                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext
-                                                                          withCreationDecorator:^(NSManagedObject<JSONMapping> *object) {
-                                                                              RMUser* user = (RMUser*)object;
-                                                                              user.name = [json[MapKeyLateUserName] validObject];
-                                                                          }];
-                              }];
+                                      withDecorator:^(NSManagedObject<JSONMapping>* object) {
+                                          RMLate* late = (RMLate*)object;
+                                          late.id = [json[MapKeyLateId] validObject];
+                                          late.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStart] validObject] withDateFormat:@"dd.MM.yy"];
+                                          late.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStop] validObject] withDateFormat:@"dd.MM.yy"];
+                                          late.explanation = [json[MapKeyLateExplanation] validObject];
+                                          late.isWorkingFromHome = [json[MapKeyLateIsWorkingFromHome] validObject];
+                                          late.user = (RMUser*)[JSONSerializationHelper objectWithClass:[RMUser class]
+                                                                                                 withId:[json[MapKeyLateUserId] validObject]
+                                                                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext
+                                                                                          withDecorator:^(NSManagedObject<JSONMapping> *object) {
+                                                                                              RMUser* user = (RMUser*)object;
+                                                                                              user.name = [json[MapKeyLateUserName] validObject];
+                                                                                          }];
+                                          [late.user addLatesObject:late];
+                                      }];
 }
 
 - (id)mapToJSON

@@ -31,20 +31,21 @@ const NSString* MapKeyAbsenceUserName = @"name";
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
-                              withCreationDecorator:^(NSManagedObject<JSONMapping>* object) {
-                                  RMAbsence* absence = (RMAbsence*)object;
-                                  absence.id = [json[MapKeyAbsenceId] validObject];
-                                  absence.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyAbsenceStart] validObject] withDateFormat:@"dd.MM.yy"];
-                                  absence.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyAbsenceStop] validObject] withDateFormat:@"dd.MM.yy"];
-                                  absence.remarks = [json[MapKeyAbsenceRemarks] validObject];
-                                  absence.user = (RMUser*)[JSONSerializationHelper objectWithClass:[RMUser class]
-                                                                                            withId:[json[MapKeyAbsenceUserId] validObject]
-                                                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext
-                                                                             withCreationDecorator:^(NSManagedObject<JSONMapping> *object) {
-                                                                                 RMUser* user = (RMUser*)object;
-                                                                                 user.name = [json[MapKeyAbsenceUserName] validObject];
-                                                                             }];
-                              }];
+                                      withDecorator:^(NSManagedObject<JSONMapping>* object) {
+                                          RMAbsence* absence = (RMAbsence*)object;
+                                          absence.id = [json[MapKeyAbsenceId] validObject];
+                                          absence.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyAbsenceStart] validObject] withDateFormat:@"dd.MM.yy"];
+                                          absence.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyAbsenceStop] validObject] withDateFormat:@"dd.MM.yy"];
+                                          absence.remarks = [json[MapKeyAbsenceRemarks] validObject];
+                                          absence.user = (RMUser*)[JSONSerializationHelper objectWithClass:[RMUser class]
+                                                                                                    withId:[json[MapKeyAbsenceUserId] validObject]
+                                                                                          inManagedContext:[DatabaseManager sharedManager].managedObjectContext
+                                                                                             withDecorator:^(NSManagedObject<JSONMapping> *object) {
+                                                                                                 RMUser* user = (RMUser*)object;
+                                                                                                 user.name = [json[MapKeyAbsenceUserName] validObject];
+                                                                                             }];
+                                          [absence.user addAbsencesObject:absence];
+                                      }];
 }
 
 - (id)mapToJSON
