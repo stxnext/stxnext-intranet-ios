@@ -12,6 +12,7 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
+
 typedef enum
 {
     STXSortingTypeAll,
@@ -19,6 +20,13 @@ typedef enum
     STXSortingTypeClients,
     STXSortingTypeFreelancers
 }STXSortingType;
+
+@interface UserTableViewController ()
+{
+    BOOL usersDownloaded;
+}
+
+@end
 
 @implementation UserTableViewController
 {
@@ -41,6 +49,8 @@ typedef enum
     [self.tableView hideEmptySeparators];
     self.title = @"Lista";
     currentSortType = STXSortingTypeWorkers;
+    
+     [self loadUsersFromDatabase];
 }
 
 - (void)viewDidAppear:(BOOL)animated
