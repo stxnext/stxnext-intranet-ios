@@ -11,11 +11,20 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
+@interface UserTableViewController ()
+{
+    BOOL usersDownloaded;
+}
+
+@end
+
 @implementation UserTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    usersDownloaded = NO;
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
@@ -134,6 +143,11 @@
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           NSLog(@"Loaded: 0");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          
+                                          if ([operation redirectToLoginView])
+                                          {
+                                              [self showLoginScreen];
+                                          }
                                       }];
     
     /*[[HTTPClient sharedClient] startOperation:[APIRequest getPresence]

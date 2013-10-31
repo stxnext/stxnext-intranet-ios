@@ -11,5 +11,6 @@
 @interface AFHTTPRequestOperation (Redirect)
 
 - (void)blockRedirections;
+- (BOOL)redirectToLoginView;
 
 @end
