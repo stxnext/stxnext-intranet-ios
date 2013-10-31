@@ -25,7 +25,7 @@
     self.refreshControl = refresh;
     
     _userList = [NSArray array];
-    self.title = @"Lista osób";
+    self.title = @"Lista";
 }
 
 - (void)viewDidAppear:(BOOL)animated
