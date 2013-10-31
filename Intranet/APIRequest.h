@@ -13,5 +13,6 @@
 + (AFHTTPRequestOperation*)loginWithCode:(NSString*)code;
 + (AFHTTPRequestOperation*)getUsers;
 + (AFHTTPRequestOperation*)getPresence;
++ (AFHTTPRequestOperation*)logout;
 
 @end

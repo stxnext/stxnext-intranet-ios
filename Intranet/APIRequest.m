@@ -42,4 +42,14 @@
     return request;
 }
 
++ (AFHTTPRequestOperation*)logout
+{
+    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodHEAD
+                                                                                     action:@"auth/logout"
+                                                                                 parameters:nil];
+    [request blockRedirections];
+    
+    return request;
+}
+
 @end
