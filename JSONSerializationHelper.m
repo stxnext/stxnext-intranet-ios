@@ -34,6 +34,25 @@
     return object;
 }
 
++ (NSArray*)objectsWithClass:(Class<JSONMapping>)class
+          withSortDescriptor:(NSSortDescriptor*)sortDescriptor
+               withPredicate:(NSPredicate*)predicate
+            inManagedContext:(NSManagedObjectContext*)context
+{
+    return [context fetchObjectsForEntityName:[class coreDataEntityName]
+                           withSortDescriptor:sortDescriptor
+                                withPredicate:predicate
+                                    withLimit:nil];
+}
+
++ (void)deleteObjectsWithClass:(Class<JSONMapping>)class inManagedContext:(NSManagedObjectContext*)context
+{
+    NSArray* objects = [self objectsWithClass:class withSortDescriptor:nil withPredicate:nil inManagedContext:context];
+    
+    for (NSManagedObject* object in objects)
+        [context deleteObject:object];
+}
+
 + (NSDate*)dateFromJSONObject:(id)jsonObject withDateFormat:(NSString*)dateFormat
 {
     NSDateFormatter* formatter = [NSDateFormatter new];

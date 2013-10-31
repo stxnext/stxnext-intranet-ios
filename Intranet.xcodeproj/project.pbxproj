@@ -10,6 +10,7 @@
 		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
+		0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */; };
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
@@ -34,10 +35,6 @@
 		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
 		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
-		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
-		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
-		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
-		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA48182144E20056F907 /* Database.xcdatamodeld */; };
 		0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */; };
 		0CF7FA6218214B200056F907 /* RMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6118214B200056F907 /* RMUser.m */; };
@@ -49,6 +46,10 @@
 		0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF7FA7418214FB50056F907 /* CoreData.framework */; };
 		0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7B1821590C0056F907 /* DatabaseManager.m */; };
 		0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */; };
+		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
+		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
+		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
+		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NetworkCookies.h"; sourceTree = "<group>"; };
+		0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NetworkCookies.m"; sourceTree = "<group>"; };
 		0C853D7D182109DE008D0516 /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
 		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
@@ -182,6 +185,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		0C43A79D1822723500FB513D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				66063DC6182149A300C30C93 /* UserListCell.h */,
+				66063DC7182149A300C30C93 /* UserListCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		0C9E8722181EA27200E90F5E /* GooglePlus */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +215,8 @@
 				0C853D7E182109DE008D0516 /* APIRequest.m */,
 				27A999D1182255C60091B173 /* HTTPClient+Cookies.h */,
 				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
+				0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */,
+				0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -248,6 +262,7 @@
 				0CF44E88181FE4AE005CC12B /* Application */,
 				0CF44E89181FE4BB005CC12B /* Controllers */,
 				0CF44E87181FE49E005CC12B /* GUI */,
+				0C43A79D1822723500FB513D /* Views */,
 				0C9E8727181EA9C900E90F5E /* Network */,
 				0CF7FA471821449D0056F907 /* Database */,
 				0CF7CACC181FF2F400AAB9D4 /* Categories */,
@@ -293,8 +308,6 @@
 				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
 				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
 				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
-				66063DC6182149A300C30C93 /* UserListCell.h */,
-				66063DC7182149A300C30C93 /* UserListCell.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -507,6 +520,7 @@
 				0CF7FA6218214B200056F907 /* RMUser.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
+				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,

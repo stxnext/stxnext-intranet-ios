@@ -36,8 +36,8 @@
         <attribute name="startWork" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="stopWork" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="tasksLink" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="absences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Absence" inverseName="user" inverseEntity="Absence" syncable="YES"/>
-        <relationship name="lates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Late" inverseName="user" inverseEntity="Late" syncable="YES"/>
+        <relationship name="absences" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Absence" inverseName="user" inverseEntity="Absence" syncable="YES"/>
+        <relationship name="lates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Late" inverseName="user" inverseEntity="Late" syncable="YES"/>
     </entity>
     <elements>
         <element name="Absence" positionX="0" positionY="0" width="0" height="0"/>

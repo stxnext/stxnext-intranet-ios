@@ -27,6 +27,13 @@
                                 inManagedContext:(NSManagedObjectContext*)context
                            withCreationDecorator:(void (^)(NSManagedObject<JSONMapping>* object))creationDecorator;
 
++ (NSArray*)objectsWithClass:(Class<JSONMapping>)class
+          withSortDescriptor:(NSSortDescriptor*)sortDescriptor
+               withPredicate:(NSPredicate*)predicate
+            inManagedContext:(NSManagedObjectContext*)context;
+
++ (void)deleteObjectsWithClass:(Class<JSONMapping>)class inManagedContext:(NSManagedObjectContext*)context;
+
 + (NSDate*)dateFromJSONObject:(id)jsonObject withDateFormat:(NSString*)dateFormat;
 
 @end

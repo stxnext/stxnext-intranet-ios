@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UserListCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 

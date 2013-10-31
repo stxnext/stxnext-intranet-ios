@@ -8,8 +8,6 @@
 
 #import "UserTableViewController.h"
 #import "APIRequest.h"
-#import "HTTPClient.h"
-#import "HTTPClient+Cookies.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
@@ -26,18 +24,15 @@
     
     _userList = [NSArray array];
     self.title = @"Lista osób";
+    
+    [self loadUsersFromDatabase];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if ([[HTTPClient sharedClient] authCookiesPresent])
-    {
-        // assume you are logged in, but cookies may be invalid; send request with stored cookies
-        [self downloadUsers];
-    }
-    else
+    if (![[HTTPClient sharedClient] authCookiesPresent])
     {
         [self showLoginScreen];
     }
@@ -68,14 +63,14 @@
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [self downloadUsers];
+                                              [self loadUsersFromAPI];
                                           }
                                       }];
 }
 
 - (void)startRefreshData
 {
-    [self downloadUsers];
+    [self loadUsersFromAPI];
 }
 
 - (void)stopRefreshData
@@ -83,26 +78,65 @@
     [self.refreshControl endRefreshing];
 }
 
-- (void)downloadUsers
+- (void)loadUsers
 {
+    // First try to load from CoreData
+    [self loadUsersFromDatabase];
+    
+    // If there are no users in CoreData, load from API
+    if (!_userList || _userList.count == 0)
+        [self loadUsersFromAPI];
+    
+    // Refresh GUI
+    [self.tableView reloadData];
+    [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+}
+
+- (void)loadUsersFromDatabase
+{
+    NSLog(@"Loading from: Database");
+    _userList = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                       withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                            withPredicate:nil
+                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    
+    NSLog(@"Loaded: %d", _userList.count);
+}
+
+- (void)loadUsersFromAPI
+{
+    NSLog(@"Loading from: API");
     [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          // Delete from database
+                                          [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          
+                                          // Add to database
                                           NSMutableArray* users = [NSMutableArray array];
                                           
                                           for (id user in responseObject[@"users"])
-                                          {
                                               [users addObject:[RMUser mapFromJSON:user]];
-                                          }
                                           
+                                          // Load from database
+                                          [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                                      withPredicate:nil
+                                                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          
+                                          // Display in table
                                           _userList = users;
+                                          NSLog(@"Loaded: %d", _userList.count);
+                                          
                                           [self.tableView reloadData];
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"Loaded: 0");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
+    /*[[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           //NSLog(@"%@", responseObject);return;
                                           NSMutableArray* absences = [NSMutableArray array];
@@ -118,7 +152,7 @@
                                           NSLog(@"Absences: %@\nLates: %@", absences, lates);
                                           NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
                                       }
-                                      failure:nil];
+                                      failure:nil];*/
 }
 
 #pragma mark - Table view data source
@@ -132,7 +166,7 @@
 {
     RMUser* user = _userList[indexPath.row];
     
-    NSLog(@"%@", user);
+    //NSLog(@"%@", user);
     
     static NSString *CellIdentifier = @"UserCell";
     UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -143,15 +177,11 @@
     }
     
     cell.userName.text = user.name;
-    
-    
-    // [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
-    
-    [self setImageForUrl:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL] cell:cell];
-    
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
     
+    if (user.avatarURL)
+        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
     
     return cell;
 }
@@ -163,18 +193,7 @@
         UserListCell *cell = (UserListCell *)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
-        
     }
-}
-
-#pragma mark - Utilities
-
-- (void)setImageForUrl:(NSString *)urlStr cell:(UserListCell *)cell
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
-    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    [[HTTPClient sharedClient] addAuthCookiesToRequest:request];
-    [cell.userImage setImageWithURLRequest:request placeholderImage:nil success:nil failure:nil];
 }
 
 @end
