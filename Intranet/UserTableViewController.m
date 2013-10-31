@@ -120,12 +120,13 @@ typedef enum
 - (void)loadUsersFromDatabase
 {
     NSLog(@"Loading from: Database");
-    _userList = [JSONSerializationHelper objectsWithClass:[RMUser class]
+    _fullUserList = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                        withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
                                             withPredicate:nil
                                          inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
-    NSLog(@"Loaded: %d", _userList.count);
+    NSLog(@"Loaded: %d", _fullUserList.count);
+    [self showUserWithType:STXSortingTypeWorkers];
 }
 
 - (void)loadUsersFromAPI
@@ -151,8 +152,7 @@ typedef enum
                                           
                                           for (RMUser* user in allUsers)
                                           {
-                                              RMUser *mapedUser = (RMUser *)[RMUser mapFromJSON:user];
-                                              [users addObject:mapedUser];
+                                              [users addObject:user];
                                           }
                                           
                                           _fullUserList = users;
