@@ -12,6 +12,9 @@
 @interface UserTableViewController : UITableViewController<LoginViewControllerDelegate>
 {
     NSArray* _userList;
+    NSArray* _fullUserList;
 }
+
+- (IBAction)showAction:(id)sender;
 
 @end

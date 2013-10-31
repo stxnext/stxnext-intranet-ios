@@ -13,7 +13,18 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
+typedef enum
+{
+    STXSortingTypeAll,
+    STXSortingTypeWorkers,
+    STXSortingTypeClients,
+    STXSortingTypeFreelancers
+}STXSortingType;
+
 @implementation UserTableViewController
+{
+    STXSortingType currentSortType;
+}
 
 - (void)viewDidLoad
 {
@@ -25,7 +36,10 @@
     self.refreshControl = refresh;
     
     _userList = [NSArray array];
+    _fullUserList = [NSArray array];
+    [self.tableView hideEmptySeparators];
     self.title = @"Lista";
+    currentSortType = STXSortingTypeWorkers;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,40 +106,149 @@
                                           for (id user in responseObject[@"users"])
                                           {
                                               RMUser *mapedUser = (RMUser *)[RMUser mapFromJSON:user];
-                                              
-                                              if ([mapedUser.isClient boolValue] == NO && [mapedUser.isFreelancer boolValue] == NO)
-                                              {
-                                                  [users addObject:mapedUser];
-                                              }
+                                              [users addObject:mapedUser];
                                           }
                                           
-                                          _userList = users;
-                                          [self.tableView reloadData];
+                                          _fullUserList = users;
+                                          
+                                          [self showUserWithType:currentSortType];
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
     /*
-    [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
-                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          //NSLog(@"%@", responseObject);return;
-                                          NSMutableArray* absences = [NSMutableArray array];
-                                          
-                                          for (id absence in responseObject[@"absences"])
-                                              [absences addObject:[RMAbsence mapFromJSON:absence]];
-                                          
-                                          NSMutableArray* lates = [NSMutableArray array];
-                                          
-                                          for (id late in responseObject[@"lates"])
-                                              [lates addObject:[RMLate mapFromJSON:late]];
-                                          
-                                          NSLog(@"Absences: %@\nLates: %@", absences, lates);
-                                          NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
-                                      }
-                                      failure:nil];
+     [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
+     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     //NSLog(@"%@", responseObject);return;
+     NSMutableArray* absences = [NSMutableArray array];
+     
+     for (id absence in responseObject[@"absences"])
+     [absences addObject:[RMAbsence mapFromJSON:absence]];
+     
+     NSMutableArray* lates = [NSMutableArray array];
+     
+     for (id late in responseObject[@"lates"])
+     [lates addObject:[RMLate mapFromJSON:late]];
+     
+     NSLog(@"Absences: %@\nLates: %@", absences, lates);
+     NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
+     }
+     failure:nil];
      */
 }
+
+- (IBAction)showAction:(id)sender
+{
+    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers" ,@"", @"obecni", @"nieobecni"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+        switch (theButtonIndex)
+        {
+            case 0:
+            {
+                [self showUserWithType:STXSortingTypeWorkers];
+            }
+                break;
+                
+            case 1:
+            {
+                [self showUserWithType:STXSortingTypeClients];
+            }
+                break;
+                
+            case 2:
+            {
+                [self showUserWithType:STXSortingTypeFreelancers];
+            }
+                break;
+        }
+    }];
+    
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
+
+- (void)showUserWithType:(STXSortingType)type
+{
+    currentSortType = type;
+    
+    switch (currentSortType)
+    {
+        case STXSortingTypeAll:
+        {
+            
+        }
+            break;
+
+        case STXSortingTypeWorkers:
+        {
+            [self showWorkers];
+        }
+            break;
+            
+        case STXSortingTypeClients:
+        {
+            [self showClients];
+        }
+            break;
+            
+        case STXSortingTypeFreelancers:
+        {
+            [self showFreelancers];
+        }
+            break;
+
+    }
+}
+
+- (void)showWorkers
+{
+    NSMutableArray *users = [NSMutableArray array];
+
+    for (RMUser *user in _fullUserList)
+    {
+        if ([user.isFreelancer boolValue] == NO && [user.isClient boolValue] == NO)
+        {
+            [users addObject:user];
+        }
+    }
+    
+    _userList = users;
+    
+    [self.tableView reloadData];
+}
+
+- (void)showClients
+{
+    NSMutableArray *users = [NSMutableArray array];
+    
+    for (RMUser *user in _fullUserList)
+    {
+        if ([user.isClient boolValue])
+        {
+            [users addObject:user];
+        }
+    }
+    
+    _userList = users;
+    
+    [self.tableView reloadData];
+}
+- (void)showFreelancers
+{
+    NSMutableArray *users = [NSMutableArray array];
+    
+    for (RMUser *user in _fullUserList)
+    {
+        if ([user.isFreelancer boolValue])
+        {
+            [users addObject:user];
+        }
+    }
+    
+    _userList = users;
+    
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Table view data source
 
@@ -138,7 +261,7 @@
 {
     RMUser* user = _userList[indexPath.row];
     
-    NSLog(@"%@", user);
+//    NSLog(@"%@", user);
     
     static NSString *CellIdentifier = @"UserCell";
     UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -181,5 +304,6 @@
     [[HTTPClient sharedClient] addAuthCookiesToRequest:request];
     [cell.userImage setImageWithURLRequest:request placeholderImage:nil success:nil failure:nil];
 }
+
 
 @end
