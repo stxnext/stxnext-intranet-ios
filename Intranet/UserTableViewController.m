@@ -18,7 +18,13 @@
 {
     [super viewDidLoad];
     
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
+    [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+    
     _userList = [NSArray array];
+    self.title = @"Lista osób";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -51,20 +57,53 @@
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
-                                                                                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                                    NSMutableArray* users = [NSMutableArray array];
-                                                                                    
-                                                                                    for (id user in responseObject[@"users"])
-                                                                                        [users addObject:[RMUser mapFromJSON:user]];
-                                                                                    
-                                                                                    _userList = users;
-                                                                                    [self.tableView reloadData];
-                                                                                }
-                                                                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                                    // Handle error
-                                                                                }];
+//                                              [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+//                                                                                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                                                                                    NSMutableArray* users = [NSMutableArray array];
+//                                                                                    
+//                                                                                    for (id user in responseObject[@"users"])
+//                                                                                        [users addObject:[RMUser mapFromJSON:user]];
+//                                                                                    
+//                                                                                    _userList = users;
+//                                                                                    [self.tableView reloadData];
+//                                                                                }
+//                                                                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                                                                                    // Handle error
+//                                                                                }];
+                                              [self downloadUsers];
                                           }
+                                      }];
+}
+
+- (void)startRefreshData
+{
+    [self downloadUsers];
+}
+
+- (void)stopRefreshData
+
+{
+    [self.refreshControl endRefreshing];
+    
+}
+
+- (void)downloadUsers
+{
+    [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSMutableArray* users = [NSMutableArray array];
+                                          
+                                          for (id user in responseObject[@"users"])
+                                          {
+                                              [users addObject:[RMUser mapFromJSON:user]];
+                                          }
+                                          
+                                          _userList = users;
+                                          [self.tableView reloadData];
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
 }
 
@@ -91,7 +130,7 @@
     
     cell.userName.text = user.name;
     [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
-    
+        
     return cell;
 }
 
