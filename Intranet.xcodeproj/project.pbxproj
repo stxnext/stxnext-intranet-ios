@@ -35,6 +35,7 @@
 		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
 		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
+		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
@@ -94,6 +95,8 @@
 		0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+CustomError.h"; path = "../NSError+CustomError.h"; sourceTree = "<group>"; };
 		0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+CustomError.m"; path = "../NSError+CustomError.m"; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		27A999D1182255C60091B173 /* HTTPClient+Cookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPClient+Cookies.h"; sourceTree = "<group>"; };
+		27A999D2182255C60091B173 /* HTTPClient+Cookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+Cookies.m"; sourceTree = "<group>"; };
 		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
 		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
 		66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewController.h; sourceTree = "<group>"; };
@@ -143,14 +146,16 @@
 		0C9E8727181EA9C900E90F5E /* API */ = {
 			isa = PBXGroup;
 			children = (
-				0C9E8728181EA9EF00E90F5E /* APIMapping.h */,
-				0C9E8729181EA9EF00E90F5E /* APIMapping.m */,
-				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
-				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
-				0C853D7D182109DE008D0516 /* APIRequest.h */,
-				0C853D7E182109DE008D0516 /* APIRequest.m */,
 				0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */,
 				0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */,
+				0C9E8728181EA9EF00E90F5E /* APIMapping.h */,
+				0C9E8729181EA9EF00E90F5E /* APIMapping.m */,
+				0C853D7D182109DE008D0516 /* APIRequest.h */,
+				0C853D7E182109DE008D0516 /* APIRequest.m */,
+				27A999D1182255C60091B173 /* HTTPClient+Cookies.h */,
+				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
+				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
+				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
+				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,

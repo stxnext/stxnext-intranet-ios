@@ -9,6 +9,8 @@
 #import "UserTableViewController.h"
 #import "APIMapping.h"
 #import "APIRequest.h"
+#import "HTTPClient.h"
+#import "HTTPClient+Cookies.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
@@ -25,18 +27,45 @@
 {
     [super viewDidAppear:animated];
     
-    // Just a temporary one time dispatch
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // Show sign in modal
-        [LoginViewController presentAfterSetupWithDecorator:^(UIModalViewController *controller) {
-            LoginViewController* customController = (LoginViewController*)controller;
-            customController.delegate = self;
-        }];
-    });
+    if ([[HTTPClient sharedClient] authCookiesPresent])
+    {
+        // assume you are logged in, but cookies may be invalid; send request with stored cookies
+        [self getUsers];
+    }
+    else
+    {
+        [self showLoginScreen];
+    }
+}
+
+- (void)getUsers
+{   
+    [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSLog(@"USERS URL: %@", operation.request.URL);
+                                          
+                                          NSMutableArray* users = [NSMutableArray array];
+                                          
+                                          for (id user in responseObject[@"users"])
+                                              [users addObject:[RMUser mapFromJSON:user]];
+                                          
+                                          _userList = users;
+                                          [self.tableView reloadData];
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          // Handle error, check redirection
+                                      }];
 }
 
 #pragma mark Login delegate
+
+- (void)showLoginScreen
+{
+    [LoginViewController presentAfterSetupWithDecorator:^(UIModalViewController *controller) {
+        LoginViewController* customController = (LoginViewController*)controller;
+        customController.delegate = self;
+    }];
+}
 
 - (void)finishedLoginWithCode:(NSString*)code withError:(NSError*)error
 {
@@ -46,24 +75,15 @@
                                           // We expect 302
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSArray* cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields forURL:operation.response.URL];
+                                          NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields forURL:operation.response.URL];
+                                          
+                                          [[HTTPClient sharedClient] saveCookies:cookies];
                                           
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
-                                                                                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                                    NSMutableArray* users = [NSMutableArray array];
-                                                                                    
-                                                                                    for (id user in responseObject[@"users"])
-                                                                                        [users addObject:[RMUser mapFromJSON:user]];
-                                                                                    
-                                                                                    _userList = users;
-                                                                                    [self.tableView reloadData];
-                                                                                }
-                                                                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                                    // Handle error
-                                                                                }];
+                                              // get users after login
+                                              [self getUsers];
                                           }
                                       }];
 }
@@ -90,7 +110,11 @@
     }
     
     cell.userName.text = user.name;
-    [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
+    
+    
+    // [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
+    
+    [self setImageForUrl:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL] cell:cell];
     
     return cell;
 }
@@ -104,6 +128,16 @@
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
         
     }
+}
+
+#pragma mark - Utilities
+
+- (void)setImageForUrl:(NSString *)urlStr cell:(UserListCell *)cell
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+    [[HTTPClient sharedClient] addAuthCookiesToRequest:request];
+    [cell.userImage setImageWithURLRequest:request placeholderImage:nil success:nil failure:nil];
 }
 
 @end

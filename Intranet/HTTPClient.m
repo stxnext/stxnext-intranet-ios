@@ -7,6 +7,7 @@
 //
 
 #import "HTTPClient.h"
+#import "HTTPClient+Cookies.h"
 
 #define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
 
@@ -73,6 +74,9 @@ static HTTPClient* _sharedClient = nil;
                                            parameters:(NSDictionary *)parameters
 {
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters];
+
+    [self addAuthCookiesToRequest:request];
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
     
     return operation;
@@ -84,6 +88,9 @@ static HTTPClient* _sharedClient = nil;
                              constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
 {
     NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block];
+    
+    [self addAuthCookiesToRequest:request];
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
     
     return operation;
