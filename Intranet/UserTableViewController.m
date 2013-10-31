@@ -36,31 +36,12 @@
     if ([[HTTPClient sharedClient] authCookiesPresent])
     {
         // assume you are logged in, but cookies may be invalid; send request with stored cookies
-        [self getUsers];
+        [self downloadUsers];
     }
     else
     {
         [self showLoginScreen];
     }
-}
-
-- (void)getUsers
-{   
-    [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
-                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          NSLog(@"USERS URL: %@", operation.request.URL);
-                                          
-                                          NSMutableArray* users = [NSMutableArray array];
-                                          
-                                          for (id user in responseObject[@"users"])
-                                              [users addObject:[RMUser mapFromJSON:user]];
-                                          
-                                          _userList = users;
-                                          [self.tableView reloadData];
-                                      }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          // Handle error, check redirection
-                                      }];
 }
 
 #pragma mark Login delegate
@@ -88,8 +69,30 @@
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              // get users after login
-                                              [self getUsers];
+                                              [self downloadUsers];
+                                          }
+                                      }];
+}
+
+- (void)startRefreshData
+{
+    [self downloadUsers];
+}
+
+- (void)stopRefreshData
+{
+    [self.refreshControl endRefreshing];
+}
+
+- (void)downloadUsers
+{
+    [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSMutableArray* users = [NSMutableArray array];
+                                          
+                                          for (id user in responseObject[@"users"])
+                                          {
+                                              [users addObject:[RMUser mapFromJSON:user]];
                                           }
                                           
                                           _userList = users;
@@ -128,6 +131,10 @@
     // [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
     
     [self setImageForUrl:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL] cell:cell];
+    
+    cell.userImage.layer.cornerRadius = 5;
+    cell.userImage.clipsToBounds = YES;
+    
     
     return cell;
 }
