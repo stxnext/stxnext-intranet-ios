@@ -92,7 +92,14 @@
                                           
                                           for (id user in responseObject[@"users"])
                                           {
-                                              [users addObject:[RMUser mapFromJSON:user]];
+                                              RMUser *mapedUser = (RMUser *)[RMUser mapFromJSON:user];
+                                              
+//                                              NSLog(@"%@", mapedUser.isClient);
+
+                                              if ([mapedUser.isClient boolValue] == NO && [mapedUser.isFreelancer boolValue] == NO)
+                                              {
+                                                  [users addObject:mapedUser];
+                                              }
                                           }
                                           
                                           _userList = users;
@@ -134,8 +141,7 @@
     
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
-    
-    
+        
     return cell;
 }
 
