@@ -8,6 +8,7 @@
 
 #import "UserTableViewController.h"
 #import "APIRequest.h"
+#import "AFHTTPRequestOperation+Redirect.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
@@ -122,16 +123,22 @@
                                                                          inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
                                           
                                           // Add to database
-                                          NSMutableArray* users = [NSMutableArray array];
-                                          
                                           for (id user in responseObject[@"users"])
-                                              [users addObject:[RMUser mapFromJSON:user]];
+                                              [RMUser mapFromJSON:user];
                                           
                                           // Load from database
-                                          [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                          NSMutableArray* users = [NSMutableArray array];
+                                          
+                                          NSArray* allUsers = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                                                  withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
                                                                       withPredicate:nil
                                                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          
+                                          for (RMUser* user in allUsers)
+                                          {
+                                              if ([user.isClient boolValue] == NO && [user.isFreelancer boolValue] == NO)
+                                                  [users addObject:user];
+                                          }
                                           
                                           // Display in table
                                           _userList = users;
