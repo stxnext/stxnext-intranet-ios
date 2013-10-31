@@ -13,6 +13,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
@@ -36,6 +37,7 @@
 #import <UIImageView+AFNetworking.h>
 
 // Custom headers
+#import "Database.h"
 #import "GooglePlusConfig.h"
 #import "HTTPClient.h"
 

@@ -7,7 +7,6 @@
 //
 
 #import "UserTableViewController.h"
-#import "APIMapping.h"
 #import "APIRequest.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
@@ -109,6 +108,24 @@
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
+    
+    [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          //NSLog(@"%@", responseObject);return;
+                                          NSMutableArray* absences = [NSMutableArray array];
+                                          
+                                          for (id absence in responseObject[@"absences"])
+                                              [absences addObject:[RMAbsence mapFromJSON:absence]];
+                                          
+                                          NSMutableArray* lates = [NSMutableArray array];
+                                          
+                                          for (id late in responseObject[@"lates"])
+                                              [lates addObject:[RMLate mapFromJSON:late]];
+                                          
+                                          NSLog(@"Absences: %@\nLates: %@", absences, lates);
+                                          NSLog(@"%@", ((RMAbsence*)absences.lastObject).user.name);
+                                      }
+                                      failure:nil];
 }
 
 #pragma mark - Table view data source
