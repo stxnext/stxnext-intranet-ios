@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "APIMapping.h"
 
 @interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate>
 

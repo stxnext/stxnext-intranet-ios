@@ -32,4 +32,13 @@
     return request;
 }
 
++ (AFHTTPRequestOperation*)getPresence
+{
+    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/presence"
+                                                                                 parameters:nil];
+    
+    return request;
+}
+
 @end
