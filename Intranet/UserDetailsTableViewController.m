@@ -68,7 +68,7 @@
     
     self.userName.text = self.user.name;
     
-    if ([self.user.phone class] != [NSNull class])
+    if (self.user.phone)
     {
         self.phoneLabel.text = self.user.phone;
     }
@@ -77,7 +77,7 @@
         self.phoneCell.hidden = YES;
     }
     
-    if ([self.user.phoneDesk class] != [NSNull class])
+    if (self.user.phoneDesk)
     {
         self.phoneDeskLabel.text = self.user.phoneDesk;
     }
@@ -86,7 +86,7 @@
         self.phoneDeskCell.hidden = YES;
     }
     
-    if ([self.user.email class] != [NSNull class])
+    if (self.user.email)
     {
         self.emailLabel.text = self.user.email;
     }
@@ -95,7 +95,7 @@
         self.emailCell.hidden = YES;
     }
     
-    if ([self.user.skype class] != [NSNull class])
+    if (self.user.skype)
     {
         self.skypeLabel.text = self.user.skype;
     }
@@ -104,7 +104,7 @@
         self.skypeCell.hidden = YES;
     }
     
-    if ([self.user.irc class] != [NSNull class])
+    if (self.user.irc)
     {
         self.ircLabel.text = self.user.irc;
     }
