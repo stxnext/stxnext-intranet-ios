@@ -11,14 +11,24 @@
 #import "APIRequest.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
+#import "AFHTTPRequestOperation+Redirect.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
+
+@interface UserTableViewController ()
+{
+    BOOL usersDownloaded;
+}
+
+@end
 
 @implementation UserTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    usersDownloaded = NO;
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
@@ -33,14 +43,9 @@
 {
     [super viewDidAppear:animated];
     
-    if ([[HTTPClient sharedClient] authCookiesPresent])
+    if (!usersDownloaded || _userList == nil)
     {
-        // assume you are logged in, but cookies may be invalid; send request with stored cookies
         [self downloadUsers];
-    }
-    else
-    {
-        [self showLoginScreen];
     }
 }
 
@@ -101,6 +106,11 @@
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          
+                                          if ([operation redirectToLoginView])
+                                          {
+                                              [self showLoginScreen];
+                                          }
                                       }];
 }
 
@@ -115,8 +125,6 @@
 {
     RMUser* user = _userList[indexPath.row];
     
-    NSLog(@"%@", user);
-    
     static NSString *CellIdentifier = @"UserCell";
     UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -127,14 +135,10 @@
     
     cell.userName.text = user.name;
     
-    
-    // [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
-    
     [self setImageForUrl:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL] cell:cell];
     
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
-    
     
     return cell;
 }

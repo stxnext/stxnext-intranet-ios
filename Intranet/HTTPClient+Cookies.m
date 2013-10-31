@@ -57,7 +57,8 @@
     
     if (cookiesProperties.count > 0)
     {
-        [defaults setObject:cookiesProperties forKey:kIntranetCookies];
+        NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:cookiesProperties];
+        [defaults setObject:cookiesData forKey:kIntranetCookies];
         [defaults synchronize];
     }
 }
@@ -65,8 +66,15 @@
 - (NSArray *)loadCookies
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *cookiesData = [defaults objectForKey:kIntranetCookies];
     
-    NSArray *cookiesPreferences = [defaults objectForKey:kIntranetCookies];
+    if (cookiesData == nil)
+    {
+        return nil;
+    }
+    
+    NSArray *cookiesPreferences = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+    
     NSMutableArray *cookies = nil;
     
     if (cookiesPreferences.count > 0)
@@ -76,7 +84,11 @@
         for (NSDictionary *cookiePreferences in cookiesPreferences)
         {
             NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookiePreferences];
-            [cookies addObject:cookie];
+            
+            if (cookie != nil)
+            {
+                [cookies addObject:cookie];
+            }
         }
     }
     

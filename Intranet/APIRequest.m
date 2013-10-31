@@ -28,6 +28,7 @@
     AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
                                                                                      action:@"api/users?full=1&inactive=1"
                                                                                  parameters:nil];
+    [request blockRedirections];
     
     return request;
 }
