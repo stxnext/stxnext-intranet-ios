@@ -7,7 +7,6 @@
 //
 
 #import "HTTPClient.h"
-#import "HTTPClient+Cookies.h"
 
 #define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
 

@@ -8,8 +8,7 @@
 
 #import "UserTableViewController.h"
 #import "APIRequest.h"
-#import "HTTPClient.h"
-#import "HTTPClient+Cookies.h"
+#import "AFHTTPRequestOperation+Redirect.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
@@ -30,6 +29,8 @@ typedef enum
 {
     [super viewDidLoad];
     
+    usersDownloaded = NO;
+    
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
@@ -46,12 +47,7 @@ typedef enum
 {
     [super viewDidAppear:animated];
     
-    if ([[HTTPClient sharedClient] authCookiesPresent])
-    {
-        // assume you are logged in, but cookies may be invalid; send request with stored cookies
-        [self downloadUsers];
-    }
-    else
+    if (![[HTTPClient sharedClient] authCookiesPresent])
     {
         [self showLoginScreen];
     }
@@ -82,14 +78,14 @@ typedef enum
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [self downloadUsers];
+                                              [self loadUsersFromAPI];
                                           }
                                       }];
 }
 
 - (void)startRefreshData
 {
-    [self downloadUsers];
+    [self loadUsersFromAPI];
 }
 
 - (void)stopRefreshData
@@ -97,13 +93,53 @@ typedef enum
     [self.refreshControl endRefreshing];
 }
 
-- (void)downloadUsers
+- (void)loadUsers
 {
+    // First try to load from CoreData
+    [self loadUsersFromDatabase];
+    
+    // If there are no users in CoreData, load from API
+    if (!_userList || _userList.count == 0)
+        [self loadUsersFromAPI];
+    
+    // Refresh GUI
+    [self.tableView reloadData];
+    [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+}
+
+- (void)loadUsersFromDatabase
+{
+    NSLog(@"Loading from: Database");
+    _userList = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                       withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                            withPredicate:nil
+                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    
+    NSLog(@"Loaded: %d", _userList.count);
+}
+
+- (void)loadUsersFromAPI
+{
+    NSLog(@"Loading from: API");
     [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          // Delete from database
+                                          [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          
+                                          // Add to database
+                                          for (id user in responseObject[@"users"])
+                                              [RMUser mapFromJSON:user];
+                                          
+                                          // Load from database
                                           NSMutableArray* users = [NSMutableArray array];
                                           
-                                          for (id user in responseObject[@"users"])
+                                          NSArray* allUsers = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                                      withPredicate:nil
+                                                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          
+                                          for (RMUser* user in allUsers)
                                           {
                                               RMUser *mapedUser = (RMUser *)[RMUser mapFromJSON:user];
                                               [users addObject:mapedUser];
@@ -115,7 +151,13 @@ typedef enum
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"Loaded: 0");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          
+                                          if ([operation redirectToLoginView])
+                                          {
+                                              [self showLoginScreen];
+                                          }
                                       }];
     /*
      [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
@@ -272,15 +314,12 @@ typedef enum
     }
     
     cell.userName.text = user.name;
-    
-    
-    // [cell.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL]] placeholderImage:nil];
-    
-    [self setImageForUrl:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", user.avatarURL] cell:cell];
-    
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
-        
+    
+    if (user.avatarURL)
+        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
+    
     return cell;
 }
 
@@ -291,7 +330,6 @@ typedef enum
         UserListCell *cell = (UserListCell *)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
-        
     }
 }
 

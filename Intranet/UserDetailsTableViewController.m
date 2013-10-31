@@ -62,7 +62,7 @@
     
     [self.tableView hideEmptySeparators];
     
-    [self.userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://intranet.stxnext.pl%@", self.user.avatarURL]] placeholderImage:nil];
+    [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
     

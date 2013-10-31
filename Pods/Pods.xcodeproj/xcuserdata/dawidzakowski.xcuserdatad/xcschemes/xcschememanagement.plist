@@ -8,16 +8,22 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods-google-plus-ios-sdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -28,6 +34,21 @@
 			<true/>
 		</dict>
 		<key>358F05C401714DD98412FB09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>421656BD521E4FB9990372F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BCECCAF2102847099F76A492</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD9C686484584BAA8D3FAC09</key>
 		<dict>
 			<key>primary</key>
 			<true/>

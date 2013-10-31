@@ -34,12 +34,14 @@
 #import "AppDelegate+Modals.h"
 #import "NSError+CustomError.h"
 #import "UITableView+Additions.h"
-#import <UIImageView+AFNetworking.h>
+#import "UIImageView+AFNetworking.h"
+#import "UIImageView+NetworkCookies.h"
 
 // Custom headers
 #import "Database.h"
 #import "GooglePlusConfig.h"
 #import "HTTPClient.h"
+#import "HTTPClient+Cookies.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
