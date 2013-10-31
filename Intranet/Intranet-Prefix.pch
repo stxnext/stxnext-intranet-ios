@@ -64,3 +64,5 @@
 #define PrintFrame(text, frame) NSLog(@"%@(X:%f Y:%f W:%f H:%f)", text, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)
 #define PrintSize(text, size) NSLog(@"%@(W:%f H:%f)", text, size.width, size.height)
 #define PrintPoint(text, point) NSLog(@"%@(X:%f Y:%f)", text, point.x, point.y)
+
+#define MAIN_APP_COLOR  [UIColor colorWithRed:0 green:156 / 255.0 blue:153 / 255.0 alpha:1.0]

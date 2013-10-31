@@ -140,15 +140,15 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="64" id="p8U-jJ-4ip">
-                                        <rect key="frame" x="0.0" y="184" width="320" height="64"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="p8U-jJ-4ip">
+                                        <rect key="frame" x="0.0" y="184" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8U-jJ-4ip" id="bGu-CU-MzO">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="imie.nazwisko@stxnext.pl" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vv9-zV-hKb">
-                                                    <rect key="frame" x="15" y="36" width="290" height="21"/>
+                                                    <rect key="frame" x="15" y="31" width="290" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -164,7 +164,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="yBw-xG-GF5">
-                                        <rect key="frame" x="0.0" y="248" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="240" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yBw-xG-GF5" id="59o-1y-o7l">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -187,7 +187,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="79G-BF-0YG">
-                                        <rect key="frame" x="0.0" y="304" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="296" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79G-BF-0YG" id="G9K-Bz-kGb">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -210,7 +210,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="okQ-I1-zoX">
-                                        <rect key="frame" x="0.0" y="360" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="352" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="okQ-I1-zoX" id="cQC-2H-tG8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -233,7 +233,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="imf-SV-ngo">
-                                        <rect key="frame" x="0.0" y="416" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="408" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="imf-SV-ngo" id="syK-Ok-aPK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -283,11 +283,11 @@
             </objects>
             <point key="canvasLocation" x="1685" y="-212"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Lista osób-->
         <scene sceneID="pLe-vT-XJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nvf-NT-HOc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="3B0-eY-fjy"/>
+                    <tabBarItem key="tabBarItem" title="Lista osób" image="Tabbar icons 1" id="3B0-eY-fjy"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="egg-Ro-Cxg">
@@ -303,11 +303,11 @@
             </objects>
             <point key="canvasLocation" x="653" y="-209"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Inne-->
         <scene sceneID="VvS-jr-683">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N91-HD-i7s" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="Z7h-1E-pvt"/>
+                    <tabBarItem key="tabBarItem" title="Inne" image="Tababr icons 2" id="Z7h-1E-pvt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f8z-aH-CAF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -323,6 +323,10 @@
             <point key="canvasLocation" x="653" y="498"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Tababr icons 2" width="30" height="30"/>
+        <image name="Tabbar icons 1" width="30" height="30"/>
+    </resources>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

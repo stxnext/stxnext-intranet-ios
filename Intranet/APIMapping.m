@@ -78,5 +78,23 @@
              @"groups":                @"groups",
              };
 }
+- (NSString *)description
+{
+    NSString *result = @"\n";
+    
+    unsigned int numberOfProperties = 0;
+    objc_property_t *propertyArray = class_copyPropertyList([self class], &numberOfProperties);
+    
+    for (NSUInteger i = 0; i < numberOfProperties; i++)
+    {
+        // NSMutableArray *a;
+        // [a addObject:[NSNumber numberWithUnsignedChar:0]]
+        objc_property_t property = propertyArray[i];
+        NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
+        result = [NSString stringWithFormat:@"%@ = %@\n%@", name, [self valueForKey:name], result];
+    }
+    
+    return result;
+}
 
 @end

@@ -20,7 +20,13 @@
 {
     [super viewDidLoad];
     
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
+    [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+    
     _userList = [NSArray array];
+    self.title = @"Lista osób";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,6 +91,13 @@
                                               // get users after login
                                               [self getUsers];
                                           }
+                                          
+                                          _userList = users;
+                                          [self.tableView reloadData];
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
 }
 
