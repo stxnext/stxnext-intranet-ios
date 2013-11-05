@@ -185,15 +185,24 @@
 
 #pragma mark - Actions
 
+- (void)openUrl:(NSURL*)url orAlertWithText:(NSString*)alertText
+{
+    if ([[UIApplication sharedApplication] canOpenURL:url])
+        [[UIApplication sharedApplication] openURL:url];
+    else
+        [UIAlertView alertWithTitle:@"Błąd" withText:alertText];
+}
+
 - (void)phoneCall
 {
-    NSString *phoneNumber = [@"tel://" stringByAppendingString:self.user.phone];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phone]]
+  orAlertWithText:@"Nie znaleziono aplikacji obsługującej połączenia telefoniczne."];
 }
 
 - (void)phoneDeskCall
 {
-    
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phoneDesk]]
+  orAlertWithText:@"Nie znaleziono aplikacji obsługującej połączenia telefoniczne."];
 }
 
 - (void)emailSend
@@ -209,16 +218,22 @@
         // Present mail view controller on screen
         [self presentViewController:mc animated:YES completion:NULL];
     }
+    else
+    {
+        [UIAlertView alertWithTitle:@"Błąd" withText:@"Nie znaleziono aplikacji obsługującej wiadomości email."];
+    }
 }
 
 - (void)skypeCall
 {
-    
+    [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:self.user.skype]]
+  orAlertWithText:@"Nie znaleziono aplikacji do komunikacji skype."];
 }
 
 - (void)ircSend
 {
-    
+    [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:self.user.irc]]
+  orAlertWithText:@"Nie znaleziono aplikacji do komunikacji IRC."];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

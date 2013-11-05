@@ -113,7 +113,19 @@
     
     _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
     
-    NSLog(@"Loaded: %d users", _userList.count);
+    NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
+          [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                 withSortDescriptor:nil
+                                      withPredicate:nil
+                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
+          [JSONSerializationHelper objectsWithClass:[RMLate class]
+                                 withSortDescriptor:nil
+                                      withPredicate:nil
+                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
+          [JSONSerializationHelper objectsWithClass:[RMAbsence class]
+                                 withSortDescriptor:nil
+                                      withPredicate:nil
+                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
     
     [self.tableView reloadData];
 }

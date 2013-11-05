@@ -42,6 +42,7 @@
 #import "GooglePlusConfig.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
+#import "UIAlertView+CustomAlert.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
