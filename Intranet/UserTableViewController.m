@@ -225,7 +225,7 @@ typedef enum
 
 - (IBAction)showAction:(id)sender
 {
-    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers" ,@"", @"obecni", @"nieobecni"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
         switch (theButtonIndex)
         {
             case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
