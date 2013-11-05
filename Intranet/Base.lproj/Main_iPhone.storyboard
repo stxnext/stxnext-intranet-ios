@@ -104,7 +104,13 @@
                             <outlet property="delegate" destination="NLl-EJ-4Fe" id="aEz-8p-k5A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="SBM-r9-EtU"/>
+                    <navigationItem key="navigationItem" id="SBM-r9-EtU">
+                        <barButtonItem key="rightBarButtonItem" title="Pokaż" id="3G4-Ap-726">
+                            <connections>
+                                <action selector="showAction:" destination="NLl-EJ-4Fe" id="AMi-fr-cO2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmL-iv-uFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -288,11 +294,11 @@
             </objects>
             <point key="canvasLocation" x="1685" y="-212"/>
         </scene>
-        <!--Navigation Controller - Lista osób-->
+        <!--Navigation Controller - Lista-->
         <scene sceneID="pLe-vT-XJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nvf-NT-HOc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Lista osób" image="Tabbar icons 1" id="3B0-eY-fjy"/>
+                    <tabBarItem key="tabBarItem" title="Lista" image="Tabbar icons 1" id="3B0-eY-fjy"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="egg-Ro-Cxg">
@@ -329,8 +335,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Tababr icons 2" width="30" height="30"/>
-        <image name="Tabbar icons 1" width="30" height="30"/>
+        <image name="Tababr icons 2" width="50" height="50"/>
+        <image name="Tabbar icons 1" width="50" height="50"/>
         <image name="warning.png" width="800" height="800"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

@@ -14,4 +14,6 @@
     NSArray* _userList;
 }
 
+- (IBAction)showAction:(id)sender;
+
 @end

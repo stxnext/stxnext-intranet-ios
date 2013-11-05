@@ -11,6 +11,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Pods-SHActionSheetBlocks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>Pods-google-plus-ios-sdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -33,12 +38,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2E922C96ADC0448B954CA288</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>358F05C401714DD98412FB09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>421656BD521E4FB9990372F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60DD163F67F240AD8661686D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8F5AB8E5058341DC8E0FD596</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9223B0E508F47F8AF1981D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

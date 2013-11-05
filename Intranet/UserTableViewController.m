@@ -12,28 +12,33 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
-@interface UserTableViewController ()
+typedef enum
 {
-    BOOL usersDownloaded;
-}
-
-@end
+    STXSortingTypeAll,
+    STXSortingTypeWorkers,
+    STXSortingTypeClients,
+    STXSortingTypeFreelancers
+}STXSortingType;
 
 @implementation UserTableViewController
+{
+    STXSortingType currentSortType;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    usersDownloaded = NO;
+    _userList = [NSArray array];
+    currentSortType = STXSortingTypeWorkers;
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
     
-    _userList = [NSArray array];
-    self.title = @"Lista osób";
+    [self.tableView hideEmptySeparators];
+    self.title = @"Lista";
     
     [self loadUsersFromDatabase];
 }
@@ -111,7 +116,20 @@
                                                     withPredicate:nil
                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
-    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+    switch (currentSortType)
+    {
+        case STXSortingTypeWorkers:
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+            break;
+            
+        case STXSortingTypeClients:
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
+            break;
+            
+        case STXSortingTypeFreelancers:
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
+            break;
+    }
     
     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
           [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -203,6 +221,27 @@
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }
                                       failure:nil];
+}
+
+- (IBAction)showAction:(id)sender
+{
+    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers" ,@"", @"obecni", @"nieobecni"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+        switch (theButtonIndex)
+        {
+            case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
+            case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
+            case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
+        }
+    }];
+    
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
+
+- (void)loadUsersFromDatabaseWithType:(STXSortingType)type
+{
+    currentSortType = type;
+    
+    [self loadUsersFromDatabase];
 }
 
 #pragma mark - Table view data source
