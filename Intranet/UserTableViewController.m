@@ -268,6 +268,15 @@ typedef enum
     cell.userImage.clipsToBounds = YES;
     cell.warningImage.hidden = ((user.lates.count + user.absences.count) == 0);
     
+    if (user.lates.count)
+    {
+        cell.warningImage.image = [UIImage imageNamed:@"late"];
+    }
+    else if (user.absences.count)
+    {
+        cell.warningImage.image = [UIImage imageNamed:@"absence"];
+    }
+
     if (user.avatarURL)
         [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
     
