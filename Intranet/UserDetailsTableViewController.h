@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *emailCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *skypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ircCell;
+@property (weak, nonatomic) IBOutlet UIImageView *warningImage;
+@property (weak, nonatomic) IBOutlet UITextView *explanationLabel;
 
 @property (strong, nonatomic) RMUser *user;
 

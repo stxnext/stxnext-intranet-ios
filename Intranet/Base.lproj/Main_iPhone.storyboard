@@ -96,14 +96,22 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="late" translatesAutoresizingMaskIntoConstraints="NO" id="OlU-gn-8ag">
-                                            <rect key="frame" x="257" y="55" width="30" height="30"/>
+                                            <rect key="frame" x="290" y="65" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-sT-fde">
+                                            <rect key="frame" x="162" y="69" width="125" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="userImage" destination="NQz-OD-Hde" id="AaB-V2-JvH"/>
                                     <outlet property="userName" destination="hNA-vA-Gsm" id="xI6-5F-cM1"/>
+                                    <outlet property="warningDateLabel" destination="3gB-sT-fde" id="NMz-gh-udA"/>
                                     <outlet property="warningImage" destination="OlU-gn-8ag" id="4dj-ic-nLd"/>
                                     <segue destination="eBK-zg-izl" kind="push" id="NPg-ZU-CsG"/>
                                 </connections>
@@ -158,6 +166,16 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="late" translatesAutoresizingMaskIntoConstraints="NO" id="6Pj-w3-K1g">
+                                                    <rect key="frame" x="280" y="80" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="explanations" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crr-nQ-u0f">
+                                                    <rect key="frame" x="123" y="33" width="182" height="84"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -288,6 +306,7 @@
                     <connections>
                         <outlet property="emailCell" destination="p8U-jJ-4ip" id="nNy-Oo-hFN"/>
                         <outlet property="emailLabel" destination="vv9-zV-hKb" id="4Bt-rx-72G"/>
+                        <outlet property="explanationLabel" destination="Crr-nQ-u0f" id="kG4-bp-bFP"/>
                         <outlet property="ircCell" destination="imf-SV-ngo" id="z5n-Nf-Wer"/>
                         <outlet property="ircLabel" destination="AZb-ck-6Hr" id="B2d-4A-pGh"/>
                         <outlet property="phoneCell" destination="yBw-xG-GF5" id="8Hm-PV-EkE"/>
@@ -298,6 +317,7 @@
                         <outlet property="skypeLabel" destination="5cm-yc-IfP" id="TKR-4z-G0E"/>
                         <outlet property="userImage" destination="uxj-XX-i1B" id="kDi-sG-xj4"/>
                         <outlet property="userName" destination="mbw-CK-bxg" id="t8i-Cs-1Tf"/>
+                        <outlet property="warningImage" destination="6Pj-w3-K1g" id="chI-7y-es0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qhm-L7-dFD" userLabel="First Responder" sceneMemberID="firstResponder"/>

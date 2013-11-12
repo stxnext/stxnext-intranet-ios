@@ -266,17 +266,49 @@ typedef enum
     cell.userName.text = user.name;
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
+
     cell.warningImage.hidden = ((user.lates.count + user.absences.count) == 0);
+    cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
     
     if (user.lates.count)
     {
         cell.warningImage.image = [UIImage imageNamed:@"late"];
+        
+        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+
+        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+            RMLate *late = (RMLate *)obj;
+            NSLog(@"%@ %@ %@", late.start, late.stop, late);
+            
+            if (late.start || late.stop)
+            {
+                [hours appendFormat:@" %@ - %@", late.start ? late.start : @"...",
+                 late.stop ? late.stop : @"..."];
+            }
+        }];
+        
+        cell.warningDateLabel.text = hours;
     }
     else if (user.absences.count)
     {
         cell.warningImage.image = [UIImage imageNamed:@"absence"];
-    }
 
+        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+        
+        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+            RMAbsence *absence = (RMAbsence *)obj;
+            NSLog(@"%@ %@ %@", absence.start, absence.stop, absence);
+            
+            if (absence.start || absence.stop)
+            {
+                [hours appendFormat:@" %@ - %@", absence.start ? absence.start : @"...",
+                 absence.stop ? absence.stop : @"..."];
+            }
+        }];
+        
+        cell.warningDateLabel.text = hours;
+    }
+    
     if (user.avatarURL)
         [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
     
