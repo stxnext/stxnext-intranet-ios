@@ -50,6 +50,8 @@
 		0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */; };
 		272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF88C183220F90014FBCA /* SettingsViewController.m */; };
 		272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF88F183229460014FBCA /* AppDelegate+Navigation.m */; };
+		272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272DF89518324D320014FBCA /* AddressBook.framework */; };
+		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
@@ -138,6 +140,9 @@
 		272DF88C183220F90014FBCA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		272DF88E183229460014FBCA /* AppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Navigation.h"; sourceTree = "<group>"; };
 		272DF88F183229460014FBCA /* AppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Navigation.m"; sourceTree = "<group>"; };
+		272DF89518324D320014FBCA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		272DF89718324DD00014FBCA /* RMUser+AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+AddressBook.h"; sourceTree = "<group>"; };
+		272DF89818324DD00014FBCA /* RMUser+AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+AddressBook.m"; sourceTree = "<group>"; };
 		27A999D1182255C60091B173 /* HTTPClient+Cookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPClient+Cookies.h"; sourceTree = "<group>"; };
 		27A999D2182255C60091B173 /* HTTPClient+Cookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+Cookies.m"; sourceTree = "<group>"; };
 		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
@@ -154,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */,
 				0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */,
 				0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */,
 				0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */,
@@ -192,6 +198,8 @@
 				0CF7FA6718214B370056F907 /* RMAbsence.m */,
 				0CF7FA6F18214D2B0056F907 /* RMAbsence+Additions.h */,
 				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
+				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
+				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -255,6 +263,7 @@
 		0CE37C4B181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				272DF89518324D320014FBCA /* AddressBook.framework */,
 				0CF7FA7418214FB50056F907 /* CoreData.framework */,
 				0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */,
 				0C10C4A4181E949000439D24 /* SystemConfiguration.framework */,
@@ -540,6 +549,7 @@
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
 				0CF7FA6218214B200056F907 /* RMUser.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
+				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,

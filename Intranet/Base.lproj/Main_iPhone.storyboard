@@ -158,6 +158,16 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4a9-Av-g05">
+                                                    <rect key="frame" x="167" y="69" width="138" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Dodaj do kontaktów">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="addToContacts:" destination="eBK-zg-izl" eventType="touchUpInside" id="ih3-fT-rNg"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -286,6 +296,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Gg6-u9-s2R"/>
                     <connections>
+                        <outlet property="addToContactsButton" destination="4a9-Av-g05" id="LO0-kG-YKj"/>
                         <outlet property="emailCell" destination="p8U-jJ-4ip" id="nNy-Oo-hFN"/>
                         <outlet property="emailLabel" destination="vv9-zV-hKb" id="4Bt-rx-72G"/>
                         <outlet property="ircCell" destination="imf-SV-ngo" id="z5n-Nf-Wer"/>

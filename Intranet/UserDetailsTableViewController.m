@@ -7,6 +7,7 @@
 //
 
 #import "UserDetailsTableViewController.h"
+#import "RMUser+AddressBook.h"
 
 @interface UserDetailsTableViewController ()
 
@@ -128,6 +129,9 @@
     //code here
     
     [super viewWillAppear:animated];
+    
+    // TO DO: check if user is in system contacts or not
+    [self updateAddToContactsButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -234,6 +238,32 @@
 {
     [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:self.user.irc]]
   orAlertWithText:@"Nie znaleziono aplikacji do komunikacji IRC."];
+}
+
+- (IBAction)addToContacts:(id)sender
+{
+    if ([_user isInContacts])
+    {
+        [_user removeFromContacts];
+    }
+    else
+    {
+        [_user addToContacts];
+    }
+    
+    [self updateAddToContactsButton];
+}
+
+- (void)updateAddToContactsButton
+{
+    if ([_user isInContacts])
+    {
+        [self.addToContactsButton setTitle:NSLocalizedString(@"Usuń z kontaktów", nil) forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.addToContactsButton setTitle:NSLocalizedString(@"Dodaj do kontaktów", nil) forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

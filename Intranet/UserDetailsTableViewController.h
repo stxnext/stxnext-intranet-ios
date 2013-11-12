@@ -25,6 +25,10 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *skypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ircCell;
 
+@property (weak, nonatomic) IBOutlet UIButton *addToContactsButton;
+
 @property (strong, nonatomic) RMUser *user;
+
+- (IBAction)addToContacts:(id)sender;
 
 @end
