@@ -27,6 +27,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *warningImage;
 @property (weak, nonatomic) IBOutlet UITextView *explanationLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *addToContactsButton;
+
 @property (strong, nonatomic) RMUser *user;
+
+- (IBAction)addToContacts:(id)sender;
 
 @end

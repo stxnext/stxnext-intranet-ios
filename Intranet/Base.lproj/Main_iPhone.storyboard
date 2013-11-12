@@ -304,6 +304,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Gg6-u9-s2R"/>
                     <connections>
+                        <outlet property="addToContactsButton" destination="4a9-Av-g05" id="LO0-kG-YKj"/>
                         <outlet property="emailCell" destination="p8U-jJ-4ip" id="nNy-Oo-hFN"/>
                         <outlet property="emailLabel" destination="vv9-zV-hKb" id="4Bt-rx-72G"/>
                         <outlet property="explanationLabel" destination="Crr-nQ-u0f" id="kG4-bp-bFP"/>
