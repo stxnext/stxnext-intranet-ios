@@ -204,7 +204,7 @@
     
     [super viewWillAppear:animated];
     
-    // TO DO: check if user is in system contacts or not
+    // check if user is in system contacts or not
     [self updateAddToContactsButton];
 }
 
