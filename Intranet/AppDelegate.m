@@ -7,12 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+SplitControllerDelegate.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Disable hiding split controller children on iPad
+    if ([self.window.rootViewController isKindOfClass:[UISplitViewController class]])
+    {
+        // Were on iPad and application base is split view controller
+        UISplitViewController* splitController = (UISplitViewController*)self.window.rootViewController;
+        splitController.delegate = self;
+    }
+    
     return YES;
 }
 
