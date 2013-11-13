@@ -31,6 +31,7 @@ typedef enum
 {
     [super viewDidLoad];
     
+    _actionSheet = nil;
     _userList = [NSArray array];
     currentSortType = STXSortingTypeWorkers;
     
@@ -245,7 +246,10 @@ typedef enum
 
 - (IBAction)showAction:(id)sender
 {
-    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+    if ([_actionSheet isVisible])
+        return;
+    
+    _actionSheet = _actionSheet ?: [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
         switch (theButtonIndex)
         {
             case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
@@ -257,7 +261,7 @@ typedef enum
         }
     }];
     
-    [actionSheet showFromBarButtonItem:sender animated:YES];
+    [_actionSheet showFromBarButtonItem:sender animated:YES];
 }
 
 - (void)loadUsersFromDatabaseWithType:(STXSortingType)type
