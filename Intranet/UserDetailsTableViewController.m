@@ -120,18 +120,26 @@
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
     __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
 
+    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
+    
+    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+    latesDateFormater.dateFormat = @"HH:mm";
+    
     if (self.user.lates.count)
     {
         self.warningImage.image = [UIImage imageNamed:@"late"];
         
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
-            NSLog(@"%@ %@ %@", late.start, late.stop, late);
-            
-            if (late.start || late.stop)
+
+            NSString *start = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.start];
+
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", late.start ? late.start : @"...",
-                 late.stop ? late.stop : @"..."];
+                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
             
             if (late.explanation)
@@ -144,14 +152,16 @@
     {
         self.warningImage.image = [UIImage imageNamed:@"absence"];
         
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
-            NSLog(@"%@ %@ %@", absence.start, absence.stop, absence);
             
-            if (absence.start || absence.stop)
+            NSString *start = [absenceDateFormater stringFromDate:absence.start];
+            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+            
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", absence.start ? absence.start : @"...",
-                 absence.stop ? absence.stop : @"..."];
+                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
             
             if (absence.remarks)
@@ -160,12 +170,19 @@
             }
         }];
     }
+    
+    while ([hours hasPrefix:@" "])
+    {
+        [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+
+    while ([explanation hasPrefix:@" "])
+    {
+        [explanation replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+
     NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
     
-    while ([text hasPrefix:@" "])
-    {
-        text = [text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
-    }
     
     self.explanationLabel.text = text;
     
