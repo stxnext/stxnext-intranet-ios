@@ -290,7 +290,7 @@ typedef enum
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
 
-    cell.warningImage.hidden = ((user.lates.count + user.absences.count) == 0);
+    cell.clockView.hidden = ((user.lates.count + user.absences.count) == 0);
     cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
     
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
@@ -303,8 +303,8 @@ typedef enum
     
     if (user.lates.count)
     {
-        cell.warningImage.image = [UIImage imageNamed:@"late"];
-
+        cell.clockView.color = MAIN_YELLOW_COLOR;
+        
         [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
             
@@ -320,7 +320,7 @@ typedef enum
     }
     else if (user.absences.count)
     {
-        cell.warningImage.image = [UIImage imageNamed:@"absence"];
+        cell.clockView.color = MAIN_RED_COLOR;
         
         [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;

@@ -95,10 +95,11 @@
                                             <rect key="frame" x="15" y="10" width="75" height="75"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="late" translatesAutoresizingMaskIntoConstraints="NO" id="OlU-gn-8ag">
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o9L-zb-G5W" customClass="ClockView">
                                             <rect key="frame" x="290" y="65" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-sT-fde">
                                             <rect key="frame" x="98" y="73" width="189" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -109,10 +110,10 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="clockView" destination="o9L-zb-G5W" id="vcq-Lv-pzK"/>
                                     <outlet property="userImage" destination="NQz-OD-Hde" id="AaB-V2-JvH"/>
                                     <outlet property="userName" destination="hNA-vA-Gsm" id="xI6-5F-cM1"/>
                                     <outlet property="warningDateLabel" destination="3gB-sT-fde" id="NMz-gh-udA"/>
-                                    <outlet property="warningImage" destination="OlU-gn-8ag" id="4dj-ic-nLd"/>
                                     <segue destination="eBK-zg-izl" kind="push" id="NPg-ZU-CsG"/>
                                 </connections>
                             </tableViewCell>
@@ -163,22 +164,29 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="late" translatesAutoresizingMaskIntoConstraints="NO" id="pqz-EQ-SOO">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEh-6F-Ysy" customClass="ClockView">
                                                     <rect key="frame" x="283" y="82" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="wyjaśnienie spóźnienia" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="152" translatesAutoresizingMaskIntoConstraints="NO" id="zJg-l9-v8b">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="wyjaśnienie spóźnienia" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="152" translatesAutoresizingMaskIntoConstraints="NO" id="zJg-l9-v8b">
                                                     <rect key="frame" x="123" y="89" width="152" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="152" id="AtY-iZ-AGV"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="pqz-EQ-SOO" secondAttribute="bottom" constant="-13" id="2EX-6I-6TM"/>
-                                                <constraint firstAttribute="trailing" secondItem="pqz-EQ-SOO" secondAttribute="trailing" constant="-13" id="8YG-fL-3LF"/>
-                                                <constraint firstAttribute="bottom" secondItem="zJg-l9-v8b" secondAttribute="bottom" constant="9" id="cBS-gZ-3sI"/>
+                                                <constraint firstAttribute="trailing" secondItem="LEh-6F-Ysy" secondAttribute="trailing" constant="-13" id="9oH-Dj-9UD"/>
+                                                <constraint firstItem="LEh-6F-Ysy" firstAttribute="top" secondItem="hMu-oz-gOc" secondAttribute="top" constant="82" id="CFf-dd-r5G"/>
+                                                <constraint firstItem="LEh-6F-Ysy" firstAttribute="leading" secondItem="zJg-l9-v8b" secondAttribute="trailing" constant="8" symbolic="YES" id="DzE-j3-Ff9"/>
+                                                <constraint firstAttribute="bottom" secondItem="LEh-6F-Ysy" secondAttribute="bottom" constant="-13" id="YY5-8a-uGU"/>
+                                                <constraint firstAttribute="bottom" secondItem="zJg-l9-v8b" secondAttribute="bottom" constant="9" id="rEX-DT-vMj"/>
+                                                <constraint firstItem="LEh-6F-Ysy" firstAttribute="leading" secondItem="hMu-oz-gOc" secondAttribute="leading" constant="283" id="tFL-Se-d7m"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -326,6 +334,7 @@
                     <connections>
                         <outlet property="addToContactLabel" destination="7sC-jr-iit" id="fny-ca-8Rn"/>
                         <outlet property="addToContactsCell" destination="2py-lH-bjx" id="BN0-uN-cA5"/>
+                        <outlet property="clockView" destination="LEh-6F-Ysy" id="p7M-9Q-j81"/>
                         <outlet property="emailCell" destination="p8U-jJ-4ip" id="nNy-Oo-hFN"/>
                         <outlet property="emailLabel" destination="vv9-zV-hKb" id="4Bt-rx-72G"/>
                         <outlet property="explanationLabel" destination="zJg-l9-v8b" id="gcA-iD-zZS"/>
@@ -340,7 +349,6 @@
                         <outlet property="skypeLabel" destination="5cm-yc-IfP" id="TKR-4z-G0E"/>
                         <outlet property="userImage" destination="uxj-XX-i1B" id="kDi-sG-xj4"/>
                         <outlet property="userName" destination="mbw-CK-bxg" id="t8i-Cs-1Tf"/>
-                        <outlet property="warningImage" destination="pqz-EQ-SOO" id="VEb-Xv-MRA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qhm-L7-dFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -390,7 +398,6 @@
     <resources>
         <image name="Tababr icons 2" width="50" height="50"/>
         <image name="Tabbar icons 1" width="50" height="50"/>
-        <image name="late" width="50" height="50"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

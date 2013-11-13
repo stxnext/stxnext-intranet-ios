@@ -114,8 +114,7 @@
         self.ircCell.hidden = YES;
     }
     
-    self.warningImage.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    self.explanationLabel.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
+    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
     __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
@@ -128,7 +127,7 @@
     
     if (self.user.lates.count)
     {
-        self.warningImage.image = [UIImage imageNamed:@"late"];
+        self.clockView.color = MAIN_YELLOW_COLOR;
         
         [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
@@ -150,7 +149,7 @@
     }
     else if (self.user.absences.count)
     {
-        self.warningImage.image = [UIImage imageNamed:@"absence"];
+        self.clockView.color = MAIN_RED_COLOR;
         
         [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
