@@ -61,6 +61,8 @@
     
     //code here
     
+    self.title = @"Informacje kontaktowe";
+    
     [self.tableView hideEmptySeparators];
     
     [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
