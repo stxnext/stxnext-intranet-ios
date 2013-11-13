@@ -300,6 +300,8 @@ typedef enum
     latesDateFormater.dateFormat = @"HH:mm";
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+
+//    cell.clockView.color = MAIN_GREEN_COLOR;
     
     if (user.lates.count)
     {

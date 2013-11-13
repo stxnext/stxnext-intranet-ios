@@ -29,7 +29,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //tarcza
-    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
     CGContextSetLineWidth(context, 0.5);
     
     CGPoint center = CGPointMake(rect.size.width / 2, rect.size.height / 2); // get the circle centre
@@ -49,13 +49,15 @@
     CGContextAddArc(context, center.x, center.y, radius - 1, startAngle, endAngle, 0);
     CGContextStrokePath(context);
     
-    //wskazowki
+    //wskazowki:
+    
     //dluga
-    CGContextSetLineWidth(context, 2.0);
+    CGContextSetLineWidth(context, 1.5);
     CGContextMoveToPoint(context, center.x, center.y);
     CGContextAddLineToPoint(context, center.x + center.x * 0.6, center.y - center.x * 0.6);
     
     CGContextStrokePath(context);
+    
     //krotka
     CGContextMoveToPoint(context, center.x, center.y);
     CGContextAddLineToPoint(context, center.x + center.x * 0.3, center.y + center.x * 0.45);
