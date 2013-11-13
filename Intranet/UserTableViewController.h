@@ -14,6 +14,7 @@
     IBOutlet UISearchBar* _searchBar;
     UIActionSheet* _actionSheet;
     NSArray* _userList;
+    UIActionSheet *actionSheet;
 }
 
 - (IBAction)showAction:(id)sender;

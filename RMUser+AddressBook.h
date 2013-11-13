@@ -15,6 +15,7 @@
 - (void)removeFromContacts;
 
 // to test
-- (BOOL)deleteAllContacts;
+- (void)deleteAllContacts;
+- (void)listAllContacts;
 
 @end

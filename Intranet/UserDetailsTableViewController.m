@@ -188,7 +188,6 @@
     
     self.explanationLabel.text = text;
     
-    NSLog(@"%@", self.explanationLabel.text);
     [self.explanationLabel sizeToFit];
 }
 
@@ -205,7 +204,7 @@
     
     [super viewWillAppear:animated];
     
-    // TO DO: check if user is in system contacts or not
+    // check if user is in system contacts or not
     [self updateAddToContactsButton];
 }
 
@@ -385,5 +384,13 @@
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (BOOL)shouldAutorotate
+{
+    [self.explanationLabel sizeToFit];
+    
+    return YES;
+}
+
 
 @end
