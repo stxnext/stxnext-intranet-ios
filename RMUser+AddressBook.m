@@ -8,8 +8,7 @@
 
 #import <AddressBook/AddressBook.h>
 #import "RMUser+AddressBook.h"
-
-typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL available);
+#import "AddressBookManager.h"
 
 @implementation RMUser (AddressBook)
 
@@ -17,7 +16,7 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
 {
     __block BOOL result = NO;
     
-    [self requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
+    [AddressBookManager requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
         if (available && addressBook)
         {
             CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
@@ -65,7 +64,7 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
 {
     if (![self isInContacts])
     {
-        [self requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
+        [AddressBookManager requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
             if (available && addressBook)
             {
                 CFErrorRef error = NULL;
@@ -137,7 +136,7 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
 {
     if ([self isInContacts])
     {
-        [self requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
+        [AddressBookManager requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
             if (available && addressBook)
             {
                 CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
@@ -196,7 +195,7 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
 // to test, YES on success
 - (void)deleteAllContacts
 {
-    [self requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
+    [AddressBookManager requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
         if (available && addressBook)
         {
             CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
@@ -225,7 +224,7 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
 // to test
 - (void)listAllContacts
 {
-    [self requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
+    [AddressBookManager requestAddressBookWithCompletionHandler:^(ABAddressBookRef addressBook, BOOL available) {
         if (available && addressBook)
         {
             CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
@@ -258,59 +257,6 @@ typedef void (^AddressbookRequestHandler)(ABAddressBookRef addressBook, BOOL ava
             NSLog(@"AB INAVAILABLE");
         }
     }];
-}
-
-#pragma mark - Address Book Management
-
-- (BOOL)isAddressBookAvailable
-{
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    
-    return (status == kABAuthorizationStatusAuthorized);
-}
-
-- (void)requestAddressBookWithCompletionHandler:(AddressbookRequestHandler)handler
-{
-    if (ABAddressBookRequestAccessWithCompletion != NULL) // we're on iOS6
-    {
-        CFErrorRef error = NULL;
-        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, &error);
-        
-        ABAuthorizationStatus curStatus = ABAddressBookGetAuthorizationStatus();
-        
-        if (curStatus == kABAuthorizationStatusNotDetermined)
-        {
-            dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-            
-            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-                dispatch_semaphore_signal(sem);
-                
-                if (handler != NULL)
-                {
-                    handler(addressBookRef, [self isAddressBookAvailable]);
-                }
-                
-                if (addressBookRef)
-                {
-                    CFRelease(addressBookRef);
-                }
-            });
-            
-            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        }
-        else
-        {
-            if (handler != NULL)
-            {
-                handler(addressBookRef, [self isAddressBookAvailable]);
-            }
-            
-            if (addressBookRef)
-            {
-                CFRelease(addressBookRef);
-            }
-        }
-    }
 }
 
 @end
