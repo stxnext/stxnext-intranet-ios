@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ClockView.h"
 
 @interface UserListCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
-@property (weak, nonatomic) IBOutlet UIImageView *warningImage;
 @property (weak, nonatomic) IBOutlet UILabel *warningDateLabel;
+@property (weak, nonatomic) IBOutlet ClockView *clockView;
 
 @end

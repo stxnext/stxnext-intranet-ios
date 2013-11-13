@@ -11,6 +11,9 @@
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
 		0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */; };
+		0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */; };
+		0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */; };
+		0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */; };
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */; };
@@ -55,6 +58,7 @@
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
+		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,11 @@
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NetworkCookies.h"; sourceTree = "<group>"; };
 		0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NetworkCookies.m"; sourceTree = "<group>"; };
+		0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsSegue.h; sourceTree = "<group>"; };
+		0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsSegue.m; sourceTree = "<group>"; };
+		0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+SplitControllerDelegate.h"; sourceTree = "<group>"; };
+		0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+SplitControllerDelegate.m"; sourceTree = "<group>"; };
+		0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Modals_iPad.storyboard; sourceTree = "<group>"; };
 		0C853D7D182109DE008D0516 /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
 		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
@@ -149,6 +158,8 @@
 		66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewController.m; sourceTree = "<group>"; };
 		66063DCC182149C700C30C93 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
 		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
+		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
+		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -207,6 +218,8 @@
 			children = (
 				66063DC6182149A300C30C93 /* UserListCell.h */,
 				66063DC7182149A300C30C93 /* UserListCell.m */,
+				66600E581833984600BA9DC3 /* ClockView.h */,
+				66600E591833984600BA9DC3 /* ClockView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -326,6 +339,7 @@
 				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
 				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
 				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
+				0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -337,6 +351,8 @@
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
+				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
+				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -354,6 +370,8 @@
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
 				272DF88B183220F90014FBCA /* SettingsViewController.h */,
 				272DF88C183220F90014FBCA /* SettingsViewController.m */,
+				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
+				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -447,6 +465,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = STXNext;
 				TargetAttributes = {
+					0CE37C48181E8ED10087C96E = {
+						DevelopmentTeam = B7EKJ66X5Q;
+					};
 					0CE37C6F181E8ED10087C96E = {
 						TestTargetID = 0CE37C48181E8ED10087C96E;
 					};
@@ -480,6 +501,7 @@
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
 				0CE37C57181E8ED10087C96E /* InfoPlist.strings in Resources */,
+				0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */,
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +561,8 @@
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
+				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
+				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
@@ -562,6 +586,7 @@
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 				272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */,
+				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,12 +728,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -719,13 +745,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

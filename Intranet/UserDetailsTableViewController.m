@@ -61,6 +61,8 @@
     
     //code here
     
+    self.title = @"Informacje kontaktowe";
+    
     [self.tableView hideEmptySeparators];
     
     [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
@@ -114,24 +116,31 @@
         self.ircCell.hidden = YES;
     }
     
-    self.warningImage.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    self.explanationLabel.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
+    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
+    
+    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+    __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
+
+    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
+    
+    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+    latesDateFormater.dateFormat = @"HH:mm";
     
     if (self.user.lates.count)
     {
-        self.warningImage.image = [UIImage imageNamed:@"late"];
-    
-        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-        __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
+        self.clockView.color = MAIN_YELLOW_COLOR;
         
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
-            NSLog(@"%@ %@ %@", late.start, late.stop, late);
-            
-            if (late.start || late.stop)
+
+            NSString *start = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
+
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", late.start ? late.start : @"...",
-                 late.stop ? late.stop : @"..."];
+                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
             
             if (late.explanation)
@@ -139,24 +148,21 @@
                 [explanation appendFormat:@" %@", late.explanation];
             }
         }];
-        
-        self.explanationLabel.text = [NSString stringWithFormat:@"%@\n%@", hours, explanation];
     }
     else if (self.user.absences.count)
     {
-        self.warningImage.image = [UIImage imageNamed:@"absence"];
+        self.clockView.color = MAIN_RED_COLOR;
         
-        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-        __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
-            NSLog(@"%@ %@ %@", absence.start, absence.stop, absence);
             
-            if (absence.start || absence.stop)
+            NSString *start = [absenceDateFormater stringFromDate:absence.start];
+            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+            
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", absence.start ? absence.start : @"...",
-                 absence.stop ? absence.stop : @"..."];
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
             
             if (absence.remarks)
@@ -164,31 +170,24 @@
                 [explanation appendFormat:@" %@", absence.remarks];
             }
         }];
-        
-        self.explanationLabel.text = [NSString stringWithFormat:@"%@\n%@", hours, explanation];
     }
-    self.explanationLabel.textAlignment = NSTextAlignmentRight;
     
-//[textField setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom]
-//    CGContextRef ctx = UIGraphicsGetCurrentContext();
-//    CGContextSetShouldAntialias(ctx, YES);
-    UIBezierPath *exclusionPath = [UIBezierPath bezierPathWithArcCenter:self.explanationLabel.center
-                                                                radius:MAX(self.warningImage.frame.size.width, self.warningImage.frame.size.height) * 0.5 + 40
-                                                            startAngle:0
-                                                              endAngle:2 * M_PI
-                                                             clockwise:YES];
+    while ([hours hasPrefix:@" "])
+    {
+        [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+
+    while ([explanation hasPrefix:@" "])
+    {
+        [explanation replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+
+    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
     
-//    [[UIColor colorWithRed:0.329f green:0.584f blue:0.898f alpha:1.0f] setFill];
-//    [exclusionPath stroke];
-//self.view dra
-//    NSLog(@"%@", exclusionPath);
     
-    self.explanationLabel.textContainer.exclusionPaths = @[exclusionPath];
+    self.explanationLabel.text = text;
     
-//    self.explanationLabel.layer.borderColor = MAIN_APP_COLOR.CGColor;
-//    self.explanationLabel.layer.borderWidth = 1;
-    
-    [self.tableView reloadData];
+    [self.explanationLabel sizeToFit];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -252,12 +251,20 @@
     {
         [self addToContacts];
     }
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell == self.mainCell)
+    {
+        float size = self.explanationLabel.frame.size.height + 10 + self.userName.frame.size.height + 10;
+        
+        return size > cell.frame.size.height ? size : cell.frame.size.height;
+    }
     
     return cell.isHidden ? 0 : cell.frame.size.height;
 }
@@ -376,5 +383,13 @@
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (BOOL)shouldAutorotate
+{
+    [self.explanationLabel sizeToFit];
+    
+    return YES;
+}
+
 
 @end

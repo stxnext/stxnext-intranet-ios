@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+#import "ClockView.h"
 
 @interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate>
 
@@ -25,9 +26,10 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *emailCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *skypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ircCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *mainCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToContactsCell;
-@property (weak, nonatomic) IBOutlet UIImageView *warningImage;
-@property (weak, nonatomic) IBOutlet UITextView *explanationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
+@property (weak, nonatomic) IBOutlet ClockView *clockView;
 
 @property (strong, nonatomic) RMUser *user;
 

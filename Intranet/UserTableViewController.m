@@ -17,7 +17,9 @@ typedef enum
     STXSortingTypeAll,
     STXSortingTypeWorkers,
     STXSortingTypeClients,
-    STXSortingTypeFreelancers
+    STXSortingTypeFreelancers,
+    STXSortingTypeAbsent,
+    STXSortingTypeLate
 }STXSortingType;
 
 @implementation UserTableViewController
@@ -29,6 +31,7 @@ typedef enum
 {
     [super viewDidLoad];
     
+    _actionSheet = nil;
     _userList = [NSArray array];
     currentSortType = STXSortingTypeWorkers;
     
@@ -38,7 +41,7 @@ typedef enum
     self.refreshControl = refresh;
     
     [self.tableView hideEmptySeparators];
-    self.title = @"Lista";
+    self.title = @"Lista osób";
     
     [self loadUsersFromDatabase];
 }
@@ -118,6 +121,10 @@ typedef enum
     
     switch (currentSortType)
     {
+        case STXSortingTypeAll:
+            _userList = users;
+            break;
+            
         case STXSortingTypeWorkers:
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
             break;
@@ -128,6 +135,14 @@ typedef enum
             
         case STXSortingTypeFreelancers:
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
+            break;
+            
+        case STXSortingTypeAbsent:
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = YES"]];
+            break;
+            
+        case STXSortingTypeLate:
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count = YES"]];
             break;
     }
     
@@ -146,6 +161,17 @@ typedef enum
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
     
     [self.tableView reloadData];
+}
+
+- (void)clearDetailsController
+{
+    UIViewController* detailController = self.splitViewController.viewControllers.lastObject;
+    
+    if (![detailController isKindOfClass:[UINavigationController class]])
+        return;
+    
+    UINavigationController* navigationController = (UINavigationController*)detailController;
+    [navigationController setViewControllers:@[ [UIViewController new] ]];
 }
 
 - (void)loadUsersFromAPI
@@ -171,8 +197,12 @@ typedef enum
                                           for (id user in responseObject[@"users"])
                                               [RMUser mapFromJSON:user];
                                           
+                                          // Save database
+                                          [[DatabaseManager sharedManager] saveContext];
+                                          
                                           // Load from database
                                           [self loadUsersFromDatabase];
+                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -212,10 +242,14 @@ typedef enum
                                           for (id late in responseObject[@"lates"])
                                               [RMLate mapFromJSON:late];
                                           
+                                          // Save database
+                                          [[DatabaseManager sharedManager] saveContext];
+                                          
                                           NSLog(@"Loaded: absences and lates");
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
+                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -225,16 +259,22 @@ typedef enum
 
 - (IBAction)showAction:(id)sender
 {
-    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
-        switch (theButtonIndex)
-        {
-            case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
-            case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
-            case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
-        }
-    }];
-    
-    [actionSheet showFromBarButtonItem:sender animated:YES];
+    if (!actionSheet.isVisible)
+    {
+        actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+            switch (theButtonIndex)
+            {
+                case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
+                case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
+                case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
+                case 3:  break;
+                case 4: [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent]; break;
+                case 5: [self loadUsersFromDatabaseWithType:STXSortingTypeLate]; break;
+            }
+        }];
+
+        [actionSheet showFromBarButtonItem:sender animated:YES];
+    }
 }
 
 - (void)loadUsersFromDatabaseWithType:(STXSortingType)type
@@ -267,47 +307,60 @@ typedef enum
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
 
-    cell.warningImage.hidden = ((user.lates.count + user.absences.count) == 0);
+    cell.clockView.hidden = ((user.lates.count + user.absences.count) == 0);
     cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
+    
+    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
+
+    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+    latesDateFormater.dateFormat = @"HH:mm";
+    
+    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+
+//    cell.clockView.color = MAIN_GREEN_COLOR;
     
     if (user.lates.count)
     {
-        cell.warningImage.image = [UIImage imageNamed:@"late"];
+        cell.clockView.color = MAIN_YELLOW_COLOR;
         
-        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-
-        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
-            NSLog(@"%@ %@ %@", late.start, late.stop, late);
             
-            if (late.start || late.stop)
+            NSString *start = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
+            
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", late.start ? late.start : @"...",
-                 late.stop ? late.stop : @"..."];
+                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
         }];
-        
-        cell.warningDateLabel.text = hours;
     }
     else if (user.absences.count)
     {
-        cell.warningImage.image = [UIImage imageNamed:@"absence"];
-
-        __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+        cell.clockView.color = MAIN_RED_COLOR;
         
-        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
-            NSLog(@"%@ %@ %@", absence.start, absence.stop, absence);
+
+            NSString *start = [absenceDateFormater stringFromDate:absence.start];
+            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
             
-            if (absence.start || absence.stop)
+            if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", absence.start ? absence.start : @"...",
-                 absence.stop ? absence.stop : @"..."];
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
             }
         }];
-        
-        cell.warningDateLabel.text = hours;
     }
+    
+    while ([hours hasPrefix:@" "])
+    {
+        [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+    
+    cell.warningDateLabel.text = hours;
     
     if (user.avatarURL)
         [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
