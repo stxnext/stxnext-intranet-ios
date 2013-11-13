@@ -160,8 +160,14 @@
             }
         }];
     }
+    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
     
-    self.explanationLabel.text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
+    while ([text hasPrefix:@" "])
+    {
+        text = [text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    }
+    
+    self.explanationLabel.text = text;
     
     NSLog(@"%@", self.explanationLabel.text);
     [self.explanationLabel sizeToFit];
