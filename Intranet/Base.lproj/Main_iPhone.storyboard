@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Settings View Controller - Second-->
@@ -74,9 +74,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Imię i nazwisko" showsCancelButton="YES" id="syL-sT-vOg">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="NLl-EJ-4Fe" id="9DO-Cu-nqP"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserCell" rowHeight="95" id="GBl-yi-276" customClass="UserListCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="95"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GBl-yi-276" id="chE-07-Mwa">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="94"/>
@@ -124,12 +132,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="SBM-r9-EtU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="gyc-rP-uIS">
+                            <connections>
+                                <action selector="showSearch" destination="NLl-EJ-4Fe" id="ZiW-hm-tkM"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Pokaż" id="3G4-Ap-726">
                             <connections>
                                 <action selector="showAction:" destination="NLl-EJ-4Fe" id="AMi-fr-cO2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="_searchBar" destination="syL-sT-vOg" id="otS-lV-sQR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmL-iv-uFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

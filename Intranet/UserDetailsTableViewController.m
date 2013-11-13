@@ -61,7 +61,8 @@
     
     //code here
     
-    self.title = @"Informacje kontaktowe";
+    if (INTERFACE_IS_PAD)
+        self.title = @"Informacje kontaktowe";
     
     [self.tableView hideEmptySeparators];
     
