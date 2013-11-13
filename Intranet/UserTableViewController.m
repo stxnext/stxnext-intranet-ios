@@ -163,6 +163,17 @@ typedef enum
     [self.tableView reloadData];
 }
 
+- (void)clearDetailsController
+{
+    UIViewController* detailController = self.splitViewController.viewControllers.lastObject;
+    
+    if (![detailController isKindOfClass:[UINavigationController class]])
+        return;
+    
+    UINavigationController* navigationController = (UINavigationController*)detailController;
+    [navigationController setViewControllers:@[ [UIViewController new] ]];
+}
+
 - (void)loadUsersFromAPI
 {
     __block NSInteger operations = 2;
@@ -191,6 +202,7 @@ typedef enum
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
+                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -237,6 +249,7 @@ typedef enum
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
+                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
