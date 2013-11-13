@@ -262,7 +262,7 @@ typedef enum
     if ([_actionSheet isVisible])
         return;
     
-    _actionSheet = _actionSheet ?: [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+    _actionSheet = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
         switch (theButtonIndex)
         {
             case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
