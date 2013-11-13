@@ -35,8 +35,8 @@ const NSString* MapKeyLateUserName = @"name";
                                       withDecorator:^(NSManagedObject<JSONMapping>* object) {
                                           RMLate* late = (RMLate*)object;
                                           late.id = [json[MapKeyLateId] validObject];
-                                          late.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStart] validObject] withDateFormat:@"dd.MM.yy"];
-                                          late.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStop] validObject] withDateFormat:@"dd.MM.yy"];
+                                          late.start = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStart] validObject] withDateFormat:@"HH:mm"];
+                                          late.stop = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyLateStop] validObject] withDateFormat:@"HH:mm"];
                                           late.explanation = [json[MapKeyLateExplanation] validObject];
                                           late.isWorkingFromHome = [json[MapKeyLateIsWorkingFromHome] validObject];
                                           late.user = (RMUser*)[JSONSerializationHelper objectWithClass:[RMUser class]

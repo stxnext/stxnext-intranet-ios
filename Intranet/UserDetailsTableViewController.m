@@ -134,7 +134,7 @@
             RMLate *late = (RMLate *)obj;
 
             NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
 
             if (start.length || stop.length)
             {

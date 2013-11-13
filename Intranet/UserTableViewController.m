@@ -185,6 +185,9 @@ typedef enum
                                           for (id user in responseObject[@"users"])
                                               [RMUser mapFromJSON:user];
                                           
+                                          // Save database
+                                          [[DatabaseManager sharedManager] saveContext];
+                                          
                                           // Load from database
                                           [self loadUsersFromDatabase];
                                           
@@ -225,6 +228,9 @@ typedef enum
                                           
                                           for (id late in responseObject[@"lates"])
                                               [RMLate mapFromJSON:late];
+                                          
+                                          // Save database
+                                          [[DatabaseManager sharedManager] saveContext];
                                           
                                           NSLog(@"Loaded: absences and lates");
                                           
@@ -303,7 +309,7 @@ typedef enum
             RMLate *late = (RMLate *)obj;
             
             NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
             
             if (start.length || stop.length)
             {
