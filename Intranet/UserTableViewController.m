@@ -24,6 +24,7 @@ typedef enum
 
 @implementation UserTableViewController
 {
+    BOOL isSearchVisible;
     STXSortingType currentSortType;
     NSString* searchedString;
 }
@@ -32,6 +33,7 @@ typedef enum
 {
     [super viewDidLoad];
     
+    isSearchVisible = NO;
     searchedString = @"";
     _actionSheet = nil;
     _userList = [NSArray array];
@@ -294,7 +296,8 @@ typedef enum
 {
     [UIView animateWithDuration:0.33 animations:^{
         _searchBar.text = @"";
-        self.tableView.tableHeaderView = _searchBar;
+        isSearchVisible = YES;
+        [self.tableView reloadData];
     }];
     
     double delayInSeconds = 0.33;
@@ -321,7 +324,8 @@ typedef enum
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
     [UIView animateWithDuration:0.33 animations:^{
-        self.tableView.tableHeaderView = nil;
+        isSearchVisible = NO;
+        [self.tableView reloadData];
     }];
     
     double delayInSeconds = 0.33;
@@ -333,6 +337,16 @@ typedef enum
 }
 
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return isSearchVisible ? _searchBar.frame.size.height : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return isSearchVisible ? _searchBar : nil;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
