@@ -245,19 +245,22 @@ typedef enum
 
 - (IBAction)showAction:(id)sender
 {
-    UIActionSheet *actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
-        switch (theButtonIndex)
-        {
-            case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
-            case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
-            case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
-            case 3:  break;
-            case 4: [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent]; break;
-            case 5: [self loadUsersFromDatabaseWithType:STXSortingTypeLate]; break;
-        }
-    }];
-    
-    [actionSheet showFromBarButtonItem:sender animated:YES];
+    if (!actionSheet.isVisible)
+    {
+        actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+            switch (theButtonIndex)
+            {
+                case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
+                case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
+                case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
+                case 3:  break;
+                case 4: [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent]; break;
+                case 5: [self loadUsersFromDatabaseWithType:STXSortingTypeLate]; break;
+            }
+        }];
+
+        [actionSheet showFromBarButtonItem:sender animated:YES];
+    }
 }
 
 - (void)loadUsersFromDatabaseWithType:(STXSortingType)type

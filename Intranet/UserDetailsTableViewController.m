@@ -185,7 +185,6 @@
     
     self.explanationLabel.text = text;
     
-    NSLog(@"%@", self.explanationLabel.text);
     [self.explanationLabel sizeToFit];
 }
 
@@ -382,5 +381,13 @@
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (BOOL)shouldAutorotate
+{
+    [self.explanationLabel sizeToFit];
+    
+    return YES;
+}
+
 
 @end
