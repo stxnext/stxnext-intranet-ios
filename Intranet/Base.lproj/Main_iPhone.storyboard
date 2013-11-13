@@ -347,11 +347,11 @@
             </objects>
             <point key="canvasLocation" x="1685" y="-212"/>
         </scene>
-        <!--Navigation Controller - Lista-->
+        <!--Navigation Controller - Lista osób-->
         <scene sceneID="pLe-vT-XJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nvf-NT-HOc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Lista" image="Tabbar icons 1" id="3B0-eY-fjy"/>
+                    <tabBarItem key="tabBarItem" title="Lista osób" image="Tabbar icons 1" id="3B0-eY-fjy"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="egg-Ro-Cxg">
@@ -367,11 +367,11 @@
             </objects>
             <point key="canvasLocation" x="653" y="-209"/>
         </scene>
-        <!--Navigation Controller - Inne-->
+        <!--Navigation Controller - Ja-->
         <scene sceneID="VvS-jr-683">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N91-HD-i7s" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Inne" image="Tababr icons 2" id="Z7h-1E-pvt"/>
+                    <tabBarItem key="tabBarItem" title="Ja" image="Tababr icons 2" id="Z7h-1E-pvt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f8z-aH-CAF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

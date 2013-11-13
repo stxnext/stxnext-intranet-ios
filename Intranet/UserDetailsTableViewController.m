@@ -160,7 +160,7 @@
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
             

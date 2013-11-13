@@ -40,7 +40,7 @@ typedef enum
     self.refreshControl = refresh;
     
     [self.tableView hideEmptySeparators];
-    self.title = @"Lista";
+    self.title = @"Lista osób";
     
     [self loadUsersFromDatabase];
 }
@@ -324,7 +324,7 @@ typedef enum
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
         }];
