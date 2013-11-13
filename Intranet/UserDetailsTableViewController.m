@@ -248,7 +248,10 @@
     {
         [self ircSend];
     }
-    
+    else if (cell == self.addToContactsCell)
+    {
+        [self addToContacts];
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -312,7 +315,7 @@
   orAlertWithText:@"Nie znaleziono aplikacji do komunikacji IRC."];
 }
 
-- (IBAction)addToContacts:(id)sender
+- (void)addToContacts
 {
     if ([_user isInContacts])
     {
@@ -330,11 +333,11 @@
 {
     if ([_user isInContacts])
     {
-        [self.addToContactsButton setTitle:NSLocalizedString(@"Usuń z kontaktów", nil) forState:UIControlStateNormal];
+        self.addToContactLabel.text = NSLocalizedString(@"usuń z kontaktów", nil);
     }
     else
     {
-        [self.addToContactsButton setTitle:NSLocalizedString(@"Dodaj do kontaktów", nil) forState:UIControlStateNormal];
+        self.addToContactLabel.text = NSLocalizedString(@"dodaj do kontaktów", nil);
     }
 }
 

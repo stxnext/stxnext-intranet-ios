@@ -18,16 +18,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *skypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ircLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *addToContactLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *phoneDeskCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *phoneCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *emailCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *skypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ircCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *addToContactsCell;
 @property (weak, nonatomic) IBOutlet UIImageView *warningImage;
 @property (weak, nonatomic) IBOutlet UITextView *explanationLabel;
-
-@property (weak, nonatomic) IBOutlet UIButton *addToContactsButton;
 
 @property (strong, nonatomic) RMUser *user;
 
