@@ -34,15 +34,16 @@ typedef enum
     [super viewDidLoad];
     
     isSearchVisible = NO;
+    
     searchedString = @"";
     _actionSheet = nil;
     _userList = [NSArray array];
     currentSortType = STXSortingTypeWorkers;
     
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    /*UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refresh;
+    self.refreshControl = refresh;*/
     
     self.tableView.tableHeaderView = nil;
     [self.tableView hideEmptySeparators];
@@ -59,6 +60,12 @@ typedef enum
     {
         [self showLoginScreen];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_searchBar resignFirstResponder];
 }
 
 #pragma mark Login delegate
@@ -98,7 +105,7 @@ typedef enum
 
 - (void)stopRefreshData
 {
-    [self.refreshControl endRefreshing];
+    // [self.refreshControl endRefreshing];
 }
 
 - (void)loadUsers
@@ -294,10 +301,10 @@ typedef enum
 
 - (IBAction)showSearch
 {
+    _searchBar.text = @"";
+    isSearchVisible = YES;
     [UIView animateWithDuration:0.33 animations:^{
-        _searchBar.text = @"";
-        isSearchVisible = YES;
-        [self.tableView reloadData];
+        [self updateSearchBarForState:isSearchVisible];
     }];
     
     double delayInSeconds = 0.33;
@@ -314,6 +321,34 @@ typedef enum
     [self loadUsersFromDatabase];
 }
 
+- (void)updateSearchBarForState:(BOOL)barVisible
+{
+    CGRect frame = _searchBar.frame;
+
+    if (barVisible)
+    {
+        frame.origin.y = 64.0f;
+    }
+    else
+    {
+        frame.origin.y = 20.0f;
+    }
+    _searchBar.frame = frame;
+    
+    [self updateTableViewForSearchBarState:barVisible];
+}
+
+- (void)updateTableViewForSearchBarState:(BOOL)barVisible
+{
+    CGRect frame = self.tableView.frame;
+    
+    frame.origin.y = _searchBar.frame.origin.y + _searchBar.frame.size.height;
+    
+    // TO DO: SET TABLE VIEW FRAME
+    
+    self.tableView.frame = frame;
+}
+
 #pragma mark - Search bar delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -323,9 +358,10 @@ typedef enum
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
+    isSearchVisible = NO;
+    [_searchBar resignFirstResponder];
     [UIView animateWithDuration:0.33 animations:^{
-        isSearchVisible = NO;
-        [self.tableView reloadData];
+        [self updateSearchBarForState:isSearchVisible];
     }];
     
     double delayInSeconds = 0.33;
@@ -333,20 +369,19 @@ typedef enum
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self reloadSearchWithText:@""];
     });
-
 }
 
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+/*- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return isSearchVisible ? _searchBar.frame.size.height : 0;
-}
+}*/
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     return isSearchVisible ? _searchBar : nil;
-}
+}*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
