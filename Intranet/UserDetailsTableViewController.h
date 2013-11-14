@@ -33,7 +33,4 @@
 
 @property (strong, nonatomic) RMUser *user;
 
-
-- (IBAction)addToContacts:(id)sender;
-
 @end

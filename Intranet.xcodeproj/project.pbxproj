@@ -54,6 +54,7 @@
 		272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF88F183229460014FBCA /* AppDelegate+Navigation.m */; };
 		272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272DF89518324D320014FBCA /* AddressBook.framework */; };
 		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
+		2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2791D7C31833B82F0073C9DC /* AddressBookManager.m */; };
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
@@ -150,6 +151,8 @@
 		272DF89518324D320014FBCA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		272DF89718324DD00014FBCA /* RMUser+AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+AddressBook.h"; sourceTree = "<group>"; };
 		272DF89818324DD00014FBCA /* RMUser+AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+AddressBook.m"; sourceTree = "<group>"; };
+		2791D7C21833B82F0073C9DC /* AddressBookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookManager.h; sourceTree = "<group>"; };
+		2791D7C31833B82F0073C9DC /* AddressBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookManager.m; sourceTree = "<group>"; };
 		27A999D1182255C60091B173 /* HTTPClient+Cookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPClient+Cookies.h"; sourceTree = "<group>"; };
 		27A999D2182255C60091B173 /* HTTPClient+Cookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+Cookies.m"; sourceTree = "<group>"; };
 		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
@@ -402,13 +405,15 @@
 		0CF7FA471821449D0056F907 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				0CF7FA48182144E20056F907 /* Database.xcdatamodeld */,
-				0C43A79C1822618700FB513D /* Models */,
+				2791D7C21833B82F0073C9DC /* AddressBookManager.h */,
+				2791D7C31833B82F0073C9DC /* AddressBookManager.m */,
 				0CF7FA7318214D5F0056F907 /* Database.h */,
+				0CF7FA48182144E20056F907 /* Database.xcdatamodeld */,
 				0CF7FA7A1821590C0056F907 /* DatabaseManager.h */,
 				0CF7FA7B1821590C0056F907 /* DatabaseManager.m */,
 				0CF7FA5A18214AAF0056F907 /* JSONSerializationHelper.h */,
 				0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */,
+				0C43A79C1822618700FB513D /* Models */,
 				0CF7FA7D182163800056F907 /* NSManagedObjectContext+Fetch.h */,
 				0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */,
 			);
@@ -583,6 +588,7 @@
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
+				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 				272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */,

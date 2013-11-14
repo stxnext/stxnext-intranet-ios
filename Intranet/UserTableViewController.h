@@ -11,6 +11,7 @@
 
 @interface UserTableViewController : UITableViewController<LoginViewControllerDelegate>
 {
+    IBOutlet UISearchBar* _searchBar;
     UIActionSheet* _actionSheet;
     NSArray* _userList;
     UIActionSheet *actionSheet;

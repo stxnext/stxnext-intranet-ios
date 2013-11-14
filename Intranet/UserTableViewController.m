@@ -24,13 +24,17 @@ typedef enum
 
 @implementation UserTableViewController
 {
+    BOOL isSearchVisible;
     STXSortingType currentSortType;
+    NSString* searchedString;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    isSearchVisible = NO;
+    searchedString = @"";
     _actionSheet = nil;
     _userList = [NSArray array];
     currentSortType = STXSortingTypeWorkers;
@@ -40,6 +44,7 @@ typedef enum
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
     
+    self.tableView.tableHeaderView = nil;
     [self.tableView hideEmptySeparators];
     self.title = @"Lista osób";
     
@@ -145,6 +150,9 @@ typedef enum
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count = YES"]];
             break;
     }
+    
+    if (searchedString.length > 0)
+        _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
     
     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
           [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -284,7 +292,61 @@ typedef enum
     [self loadUsersFromDatabase];
 }
 
+- (IBAction)showSearch
+{
+    [UIView animateWithDuration:0.33 animations:^{
+        _searchBar.text = @"";
+        isSearchVisible = YES;
+        [self.tableView reloadData];
+    }];
+    
+    double delayInSeconds = 0.33;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_searchBar becomeFirstResponder];
+    });
+}
+
+- (void)reloadSearchWithText:(NSString*)text
+{
+    searchedString = text;
+    
+    [self loadUsersFromDatabase];
+}
+
+#pragma mark - Search bar delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self reloadSearchWithText:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [UIView animateWithDuration:0.33 animations:^{
+        isSearchVisible = NO;
+        [self.tableView reloadData];
+    }];
+    
+    double delayInSeconds = 0.33;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self reloadSearchWithText:@""];
+    });
+
+}
+
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return isSearchVisible ? _searchBar.frame.size.height : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return isSearchVisible ? _searchBar : nil;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
