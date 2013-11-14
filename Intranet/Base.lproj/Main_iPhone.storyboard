@@ -94,7 +94,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="94"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Imię i nazwisko" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="hNA-vA-Gsm">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Imię i nazwisko" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="hNA-vA-Gsm">
                                             <rect key="frame" x="98" y="10" width="189" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
@@ -104,12 +104,16 @@
                                             <rect key="frame" x="15" y="10" width="75" height="75"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o9L-zb-G5W" customClass="ClockView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9L-zb-G5W" customClass="ClockView">
                                             <rect key="frame" x="290" y="65" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="oVP-he-4Fc"/>
+                                                <constraint firstAttribute="height" constant="40" id="thH-wv-VtP"/>
+                                            </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-sT-fde">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="3gB-sT-fde">
                                             <rect key="frame" x="98" y="73" width="189" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -117,6 +121,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="3gB-sT-fde" secondAttribute="bottom" id="Bcc-sN-Jjf"/>
+                                        <constraint firstItem="hNA-vA-Gsm" firstAttribute="top" secondItem="chE-07-Mwa" secondAttribute="top" constant="10" id="HHh-6V-Xma"/>
+                                        <constraint firstItem="hNA-vA-Gsm" firstAttribute="leading" secondItem="chE-07-Mwa" secondAttribute="leading" constant="98" id="Jb4-QV-l8c"/>
+                                        <constraint firstAttribute="bottom" secondItem="o9L-zb-G5W" secondAttribute="bottom" constant="-11" id="Kxy-as-6pc"/>
+                                        <constraint firstAttribute="trailing" secondItem="hNA-vA-Gsm" secondAttribute="trailing" id="PCS-oo-Sbz"/>
+                                        <constraint firstItem="3gB-sT-fde" firstAttribute="leading" secondItem="chE-07-Mwa" secondAttribute="leading" constant="98" id="PG4-PD-RDQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="3gB-sT-fde" secondAttribute="trailing" id="Xvg-aM-UGh"/>
+                                        <constraint firstAttribute="trailing" secondItem="o9L-zb-G5W" secondAttribute="trailing" constant="-43" id="YFM-Zf-fxp"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="clockView" destination="o9L-zb-G5W" id="vcq-Lv-pzK"/>
