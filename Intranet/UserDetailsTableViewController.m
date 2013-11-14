@@ -205,7 +205,7 @@
     [super viewWillAppear:animated];
     
     // check if user is in system contacts or not
-    //[self updateAddToContactsButton];
+    [self updateAddToContactsButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -325,9 +325,6 @@
 
 - (void)addToContacts
 {
-    [UIAlertView alertWithTitle:@"Błąd" withText:@"Funkcja nie jest w pełni zaimplementowana."];
-    return;
-    
     if ([_user isInContacts])
     {
         [_user removeFromContacts];

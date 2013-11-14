@@ -12,6 +12,28 @@
 
 @implementation RMUser (AddressBook)
 
++ (NSString*)stringForProperty:(ABPropertyID)property inRecord:(ABRecordRef)record
+{
+    CFStringRef stringRef = ABRecordCopyValue(record, property);
+    NSString* value = stringRef ? [NSString stringWithFormat:@"%@", stringRef] : nil;
+    
+    if (stringRef) CFRelease(stringRef);
+    
+    return value;
+}
+
++ (NSString*)fullNameForPerson:(ABRecordRef)person
+{
+    NSString* firstName = [RMUser stringForProperty:kABPersonFirstNameProperty inRecord:person];
+    NSString* lastName = [RMUser stringForProperty:kABPersonLastNameProperty inRecord:person];
+    
+    NSMutableString* name = [NSMutableString string];
+    if (firstName) [name appendString:firstName];
+    if (lastName) [name appendString:[NSString stringWithFormat:@" %@", lastName]];
+    
+    return name;
+}
+
 - (BOOL)isInContacts
 {
     __block BOOL result = NO;
@@ -24,32 +46,16 @@
             
             for (int i = 0; i < numberOfPeople; i++)
             {
-                ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+                NSString* name = [RMUser fullNameForPerson:CFArrayGetValueAtIndex(allPeople, i)];
                 
-                CFStringRef firstName = (ABRecordCopyValue(person, kABPersonFirstNameProperty));
-                CFStringRef lastName = (ABRecordCopyValue(person, kABPersonLastNameProperty));
-                
-                CFStringRef strs[2] = { firstName, lastName };
-                CFArrayRef strsArray = CFArrayCreate(NULL, (void *)strs, 2, &kCFTypeArrayCallBacks);
-
-                CFRelease(firstName);
-                CFRelease(lastName);
-                
-                CFStringRef name = CFStringCreateByCombiningStrings(NULL, strsArray, CFSTR(" "));
-                
-                CFRelease(strsArray);
-                
-                if (CFStringCompare(name, (__bridge CFStringRef)self.name, kCFCompareCaseInsensitive) == kCFCompareEqualTo) // found
+                if ([name caseInsensitiveCompare:self.name] == NSOrderedSame)
                 {
                     result = YES;
-                    CFRelease(name);
                     break;
                 }
-                
-                CFRelease(name);
             }
             
-            CFRelease(allPeople);
+            if (allPeople) CFRelease(allPeople);
         }
         else
         {
@@ -104,17 +110,18 @@
                     ABMutableMultiValueRef multiPhone = ABMultiValueCreateMutable(kABMultiStringPropertyType);
                     ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)self.phone, kABPersonPhoneMainLabel, NULL);
                     ABRecordSetValue(newPerson, kABPersonPhoneProperty, multiPhone, &error);
-                    CFRelease(multiPhone);
+                    if (multiPhone) CFRelease(multiPhone);
                 }
                 
                 ABAddressBookAddRecord(addressBook, newPerson, &error);
-                CFRelease(newPerson);
+                
+                if (newPerson) CFRelease(newPerson);
                 
                 if (error != NULL)
                 {
                     CFStringRef errorDesc = CFErrorCopyDescription(error);
                     NSLog(@"Contact not added: %@", errorDesc);
-                    CFRelease(errorDesc);
+                    if (errorDesc) CFRelease(errorDesc);
                 }
                 else
                 {
@@ -124,7 +131,7 @@
                     {
                         CFStringRef errorDesc = CFErrorCopyDescription(error);
                         NSLog(@"Contact not saved: %@", errorDesc);
-                        CFRelease(errorDesc);
+                        if (errorDesc) CFRelease(errorDesc);
                     }
                 }
             }
@@ -145,36 +152,19 @@
                 BOOL found = NO;
                 for (int i = 0; i < numberOfPeople; i++)
                 {
-                    ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+                    NSString* name = [RMUser fullNameForPerson:CFArrayGetValueAtIndex(allPeople, i)];
                     
-                    CFStringRef firstName = (ABRecordCopyValue(person, kABPersonFirstNameProperty));
-                    CFStringRef lastName = (ABRecordCopyValue(person, kABPersonLastNameProperty));
-                    
-                    CFStringRef strs[2] = { firstName, lastName };
-                    CFArrayRef strsArray = CFArrayCreate(NULL, (void *)strs, 2, &kCFTypeArrayCallBacks);
-                    
-                    CFRelease(firstName);
-                    CFRelease(lastName);
-                    
-                    CFStringRef name = CFStringCreateByCombiningStrings(NULL, strsArray, CFSTR(" "));
-                    
-                    CFRelease(strsArray);
-                    
-                    if (CFStringCompare(name, (__bridge CFStringRef)self.name, kCFCompareCaseInsensitive) == kCFCompareEqualTo) // found
+                    if ([name caseInsensitiveCompare:self.name] == NSOrderedSame)
                     {
                         found = YES;
-                        
-                        CFRelease(name);
                         
                         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
                         ABAddressBookRemoveRecord(addressBook, ref, nil);
                         break;
                     }
-                    
-                    CFRelease(name);
                 }
 
-                CFRelease(allPeople);
+                if (allPeople) CFRelease(allPeople);
                 
                 if (found)
                 {
@@ -212,7 +202,7 @@
                 
             }
             
-            CFRelease(allPeople);
+            if (allPeople) CFRelease(allPeople);
         }
         else
         {
@@ -250,7 +240,7 @@
                 NSLog(@"=============================================");
             }
             
-            CFRelease(allPeople);
+            if (allPeople) CFRelease(allPeople);
         }
         else
         {
