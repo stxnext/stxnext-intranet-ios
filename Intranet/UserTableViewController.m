@@ -20,36 +20,67 @@ typedef enum
     STXSortingTypeFreelancers,
     STXSortingTypeAbsent,
     STXSortingTypeLate
-}STXSortingType;
+} STXSortingType;
+
+static CGFloat statusBarHeight;
+static CGFloat navBarHeight;
+static CGFloat tabBarHeight;
 
 @implementation UserTableViewController
 {
-    BOOL isSearchVisible;
     STXSortingType currentSortType;
     NSString* searchedString;
+    NSIndexPath* currentIndexPath;
+    
+    BOOL keyboardVisible;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    isSearchVisible = NO;
+    statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    
+    keyboardVisible = NO;
+    [self updateGuiForBarState:NO];
     
     searchedString = @"";
     _actionSheet = nil;
     _userList = [NSArray array];
     currentSortType = STXSortingTypeWorkers;
     
-    /*UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refresh;*/
+    [_tableView addSubview:refresh];
     
-    self.tableView.tableHeaderView = nil;
-    [self.tableView hideEmptySeparators];
+    CGRect frame = refresh.frame;
+    frame.origin.y = -frame.size.height;
+    refresh.frame = frame;
+    [_tableView sendSubviewToBack:refresh];
+    
+    _refreshControl = refresh;
+    
+    [_tableView hideEmptySeparators];
     self.title = @"Lista osób";
     
     [self loadUsersFromDatabase];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    if (currentIndexPath)
+    {
+        [_tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
+        currentIndexPath = nil;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,7 +96,8 @@ typedef enum
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [_searchBar resignFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark Login delegate
@@ -105,7 +137,7 @@ typedef enum
 
 - (void)stopRefreshData
 {
-    // [self.refreshControl endRefreshing];
+    [_refreshControl endRefreshing];
 }
 
 - (void)loadUsers
@@ -118,7 +150,7 @@ typedef enum
         [self loadUsersFromAPI];
     
     // Refresh GUI
-    [self.tableView reloadData];
+    [_tableView reloadData];
     [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
 }
 
@@ -175,7 +207,7 @@ typedef enum
                                       withPredicate:nil
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
     
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 
 - (void)clearDetailsController
@@ -299,19 +331,11 @@ typedef enum
     [self loadUsersFromDatabase];
 }
 
+#pragma mark - Search management
+
 - (IBAction)showSearch
 {
-    _searchBar.text = @"";
-    isSearchVisible = YES;
-    [UIView animateWithDuration:0.33 animations:^{
-        [self updateSearchBarForState:isSearchVisible];
-    }];
-    
-    double delayInSeconds = 0.33;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [_searchBar becomeFirstResponder];
-    });
+    [self showSearchBar:_searchBar animated:YES];
 }
 
 - (void)reloadSearchWithText:(NSString*)text
@@ -321,32 +345,64 @@ typedef enum
     [self loadUsersFromDatabase];
 }
 
-- (void)updateSearchBarForState:(BOOL)barVisible
+- (void)updateGuiForBarState:(BOOL)barVisible
 {
-    CGRect frame = _searchBar.frame;
-
-    if (barVisible)
+    CGRect barFrame = _searchBar.frame;
+    CGRect tableFrame = _tableView.frame;
+    
+    barFrame.origin.y = iOS7_PLUS ? statusBarHeight + navBarHeight : 0.0f;
+    
+    if (!barVisible)
     {
-        frame.origin.y = 64.0f;
+        barFrame.origin.y -= barFrame.size.height;
+    }
+    
+    tableFrame.origin.y = barFrame.origin.y + barFrame.size.height;
+    tableFrame.size.height = self.view.frame.size.height - tableFrame.origin.y;
+    
+    if (iOS7_PLUS)
+    {
+        tableFrame.size.height -= tabBarHeight;
+    }
+    
+    _searchBar.frame = barFrame;
+    _tableView.frame = tableFrame;
+}
+
+- (void)showSearchBar:(UISearchBar *)searchBar animated:(BOOL)animated
+{
+    _searchBar.text = @"";
+    [UIView animateWithDuration:0.33 animations:^{
+        [self updateGuiForBarState:YES];
+    }];
+    
+    double delayInSeconds = 0.33;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_searchBar becomeFirstResponder];
+    });
+}
+
+- (void)hideSearchBar:(UISearchBar *)searchBar animated:(BOOL)animated
+{
+    [_searchBar resignFirstResponder];
+    
+    if (animated)
+    {
+        [UIView animateWithDuration:0.33 animations:^{
+            [self updateGuiForBarState:NO];
+        }];
     }
     else
     {
-        frame.origin.y = 20.0f;
+        [self updateGuiForBarState:NO];
     }
-    _searchBar.frame = frame;
     
-    [self updateTableViewForSearchBarState:barVisible];
-}
-
-- (void)updateTableViewForSearchBarState:(BOOL)barVisible
-{
-    CGRect frame = self.tableView.frame;
-    
-    frame.origin.y = _searchBar.frame.origin.y + _searchBar.frame.size.height;
-    
-    // TO DO: SET TABLE VIEW FRAME
-    
-    self.tableView.frame = frame;
+    double delayInSeconds = 0.33;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self reloadSearchWithText:@""];
+    });
 }
 
 #pragma mark - Search bar delegate
@@ -358,30 +414,10 @@ typedef enum
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
-    isSearchVisible = NO;
-    [_searchBar resignFirstResponder];
-    [UIView animateWithDuration:0.33 animations:^{
-        [self updateSearchBarForState:isSearchVisible];
-    }];
-    
-    double delayInSeconds = 0.33;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self reloadSearchWithText:@""];
-    });
+    [self hideSearchBar:searchBar animated:YES];
 }
 
 #pragma mark - Table view data source
-
-/*- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return isSearchVisible ? _searchBar.frame.size.height : 0;
-}*/
-
-/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return isSearchVisible ? _searchBar : nil;
-}*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -414,9 +450,7 @@ typedef enum
     latesDateFormater.dateFormat = @"HH:mm";
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-
-//    cell.clockView.color = MAIN_GREEN_COLOR;
-    
+   
     if (user.lates.count)
     {
         cell.clockView.color = MAIN_YELLOW_COLOR;
@@ -465,14 +499,64 @@ typedef enum
     return cell;
 }
 
+#pragma mark - Storyboard
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
     {
         UserListCell *cell = (UserListCell *)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+        currentIndexPath = indexPath;
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
+}
+
+#pragma mark - Keyboard management
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if (!keyboardVisible)
+    {
+        [self updateTableForKeyboardVisible:YES keyboardInfo:notification.userInfo];
+    }
+    
+    keyboardVisible = YES;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    if (keyboardVisible)
+    {
+        [self updateTableForKeyboardVisible:NO keyboardInfo:notification.userInfo];
+    }
+    
+    keyboardVisible = NO;
+}
+
+- (void)updateTableForKeyboardVisible:(BOOL)visible keyboardInfo:(NSDictionary *)info
+{
+    CGRect keyboardBounds = CGRectZero;
+    
+    [[info valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardBounds];
+    CGFloat keyboardHeight = keyboardBounds.size.height;
+    
+    NSTimeInterval duration = 0.0;
+    [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&duration];
+    
+    [UIView animateWithDuration:duration animations:^{
+        CGRect frame = _tableView.frame;
+        
+        if (visible)
+        {
+            frame.size.height -= (keyboardHeight - tabBarHeight);
+        }
+        else
+        {
+            frame.size.height += (keyboardHeight - tabBarHeight);
+        }
+        _tableView.frame = frame;
+    } completion:nil];
 }
 
 @end

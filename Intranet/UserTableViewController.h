@@ -12,13 +12,14 @@
 @interface UserTableViewController : UIViewController<LoginViewControllerDelegate,
                                                     UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 {
+    IBOutlet UITableView* _tableView;
     IBOutlet UISearchBar* _searchBar;
+
+    UIRefreshControl* _refreshControl;
     UIActionSheet* _actionSheet;
     NSArray* _userList;
     UIActionSheet *actionSheet;
 }
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)showAction:(id)sender;
 
