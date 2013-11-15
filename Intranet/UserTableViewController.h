@@ -14,6 +14,8 @@
 {
     IBOutlet UITableView* _tableView;
     IBOutlet UISearchBar* _searchBar;
+    IBOutlet UIBarButtonItem *_showSearchButton;
+    IBOutlet UIBarButtonItem *_showActionButton;
 
     UIRefreshControl* _refreshControl;
     UIActionSheet* _actionSheet;
@@ -21,6 +23,7 @@
     UIActionSheet *actionSheet;
 }
 
+- (IBAction)showSearch;
 - (IBAction)showAction:(id)sender;
 
 @end

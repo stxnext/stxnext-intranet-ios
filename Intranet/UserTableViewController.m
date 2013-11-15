@@ -44,6 +44,7 @@ static CGFloat tabBarHeight;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
     
     keyboardVisible = NO;
+    
     [self updateGuiForBarState:NO];
     
     searchedString = @"";
@@ -132,12 +133,16 @@ static CGFloat tabBarHeight;
 
 - (void)startRefreshData
 {
+    _showSearchButton.enabled = NO;
+    _showActionButton.enabled = NO;
     [self loadUsersFromAPI];
 }
 
 - (void)stopRefreshData
 {
     [_refreshControl endRefreshing];
+    _showSearchButton.enabled = YES;
+    _showActionButton.enabled = YES;
 }
 
 - (void)loadUsers
@@ -335,6 +340,8 @@ static CGFloat tabBarHeight;
 
 - (IBAction)showSearch
 {
+    //_refreshControl.alpha = 0.0f;
+    _showSearchButton.enabled = NO;
     [self showSearchBar:_searchBar animated:YES];
 }
 
@@ -415,6 +422,8 @@ static CGFloat tabBarHeight;
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
     [self hideSearchBar:searchBar animated:YES];
+    _showSearchButton.enabled = YES;
+    //_refreshControl.alpha = 1.0f;
 }
 
 #pragma mark - Table view data source

@@ -371,6 +371,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="_searchBar" destination="akX-Np-tOg" id="v5H-57-bxR"/>
+                        <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
+                        <outlet property="_showSearchButton" destination="PFN-iJ-L2w" id="S72-5j-zCO"/>
                         <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
                     </connections>
                 </viewController>
