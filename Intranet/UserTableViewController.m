@@ -33,6 +33,7 @@ static CGFloat tabBarHeight;
     NSIndexPath* currentIndexPath;
     
     BOOL keyboardVisible;
+    BOOL searchBarVisible;
 }
 
 - (void)viewDidLoad
@@ -44,8 +45,9 @@ static CGFloat tabBarHeight;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
     
     keyboardVisible = NO;
+    searchBarVisible = NO;
     
-    [self updateGuiForBarState:NO];
+    [self updateGuiForBarState:searchBarVisible];
     
     searchedString = @"";
     _actionSheet = nil;
@@ -99,6 +101,15 @@ static CGFloat tabBarHeight;
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+   
+    navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
+    
+    [self updateGuiForBarState:searchBarVisible];
 }
 
 #pragma mark Login delegate
@@ -354,33 +365,28 @@ static CGFloat tabBarHeight;
 
 - (void)updateGuiForBarState:(BOOL)barVisible
 {
-    CGRect barFrame = _searchBar.frame;
-    CGRect tableFrame = _tableView.frame;
-    
-    barFrame.origin.y = iOS7_PLUS ? statusBarHeight + navBarHeight : 0.0f;
-    
-    if (!barVisible)
-    {
-        barFrame.origin.y -= barFrame.size.height;
-    }
-    
-    tableFrame.origin.y = barFrame.origin.y + barFrame.size.height;
-    tableFrame.size.height = self.view.frame.size.height - tableFrame.origin.y;
-    
     if (iOS7_PLUS)
     {
-        tableFrame.size.height -= tabBarHeight;
+        self.searchBarTopConstraint.constant = barVisible ? statusBarHeight + navBarHeight : statusBarHeight
+                                                        + navBarHeight - _searchBar.frame.size.height;
+        self.tableViewBottomConstraint.constant = tabBarHeight;
+    }
+    else
+    {
+        self.searchBarTopConstraint.constant = barVisible ? 0.0f : -_searchBar.frame.size.height;
+        self.tableViewBottomConstraint.constant = 0.0f;
     }
     
-    _searchBar.frame = barFrame;
-    _tableView.frame = tableFrame;
+    [_searchBar layoutIfNeeded];
+    [_tableView layoutIfNeeded];
 }
 
 - (void)showSearchBar:(UISearchBar *)searchBar animated:(BOOL)animated
 {
     _searchBar.text = @"";
+    searchBarVisible = YES;
     [UIView animateWithDuration:0.33 animations:^{
-        [self updateGuiForBarState:YES];
+        [self updateGuiForBarState:searchBarVisible];
     }];
     
     double delayInSeconds = 0.33;
@@ -398,11 +404,14 @@ static CGFloat tabBarHeight;
     {
         [UIView animateWithDuration:0.33 animations:^{
             [self updateGuiForBarState:NO];
+        } completion:^(BOOL finished) {
+            searchBarVisible = NO;
         }];
     }
     else
     {
         [self updateGuiForBarState:NO];
+        searchBarVisible = NO;
     }
     
     double delayInSeconds = 0.33;
@@ -554,17 +563,10 @@ static CGFloat tabBarHeight;
     [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&duration];
     
     [UIView animateWithDuration:duration animations:^{
-        CGRect frame = _tableView.frame;
+        CGFloat offset = iOS7_PLUS ? 0.0f : -tabBarHeight;
+        self.tableViewBottomConstraint.constant = visible ? (keyboardHeight + offset): 0.0f;
+        [_tableView layoutIfNeeded];
         
-        if (visible)
-        {
-            frame.size.height -= (keyboardHeight - tabBarHeight);
-        }
-        else
-        {
-            frame.size.height += (keyboardHeight - tabBarHeight);
-        }
-        _tableView.frame = frame;
     } completion:nil];
 }
 

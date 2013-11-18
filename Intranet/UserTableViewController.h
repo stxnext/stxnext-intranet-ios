@@ -23,6 +23,10 @@
     UIActionSheet *actionSheet;
 }
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
+
 - (IBAction)showSearch;
 - (IBAction)showAction:(id)sender;
 
