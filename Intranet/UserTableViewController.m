@@ -175,7 +175,7 @@ static CGFloat tabBarHeight;
     NSLog(@"Loading from: Database");
     
     NSArray* users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
                                                     withPredicate:nil
                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
