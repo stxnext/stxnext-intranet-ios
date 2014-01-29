@@ -198,20 +198,20 @@
 		0C43A79C1822618700FB513D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0CF7FA6018214B200056F907 /* RMUser.h */,
-				0CF7FA6118214B200056F907 /* RMUser.m */,
-				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
-				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
-				0CF7FA6318214B300056F907 /* RMLate.h */,
-				0CF7FA6418214B300056F907 /* RMLate.m */,
-				0CF7FA6C18214D060056F907 /* RMLate+Additions.h */,
-				0CF7FA6D18214D060056F907 /* RMLate+Additions.m */,
-				0CF7FA6618214B370056F907 /* RMAbsence.h */,
-				0CF7FA6718214B370056F907 /* RMAbsence.m */,
 				0CF7FA6F18214D2B0056F907 /* RMAbsence+Additions.h */,
-				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
+				0CF7FA6618214B370056F907 /* RMAbsence.h */,
+				0CF7FA6C18214D060056F907 /* RMLate+Additions.h */,
+				0CF7FA6318214B300056F907 /* RMLate.h */,
+				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
 				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
+				0CF7FA6018214B200056F907 /* RMUser.h */,
+				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
+				0CF7FA6718214B370056F907 /* RMAbsence.m */,
+				0CF7FA6D18214D060056F907 /* RMLate+Additions.m */,
+				0CF7FA6418214B300056F907 /* RMLate.m */,
+				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
+				0CF7FA6118214B200056F907 /* RMUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -219,10 +219,10 @@
 		0C43A79D1822723500FB513D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				66063DC6182149A300C30C93 /* UserListCell.h */,
-				66063DC7182149A300C30C93 /* UserListCell.m */,
 				66600E581833984600BA9DC3 /* ClockView.h */,
+				66063DC6182149A300C30C93 /* UserListCell.h */,
 				66600E591833984600BA9DC3 /* ClockView.m */,
+				66063DC7182149A300C30C93 /* UserListCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -241,14 +241,14 @@
 			isa = PBXGroup;
 			children = (
 				0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */,
-				0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */,
-				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
-				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
 				0C853D7D182109DE008D0516 /* APIRequest.h */,
-				0C853D7E182109DE008D0516 /* APIRequest.m */,
 				27A999D1182255C60091B173 /* HTTPClient+Cookies.h */,
-				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
+				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
 				0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */,
+				0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */,
+				0C853D7E182109DE008D0516 /* APIRequest.m */,
+				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
+				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
 				0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */,
 			);
 			name = Network;
@@ -257,11 +257,11 @@
 		0CE37C40181E8ED10087C96E = {
 			isa = PBXGroup;
 			children = (
+				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
+				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
 				0CE37C77181E8ED10087C96E /* IntranetTests */,
-				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C4A181E8ED10087C96E /* Products */,
-				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -277,15 +277,15 @@
 		0CE37C4B181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D90568253FE42FDAA87331E /* libPods.a */,
 				272DF89518324D320014FBCA /* AddressBook.framework */,
 				0CF7FA7418214FB50056F907 /* CoreData.framework */,
+				0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */,
+				0CE37C4C181E8ED10087C96E /* Foundation.framework */,
 				0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */,
 				0C10C4A4181E949000439D24 /* SystemConfiguration.framework */,
-				0CE37C4C181E8ED10087C96E /* Foundation.framework */,
-				0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */,
 				0CE37C50181E8ED10087C96E /* UIKit.framework */,
 				0CE37C71181E8ED10087C96E /* XCTest.framework */,
-				6D90568253FE42FDAA87331E /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,14 +294,14 @@
 			isa = PBXGroup;
 			children = (
 				0CF44E88181FE4AE005CC12B /* Application */,
-				0CF44E89181FE4BB005CC12B /* Controllers */,
-				0CF44E87181FE49E005CC12B /* GUI */,
-				0C43A79D1822723500FB513D /* Views */,
-				0C9E8727181EA9C900E90F5E /* Network */,
-				0CF7FA471821449D0056F907 /* Database */,
 				0CF7CACC181FF2F400AAB9D4 /* Categories */,
+				0CF44E89181FE4BB005CC12B /* Controllers */,
+				0CF7FA471821449D0056F907 /* Database */,
 				0CF7CACD181FF30000AAB9D4 /* Externals */,
+				0CF44E87181FE49E005CC12B /* GUI */,
+				0C9E8727181EA9C900E90F5E /* Network */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
+				0C43A79D1822723500FB513D /* Views */,
 			);
 			path = Intranet;
 			sourceTree = "<group>";
@@ -309,11 +309,11 @@
 		0CE37C53181E8ED10087C96E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
-				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
-				0CE37C55181E8ED10087C96E /* InfoPlist.strings */,
 				0CE37C58181E8ED10087C96E /* main.m */,
 				0CE37C5A181E8ED10087C96E /* Intranet-Prefix.pch */,
+				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
+				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
+				0CE37C55181E8ED10087C96E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -339,10 +339,10 @@
 		0CF44E87181FE49E005CC12B /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
-				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
-				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
 				0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */,
+				0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */,
+				0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */,
+				0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -350,12 +350,12 @@
 		0CF44E88181FE4AE005CC12B /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
-				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
-				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
+				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
+				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
+				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -363,18 +363,18 @@
 		0CF44E89181FE4BB005CC12B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
-				0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
-				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
-				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
-				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
-				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
-				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
 				272DF88B183220F90014FBCA /* SettingsViewController.h */,
-				272DF88C183220F90014FBCA /* SettingsViewController.m */,
+				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
+				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
+				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
+				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
+				272DF88C183220F90014FBCA /* SettingsViewController.m */,
+				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
+				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
+				0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -383,13 +383,13 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
-				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
-				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
-				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
-				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
+				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
+				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
+				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -406,16 +406,16 @@
 			isa = PBXGroup;
 			children = (
 				2791D7C21833B82F0073C9DC /* AddressBookManager.h */,
-				2791D7C31833B82F0073C9DC /* AddressBookManager.m */,
 				0CF7FA7318214D5F0056F907 /* Database.h */,
-				0CF7FA48182144E20056F907 /* Database.xcdatamodeld */,
 				0CF7FA7A1821590C0056F907 /* DatabaseManager.h */,
-				0CF7FA7B1821590C0056F907 /* DatabaseManager.m */,
 				0CF7FA5A18214AAF0056F907 /* JSONSerializationHelper.h */,
-				0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */,
-				0C43A79C1822618700FB513D /* Models */,
 				0CF7FA7D182163800056F907 /* NSManagedObjectContext+Fetch.h */,
+				2791D7C31833B82F0073C9DC /* AddressBookManager.m */,
+				0CF7FA7B1821590C0056F907 /* DatabaseManager.m */,
+				0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */,
 				0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */,
+				0CF7FA48182144E20056F907 /* Database.xcdatamodeld */,
+				0C43A79C1822618700FB513D /* Models */,
 			);
 			name = Database;
 			path = ..;
