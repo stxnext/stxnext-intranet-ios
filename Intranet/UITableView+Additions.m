@@ -17,4 +17,20 @@
     [self setTableFooterView:v];
 }
 
+- (void)reloadDataAnimated:(BOOL)animated
+{
+    [self reloadData];
+    
+    if (animated)
+    {
+        CATransition *animation = [CATransition animation];
+        [animation setType:kCATransitionPush];
+        [animation setSubtype:kCATransitionFade];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        [animation setFillMode:kCAFillModeBoth];
+        [animation setDuration:.3];
+        [[self layer] addAnimation:animation forKey:@"UITableViewReloadDataAnimationKey"];   
+    }
+}
+
 @end

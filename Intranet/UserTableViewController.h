@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
+#import "FilterViewController.h"
 
 @interface UserTableViewController : UIViewController<LoginViewControllerDelegate,
-                                                    UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+                                                    UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate>
 {
     IBOutlet UITableView* _tableView;
     IBOutlet UISearchBar* _searchBar;
@@ -26,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
+
+@property (strong, nonatomic) NSMutableArray *filterStructure;
+@property (strong, nonatomic) NSMutableArray *filterSelections;
 
 - (IBAction)showSearch;
 - (IBAction)showAction:(id)sender;

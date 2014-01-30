@@ -10,5 +10,6 @@
 @interface UITableView (Additions)
 
 - (void)hideEmptySeparators;
+- (void)reloadDataAnimated:(BOOL)animated;
 
 @end

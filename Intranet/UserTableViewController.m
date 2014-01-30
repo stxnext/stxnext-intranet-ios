@@ -163,7 +163,9 @@ static CGFloat tabBarHeight;
     
     // If there are no users in CoreData, load from API
     if (!_userList || _userList.count == 0)
+    {
         [self loadUsersFromAPI];
+    }
     
     // Refresh GUI
     [_tableView reloadData];
@@ -174,11 +176,149 @@ static CGFloat tabBarHeight;
 {
     NSLog(@"Loading from: Database");
     
-    NSArray* users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
-                                                    withPredicate:nil
-                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
+                                                 withPredicate:nil //[NSPredicate predicateWithFormat:@"location = 'Wrocław'"]
+                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
+    NSLog(@"%@", users);
+    
+    self.filterStructure = [[NSMutableArray alloc] init];
+
+    NSArray *types = @[@"Pracownicy", @"Klienci", @"Freelancers"];
+    NSArray *people = @[@"Wszyscy", @"Obecni", @"Nieobecni", @"Spóźnienia"];
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    NSMutableArray *roles = [[NSMutableArray alloc] init];
+    NSMutableArray *groups = [[NSMutableArray alloc] init];
+    
+    for (RMUser *user in users)
+    {
+        if (user.location)
+        {
+            if (![locations containsObject:user.location])
+            {
+                [locations addObject:[user.location capitalizedString]];
+            }
+        }
+        
+        if (user.roles)
+        {
+            for (NSString *role in user.roles)
+            {
+                if (![roles containsObject:[role capitalizedString]])
+                {
+                    [roles addObject:[role capitalizedString]];
+                }
+            }
+        }
+        
+        if (user.groups)
+        {
+            for (NSString *group in user.groups)
+            {
+                if (![groups containsObject:[group capitalizedString]])
+                {
+                    [groups addObject:[group capitalizedString]];
+                }
+            }
+        }
+    }
+
+    [self.filterStructure addObject:types];
+    [self.filterStructure addObject:people];
+    
+    [self.filterStructure addObject:[locations sortedArrayUsingSelector:@selector(localizedCompare:)]];
+    [self.filterStructure addObject:[roles sortedArrayUsingSelector:@selector(localizedCompare:)]];
+    [self.filterStructure addObject:[groups sortedArrayUsingSelector:@selector(localizedCompare:)]];
+    
+    if (self.filterSelections == nil)
+    {
+        self.filterSelections = [NSMutableArray arrayWithArray:@[
+                                                                 [NSMutableArray arrayWithArray:@[@"Pracownicy"]],
+                                                                 [NSMutableArray arrayWithArray:@[@"Wszyscy"]],
+                                                                 [[NSMutableArray alloc] init],
+                                                                 [[NSMutableArray alloc] init],
+                                                                 [[NSMutableArray alloc] init]
+                                                                 ]];
+    }
+    
+    if (searchedString.length > 0)
+    {
+        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
+    }
+    else
+    {
+        if ([self.filterSelections[0][0] isEqualToString:@"Pracownicy"])
+        {
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+            
+            if ([self.filterSelections[1][0] isEqualToString:@"Wszyscy"])
+            {
+                
+            }
+            else if ([self.filterSelections[1][0] isEqualToString:@"Obecni"])
+            {
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = 0 && lates.@count = 0"]];
+            }
+            else if ([self.filterSelections[1][0] isEqualToString:@"Nieobecni"])
+            {
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count > 0"]];
+            }
+            else if ([self.filterSelections[1][0] isEqualToString:@"Spóźnienia"])
+            {
+                [_userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSLog(@"%@", ((RMUser *)obj).name);
+                    NSLog(@"%i", [((RMUser *)obj).lates count]);
+                }];
+                
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
+            }
+            
+            for (NSString *location in self.filterSelections[2])
+            {
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location = %@", location]];
+            }
+            
+            for (NSString *role in self.filterSelections[3])
+            {
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                    for (NSString *str in ((RMUser *)evaluatedObject).roles)
+                    {
+                        if ([[str capitalizedString] isEqualToString:role])
+                        {
+                            return YES;
+                        }
+                    }
+                    
+                    return NO;
+                }]];
+            }
+            
+            for (NSString *group in self.filterSelections[4])
+            {
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                    for (NSString *str in ((RMUser *)evaluatedObject).groups)
+                    {
+                        if ([[str capitalizedString] isEqualToString:group])
+                        {
+                            return YES;
+                        }
+                    }
+                    
+                    return NO;
+                }]];
+            }
+        }
+        else if ([self.filterSelections[0][0] isEqualToString:@"Klienci"])
+        {
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
+        }
+        else if ([self.filterSelections[0][0] isEqualToString:@"Freelancers"])
+        {
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
+        }
+    }
+ /*
     switch (currentSortType)
     {
         case STXSortingTypeAll:
@@ -190,11 +330,11 @@ static CGFloat tabBarHeight;
             break;
             
         case STXSortingTypeClients:
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
+                    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
             break;
             
         case STXSortingTypeFreelancers:
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
+                    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
             break;
             
         case STXSortingTypeAbsent:
@@ -207,8 +347,10 @@ static CGFloat tabBarHeight;
     }
     
     if (searchedString.length > 0)
+    {
         _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
-    
+    }
+*/
     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
           [JSONSerializationHelper objectsWithClass:[RMUser class]
                                  withSortDescriptor:nil
@@ -228,10 +370,12 @@ static CGFloat tabBarHeight;
 
 - (void)clearDetailsController
 {
-    UIViewController* detailController = self.splitViewController.viewControllers.lastObject;
+    UIViewController *detailController = self.splitViewController.viewControllers.lastObject;
     
     if (![detailController isKindOfClass:[UINavigationController class]])
+    {
         return;
+    }
     
     UINavigationController* navigationController = (UINavigationController*)detailController;
     [navigationController setViewControllers:@[ [UIViewController new] ]];
@@ -243,6 +387,13 @@ static CGFloat tabBarHeight;
     __block BOOL deletedUsers = NO;
     
     NSLog(@"Loading from: API");
+    
+    [self.filterSelections removeAllObjects];
+    [self.filterStructure removeAllObjects];
+    
+    self.filterSelections = nil;
+    self.filterStructure = nil;
+    
     [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
@@ -319,23 +470,53 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:nil];
 }
-
+/*
 - (IBAction)showAction:(id)sender
 {
     if (!actionSheet.isVisible)
     {
-        actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"] cancelTitle:@"Anuluj" destructiveTitle:nil withBlock:^(NSInteger theButtonIndex) {
+        actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil
+                                                 buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"]
+                                                  cancelTitle:@"Anuluj"
+                                             destructiveTitle:nil
+                                                    withBlock:^(NSInteger theButtonIndex) {
             switch (theButtonIndex)
             {
-                case 0: [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers]; break;
-                case 1: [self loadUsersFromDatabaseWithType:STXSortingTypeClients]; break;
-                case 2: [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers]; break;
-                case 3:  break;
-                case 4: [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent]; break;
-                case 5: [self loadUsersFromDatabaseWithType:STXSortingTypeLate]; break;
+                case 0:
+                {
+                    [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers];
+                }
+                    break;
+                    
+                case 1:
+                {
+                    [self loadUsersFromDatabaseWithType:STXSortingTypeClients];
+                }
+                    break;
+                    
+                case 2:
+                {
+                    [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers];
+                }
+                    break;
+                    
+                case 3:
+                    break;
+                    
+                case 4:
+                {
+                    [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent];
+                }
+                    break;
+                    
+                case 5:
+                {
+                    [self loadUsersFromDatabaseWithType:STXSortingTypeLate];
+                }
+                    break;
             }
         }];
-
+        
         [actionSheet showFromBarButtonItem:sender animated:YES];
     }
 }
@@ -343,6 +524,21 @@ static CGFloat tabBarHeight;
 - (void)loadUsersFromDatabaseWithType:(STXSortingType)type
 {
     currentSortType = type;
+    
+    [self loadUsersFromDatabase];
+}
+*/
+
+#pragma mark - Filter delegate
+
+- (void)changeFilterSelections:(NSArray *)filterSelection
+{
+    self.filterSelections = [[NSMutableArray alloc] init];
+    
+    for (id obj in filterSelection)
+    {
+        [self.filterSelections addObject:[NSMutableArray arrayWithArray:obj]];
+    }
     
     [self loadUsersFromDatabase];
 }
@@ -385,11 +581,13 @@ static CGFloat tabBarHeight;
 {
     _searchBar.text = @"";
     searchBarVisible = YES;
+    
     [UIView animateWithDuration:0.33 animations:^{
         [self updateGuiForBarState:searchBarVisible];
     }];
     
     double delayInSeconds = 0.33;
+    
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [_searchBar becomeFirstResponder];
@@ -415,6 +613,7 @@ static CGFloat tabBarHeight;
     }
     
     double delayInSeconds = 0.33;
+    
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self reloadSearchWithText:@""];
@@ -444,7 +643,7 @@ static CGFloat tabBarHeight;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMUser* user = _userList[indexPath.row];
+    RMUser *user = _userList[indexPath.row];
     
     static NSString *CellIdentifier = @"UserCell";
     UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -527,6 +726,12 @@ static CGFloat tabBarHeight;
         NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
         currentIndexPath = indexPath;
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+    }
+    else if ([segue.identifier isEqualToString:@"FilterSegue"])
+    {
+        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
+        [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
+        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
     }
 }
 
