@@ -74,7 +74,7 @@
                             <tableViewSection id="IUb-yD-egt">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="120" id="dKM-x4-ZHh">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dKM-x4-ZHh" id="hMu-oz-gOc">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
@@ -125,7 +125,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="p8U-jJ-4ip">
-                                        <rect key="frame" x="0.0" y="184" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="120" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8U-jJ-4ip" id="bGu-CU-MzO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -159,7 +159,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="yBw-xG-GF5">
-                                        <rect key="frame" x="0.0" y="240" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="176" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yBw-xG-GF5" id="59o-1y-o7l">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -193,7 +193,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="79G-BF-0YG">
-                                        <rect key="frame" x="0.0" y="296" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="232" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79G-BF-0YG" id="G9K-Bz-kGb">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -227,7 +227,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="okQ-I1-zoX">
-                                        <rect key="frame" x="0.0" y="352" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="288" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="okQ-I1-zoX" id="cQC-2H-tG8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -261,7 +261,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="imf-SV-ngo">
-                                        <rect key="frame" x="0.0" y="408" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="344" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="imf-SV-ngo" id="syK-Ok-aPK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -295,7 +295,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="56" id="2py-lH-bjx">
-                                        <rect key="frame" x="0.0" y="464" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="400" width="320" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2py-lH-bjx" id="bDr-Ae-MD6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -501,17 +501,10 @@
                     <connections>
                         <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
                         <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
-                        <outlet property="notFoundLabel" destination="7zS-mI-q4P" id="hxw-aC-8fI"/>
                         <outlet property="searchDisplayController" destination="o92-rd-xLi" id="XYs-Hp-hGo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Er7-6X-pl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nie znaleziono." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7zS-mI-q4P">
-                    <rect key="frame" x="0.0" y="0.0" width="117" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <searchDisplayController id="o92-rd-xLi">
                     <connections>
                         <outlet property="delegate" destination="LJs-xu-3pC" id="gKp-i5-kGE"/>

@@ -22,9 +22,6 @@ static CGFloat tabBarHeight;
     
     NSString *searchedString;
     NSIndexPath *currentIndexPath;
-    
-//    BOOL keyboardVisible;
-//    BOOL searchBarVisible;
 }
 
 - (void)viewDidLoad
@@ -34,11 +31,6 @@ static CGFloat tabBarHeight;
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-    
-//    keyboardVisible = NO;
-//    searchBarVisible = NO;
-    
-//    [self updateGuiForBarState:searchBarVisible];
     
     searchedString = @"";
     _actionSheet = nil;
@@ -51,6 +43,8 @@ static CGFloat tabBarHeight;
     self.refreshControl = refresh;
     
     [_tableView hideEmptySeparators];
+    [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
+    
     self.title = @"Lista osób";
     
     [self loadUsersFromDatabase];
@@ -59,9 +53,6 @@ static CGFloat tabBarHeight;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     if (currentIndexPath)
     {
@@ -92,8 +83,6 @@ static CGFloat tabBarHeight;
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
    
     navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
-    
-//    [self updateGuiForBarState:searchBarVisible];
 }
 
 #pragma mark Login delegate
@@ -160,7 +149,7 @@ static CGFloat tabBarHeight;
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
-                                                 withPredicate:nil //[NSPredicate predicateWithFormat:@"location = 'Wrocław'"]
+                                                 withPredicate:nil
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
     NSLog(@"%@", users);
@@ -454,73 +443,6 @@ static CGFloat tabBarHeight;
     [self loadUsersFromDatabase];
 }
 
-/*
-- (void)updateGuiForBarState:(BOOL)barVisible
-{
-
-    if (iOS7_PLUS)
-    {
-        self.searchBarTopConstraint.constant = barVisible ? statusBarHeight + navBarHeight : statusBarHeight
-                                                        + navBarHeight - _searchBar.frame.size.height;
-        self.tableViewBottomConstraint.constant = tabBarHeight;
-    }
-    else
-    {
-        self.searchBarTopConstraint.constant = barVisible ? 0.0f : -_searchBar.frame.size.height;
-        self.tableViewBottomConstraint.constant = 0.0f;
-    }
-    
-    [_searchBar layoutIfNeeded];
-    [_tableView layoutIfNeeded];
-
-}
- */
-/*
-- (void)showSearchBar:(UISearchBar *)searchBar animated:(BOOL)animated
-{
-    _searchBar.text = @"";
-    searchBarVisible = YES;
-    
-    [UIView animateWithDuration:0.33 animations:^{
-        [self updateGuiForBarState:searchBarVisible];
-    }];
-    
-    double delayInSeconds = 0.33;
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [_searchBar becomeFirstResponder];
-        [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
-    });
-}
-*/
-/*
-- (void)hideSearchBar:(UISearchBar *)searchBar animated:(BOOL)animated
-{
-    [_searchBar resignFirstResponder];
-    
-    if (animated)
-    {
-        [UIView animateWithDuration:0.33 animations:^{
-            [self updateGuiForBarState:NO];
-        } completion:^(BOOL finished) {
-            searchBarVisible = NO;
-        }];
-    }
-    else
-    {
-        [self updateGuiForBarState:NO];
-        searchBarVisible = NO;
-    }
-    
-    double delayInSeconds = 0.33;
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self reloadSearchWithText:@""];
-    });
-}
-*/
 #pragma mark - Search bar delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -530,8 +452,6 @@ static CGFloat tabBarHeight;
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
-//    [self hideSearchBar:searchBar animated:YES];
-    //_refreshControl.alpha = 1.0f;
     [self reloadSearchWithText:@""];
 }
 
@@ -541,7 +461,13 @@ static CGFloat tabBarHeight;
 {
     int number = _userList.count;
     
-    self.notFoundLabel.hidden = number != 0;
+    [self.notFoundLabel removeFromSuperview];
+    
+    if (number == 0)
+    {
+
+        
+    }
     
     return number;
 }
@@ -677,43 +603,4 @@ static CGFloat tabBarHeight;
     }
 }
 
-#pragma mark - Keyboard management
-/*
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    if (!keyboardVisible)
-    {
-        [self updateTableForKeyboardVisible:YES keyboardInfo:notification.userInfo];
-    }
-    
-    keyboardVisible = YES;
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    if (keyboardVisible)
-    {
-        [self updateTableForKeyboardVisible:NO keyboardInfo:notification.userInfo];
-    }
-    
-    keyboardVisible = NO;
-}
-
-- (void)updateTableForKeyboardVisible:(BOOL)visible keyboardInfo:(NSDictionary *)info
-{
-    CGRect keyboardBounds = CGRectZero;
-    
-    [[info valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardBounds];
-    CGFloat keyboardHeight = keyboardBounds.size.height;
-    
-    NSTimeInterval duration = 0.0;
-    [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&duration];
-    
-    [UIView animateWithDuration:duration animations:^{
-        CGFloat offset = iOS7_PLUS ? 0.0f : -tabBarHeight;
-        self.tableViewBottomConstraint.constant = visible ? (keyboardHeight + offset): 0.0f;
-        [_tableView layoutIfNeeded];
-    } completion:nil];
-}
-*/
 @end
