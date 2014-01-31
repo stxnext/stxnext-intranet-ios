@@ -47,19 +47,26 @@ static CGFloat tabBarHeight;
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    [_tableView addSubview:refresh];
-    
-    CGRect frame = refresh.frame;
-    frame.origin.y = -frame.size.height;
-    refresh.frame = frame;
-    [_tableView sendSubviewToBack:refresh];
-    
     _refreshControl = refresh;
+    self.refreshControl = refresh;
+    
+    
+//    [_tableView addSubview:refresh];
+    
+    
+    //    CGRect frame = refresh.frame;
+//    frame.origin.y = -frame.size.height;
+//    refresh.frame = frame;
+//    [_tableView sendSubviewToBack:refresh];
+    
+
     
     [_tableView hideEmptySeparators];
     self.title = @"Lista osób";
     
     [self loadUsersFromDatabase];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -458,8 +465,8 @@ static CGFloat tabBarHeight;
 - (IBAction)showSearch
 {
     //_refreshControl.alpha = 0.0f;
-    _showSearchButton.enabled = NO;
-    [self showSearchBar:_searchBar animated:YES];
+//    _showSearchButton.enabled = NO;
+    [self showSearchBar:_searchBar animated:NO];
 }
 
 - (void)reloadSearchWithText:(NSString*)text
@@ -501,6 +508,7 @@ static CGFloat tabBarHeight;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [_searchBar becomeFirstResponder];
+        [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     });
 }
 
@@ -560,7 +568,8 @@ static CGFloat tabBarHeight;
     RMUser *user = _userList[indexPath.row];
     
     static NSString *CellIdentifier = @"UserCell";
-    UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (!cell)
     {
@@ -625,9 +634,16 @@ static CGFloat tabBarHeight;
     cell.warningDateLabel.text = hours;
     
     if (user.avatarURL)
+    {
         [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
+    }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 95;
 }
 
 #pragma mark - Storyboard
@@ -638,7 +654,15 @@ static CGFloat tabBarHeight;
     {
         UserListCell *cell = (UserListCell *)sender;
         NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+        
+        if (indexPath == nil)
+        {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:cell];
+        }
+        
         currentIndexPath = indexPath;
+        NSLog(@"%i", indexPath.row);
+        
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
     else if ([segue.identifier isEqualToString:@"FilterSegue"])

@@ -10,8 +10,7 @@
 #import "LoginViewController.h"
 #import "FilterViewController.h"
 
-@interface UserTableViewController : UIViewController<LoginViewControllerDelegate,
-                                                    UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterViewControllerDelegate>
+@interface UserTableViewController : UITableViewController<LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView* _tableView;
     IBOutlet UISearchBar* _searchBar;
