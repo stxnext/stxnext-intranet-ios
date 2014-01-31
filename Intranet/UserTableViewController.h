@@ -12,25 +12,24 @@
 
 @interface UserTableViewController : UITableViewController<LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
-    IBOutlet UITableView* _tableView;
-    IBOutlet UISearchBar* _searchBar;
-    IBOutlet UIBarButtonItem *_showSearchButton;
+    IBOutlet UITableView *_tableView;
+//    IBOutlet UISearchBar *_searchBar;
     IBOutlet UIBarButtonItem *_showActionButton;
 
-    UIRefreshControl* _refreshControl;
-    UIActionSheet* _actionSheet;
-    NSArray* _userList;
+    UIRefreshControl *_refreshControl;
+    UIActionSheet  *_actionSheet;
+    NSArray *_userList;
     UIActionSheet *actionSheet;
 }
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *notFoundLabel;
 
 @property (strong, nonatomic) NSMutableArray *filterStructure;
 @property (strong, nonatomic) NSMutableArray *filterSelections;
 
-- (IBAction)showSearch;
+//- (IBAction)showSearch;
 
 @end
