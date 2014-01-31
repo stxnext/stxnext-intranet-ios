@@ -503,6 +503,12 @@
                                     <outlet property="delegate" destination="LJs-xu-3pC" id="vF9-Mz-KEg"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nie znaleziono." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zS-mI-q4P">
+                                <rect key="frame" x="102" y="249" width="117" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -511,6 +517,8 @@
                             <constraint firstItem="DqE-ng-1VX" firstAttribute="leading" secondItem="VGJ-Kn-q4A" secondAttribute="leading" id="IHK-uj-6WX"/>
                             <constraint firstItem="DqE-ng-1VX" firstAttribute="top" secondItem="akX-Np-tOg" secondAttribute="bottom" id="Vrk-L7-Lbt"/>
                             <constraint firstAttribute="trailing" secondItem="DqE-ng-1VX" secondAttribute="trailing" id="XWd-qQ-O0l"/>
+                            <constraint firstAttribute="centerX" secondItem="7zS-mI-q4P" secondAttribute="centerX" id="abo-SW-bDC"/>
+                            <constraint firstAttribute="centerY" secondItem="7zS-mI-q4P" secondAttribute="centerY" id="jWc-kI-cYm"/>
                             <constraint firstAttribute="trailing" secondItem="akX-Np-tOg" secondAttribute="trailing" id="o1O-0m-yDb"/>
                             <constraint firstItem="akX-Np-tOg" firstAttribute="leading" secondItem="VGJ-Kn-q4A" secondAttribute="leading" id="tWV-Ns-jfF"/>
                         </constraints>
@@ -532,6 +540,7 @@
                         <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
                         <outlet property="_showSearchButton" destination="PFN-iJ-L2w" id="S72-5j-zCO"/>
                         <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
+                        <outlet property="notFoundLabel" destination="7zS-mI-q4P" id="hxw-aC-8fI"/>
                         <outlet property="searchBarTopConstraint" destination="E2C-N5-2x3" id="BJX-u7-rHc"/>
                         <outlet property="tableViewBottomConstraint" destination="3HL-Rb-Pbd" id="jjC-xt-Mqe"/>
                         <outlet property="tableViewTopConstraint" destination="Vrk-L7-Lbt" id="2c9-VR-YEU"/>

@@ -132,12 +132,33 @@
         [self.delegate changeFilterSelections:filterSelections];
     }
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    if (INTERFACE_IS_PHONE)
+    {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(closePopover)])
+        {
+            [self.delegate closePopover];
+        }
+    }
 }
 
 - (IBAction)cancelAction:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    if (INTERFACE_IS_PHONE)
+    {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(closePopover)])
+        {
+            [self.delegate closePopover];
+        }
+    }
+
 }
 
 - (void)setFilterSelection:(NSArray *)filterSelection

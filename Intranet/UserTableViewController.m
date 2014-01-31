@@ -12,25 +12,16 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 
-typedef enum
-{
-    STXSortingTypeAll,
-    STXSortingTypeWorkers,
-    STXSortingTypeClients,
-    STXSortingTypeFreelancers,
-    STXSortingTypeAbsent,
-    STXSortingTypeLate
-} STXSortingType;
-
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
 static CGFloat tabBarHeight;
 
 @implementation UserTableViewController
 {
-    STXSortingType currentSortType;
-    NSString* searchedString;
-    NSIndexPath* currentIndexPath;
+    __weak UIPopoverController *myPopover;
+    
+    NSString *searchedString;
+    NSIndexPath *currentIndexPath;
     
     BOOL keyboardVisible;
     BOOL searchBarVisible;
@@ -52,7 +43,6 @@ static CGFloat tabBarHeight;
     searchedString = @"";
     _actionSheet = nil;
     _userList = [NSArray array];
-    currentSortType = STXSortingTypeWorkers;
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
@@ -318,39 +308,7 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }
     }
- /*
-    switch (currentSortType)
-    {
-        case STXSortingTypeAll:
-            _userList = users;
-            break;
-            
-        case STXSortingTypeWorkers:
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
-            break;
-            
-        case STXSortingTypeClients:
-                    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
-            break;
-            
-        case STXSortingTypeFreelancers:
-                    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
-            break;
-            
-        case STXSortingTypeAbsent:
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = YES"]];
-            break;
-            
-        case STXSortingTypeLate:
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count = YES"]];
-            break;
-    }
-    
-    if (searchedString.length > 0)
-    {
-        _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
-    }
-*/
+
     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
           [JSONSerializationHelper objectsWithClass:[RMUser class]
                                  withSortDescriptor:nil
@@ -470,64 +428,6 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:nil];
 }
-/*
-- (IBAction)showAction:(id)sender
-{
-    if (!actionSheet.isVisible)
-    {
-        actionSheet  = [UIActionSheet SH_actionSheetWithTitle:nil
-                                                 buttonTitles:@[@"pracownicy", @"klienci", @"freelancers", @"", @"nieobecności", @"spóźnienia"]
-                                                  cancelTitle:@"Anuluj"
-                                             destructiveTitle:nil
-                                                    withBlock:^(NSInteger theButtonIndex) {
-            switch (theButtonIndex)
-            {
-                case 0:
-                {
-                    [self loadUsersFromDatabaseWithType:STXSortingTypeWorkers];
-                }
-                    break;
-                    
-                case 1:
-                {
-                    [self loadUsersFromDatabaseWithType:STXSortingTypeClients];
-                }
-                    break;
-                    
-                case 2:
-                {
-                    [self loadUsersFromDatabaseWithType:STXSortingTypeFreelancers];
-                }
-                    break;
-                    
-                case 3:
-                    break;
-                    
-                case 4:
-                {
-                    [self loadUsersFromDatabaseWithType:STXSortingTypeAbsent];
-                }
-                    break;
-                    
-                case 5:
-                {
-                    [self loadUsersFromDatabaseWithType:STXSortingTypeLate];
-                }
-                    break;
-            }
-        }];
-        
-        [actionSheet showFromBarButtonItem:sender animated:YES];
-    }
-}
-
-- (void)loadUsersFromDatabaseWithType:(STXSortingType)type
-{
-    currentSortType = type;
-    
-    [self loadUsersFromDatabase];
-}
-*/
 
 #pragma mark - Filter delegate
 
@@ -541,6 +441,16 @@ static CGFloat tabBarHeight;
     }
     
     [self loadUsersFromDatabase];
+
+    [_tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
+- (void)closePopover
+{
+    if (myPopover)
+    {
+        [myPopover dismissPopoverAnimated:YES];
+    }
 }
 
 #pragma mark - Search management
@@ -638,7 +548,11 @@ static CGFloat tabBarHeight;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _userList.count;
+    int number = _userList.count;
+    
+    self.notFoundLabel.hidden = number != 0;
+    
+    return number;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -728,10 +642,32 @@ static CGFloat tabBarHeight;
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
     else if ([segue.identifier isEqualToString:@"FilterSegue"])
-    {
+    {        
         ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
         [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
         ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"FilterPopoverSegue"])
+    {
+         myPopover = [(UIStoryboardPopoverSegue *)segue popoverController];
+        
+        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
+        [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
+        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if (myPopover)
+    {
+        [myPopover dismissPopoverAnimated:YES];
+        
+        return NO;
+    }
+    else
+    {
+        return YES;
     }
 }
 

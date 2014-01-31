@@ -11,6 +11,7 @@
 @protocol FilterViewControllerDelegate <NSObject>
 
 - (void)changeFilterSelections:(NSArray *)filterSelection;
+- (void)closePopover;
 
 @end
 
