@@ -51,7 +51,7 @@
             return @"Lokalizacja";
             
         case 3:
-            return @"Grupa";
+            return @"Rola";
             
         case 4:
             return @"Grupa";
