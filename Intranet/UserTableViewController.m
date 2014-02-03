@@ -19,6 +19,7 @@ static CGFloat tabBarHeight;
 @implementation UserTableViewController
 {
     __weak UIPopoverController *myPopover;
+    BOOL canShowNoResultsMessage;
     
     NSString *searchedString;
     NSIndexPath *currentIndexPath;
@@ -151,8 +152,6 @@ static CGFloat tabBarHeight;
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
                                                  withPredicate:nil
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-    
-    NSLog(@"%@", users);
     
     self.filterStructure = [[NSMutableArray alloc] init];
 
@@ -348,7 +347,9 @@ static CGFloat tabBarHeight;
                                           
                                           // Add to database
                                           for (id user in responseObject[@"users"])
+                                          {
                                               [RMUser mapFromJSON:user];
+                                          }
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];
@@ -358,7 +359,9 @@ static CGFloat tabBarHeight;
                                           [self clearDetailsController];
                                           
                                           if (--operations == 0)
+                                          {
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           NSLog(@"Loaded: 0 users");
@@ -384,16 +387,21 @@ static CGFloat tabBarHeight;
                                               
                                               [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
                                                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                              
                                               [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
                                                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
                                           }
                                           
                                           // Add to database
                                           for (id absence in responseObject[@"absences"])
+                                          {
                                               [RMAbsence mapFromJSON:absence];
+                                          }
                                           
                                           for (id late in responseObject[@"lates"])
+                                          {
                                               [RMLate mapFromJSON:late];
+                                          }
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];
@@ -405,7 +413,9 @@ static CGFloat tabBarHeight;
                                           [self clearDetailsController];
                                           
                                           if (--operations == 0)
+                                          {
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          }
                                       }
                                       failure:nil];
 }
@@ -414,12 +424,15 @@ static CGFloat tabBarHeight;
 
 - (void)changeFilterSelections:(NSArray *)filterSelection
 {
+    canShowNoResultsMessage = YES;
     self.filterSelections = [[NSMutableArray alloc] init];
     
     for (id obj in filterSelection)
     {
         [self.filterSelections addObject:[NSMutableArray arrayWithArray:obj]];
     }
+    
+    [self showNoSelectionUserDetails];
     
     [self loadUsersFromDatabase];
 
@@ -436,8 +449,10 @@ static CGFloat tabBarHeight;
 
 #pragma mark - Search management
 
-- (void)reloadSearchWithText:(NSString*)text
+- (void)reloadSearchWithText:(NSString *)text
 {
+    canShowNoResultsMessage = NO;
+    [self showNoSelectionUserDetails];
     searchedString = text;
     
     [self loadUsersFromDatabase];
@@ -463,10 +478,17 @@ static CGFloat tabBarHeight;
     
     [self.notFoundLabel removeFromSuperview];
     
-    if (number == 0)
+    if (number == 0 && canShowNoResultsMessage)
     {
-
-        
+        [UIAlertView showWithTitle:@"Informacja"
+                           message:@"Brak osób o podanych kryteriach wyszukiwania."
+                             style:UIAlertViewStyleDefault
+                 cancelButtonTitle:nil
+                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                     canShowNoResultsMessage = NO;
+                     self.filterSelections = nil;
+                     [self loadUsersFromDatabase];
+                 }];
     }
     
     return number;
@@ -602,5 +624,17 @@ static CGFloat tabBarHeight;
         return YES;
     }
 }
+
+- (void)showNoSelectionUserDetails
+{
+    if (INTERFACE_IS_PAD)
+    {
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil] instantiateViewControllerWithIdentifier:@"NoSelectionUserDetails"];
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+        
+        self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
+    }
+}
+
 
 @end

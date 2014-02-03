@@ -116,12 +116,57 @@
     {
         self.ircCell.hidden = YES;
     }
+
+    if (self.user.location)
+    {
+        self.locationLabel.text = self.user.location;
+    }
+    else
+    {
+        self.locationCell.hidden = YES;
+    }
+    
+    if ([self.user.groups count])
+    {
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+
+        for (NSString *group in self.user.groups)
+        {
+            [string appendFormat:@"%@, ", group];
+        }
+        
+        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
+        
+        self.groupsLabel.text = [string capitalizedString];
+    }
+    else
+    {
+        self.groupsCell.hidden = YES;
+    }
+    
+    if ([self.user.roles count])
+    {
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+        
+        for (NSString *role in self.user.roles)
+        {
+            [string appendFormat:@"%@, ", role];
+        }
+        
+        [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
+        
+        self.rolesLabel.text = [string capitalizedString];
+    }
+    else
+    {
+        self.rolesCell.hidden = YES;
+    }
     
     self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
     __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
-
+    
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
     absenceDateFormater.dateFormat = @"YYYY-MM-dd";
     
@@ -134,10 +179,10 @@
         
         [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
-
+            
             NSString *start = [latesDateFormater stringFromDate:late.start];
             NSString *stop = [latesDateFormater stringFromDate:late.stop];
-
+            
             if (start.length || stop.length)
             {
                 [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
@@ -177,12 +222,12 @@
     {
         [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
     }
-
+    
     while ([explanation hasPrefix:@" "])
     {
         [explanation replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
     }
-
+    
     NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
     
     
@@ -275,9 +320,13 @@
 - (void)openUrl:(NSURL*)url orAlertWithText:(NSString*)alertText
 {
     if ([[UIApplication sharedApplication] canOpenURL:url])
+    {
         [[UIApplication sharedApplication] openURL:url];
+    }
     else
+    {
         [UIAlertView alertWithTitle:@"Błąd" withText:alertText];
+    }
 }
 
 - (void)phoneCall

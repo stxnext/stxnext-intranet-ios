@@ -20,6 +20,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *ircLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *addToContactLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rolesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *groupsLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
+
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *phoneDeskCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *phoneCell;
@@ -28,7 +34,10 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *ircCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *mainCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToContactsCell;
-@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *groupsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *rolesCell;
+
 @property (weak, nonatomic) IBOutlet ClockView *clockView;
 
 @property (strong, nonatomic) RMUser *user;

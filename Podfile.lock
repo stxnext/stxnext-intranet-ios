@@ -19,15 +19,18 @@ PODS:
     - AFNetworking/NSURLConnection
   - google-plus-ios-sdk (1.4.1)
   - SHActionSheetBlocks (2.3.0)
+  - UIAlertView+Blocks (0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0.2)
   - google-plus-ios-sdk (~> 1.4.1)
   - SHActionSheetBlocks
+  - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
   AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   google-plus-ios-sdk: d04d1f5791e3a304144995a2af7b10629d21da4c
   SHActionSheetBlocks: d1194997eb32ea752a906043ac97887615a270ad
+  UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
 
 COCOAPODS: 0.29.0
