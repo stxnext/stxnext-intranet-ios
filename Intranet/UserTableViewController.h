@@ -20,7 +20,6 @@
     NSArray *_userList;
     UIActionSheet *actionSheet;
 }
-@property (strong, nonatomic)  UILabel *notFoundLabel;
 @property (strong, nonatomic) NSMutableArray *filterStructure;
 @property (strong, nonatomic) NSMutableArray *filterSelections;
 

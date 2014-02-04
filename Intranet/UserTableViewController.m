@@ -118,6 +118,8 @@ static CGFloat tabBarHeight;
 
 - (void)startRefreshData
 {
+    [self showNoSelectionUserDetails];
+    
     _showActionButton.enabled = NO;
     [self loadUsersFromAPI];
 }
@@ -236,11 +238,6 @@ static CGFloat tabBarHeight;
             }
             else if ([self.filterSelections[1][0] isEqualToString:@"Spóźnienia"])
             {
-                [_userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    NSLog(@"%@", ((RMUser *)obj).name);
-                    NSLog(@"%i", [((RMUser *)obj).lates count]);
-                }];
-                
                 _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
             }
             
@@ -306,19 +303,6 @@ static CGFloat tabBarHeight;
     [_tableView reloadData];
 }
 
-- (void)clearDetailsController
-{
-    UIViewController *detailController = self.splitViewController.viewControllers.lastObject;
-    
-    if (![detailController isKindOfClass:[UINavigationController class]])
-    {
-        return;
-    }
-    
-    UINavigationController* navigationController = (UINavigationController*)detailController;
-    [navigationController setViewControllers:@[ [UIViewController new] ]];
-}
-
 - (void)loadUsersFromAPI
 {
     __block NSInteger operations = 2;
@@ -356,7 +340,6 @@ static CGFloat tabBarHeight;
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
-                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                           {
@@ -410,7 +393,6 @@ static CGFloat tabBarHeight;
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
-                                          [self clearDetailsController];
                                           
                                           if (--operations == 0)
                                           {
@@ -476,8 +458,6 @@ static CGFloat tabBarHeight;
 {
     int number = _userList.count;
     
-    [self.notFoundLabel removeFromSuperview];
-    
     if (number == 0 && canShowNoResultsMessage)
     {
         [UIAlertView showWithTitle:@"Informacja"
@@ -486,8 +466,10 @@ static CGFloat tabBarHeight;
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                      canShowNoResultsMessage = NO;
-                     self.filterSelections = nil;
-                     [self loadUsersFromDatabase];
+                     [self performBlockOnMainThread:^{
+                         self.filterSelections = nil;
+                         [self loadUsersFromDatabase];
+                     } afterDelay:0.75];
                  }];
     }
     
