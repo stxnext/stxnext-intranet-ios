@@ -539,10 +539,7 @@ static CGFloat tabBarHeight;
         }];
     }
     
-    while ([hours hasPrefix:@" "])
-    {
-        [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
-    }
+    [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
     cell.warningDateLabel.text = hours;
     

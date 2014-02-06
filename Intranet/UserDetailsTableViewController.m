@@ -217,20 +217,12 @@
             }
         }];
     }
-    
-    while ([hours hasPrefix:@" "])
-    {
-        [hours replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
-    }
-    
-    while ([explanation hasPrefix:@" "])
-    {
-        [explanation replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
-    }
+
+    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
-    
-    
+        
     self.explanationLabel.text = text;
     
     [self.explanationLabel sizeToFit];
