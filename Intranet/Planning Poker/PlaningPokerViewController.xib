@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaningPokerViewController">
+            <connections>
+                <outlet property="backgroundImageView" destination="21" id="np6-ab-fG2"/>
+                <outlet property="carousel" destination="8" id="9"/>
+                <outlet property="view" destination="6" id="7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8" userLabel="iCarousel" customClass="iCarousel">
+                    <rect key="frame" x="0.0" y="83" width="320" height="397"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="397" id="K4P-Wh-qnz"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="10"/>
+                        <outlet property="delegate" destination="-1" id="11"/>
+                    </connections>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xud-Rm-7tL">
+                    <rect key="frame" x="292" y="15" width="13" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Xud-Rm-7tL" firstAttribute="top" secondItem="6" secondAttribute="top" constant="15" id="1zZ-CB-spY"/>
+                <constraint firstAttribute="bottom" secondItem="21" secondAttribute="bottom" id="JSS-IM-UVn"/>
+                <constraint firstAttribute="bottom" secondItem="8" secondAttribute="bottom" id="PI6-ce-Llk"/>
+                <constraint firstItem="21" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="Yf7-Mq-NB6"/>
+                <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="hpb-zZ-z9V"/>
+                <constraint firstAttribute="trailing" secondItem="Xud-Rm-7tL" secondAttribute="trailing" constant="15" id="kTx-x4-scg"/>
+                <constraint firstItem="21" firstAttribute="top" secondItem="6" secondAttribute="top" id="oGy-XF-cf9"/>
+                <constraint firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="oRs-oc-7Sv"/>
+                <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="zt9-xu-QOh"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>

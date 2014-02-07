@@ -608,6 +608,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
+                        <outlet property="_showPlanningPokerButton" destination="6oE-Mg-r8f" id="5Gx-5H-511"/>
                         <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
                         <outlet property="searchDisplayController" destination="o92-rd-xLi" id="XYs-Hp-hGo"/>
                     </connections>
@@ -622,6 +623,11 @@
                         <outlet property="searchResultsDelegate" destination="LJs-xu-3pC" id="Brg-Hr-p8V"/>
                     </connections>
                 </searchDisplayController>
+                <barButtonItem image="Planing Poker" id="6oE-Mg-r8f">
+                    <connections>
+                        <action selector="showPlaningPoker:" destination="LJs-xu-3pC" id="bj4-g9-x2d"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="1172" y="-209"/>
         </scene>
@@ -664,6 +670,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Planing Poker" width="25" height="25"/>
         <image name="Tababr icons 2" width="50" height="50"/>
         <image name="Tabbar icons 1" width="50" height="50"/>
     </resources>

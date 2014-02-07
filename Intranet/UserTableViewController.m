@@ -11,6 +11,8 @@
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
+#import "PlaningPokerViewController.h"
+#import "UIView+Screenshot.h"
 
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
@@ -28,7 +30,7 @@ static CGFloat tabBarHeight;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
@@ -86,6 +88,7 @@ static CGFloat tabBarHeight;
     navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
 }
 
+
 #pragma mark Login delegate
 
 - (void)showLoginScreen
@@ -121,13 +124,17 @@ static CGFloat tabBarHeight;
     [self showNoSelectionUserDetails];
     
     _showActionButton.enabled = NO;
+    _showPlanningPokerButton.enabled = NO;
+    
     [self loadUsersFromAPI];
 }
 
 - (void)stopRefreshData
 {
     [_refreshControl endRefreshing];
+    
     _showActionButton.enabled = YES;
+    _showPlanningPokerButton.enabled = YES;
 }
 
 - (void)loadUsers
@@ -615,5 +622,27 @@ static CGFloat tabBarHeight;
     }
 }
 
+
+- (IBAction)showPlaningPoker:(id)sender
+{
+    PlaningPokerViewController *ppvc = [[PlaningPokerViewController alloc] initWithNibName:@"PlaningPokerViewController" bundle:nil];
+    
+    ppvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:ppvc];
+    
+    if (iOS7_PLUS)
+    {
+        ppvc.backgroundImage = [self.view.superview.superview.superview convertViewToImage];
+        [nvc setNavigationBarHidden:YES animated:NO];
+    }
+    
+    
+//    [nvc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    nvc.navigationBar.shadowImage = [UIImage new];
+//    nvc.navigationBar.translucent = YES;
+
+    [self presentViewController:nvc animated:YES completion:nil];
+}
 
 @end

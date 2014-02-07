@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 0
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
+// GPUImage
+#define COCOAPODS_POD_AVAILABLE_GPUImage
+#define COCOAPODS_VERSION_MAJOR_GPUImage 0
+#define COCOAPODS_VERSION_MINOR_GPUImage 1
+#define COCOAPODS_VERSION_PATCH_GPUImage 2
+
 // SHActionSheetBlocks
 #define COCOAPODS_POD_AVAILABLE_SHActionSheetBlocks
 #define COCOAPODS_VERSION_MAJOR_SHActionSheetBlocks 2
@@ -65,4 +71,10 @@
 #define COCOAPODS_VERSION_MAJOR_google_plus_ios_sdk 1
 #define COCOAPODS_VERSION_MINOR_google_plus_ios_sdk 4
 #define COCOAPODS_VERSION_PATCH_google_plus_ios_sdk 1
+
+// iCarousel
+#define COCOAPODS_POD_AVAILABLE_iCarousel
+#define COCOAPODS_VERSION_MAJOR_iCarousel 1
+#define COCOAPODS_VERSION_MINOR_iCarousel 7
+#define COCOAPODS_VERSION_PATCH_iCarousel 6
 

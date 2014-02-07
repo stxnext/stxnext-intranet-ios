@@ -62,6 +62,12 @@
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
+		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
+		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
+		66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D318A4D0ED00049C37 /* Images.xcassets */; };
+		66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D518A4D0ED00049C37 /* CardView.m */; };
+		66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D618A4D0ED00049C37 /* CardView.xib */; };
+		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +175,15 @@
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
+		66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerViewController.m; sourceTree = "<group>"; };
+		66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaningPokerViewController.xib; sourceTree = "<group>"; };
+		66BFF3D318A4D0ED00049C37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		66BFF3D418A4D0ED00049C37 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
+		66BFF3D518A4D0ED00049C37 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
+		66BFF3D618A4D0ED00049C37 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
+		66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -306,6 +321,7 @@
 				0CF7CACD181FF30000AAB9D4 /* Externals */,
 				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* Network */,
+				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
 				0C43A79D1822723500FB513D /* Views */,
 			);
@@ -395,11 +411,13 @@
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
 				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
+				66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
 				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
+				66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -429,6 +447,20 @@
 			);
 			name = Database;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
+			isa = PBXGroup;
+			children = (
+				66BFF3D418A4D0ED00049C37 /* CardView.h */,
+				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
+				66BFF3D518A4D0ED00049C37 /* CardView.m */,
+				66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */,
+				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
+				66BFF3D618A4D0ED00049C37 /* CardView.xib */,
+				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
+			);
+			path = "Planning Poker";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,11 +545,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */,
+				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
+				66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */,
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
 				0CE37C57181E8ED10087C96E /* InfoPlist.strings in Resources */,
 				0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */,
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
+				66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +607,7 @@
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
+				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
@@ -590,6 +626,7 @@
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
+				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
@@ -602,6 +639,7 @@
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
+				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
 				272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,

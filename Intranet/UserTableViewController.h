@@ -14,7 +14,8 @@
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
-
+    __weak IBOutlet UIBarButtonItem *_showPlanningPokerButton;
+    
     UIRefreshControl *_refreshControl;
     UIActionSheet  *_actionSheet;
     NSArray *_userList;
@@ -22,5 +23,7 @@
 }
 @property (strong, nonatomic) NSMutableArray *filterStructure;
 @property (strong, nonatomic) NSMutableArray *filterSelections;
+
+- (IBAction)showPlaningPoker:(id)sender;
 
 @end
