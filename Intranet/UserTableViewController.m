@@ -492,6 +492,11 @@ static CGFloat tabBarHeight;
                  }];
     }
     
+    if (number)
+    {
+        canShowNoResultsMessage = NO;
+    }
+    
     return number;
 }
 
