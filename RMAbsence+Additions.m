@@ -28,7 +28,7 @@ const NSString* MapKeyAbsenceUserName = @"name";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    NSLog(@"%@", json);    
+//    NSLog(@"%@", json);    
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext

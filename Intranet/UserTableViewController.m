@@ -50,7 +50,19 @@ static CGFloat tabBarHeight;
     
     self.title = @"Lista osób";
     
-    [self loadUsersFromDatabase];
+    //update data
+    [self.refreshControl beginRefreshing];
+    [self startRefreshData];
+    
+    if (self.tableView.contentOffset.y == 0)
+    {
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
+            self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
+        } completion:^(BOOL finished){
+            
+        }];
+    }
+    //end update data
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,7 +99,6 @@ static CGFloat tabBarHeight;
    
     navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
 }
-
 
 #pragma mark Login delegate
 
@@ -292,7 +303,7 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }
     }
-
+/*
     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
           [JSONSerializationHelper objectsWithClass:[RMUser class]
                                  withSortDescriptor:nil
@@ -306,6 +317,7 @@ static CGFloat tabBarHeight;
                                  withSortDescriptor:nil
                                       withPredicate:nil
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
+  */
     
     [_tableView reloadData];
 }
