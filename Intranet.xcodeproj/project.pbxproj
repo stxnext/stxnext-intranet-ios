@@ -28,11 +28,6 @@
 		0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C61181E8ED10087C96E /* Main_iPad.storyboard */; };
 		0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C65181E8ED10087C96E /* LoginViewController.m */; };
 		0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C6A181E8ED10087C96E /* Images.xcassets */; };
-		0CE37C72181E8ED10087C96E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
-		0CE37C73181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
-		0CE37C74181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
-		0CE37C7C181E8ED10087C96E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CE37C7A181E8ED10087C96E /* InfoPlist.strings */; };
-		0CE37C7E181E8ED10087C96E /* IntranetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE37C7D181E8ED10087C96E /* IntranetTests.m */; };
 		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
 		0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */; };
 		0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */; };
@@ -70,16 +65,6 @@
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0CE37C75181E8ED10087C96E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0CE37C41181E8ED10087C96E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0CE37C48181E8ED10087C96E;
-			remoteInfo = Intranet;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -114,11 +99,7 @@
 		0CE37C64181E8ED10087C96E /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0CE37C65181E8ED10087C96E /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0CE37C6A181E8ED10087C96E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0CE37C70181E8ED10087C96E /* IntranetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntranetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C71181E8ED10087C96E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0CE37C79181E8ED10087C96E /* IntranetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IntranetTests-Info.plist"; sourceTree = "<group>"; };
-		0CE37C7B181E8ED10087C96E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0CE37C7D181E8ED10087C96E /* IntranetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntranetTests.m; sourceTree = "<group>"; };
 		0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Modals.h"; sourceTree = "<group>"; };
 		0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Modals.m"; sourceTree = "<group>"; };
 		0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModalViewController.h; sourceTree = "<group>"; };
@@ -203,16 +184,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0CE37C6D181E8ED10087C96E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CE37C72181E8ED10087C96E /* XCTest.framework in Frameworks */,
-				0CE37C74181E8ED10087C96E /* UIKit.framework in Frameworks */,
-				0CE37C73181E8ED10087C96E /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -281,7 +252,6 @@
 				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
-				0CE37C77181E8ED10087C96E /* IntranetTests */,
 				0CE37C4A181E8ED10087C96E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -290,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				0CE37C49181E8ED10087C96E /* Intranet.app */,
-				0CE37C70181E8ED10087C96E /* IntranetTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -336,24 +305,6 @@
 				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
 				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
 				0CE37C55181E8ED10087C96E /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0CE37C77181E8ED10087C96E /* IntranetTests */ = {
-			isa = PBXGroup;
-			children = (
-				0CE37C7D181E8ED10087C96E /* IntranetTests.m */,
-				0CE37C78181E8ED10087C96E /* Supporting Files */,
-			);
-			path = IntranetTests;
-			sourceTree = "<group>";
-		};
-		0CE37C78181E8ED10087C96E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0CE37C79181E8ED10087C96E /* IntranetTests-Info.plist */,
-				0CE37C7A181E8ED10087C96E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -485,24 +436,6 @@
 			productReference = 0CE37C49181E8ED10087C96E /* Intranet.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0CE37C6F181E8ED10087C96E /* IntranetTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0CE37C84181E8ED10087C96E /* Build configuration list for PBXNativeTarget "IntranetTests" */;
-			buildPhases = (
-				0CE37C6C181E8ED10087C96E /* Sources */,
-				0CE37C6D181E8ED10087C96E /* Frameworks */,
-				0CE37C6E181E8ED10087C96E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0CE37C76181E8ED10087C96E /* PBXTargetDependency */,
-			);
-			name = IntranetTests;
-			productName = IntranetTests;
-			productReference = 0CE37C70181E8ED10087C96E /* IntranetTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -514,9 +447,6 @@
 				TargetAttributes = {
 					0CE37C48181E8ED10087C96E = {
 						DevelopmentTeam = B7EKJ66X5Q;
-					};
-					0CE37C6F181E8ED10087C96E = {
-						TestTargetID = 0CE37C48181E8ED10087C96E;
 					};
 				};
 			};
@@ -534,7 +464,6 @@
 			projectRoot = "";
 			targets = (
 				0CE37C48181E8ED10087C96E /* Intranet */,
-				0CE37C6F181E8ED10087C96E /* IntranetTests */,
 			);
 		};
 /* End PBXProject section */
@@ -553,14 +482,6 @@
 				0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */,
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
 				66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0CE37C6E181E8ED10087C96E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CE37C7C181E8ED10087C96E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,23 +567,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0CE37C6C181E8ED10087C96E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CE37C7E181E8ED10087C96E /* IntranetTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0CE37C76181E8ED10087C96E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0CE37C48181E8ED10087C96E /* Intranet */;
-			targetProxy = 0CE37C75181E8ED10087C96E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0CE37C55181E8ED10087C96E /* InfoPlist.strings */ = {
@@ -687,14 +592,6 @@
 				0CE37C62181E8ED10087C96E /* Base */,
 			);
 			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		0CE37C7A181E8ED10087C96E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0CE37C7B181E8ED10087C96E /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -812,48 +709,6 @@
 			};
 			name = Release;
 		};
-		0CE37C85181E8ED10087C96E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Intranet.app/Intranet";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "IntranetTests/IntranetTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		0CE37C86181E8ED10087C96E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Intranet.app/Intranet";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
-				INFOPLIST_FILE = "IntranetTests/IntranetTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -871,15 +726,6 @@
 			buildConfigurations = (
 				0CE37C82181E8ED10087C96E /* Debug */,
 				0CE37C83181E8ED10087C96E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0CE37C84181E8ED10087C96E /* Build configuration list for PBXNativeTarget "IntranetTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0CE37C85181E8ED10087C96E /* Debug */,
-				0CE37C86181E8ED10087C96E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
