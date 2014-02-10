@@ -26,6 +26,8 @@
 {
     [super drawRect:rect];
     
+    NSLog(@"%@", NSStringFromCGRect(self.frame));
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //tarcza

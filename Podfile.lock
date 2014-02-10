@@ -20,6 +20,7 @@ PODS:
   - google-plus-ios-sdk (1.4.1)
   - GPUImage (0.1.2)
   - iCarousel (1.7.6)
+  - NSObject+AutoDescription (0.1)
   - SHActionSheetBlocks (2.3.0)
   - UIAlertView+Blocks (0.8)
 
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - google-plus-ios-sdk (~> 1.4.1)
   - GPUImage
   - iCarousel
+  - NSObject+AutoDescription
   - SHActionSheetBlocks
   - UIAlertView+Blocks
 
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   google-plus-ios-sdk: d04d1f5791e3a304144995a2af7b10629d21da4c
   GPUImage: 007145faa0e27f1ddbcab93e07f026c9776e2fa2
   iCarousel: e23a26d7ba722215a42144e80adb0dcb59bebc41
+  NSObject+AutoDescription: 95a585c85920551aed4ab18a5b96f62a572e0ef0
   SHActionSheetBlocks: d1194997eb32ea752a906043ac97887615a270ad
   UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
 

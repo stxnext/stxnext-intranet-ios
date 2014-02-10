@@ -59,6 +59,7 @@
                                               NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
                                               for (NSHTTPCookie *cookie in storage.cookies)
                                               {
+                                                  NSLog(@"deltete cookie: %@", [cookie autoDescription]);
                                                   [storage deleteCookie:cookie];
                                               }
                                               

@@ -51,18 +51,10 @@ static CGFloat tabBarHeight;
     self.title = @"Lista osób";
     
     //update data
-    [self.refreshControl beginRefreshing];
-    [self startRefreshData];
-    
-    if (self.tableView.contentOffset.y == 0)
+    if ([[HTTPClient sharedClient] authCookiesPresent])
     {
-        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
-            self.tableView.contentOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
-        } completion:^(BOOL finished){
-            
-        }];
+        [self loadUsersFromAPIWithNotification];
     }
-    //end update data
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -118,7 +110,8 @@ static CGFloat tabBarHeight;
                                           // We expect 302
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields forURL:operation.response.URL];
+                                          NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields
+                                                                                                    forURL:operation.response.URL];
                                           
                                           [[HTTPClient sharedClient] saveCookies:cookies];
                                           
@@ -322,6 +315,17 @@ static CGFloat tabBarHeight;
     [_tableView reloadData];
 }
 
+- (void)loadUsersFromAPIWithNotification
+{
+    [self.refreshControl beginRefreshing];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
+        self.tableView.contentOffset = CGPointMake(0, -_refreshControl.frame.size.height);
+    } completion:^(BOOL finished){
+        [self startRefreshData];
+    }];
+}
+
 - (void)loadUsersFromAPI
 {
     __block NSInteger operations = 2;
@@ -353,6 +357,8 @@ static CGFloat tabBarHeight;
                                           {
                                               [RMUser mapFromJSON:user];
                                           }
+                                          
+                                          NSLog(@"Loaded: %i users", [responseObject[@"users"] count]);
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];

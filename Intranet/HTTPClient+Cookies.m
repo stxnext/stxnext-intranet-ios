@@ -47,9 +47,13 @@
         id cookie = cookies[i];
         if ([cookie isKindOfClass:[NSHTTPCookie class]])
         {
+            
+
+            
             NSDictionary *properties = ((NSHTTPCookie *)cookie).properties;
             if (properties != nil)
             {
+                NSLog(@"save cookie: %@", [cookie autoDescription]);
                 [cookiesProperties addObject:properties];
             }
         }
@@ -98,7 +102,10 @@
 - (void)deleteCookies
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSLog(@"cookies DF: %@", [[defaults objectForKey:kIntranetCookies] autoDescription]);
     [defaults removeObjectForKey:kIntranetCookies];
+    NSLog(@"cookies DF2: %@", [[defaults objectForKey:kIntranetCookies] autoDescription]);
     [defaults synchronize];
 }
 

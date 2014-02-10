@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-NSObject+AutoDescription.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SHActionSheetBlocks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>003E9CFB7DF84F5AB7BB5FF1</key>
+		<key>279E30B6CB6B4C789F7C7DE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0D767E802D054E6FA5A7E437</key>
+		<key>447F21D869544F0AAF12FD48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2A2AFB155C0F4F618D6A719D</key>
+		<key>7FA8BEFDCD534F629702CA2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7191457038624D129FEE4276</key>
+		<key>92704C9623524F4099A17BCF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FEB531870B8450BA1DD6D88</key>
+		<key>A7599E998AC246EE8218466D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B767C5689EFF465FB613C5EE</key>
+		<key>A8B9FBDCF16C4F5DB7596310</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7E9D12CE55A404D868C8DA6</key>
+		<key>B36942E72BAE4527AED3E57A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEDBD6600A8F4FD9B9D76A29</key>
 		<dict>
 			<key>primary</key>
 			<true/>

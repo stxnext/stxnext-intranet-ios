@@ -15,44 +15,6 @@
 
 @implementation UserDetailsTableViewController
 
-#pragma mark - Init Methods
-
-- (id)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        // Custom initialization
-    }
-    
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    
-    if (self)
-    {
-        // Custom initialization
-    }
-    
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
-    if (self)
-    {
-        // Custom initialization
-    }
-    
-    return self;
-}
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -62,7 +24,9 @@
     //code here
     
     if (INTERFACE_IS_PAD)
+    {
         self.title = @"Informacje kontaktowe";
+    }
     
     [self.tableView hideEmptySeparators];
     
@@ -348,7 +312,8 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Błąd" withText:@"Nie znaleziono aplikacji obsługującej wiadomości email."];
+        [UIAlertView alertWithTitle:@"Błąd"
+                           withText:@"Nie znaleziono aplikacji obsługującej wiadomości email."];
     }
 }
 
