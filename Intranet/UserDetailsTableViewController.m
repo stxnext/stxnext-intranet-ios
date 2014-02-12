@@ -33,7 +33,7 @@
     [super viewDidAppear:animated];
     
     //code here
-    [self loadUser];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,6 +43,7 @@
     [super viewWillAppear:animated];
     
     // check if user is in system contacts or not
+    [self loadUser];
     [self updateAddToContactsButton];
 }
 
@@ -265,10 +266,10 @@
 {
     if (self.user)
     {
-        if (INTERFACE_IS_PAD)
-        {
-            self.title = @"Informacje kontaktowe";
-        }
+//        if (INTERFACE_IS_PAD)
+//        {
+            self.title = @"Informacje";
+//        }
         
         [self updateGUI];
     }
@@ -506,6 +507,7 @@
     
     self.explanationLabel.text = text;
     
+    [self.userName sizeToFit];
     [self.explanationLabel sizeToFit];
 }
 

@@ -115,7 +115,7 @@
                                                 <constraint firstAttribute="width" constant="75" id="b0l-c1-kwp"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cvq-D9-n8B" customClass="ClockView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cvq-D9-n8B" customClass="ClockView">
                                             <rect key="frame" x="277" y="55" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,12 +137,12 @@
                                         <constraint firstItem="WRU-Ph-QZN" firstAttribute="top" secondItem="nJQ-dY-d1h" secondAttribute="top" constant="10" id="0Z4-iI-qZL"/>
                                         <constraint firstItem="Ksz-84-dGV" firstAttribute="top" secondItem="nJQ-dY-d1h" secondAttribute="top" constant="10" id="E1F-Sj-dQz"/>
                                         <constraint firstItem="WRU-Ph-QZN" firstAttribute="leading" secondItem="nJQ-dY-d1h" secondAttribute="leading" constant="15" id="E3P-3W-sUJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="Cvq-D9-n8B" secondAttribute="bottom" constant="-11" id="KEo-U3-h2J"/>
                                         <constraint firstItem="zXn-9A-cjH" firstAttribute="leading" secondItem="WRU-Ph-QZN" secondAttribute="trailing" constant="8" id="OzU-Yv-xMw"/>
                                         <constraint firstItem="Cvq-D9-n8B" firstAttribute="leading" secondItem="zXn-9A-cjH" secondAttribute="trailing" constant="8" id="Zrf-GK-Pwu"/>
                                         <constraint firstItem="zXn-9A-cjH" firstAttribute="leading" secondItem="WRU-Ph-QZN" secondAttribute="trailing" constant="8" id="feW-mb-2HA"/>
                                         <constraint firstAttribute="trailing" secondItem="Ksz-84-dGV" secondAttribute="trailing" constant="13" id="hcg-mx-OUh"/>
-                                        <constraint firstAttribute="trailing" secondItem="Cvq-D9-n8B" secondAttribute="trailing" constant="-10" id="py4-Ox-OLZ"/>
-                                        <constraint firstItem="Cvq-D9-n8B" firstAttribute="top" secondItem="Ksz-84-dGV" secondAttribute="bottom" constant="24" id="zvh-Lr-u8Q"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cvq-D9-n8B" secondAttribute="trailing" constant="-7" id="py4-Ox-OLZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -169,6 +169,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="_showActionButton" destination="oTC-B2-bXf" id="OaD-Jp-pZQ"/>
                         <outlet property="_tableView" destination="Jc2-ow-AJA" id="tYy-kS-jjn"/>
                         <outlet property="searchDisplayController" destination="ejg-3B-6c3" id="vlo-u8-toG"/>
                     </connections>
@@ -271,7 +272,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLn-K3-bdI" customClass="ClockView">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZLn-K3-bdI" customClass="ClockView">
                                                     <rect key="frame" x="731" y="82" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -292,9 +293,9 @@
                                                 <constraint firstItem="QLO-TJ-S9d" firstAttribute="top" secondItem="qTC-X4-yTE" secondAttribute="top" constant="10" id="1Ig-Iz-p4M"/>
                                                 <constraint firstItem="H1A-ZS-dkt" firstAttribute="leading" secondItem="oI8-Qq-6T0" secondAttribute="trailing" constant="8" id="2Zf-fi-iMG"/>
                                                 <constraint firstItem="oI8-Qq-6T0" firstAttribute="top" secondItem="qTC-X4-yTE" secondAttribute="top" constant="10" id="CPl-JU-l08"/>
-                                                <constraint firstAttribute="trailing" secondItem="ZLn-K3-bdI" secondAttribute="trailing" constant="-10" id="E0v-59-DSe"/>
-                                                <constraint firstItem="ZLn-K3-bdI" firstAttribute="top" secondItem="QLO-TJ-S9d" secondAttribute="bottom" constant="51" id="UCY-Qr-ePQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZLn-K3-bdI" secondAttribute="trailing" constant="-13" id="E0v-59-DSe"/>
                                                 <constraint firstItem="QLO-TJ-S9d" firstAttribute="leading" secondItem="qTC-X4-yTE" secondAttribute="leading" constant="123" id="WBJ-Em-THa"/>
+                                                <constraint firstAttribute="bottom" secondItem="ZLn-K3-bdI" secondAttribute="bottom" constant="-13" id="YMJ-cF-8Be"/>
                                                 <constraint firstAttribute="trailing" secondItem="QLO-TJ-S9d" secondAttribute="trailing" constant="15" id="daT-4V-8tp"/>
                                                 <constraint firstItem="oI8-Qq-6T0" firstAttribute="leading" secondItem="qTC-X4-yTE" secondAttribute="leading" constant="15" id="kof-qr-vAj"/>
                                                 <constraint firstAttribute="bottom" secondItem="H1A-ZS-dkt" secondAttribute="bottom" constant="9" id="rbN-B5-btI"/>

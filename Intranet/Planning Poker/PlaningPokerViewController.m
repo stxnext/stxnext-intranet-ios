@@ -9,6 +9,7 @@
 #import "PlaningPokerViewController.h"
 #import "CardView.h"
 #import "GPUImage.h"
+#import <LBBlurredImage/UIImageView+LBBlurredImage.h>
 
 #define UnSelectedRadius 700
 #define SelectedRadius 1000
@@ -34,6 +35,16 @@
 
 
 @implementation PlaningPokerViewController
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)setUp
 {
@@ -100,15 +111,14 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                                target:self
                                                                                                action:@selector(close)];
+        self.closeButton.hidden = YES;
+        self.planingPokerTitleLabel.hidden = YES;
     }
     
     selectedIndex = -1;
     
-    [self.backgroundImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)]];
+//    [self.backgroundImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)]];
 }
-
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -131,7 +141,7 @@
 {
     [super viewWillDisappear:animated];
     
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -141,6 +151,9 @@
 
 - (void)showBlurBackground
 {
+    [self.backgroundImageView setImageToBlur:self.backgroundImage blurRadius:10 completionBlock:nil];
+    self.backgroundImageView.alpha = 0.75;
+    /*
     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:self.backgroundImage];
     GPUImageiOSBlurFilter *stillImageFilter = [[GPUImageiOSBlurFilter alloc] init];
     stillImageFilter.blurRadiusInPixels = .50f;
@@ -152,6 +165,7 @@
     UIImage *currentFilteredVideoFrame = [stillImageFilter imageFromCurrentlyProcessedOutput];
     
     self.backgroundImageView.image = currentFilteredVideoFrame;
+     */
 }
 
 - (void)viewDidUnload
@@ -166,7 +180,7 @@
     return NO;
 }
 
-- (void)close
+- (IBAction)close
 {
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -400,7 +414,7 @@
 
 - (void)moveCardUp
 {
-    vShift = fabs(self.carousel.center.y - self.view.center.y) - (iOS7_PLUS ? 0 : self.navigationController.navigationBar.frame.size.height);
+    vShift = fabs(self.carousel.center.y - self.view.center.y);
     
     if (!isAnimating)
     {
@@ -467,7 +481,6 @@
 {
     CardView *view = (CardView *)[_carousel itemViewAtIndex:selectedIndex];
     
-    
     if (isCardShowed)
     {
         [UIView transitionWithView:view duration:0.2 options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionTransitionFlipFromRight
@@ -500,8 +513,6 @@
 
         isCardShowed = YES;
     }
-
-    
 }
 
 @end

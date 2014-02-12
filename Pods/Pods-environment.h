@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_GPUImage 1
 #define COCOAPODS_VERSION_PATCH_GPUImage 2
 
+// LBBlurredImage
+#define COCOAPODS_POD_AVAILABLE_LBBlurredImage
+#define COCOAPODS_VERSION_MAJOR_LBBlurredImage 0
+#define COCOAPODS_VERSION_MINOR_LBBlurredImage 2
+#define COCOAPODS_VERSION_PATCH_LBBlurredImage 0
+
 // NSObject+AutoDescription
 #define COCOAPODS_POD_AVAILABLE_NSObject_AutoDescription
 #define COCOAPODS_VERSION_MAJOR_NSObject_AutoDescription 0

@@ -67,7 +67,7 @@
             <objects>
                 <tableViewController id="eBK-zg-izl" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zBt-hv-5ub">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -92,7 +92,7 @@
                                                     <rect key="frame" x="123" y="10" width="182" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="M01-NF-Nau"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="M01-NF-Nau"/>
                                                         <constraint firstAttribute="width" constant="182" id="uX3-ax-KPE"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
@@ -119,9 +119,9 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="zJg-l9-v8b" secondAttribute="bottom" constant="9" id="2XJ-3N-LSY"/>
                                                 <constraint firstItem="uxj-XX-i1B" firstAttribute="leading" secondItem="hMu-oz-gOc" secondAttribute="leading" constant="15" id="8G7-Wj-GzM"/>
+                                                <constraint firstAttribute="bottom" secondItem="LEh-6F-Ysy" secondAttribute="bottom" constant="-13" id="A5q-Fp-Zhd"/>
                                                 <constraint firstItem="mbw-CK-bxg" firstAttribute="leading" secondItem="uxj-XX-i1B" secondAttribute="trailing" constant="8" id="Dcj-Fo-5h3"/>
                                                 <constraint firstAttribute="trailing" secondItem="LEh-6F-Ysy" secondAttribute="trailing" constant="-13" id="Dm5-rC-8O6"/>
-                                                <constraint firstItem="LEh-6F-Ysy" firstAttribute="top" secondItem="mbw-CK-bxg" secondAttribute="bottom" constant="51" id="GR7-9l-Zr8"/>
                                                 <constraint firstAttribute="trailing" secondItem="mbw-CK-bxg" secondAttribute="trailing" constant="15" id="V2u-MG-U5l"/>
                                                 <constraint firstItem="LEh-6F-Ysy" firstAttribute="leading" secondItem="zJg-l9-v8b" secondAttribute="trailing" constant="8" id="ffQ-it-hcZ"/>
                                                 <constraint firstItem="mbw-CK-bxg" firstAttribute="top" secondItem="hMu-oz-gOc" secondAttribute="top" constant="10" id="hpI-GB-IRt"/>
@@ -696,6 +696,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jFO-Dk-1lA"/>
+        <segue reference="8yv-kA-sUN"/>
     </inferredMetricsTieBreakers>
 </document>

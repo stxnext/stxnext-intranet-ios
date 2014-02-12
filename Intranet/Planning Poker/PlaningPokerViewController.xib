@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="backgroundImageView" destination="21" id="np6-ab-fG2"/>
                 <outlet property="carousel" destination="8" id="9"/>
+                <outlet property="closeButton" destination="ArV-R0-MCN" id="w6J-kh-96f"/>
+                <outlet property="planingPokerTitleLabel" destination="yff-Kd-EQR" id="dcL-Ft-fgk"/>
                 <outlet property="view" destination="6" id="7"/>
             </connections>
         </placeholder>
@@ -22,6 +24,22 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </imageView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="m8U-7d-kDT">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <button opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ArV-R0-MCN">
+                    <rect key="frame" x="270" y="5" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="24"/>
+                    <state key="normal" title="X">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="close" destination="-1" eventType="touchUpInside" id="pS0-rC-2af"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8" userLabel="iCarousel" customClass="iCarousel">
                     <rect key="frame" x="0.0" y="83" width="320" height="397"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,27 +51,34 @@
                         <outlet property="delegate" destination="-1" id="11"/>
                     </connections>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xud-Rm-7tL">
-                    <rect key="frame" x="292" y="15" width="13" height="24"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planing Poker" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="235" translatesAutoresizingMaskIntoConstraints="NO" id="yff-Kd-EQR">
+                    <rect key="frame" x="42" y="437" width="235" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="29"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="Xud-Rm-7tL" firstAttribute="top" secondItem="6" secondAttribute="top" constant="15" id="1zZ-CB-spY"/>
+                <constraint firstItem="m8U-7d-kDT" firstAttribute="top" secondItem="6" secondAttribute="top" id="1Ax-cv-lw5"/>
+                <constraint firstItem="m8U-7d-kDT" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="8OZ-W9-j3w"/>
                 <constraint firstAttribute="bottom" secondItem="21" secondAttribute="bottom" id="JSS-IM-UVn"/>
+                <constraint firstAttribute="trailing" secondItem="m8U-7d-kDT" secondAttribute="trailing" id="PGQ-6Z-gXD"/>
                 <constraint firstAttribute="bottom" secondItem="8" secondAttribute="bottom" id="PI6-ce-Llk"/>
                 <constraint firstItem="21" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="Yf7-Mq-NB6"/>
                 <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="hpb-zZ-z9V"/>
-                <constraint firstAttribute="trailing" secondItem="Xud-Rm-7tL" secondAttribute="trailing" constant="15" id="kTx-x4-scg"/>
+                <constraint firstAttribute="centerX" secondItem="yff-Kd-EQR" secondAttribute="centerX" id="lqc-uJ-F8Z"/>
                 <constraint firstItem="21" firstAttribute="top" secondItem="6" secondAttribute="top" id="oGy-XF-cf9"/>
                 <constraint firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="oRs-oc-7Sv"/>
+                <constraint firstAttribute="bottom" secondItem="m8U-7d-kDT" secondAttribute="bottom" id="qVN-44-TSt"/>
+                <constraint firstAttribute="bottom" secondItem="yff-Kd-EQR" secondAttribute="bottom" constant="6" id="wcf-gx-AIn"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="zt9-xu-QOh"/>
             </constraints>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="girl" width="664" height="1432"/>
+    </resources>
 </document>
