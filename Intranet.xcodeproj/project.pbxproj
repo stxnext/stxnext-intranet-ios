@@ -55,6 +55,9 @@
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
+		662CE1D918AB58BE0071E01E /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = 662CE1D818AB58BE0071E01E /* users.json */; };
+		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
+		662CE1DE18AB6FCE0071E01E /* presence.json in Resources */ = {isa = PBXBuildFile; fileRef = 662CE1DD18AB6FCE0071E01E /* presence.json */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
@@ -152,6 +155,10 @@
 		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		660DE6AF189A32E700E1905D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		660DE6B0189A32E700E1905D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		662CE1D818AB58BE0071E01E /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
+		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
+		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
+		662CE1DD18AB6FCE0071E01E /* presence.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = presence.json; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
@@ -324,9 +331,13 @@
 			isa = PBXGroup;
 			children = (
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
+				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
+				662CE1DD18AB6FCE0071E01E /* presence.json */,
+				662CE1D818AB58BE0071E01E /* users.json */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
+				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 			);
@@ -473,8 +484,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				662CE1D918AB58BE0071E01E /* users.json in Resources */,
 				0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */,
 				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
+				662CE1DE18AB6FCE0071E01E /* presence.json in Resources */,
 				66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */,
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
@@ -534,6 +547,7 @@
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
+				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,

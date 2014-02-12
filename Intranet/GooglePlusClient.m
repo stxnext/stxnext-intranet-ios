@@ -26,9 +26,13 @@ static GooglePlusClient* _singleton = nil;
     
     // Send sign in request
     if ([self.signIn hasAuthInKeychain])
+    {
         [self.signIn trySilentAuthentication];
+    }
     else
+    {
         [self.signIn authenticate];
+    }
 }
 
 #pragma mark Private methods

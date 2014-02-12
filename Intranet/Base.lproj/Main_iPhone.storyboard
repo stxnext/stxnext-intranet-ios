@@ -67,7 +67,7 @@
             <objects>
                 <tableViewController id="eBK-zg-izl" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zBt-hv-5ub">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -658,7 +658,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QUy-BD-bpt" kind="relationship" relationship="rootViewController" id="Za8-Of-kQ8"/>
+                        <segue destination="eBK-zg-izl" kind="relationship" relationship="rootViewController" id="jFO-Dk-1lA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xhU-F3-xDM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -695,4 +695,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="jFO-Dk-1lA"/>
+    </inferredMetricsTieBreakers>
 </document>

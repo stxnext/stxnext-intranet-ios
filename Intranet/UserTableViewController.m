@@ -13,6 +13,7 @@
 #import "UserDetailsTableViewController.h"
 #import "PlaningPokerViewController.h"
 #import "UIView+Screenshot.h"
+#import "AppDelegate+Settings.h"
 
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
@@ -30,7 +31,7 @@ static CGFloat tabBarHeight;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
@@ -51,7 +52,7 @@ static CGFloat tabBarHeight;
     self.title = @"Lista osób";
     
     //update data
-    if ([[HTTPClient sharedClient] authCookiesPresent])
+    if ([APP_DELEGATE userLoggedType] != UserLoginTypeFalse)
     {
         [self loadUsersFromAPIWithNotification];
     }
@@ -72,7 +73,7 @@ static CGFloat tabBarHeight;
 {
     [super viewDidAppear:animated];
     
-    if (![[HTTPClient sharedClient] authCookiesPresent])
+    if ([APP_DELEGATE userLoggedType] == UserLoginTypeNO)
     {
         [self showLoginScreen];
     }
@@ -88,7 +89,7 @@ static CGFloat tabBarHeight;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-   
+    
     navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
 }
 
@@ -102,7 +103,7 @@ static CGFloat tabBarHeight;
     }];
 }
 
-- (void)finishedLoginWithCode:(NSString*)code withError:(NSError*)error
+- (void)finishedLoginWithCode:(NSString *)code withError:(NSError *)error
 {
     // Assume success, use code to fetch cookies
     [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:code]
@@ -110,6 +111,10 @@ static CGFloat tabBarHeight;
                                           // We expect 302
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          NSLog(@"----------[FINISHED REQUEST URL]\n%@\n", [operation.request.URL description]);
+                                          NSLog(@"----------[FINISHED RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+                                          
                                           NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields
                                                                                                     forURL:operation.response.URL];
                                           
@@ -118,6 +123,13 @@ static CGFloat tabBarHeight;
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
+                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
+                                              [self loadUsersFromAPI];
+                                          }
+                                          else
+                                          {
+                                              //error with login (e.g. account not exists)
+                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeFalse];
                                               [self loadUsersFromAPI];
                                           }
                                       }];
@@ -167,7 +179,7 @@ static CGFloat tabBarHeight;
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
     self.filterStructure = [[NSMutableArray alloc] init];
-
+    
     NSArray *types = @[@"Pracownicy", @"Klienci", @"Freelancers"];
     NSArray *people = @[@"Wszyscy", @"Obecni", @"Nieobecni", @"Spóźnienia"];
     NSMutableArray *locations = [[NSMutableArray alloc] init];
@@ -206,7 +218,7 @@ static CGFloat tabBarHeight;
             }
         }
     }
-
+    
     [self.filterStructure addObject:types];
     [self.filterStructure addObject:people];
     
@@ -296,21 +308,21 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }
     }
-/*
-    NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
-          [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                 withSortDescriptor:nil
-                                      withPredicate:nil
-                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
-          [JSONSerializationHelper objectsWithClass:[RMLate class]
-                                 withSortDescriptor:nil
-                                      withPredicate:nil
-                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
-          [JSONSerializationHelper objectsWithClass:[RMAbsence class]
-                                 withSortDescriptor:nil
-                                      withPredicate:nil
-                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
-  */
+    /*
+     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
+     [JSONSerializationHelper objectsWithClass:[RMUser class]
+     withSortDescriptor:nil
+     withPredicate:nil
+     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
+     [JSONSerializationHelper objectsWithClass:[RMLate class]
+     withSortDescriptor:nil
+     withPredicate:nil
+     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
+     [JSONSerializationHelper objectsWithClass:[RMAbsence class]
+     withSortDescriptor:nil
+     withPredicate:nil
+     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
+     */
     
     [_tableView reloadData];
 }
@@ -339,7 +351,7 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
-    [[HTTPClient sharedClient] startOperation:[APIRequest getUsers]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -353,6 +365,7 @@ static CGFloat tabBarHeight;
                                           }
                                           
                                           // Add to database
+                                          //
                                           for (id user in responseObject[@"users"])
                                           {
                                               [RMUser mapFromJSON:user];
@@ -381,7 +394,7 @@ static CGFloat tabBarHeight;
                                           }
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APIRequest getPresence]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -442,7 +455,7 @@ static CGFloat tabBarHeight;
     [self showNoSelectionUserDetails];
     
     [self loadUsersFromDatabase];
-
+    
     [_tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
@@ -522,18 +535,18 @@ static CGFloat tabBarHeight;
     cell.userName.text = user.name;
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
-
+    
     cell.clockView.hidden = ((user.lates.count + user.absences.count) == 0);
     cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
     
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
     absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-
+    
     NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
     latesDateFormater.dateFormat = @"HH:mm";
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-   
+    
     if (user.lates.count)
     {
         cell.clockView.color = MAIN_YELLOW_COLOR;
@@ -557,7 +570,7 @@ static CGFloat tabBarHeight;
         
         [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
-
+            
             NSString *start = [absenceDateFormater stringFromDate:absence.start];
             NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
             
@@ -605,14 +618,14 @@ static CGFloat tabBarHeight;
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
     else if ([segue.identifier isEqualToString:@"FilterSegue"])
-    {        
+    {
         ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
         [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
         ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
     }
     else if ([segue.identifier isEqualToString:@"FilterPopoverSegue"])
     {
-         myPopover = [(UIStoryboardPopoverSegue *)segue popoverController];
+        myPopover = [(UIStoryboardPopoverSegue *)segue popoverController];
         
         ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
         [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
@@ -645,7 +658,6 @@ static CGFloat tabBarHeight;
     }
 }
 
-
 - (IBAction)showPlaningPoker:(id)sender
 {
     PlaningPokerViewController *ppvc = [[PlaningPokerViewController alloc] initWithNibName:@"PlaningPokerViewController" bundle:nil];
@@ -660,11 +672,6 @@ static CGFloat tabBarHeight;
         [nvc setNavigationBarHidden:YES animated:NO];
     }
     
-    
-//    [nvc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    nvc.navigationBar.shadowImage = [UIImage new];
-//    nvc.navigationBar.translucent = YES;
-
     [self presentViewController:nvc animated:YES completion:nil];
 }
 

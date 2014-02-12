@@ -30,6 +30,7 @@ static HTTPClient* _sharedClient = nil;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 [_sharedClient.operationQueue setSuspended:NO];
                 break;
+                
             case AFNetworkReachabilityStatusNotReachable:
             default:
                 [_sharedClient.operationQueue setSuspended:YES];
@@ -42,17 +43,30 @@ static HTTPClient* _sharedClient = nil;
 
 #pragma mark Utility private methods
 
-+ (NSString*)nameForMethod:(HTTPMethod)method
++ (NSString *)nameForMethod:(HTTPMethod)method
 {
     switch (method)
     {
-        case HTTPMethodGET: return @"GET";
-        case HTTPMethodHEAD: return @"HEAD";
-        case HTTPMethodPOST: return @"POST";
-        case HTTPMethodPUT: return @"PUT";
-        case HTTPMethodPATCH: return @"PATCH";
-        case HTTPMethodDELETE: return @"DELETE";
-        default: return nil;
+        case HTTPMethodGET:
+            return @"GET";
+            
+        case HTTPMethodHEAD:
+            return @"HEAD";
+            
+        case HTTPMethodPOST:
+            return @"POST";
+            
+        case HTTPMethodPUT:
+            return @"PUT";
+            
+        case HTTPMethodPATCH:
+            return @"PATCH";
+            
+        case HTTPMethodDELETE:
+            return @"DELETE";
+            
+        default:
+            return nil;
     }
 }
 
@@ -65,6 +79,9 @@ static HTTPClient* _sharedClient = nil;
     [operation setCompletionBlockWithSuccess:success failure:failure];
     [self.operationQueue addOperation:operation];
     
+//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+    
     return operation;
 }
 
@@ -72,11 +89,18 @@ static HTTPClient* _sharedClient = nil;
                                                action:(NSString *)URLString
                                            parameters:(NSDictionary *)parameters
 {
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters];
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method]
+                                                                   URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
+                                                                  parameters:parameters];
 
     [self addAuthCookiesToRequest:request];
     
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:nil
+                                                                      failure:nil];
+    
+    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
     
     return operation;
 }
@@ -86,12 +110,20 @@ static HTTPClient* _sharedClient = nil;
                                             parameters:(NSDictionary *)parameters
                              constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
 {
-    NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:[HTTPClient nameForMethod:method] URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block];
+    NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:[HTTPClient nameForMethod:method]
+                                                                                URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
+                                                                               parameters:parameters
+                                                                constructingBodyWithBlock:block];
     
     [self addAuthCookiesToRequest:request];
     
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:nil failure:nil];
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:nil
+                                                                      failure:nil];
     
+//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+
     return operation;
 }
 

@@ -10,9 +10,12 @@
 
 @interface APIRequest : NSObject
 
-+ (AFHTTPRequestOperation*)loginWithCode:(NSString*)code;
-+ (AFHTTPRequestOperation*)getUsers;
-+ (AFHTTPRequestOperation*)getPresence;
-+ (AFHTTPRequestOperation*)logout;
++ (AFHTTPRequestOperation *)loginWithCode:(NSString *)code;
++ (AFHTTPRequestOperation *)getUsers;
++ (AFHTTPRequestOperation *)getFalseUsers;
++ (AFHTTPRequestOperation *)getPresence;
++ (AFHTTPRequestOperation *)getFalsePresence;
++ (AFHTTPRequestOperation *)logout;
++ (AFHTTPRequestOperation  *)user;
 
 @end

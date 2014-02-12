@@ -8,6 +8,10 @@
 
 #import "UserDetailsTableViewController.h"
 #import "RMUser+AddressBook.h"
+#import "AFHTTPRequestOperation+Redirect.h"
+#import "APIRequest.h"
+#import "AppDelegate+Navigation.h"
+#import "AppDelegate+Settings.h"
 
 @interface UserDetailsTableViewController ()
 
@@ -22,174 +26,6 @@
     [super viewDidLoad];
     
     //code here
-    
-    if (INTERFACE_IS_PAD)
-    {
-        self.title = @"Informacje kontaktowe";
-    }
-    
-    [self.tableView hideEmptySeparators];
-    
-    [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
-    self.userImage.layer.cornerRadius = 5;
-    self.userImage.clipsToBounds = YES;
-    
-    self.userName.text = self.user.name;
-    
-    if (self.user.phone)
-    {
-        self.phoneLabel.text = self.user.phone;
-    }
-    else
-    {
-        self.phoneCell.hidden = YES;
-    }
-    
-    if (self.user.phoneDesk)
-    {
-        self.phoneDeskLabel.text = self.user.phoneDesk;
-    }
-    else
-    {
-        self.phoneDeskCell.hidden = YES;
-    }
-    
-    if (self.user.email)
-    {
-        self.emailLabel.text = self.user.email;
-    }
-    else
-    {
-        self.emailCell.hidden = YES;
-    }
-    
-    if (self.user.skype)
-    {
-        self.skypeLabel.text = self.user.skype;
-    }
-    else
-    {
-        self.skypeCell.hidden = YES;
-    }
-    
-    if (self.user.irc)
-    {
-        self.ircLabel.text = self.user.irc;
-    }
-    else
-    {
-        self.ircCell.hidden = YES;
-    }
-
-    if (self.user.location)
-    {
-        self.locationLabel.text = self.user.location;
-    }
-    else
-    {
-        self.locationCell.hidden = YES;
-    }
-    
-    if ([self.user.groups count])
-    {
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-
-        for (NSString *group in self.user.groups)
-        {
-            [string appendFormat:@"%@, ", group];
-        }
-        
-        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        self.groupsLabel.text = [string capitalizedString];
-    }
-    else
-    {
-        self.groupsCell.hidden = YES;
-    }
-    
-    if ([self.user.roles count])
-    {
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-        
-        for (NSString *role in self.user.roles)
-        {
-            [string appendFormat:@"%@, ", role];
-        }
-        
-        [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        self.rolesLabel.text = [string capitalizedString];
-    }
-    else
-    {
-        self.rolesCell.hidden = YES;
-    }
-    
-    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-    if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (late.explanation)
-            {
-                [explanation appendFormat:@" %@", late.explanation];
-            }
-        }];
-    }
-    else if (self.user.absences.count)
-    {
-        self.clockView.color = MAIN_RED_COLOR;
-        
-        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
-            
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (absence.remarks)
-            {
-                [explanation appendFormat:@" %@", absence.remarks];
-            }
-        }];
-    }
-
-    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    
-    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
-        
-    self.explanationLabel.text = text;
-    
-    [self.explanationLabel sizeToFit];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -197,6 +33,7 @@
     [super viewDidAppear:animated];
     
     //code here
+    [self loadUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -353,6 +190,323 @@
     {
         self.addToContactLabel.text = NSLocalizedString(@"dodaj do kontaktów", nil);
     }
+}
+
+- (IBAction)logout:(id)sender
+{
+    [[HTTPClient sharedClient] startOperation:[APIRequest logout]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          // logout error
+                                          
+                                          // We expect 302
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          if ([operation redirectToLoginView])
+                                          {
+                                              NSArray *keys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
+                                              
+                                              for (NSString* key in keys)
+                                              {
+                                                  // your code here
+                                                  NSLog(@"value: %@ forKey: %@",[[NSUserDefaults standardUserDefaults] valueForKey:key],key);
+                                              }
+                                              
+                                              [[HTTPClient sharedClient] deleteCookies];
+                                              
+                                              // delete all cookies (to remove Google login cookies)
+                                              {
+                                                  NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                                                  
+                                                  for (NSHTTPCookie *cookie in storage.cookies)
+                                                  {
+                                                      NSLog(@"DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
+                                                            ((NSHTTPCookie *)cookie).name,
+                                                            ((NSHTTPCookie *)cookie).value,
+                                                            ((NSHTTPCookie *)cookie).expiresDate);
+                                                      
+                                                      
+                                                      [storage deleteCookie:cookie];
+                                                  }
+                                                  
+                                                  [[NSURLCache sharedURLCache] removeAllCachedResponses];
+                                                  
+                                                  [[NSUserDefaults standardUserDefaults] synchronize];
+                                              }
+                                              
+                                              
+                                              {
+                                                  NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                                                  
+                                                  NSLog(@"-------------------------------- %@", [storage.cookies autoDescription]);
+                                                  
+                                                  for (NSHTTPCookie *cookie in storage.cookies)
+                                                  {
+                                                      NSLog(@"-------------------------------- DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
+                                                            ((NSHTTPCookie *)cookie).name,
+                                                            ((NSHTTPCookie *)cookie).value,
+                                                            ((NSHTTPCookie *)cookie).expiresDate);
+                                                  }
+                                              }
+                                              
+                                              self.user = nil;
+                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+                                              [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+                                          }
+                                          else
+                                          {
+                                              // logout error
+                                          }
+                                      }];
+}
+
+#pragma mark - GUI
+
+ - (void)loadUser
+{
+    if (self.user)
+    {
+        if (INTERFACE_IS_PAD)
+        {
+            self.title = @"Informacje kontaktowe";
+        }
+        
+        [self updateGUI];
+    }
+    else
+    {
+        self.title = @"Ja";
+        
+        CGRect frame = [[UIScreen mainScreen] bounds];
+        frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
+        UIView *emptyView = [[UIView alloc] initWithFrame:frame];
+        emptyView.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *loadingLabel = [[UILabel alloc] init];
+        loadingLabel.text = @"Ładowanie danych...";
+        [loadingLabel sizeToFit];
+        loadingLabel.center = emptyView.center;
+        [emptyView addSubview:loadingLabel];
+        
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [activityView startAnimating];
+        CGPoint center = emptyView.center;
+        center.y -= loadingLabel.frame.size.height/2 + activityView.frame.size.height/2;
+        activityView.center = center;
+        [emptyView addSubview:activityView];
+        
+        self.tableView.scrollEnabled = NO;
+        [self.view addSubview:emptyView];
+        
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Wyloguj" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+        
+        [[HTTPClient sharedClient] startOperation:[APIRequest user]
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              // error
+                                              
+                                              // We expect 302
+                                          }
+                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              NSString *html = operation.responseString;
+                                              NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
+                                              
+                                              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
+                                              NSString *userID ;
+                                              
+                                              for (NSString *line in htmlArray)
+                                              {
+                                                  userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                                  
+                                                  if ([predicate evaluateWithObject:userID])
+                                                  {
+                                                      userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                      
+                                                      break;
+                                                  }
+                                              }
+                                              
+                                              self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                                                   withSortDescriptor:nil
+                                                                                        withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
+                                                                                     inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
+                                              
+                                              [emptyView removeFromSuperview];
+                                              self.tableView.scrollEnabled = YES;
+                                              
+                                              [self updateGUI];
+                                              [self.tableView reloadData];
+                                          }];
+    }
+}
+
+- (void)updateGUI
+{
+    [self.tableView hideEmptySeparators];
+    
+    if (self.user.avatarURL)
+    {
+        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
+    }
+
+    self.userImage.layer.cornerRadius = 5;
+    self.userImage.clipsToBounds = YES;
+    
+    self.userName.text = self.user.name;
+    
+    if (self.user.phone)
+    {
+        self.phoneLabel.text = self.user.phone;
+    }
+    else
+    {
+        self.phoneCell.hidden = YES;
+    }
+    
+    if (self.user.phoneDesk)
+    {
+        self.phoneDeskLabel.text = self.user.phoneDesk;
+    }
+    else
+    {
+        self.phoneDeskCell.hidden = YES;
+    }
+    
+    if (self.user.email)
+    {
+        self.emailLabel.text = self.user.email;
+    }
+    else
+    {
+        self.emailCell.hidden = YES;
+    }
+    
+    if (self.user.skype)
+    {
+        self.skypeLabel.text = self.user.skype;
+    }
+    else
+    {
+        self.skypeCell.hidden = YES;
+    }
+    
+    if (self.user.irc)
+    {
+        self.ircLabel.text = self.user.irc;
+    }
+    else
+    {
+        self.ircCell.hidden = YES;
+    }
+    
+    if (self.user.location)
+    {
+        self.locationLabel.text = self.user.location;
+    }
+    else
+    {
+        self.locationCell.hidden = YES;
+    }
+    
+    if ([self.user.groups count])
+    {
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+        
+        for (NSString *group in self.user.groups)
+        {
+            [string appendFormat:@"%@, ", group];
+        }
+        
+        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
+        
+        self.groupsLabel.text = [string capitalizedString];
+    }
+    else
+    {
+        self.groupsCell.hidden = YES;
+    }
+    
+    if ([self.user.roles count])
+    {
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+        
+        for (NSString *role in self.user.roles)
+        {
+            [string appendFormat:@"%@, ", role];
+        }
+        
+        [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
+        
+        self.rolesLabel.text = [string capitalizedString];
+    }
+    else
+    {
+        self.rolesCell.hidden = YES;
+    }
+    
+    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
+    
+    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+    __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
+    
+    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
+    
+    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+    latesDateFormater.dateFormat = @"HH:mm";
+    
+    if (self.user.lates.count)
+    {
+        self.clockView.color = MAIN_YELLOW_COLOR;
+        
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMLate *late = (RMLate *)obj;
+            
+            NSString *start = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
+            
+            if (start.length || stop.length)
+            {
+                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
+            }
+            
+            if (late.explanation)
+            {
+                [explanation appendFormat:@" %@", late.explanation];
+            }
+        }];
+    }
+    else if (self.user.absences.count)
+    {
+        self.clockView.color = MAIN_RED_COLOR;
+        
+        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMAbsence *absence = (RMAbsence *)obj;
+            
+            NSString *start = [absenceDateFormater stringFromDate:absence.start];
+            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+            
+            if (start.length || stop.length)
+            {
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
+            }
+            
+            if (absence.remarks)
+            {
+                [explanation appendFormat:@" %@", absence.remarks];
+            }
+        }];
+    }
+    
+    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    
+    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
+    
+    self.explanationLabel.text = text;
+    
+    [self.explanationLabel sizeToFit];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

@@ -50,7 +50,7 @@
 
 + (void)deleteObjectsWithClass:(Class<JSONMapping>)class inManagedContext:(NSManagedObjectContext*)context
 {
-    NSArray* objects = [self objectsWithClass:class withSortDescriptor:nil withPredicate:nil inManagedContext:context];
+    NSArray *objects = [self objectsWithClass:class withSortDescriptor:nil withPredicate:nil inManagedContext:context];
     
     for (NSManagedObject* object in objects)
         [context deleteObject:object];

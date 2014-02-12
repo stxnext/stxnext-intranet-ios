@@ -42,7 +42,7 @@
 
 #pragma mark Utilities
 
-- (NSString*)fetchCodeFromUrl:(NSURL*)url
+- (NSString *)fetchCodeFromUrl:(NSURL*)url
 {
     // Fetch code from request URL address using regex
     NSString* urlString = url.absoluteString;
@@ -58,6 +58,9 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSLog(@"[ZAPYTANIE URL]\n%@\n", [request.URL description]);
+    NSLog(@"[ZAPYTANIE HEADERS]\n%@\n", [request.allHTTPHeaderFields descriptionInStringsFileFormat]);    
+    
     // Break if already found a code
     if (_isFinished)
         return NO;

@@ -30,7 +30,7 @@
         {
             [request addValue:cookieHeader[key] forHTTPHeaderField:key];
         }
-        
+
         return YES;
     }
     
@@ -45,15 +45,20 @@
     for (int i = 0; i < cookies.count; i++)
     {
         id cookie = cookies[i];
+        
         if ([cookie isKindOfClass:[NSHTTPCookie class]])
         {
-            
-
-            
             NSDictionary *properties = ((NSHTTPCookie *)cookie).properties;
+            
             if (properties != nil)
             {
-                NSLog(@"save cookie: %@", [cookie autoDescription]);
+                NSLog(@"SAVE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
+                      ((NSHTTPCookie *)cookie).name,
+                      ((NSHTTPCookie *)cookie).value,
+                      ((NSHTTPCookie *)cookie).expiresDate);
+
+                
+                
                 [cookiesProperties addObject:properties];
             }
         }
@@ -103,9 +108,20 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSLog(@"cookies DF: %@", [[defaults objectForKey:kIntranetCookies] autoDescription]);
+    NSData *cookiesData = [defaults objectForKey:kIntranetCookies];
+    NSArray *cookiesProperties = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+
+    
+    for (NSDictionary *cookie in cookiesProperties)
+    {
+     
+
+        NSLog(@"DELETE DEFAULTS cookie Name: %@, \nValue: %@\n",
+              [cookie objectForKey:@"Name"],
+              [cookie objectForKey:@"Value"]);
+    }
+    
     [defaults removeObjectForKey:kIntranetCookies];
-    NSLog(@"cookies DF2: %@", [[defaults objectForKey:kIntranetCookies] autoDescription]);
     [defaults synchronize];
 }
 

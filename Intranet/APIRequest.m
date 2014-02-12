@@ -12,9 +12,9 @@
 
 @implementation APIRequest
 
-+ (AFHTTPRequestOperation*)loginWithCode:(NSString*)code
++ (AFHTTPRequestOperation *)loginWithCode:(NSString *)code
 {
-    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodHEAD
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodHEAD
                                                                                      action:[NSString stringWithFormat:@"auth/callback?code=%@", code]
                                                                                  parameters:nil];
     
@@ -23,29 +23,60 @@
     return request;
 }
 
-+ (AFHTTPRequestOperation*)getUsers
++ (AFHTTPRequestOperation *)getUsers
 {
-    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
                                                                                      action:@"api/users?full=1&inactive=1"
                                                                                  parameters:nil];
+    
     [request blockRedirections];
     
     return request;
 }
 
-+ (AFHTTPRequestOperation*)getPresence
++ (AFHTTPRequestOperation *)getFalseUsers
 {
-    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/users?full=1&inactive=1"
+                                                                                 parameters:nil];
+    
+//    [request blockRedirections];
+    
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getPresence
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
                                                                                      action:@"api/presence"
                                                                                  parameters:nil];
     
     return request;
 }
 
-+ (AFHTTPRequestOperation*)logout
++ (AFHTTPRequestOperation *)getFalsePresence
 {
-    AFHTTPRequestOperation* request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodHEAD
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/presence"
+                                                                                 parameters:nil];
+    
+    return request;
+}
+
++ (AFHTTPRequestOperation *)logout
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodHEAD
                                                                                      action:@"auth/logout"
+                                                                                 parameters:nil];
+    [request blockRedirections];
+    
+    return request;
+}
+
++ (AFHTTPRequestOperation  *)user
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"user/edit"
                                                                                  parameters:nil];
     [request blockRedirections];
     
