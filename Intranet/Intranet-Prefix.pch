@@ -11,17 +11,17 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #else
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <CoreServices/CoreServices.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <CoreServices/CoreServices.h>
 #endif
 
 // External headers
@@ -49,45 +49,45 @@
 #import "NSObject+CleanDescription.h"
 
 // Convenience functions
-#define ORIENTATION_IS_PORTRAIT (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+#define ORIENTATION_IS_PORTRAIT             (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
 
-#define INTERFACE_IS_PAD     (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define INTERFACE_IS_PHONE   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define INTERFACE_IS_PAD                    (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define INTERFACE_IS_PHONE                  (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define INTERFACE_IS_PHONE_SMALL_SCREEN     (INTERFACE_IS_PHONE && [[UIScreen mainScreen] bounds].size.height != 568)
-#define INTERFACE_IS_PHONE_5     (INTERFACE_IS_PHONE && [[UIScreen mainScreen] bounds].size.height >= 568)
+#define INTERFACE_IS_PHONE_5                (INTERFACE_IS_PHONE && [[UIScreen mainScreen] bounds].size.height >= 568)
 
-#define DEVICE_IOS_VERSION ([[[UIDevice currentDevice] systemVersion] floatValue])
-#define iOS7_PLUS (DEVICE_IOS_VERSION >= 7.0)
+#define DEVICE_IOS_VERSION                  ([[[UIDevice currentDevice] systemVersion] floatValue])
+#define iOS7_PLUS                           (DEVICE_IOS_VERSION >= 7.0)
 
 #define STATUS_BAR_HEIGHT ((UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) ? \
 [UIApplication sharedApplication].statusBarFrame.size.height : [UIApplication sharedApplication].statusBarFrame.size.width)
 
 #if TARGET_IPHONE_SIMULATOR
-#define TARGET_IS_SIMULATOR YES
-#define TARGET_IS_DEVICE NO
+#define TARGET_IS_SIMULATOR                 YES
+#define TARGET_IS_DEVICE                    NO
 #else
-#define TARGET_IS_SIMULATOR NO
-#define TARGET_IS_DEVICE YES
+#define TARGET_IS_SIMULATOR                 NO
+#define TARGET_IS_DEVICE                    YES
 #endif
 
-#define PrintFrame(text, frame) NSLog(@"%@(X:%f Y:%f W:%f H:%f)", text, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)
-#define PrintSize(text, size) NSLog(@"%@(W:%f H:%f)", text, size.width, size.height)
-#define PrintPoint(text, point) NSLog(@"%@(X:%f Y:%f)", text, point.x, point.y)
+#define PrintFrame(text, frame)             NSLog(@"%@(X:%f Y:%f W:%f H:%f)", text, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)
+#define PrintSize(text, size)               NSLog(@"%@(W:%f H:%f)", text, size.width, size.height)
+#define PrintPoint(text, point)             NSLog(@"%@(X:%f Y:%f)", text, point.x, point.y)
 
-#define MAIN_APP_COLOR     [UIColor colorWithRed:0 green:156 / 255.0 blue:153 / 255.0 alpha:1.0]
-#define MAIN_RED_COLOR     [UIColor colorWithRed:255 / 255.0 green:59 / 255.0 blue:48 / 255.0 alpha:1.]
-#define MAIN_YELLOW_COLOR  [UIColor colorWithRed:255 / 255.0 green:204 / 255.0 blue:0 / 255.0 alpha:1.]
-#define MAIN_GREEN_COLOR   [UIColor colorWithRed:76 / 255.0 green:217 / 255.0 blue:100 / 255.0 alpha:1.]
+#define MAIN_APP_COLOR                      [UIColor colorWithRed:0 green:156 / 255.0 blue:153 / 255.0 alpha:1.0]
+#define MAIN_RED_COLOR                      [UIColor colorWithRed:255 / 255.0 green:59 / 255.0 blue:48 / 255.0 alpha:1.]
+#define MAIN_YELLOW_COLOR                   [UIColor colorWithRed:255 / 255.0 green:204 / 255.0 blue:0 / 255.0 alpha:1.]
+#define MAIN_GREEN_COLOR                    [UIColor colorWithRed:76 / 255.0 green:217 / 255.0 blue:100 / 255.0 alpha:1.]
 
 #define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 // Constants
 
-#define WORKERS @"Workers"
-#define CLIENTS @"Clients"
-#define FREELANCERS @"Freelancers"
+#define WORKERS         @"Workers"
+#define CLIENTS         @"Clients"
+#define FREELANCERS     @"Freelancers"
 
-#define ALL @"All"
-#define PRESENT @"Present"
-#define ABSENT @"Absent"
-#define LATE @"Late"
+#define ALL             @"All"
+#define PRESENT         @"Present"
+#define ABSENT          @"Absent"
+#define LATE            @"Late"

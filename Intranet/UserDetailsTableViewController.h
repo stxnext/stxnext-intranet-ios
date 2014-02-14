@@ -10,7 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ClockView.h"
 
-@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate>
+@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;

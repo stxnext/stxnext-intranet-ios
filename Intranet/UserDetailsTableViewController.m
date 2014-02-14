@@ -15,6 +15,10 @@
 
 @interface UserDetailsTableViewController ()
 
+@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIView *emptyView;
+@property (nonatomic, strong) UILabel *loadingLabel;
+
 @end
 
 @implementation UserDetailsTableViewController
@@ -194,27 +198,48 @@
 
 - (IBAction)logout:(id)sender
 {
-    [[HTTPClient sharedClient] startOperation:[APIRequest logout]
-                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          // logout error
-                                          
-                                          // We expect 302
-                                      }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          if ([operation redirectToLoginView])
-                                          {
-                                              NSArray *keys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
+    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse)
+    {
+        [[HTTPClient sharedClient] deleteCookies];
+        
+        // delete all cookies (to remove Google login cookies)
+        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        
+        for (NSHTTPCookie *cookie in storage.cookies)
+        {
+            NSLog(@"DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
+                  ((NSHTTPCookie *)cookie).name,
+                  ((NSHTTPCookie *)cookie).value,
+                  ((NSHTTPCookie *)cookie).expiresDate);
+            
+            
+            [storage deleteCookie:cookie];
+        }
+        
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.user = nil;
+        
+        [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+        [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+    }
+    else
+    {
+        [[HTTPClient sharedClient] startOperation:[APIRequest logout]
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              // logout error
                                               
-                                              for (NSString* key in keys)
+                                              // We expect 302
+                                          }
+                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              if ([operation redirectToLoginView])
                                               {
-                                                  // your code here
-                                                  NSLog(@"value: %@ forKey: %@",[[NSUserDefaults standardUserDefaults] valueForKey:key],key);
-                                              }
-                                              
-                                              [[HTTPClient sharedClient] deleteCookies];
-                                              
-                                              // delete all cookies (to remove Google login cookies)
-                                              {
+                                                  [[HTTPClient sharedClient] deleteCookies];
+                                                  
+                                                  // delete all cookies (to remove Google login cookies)
+                                                  
                                                   NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
                                                   
                                                   for (NSHTTPCookie *cookie in storage.cookies)
@@ -222,8 +247,7 @@
                                                       NSLog(@"DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
                                                             ((NSHTTPCookie *)cookie).name,
                                                             ((NSHTTPCookie *)cookie).value,
-                                                            ((NSHTTPCookie *)cookie).expiresDate);
-                                                      
+                                                            ((NSHTTPCookie *)cookie).expiresDate);                                                      
                                                       
                                                       [storage deleteCookie:cookie];
                                                   }
@@ -231,37 +255,22 @@
                                                   [[NSURLCache sharedURLCache] removeAllCachedResponses];
                                                   
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
+                                                  
+                                                  self.user = nil;
+                                                  [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+                                                  [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
                                               }
-                                              
-                                              
+                                              else
                                               {
-                                                  NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-                                                  
-                                                  NSLog(@"-------------------------------- %@", [storage.cookies autoDescription]);
-                                                  
-                                                  for (NSHTTPCookie *cookie in storage.cookies)
-                                                  {
-                                                      NSLog(@"-------------------------------- DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
-                                                            ((NSHTTPCookie *)cookie).name,
-                                                            ((NSHTTPCookie *)cookie).value,
-                                                            ((NSHTTPCookie *)cookie).expiresDate);
-                                                  }
+                                                  // logout error
                                               }
-                                              
-                                              self.user = nil;
-                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
-                                              [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
-                                          }
-                                          else
-                                          {
-                                              // logout error
-                                          }
-                                      }];
+                                          }];
+    }
 }
 
 #pragma mark - GUI
 
- - (void)loadUser
+- (void)loadUser
 {
     if (self.user)
     {
@@ -273,66 +282,62 @@
     {
         self.title = @"Me";
         
-        CGRect frame = [[UIScreen mainScreen] bounds];
-        frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
-        UIView *emptyView = [[UIView alloc] initWithFrame:frame];
-        emptyView.backgroundColor = [UIColor whiteColor];
-        
-        UILabel *loadingLabel = [[UILabel alloc] init];
-        loadingLabel.text = @"Loading...";
-        [loadingLabel sizeToFit];
-        loadingLabel.center = emptyView.center;
-        [emptyView addSubview:loadingLabel];
-        
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView startAnimating];
-        CGPoint center = emptyView.center;
-        center.y -= loadingLabel.frame.size.height/2 + activityView.frame.size.height/2;
-        activityView.center = center;
-        [emptyView addSubview:activityView];
-        
-        self.tableView.scrollEnabled = NO;
-        [self.view addSubview:emptyView];
-        
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
         
-        [[HTTPClient sharedClient] startOperation:[APIRequest user]
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              // error
-                                              
-                                              // We expect 302
-                                          }
-                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSString *html = operation.responseString;
-                                              NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                              
-                                              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
-                                              NSString *userID ;
-                                              
-                                              for (NSString *line in htmlArray)
-                                              {
-                                                  userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                                  
-                                                  if ([predicate evaluateWithObject:userID])
-                                                  {
-                                                      userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                                                      
-                                                      break;
-                                                  }
+        if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
+        {
+            [self addEmptyView];
+            
+            [[HTTPClient sharedClient] startOperation:[APIRequest user]
+                                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                  // error
+                                                  // We expect 302
                                               }
-                                              
-                                              self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                                                   withSortDescriptor:nil
-                                                                                        withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
-                                                                                     inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-                                              
-                                              [emptyView removeFromSuperview];
-                                              self.tableView.scrollEnabled = YES;
-                                              
-                                              [self updateGUI];
-                                              [self.tableView reloadData];
-                                          }];
+                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                  NSString *html = operation.responseString;
+                                                  NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
+                                                  
+                                                  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
+                                                  NSString *userID ;
+                                                  
+                                                  for (NSString *line in htmlArray)
+                                                  {
+                                                      userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                                      
+                                                      if ([predicate evaluateWithObject:userID])
+                                                      {
+                                                          userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                          
+                                                          break;
+                                                      }
+                                                  }
+                                                  
+                                                  self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                                                       withSortDescriptor:nil
+                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
+                                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
+                                                  
+                                                  [self removeEmptyView];
+                                                  self.tableView.scrollEnabled = YES;
+                                                  
+                                                  [self updateGUI];
+                                                  [self.tableView reloadData];
+                                              }];
+        }
+        else
+        {
+            self.title = @"About";
+            
+            if (self.webView == nil)
+            {
+                self.webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+                self.webView .scalesPageToFit = YES;
+                self.webView.delegate = self;
+                [self.webView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stxnext.com"]]];
+                
+                [self.view addSubview:self.webView ];
+            }
+        }
     }
 }
 
@@ -348,9 +353,11 @@
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
     
-    self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.userImage.layer.borderWidth = 1;
-    
+    if ([APP_DELEGATE userLoggedType] != UserLoginTypeFalse)
+    {
+        self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
+        self.userImage.layer.borderWidth = 1;
+    }
     self.userName.text = /**/self.user.name;//*/[NSString stringWithFormat:@"%@ %@ %@",self.user.name, self.user.name, self.user.name];
     
     if (self.user.phone)
@@ -506,11 +513,33 @@
     
     self.explanationLabel.text = text;
     
+    if (self.navigationController.viewControllers.count <= 1)
+    {
+        self.addToContactsCell.hidden = YES;
+    }
+    
     [self.userName sizeToFit];
     [self.userName layoutIfNeeded];
     [self.explanationLabel sizeToFit];
     
     [self.tableView reloadData];
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self addEmptyView];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self removeEmptyView];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    self.loadingLabel.text = @"Loading error";
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -554,6 +583,35 @@
     [self updateGUI];
     
     return YES;
+}
+
+ - (void)addEmptyView
+{
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
+    self.emptyView = [[UIView alloc] initWithFrame:frame];
+    self.emptyView.backgroundColor = [UIColor whiteColor];
+    
+    self.loadingLabel = [[UILabel alloc] init];
+    self.loadingLabel.text = @"Loading...";
+    [self.loadingLabel sizeToFit];
+    self.loadingLabel.center = self.emptyView.center;
+    [self.emptyView addSubview:self.loadingLabel];
+    
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityView startAnimating];
+    CGPoint center = self.emptyView.center;
+    center.y -= self.loadingLabel.frame.size.height/2 + activityView.frame.size.height/2;
+    activityView.center = center;
+    [self.emptyView addSubview:activityView];
+    
+    self.tableView.scrollEnabled = NO;
+    [self.view addSubview:self.emptyView];
+}
+
+- (void)removeEmptyView
+{
+    [self.emptyView removeFromSuperview];
 }
 
 @end

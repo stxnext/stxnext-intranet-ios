@@ -56,6 +56,11 @@ static CGFloat tabBarHeight;
     {
         [self loadUsersFromAPIWithNotification];
     }
+    
+    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse)
+    {
+        [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -124,12 +129,18 @@ static CGFloat tabBarHeight;
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
                                               [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
+
+                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
+                                              
                                               [self loadUsersFromAPI];
                                           }
                                           else
                                           {
                                               //error with login (e.g. account not exists)
                                               [APP_DELEGATE setUserLoggedType:UserLoginTypeFalse];
+                                              
+                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+                                              
                                               [self loadUsersFromAPI];
                                           }
                                       }];

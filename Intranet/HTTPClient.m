@@ -22,7 +22,7 @@ static HTTPClient* _sharedClient = nil;
     
     NSURL* baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
     _sharedClient = [[HTTPClient alloc] initWithBaseURL:baseUrl];
-    _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:_sharedClient.responseSerializer.acceptableContentTypes, @"text/plain", nil];
+    _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
     //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     
@@ -81,8 +81,8 @@ static HTTPClient* _sharedClient = nil;
 {
     [operation setCompletionBlockWithSuccess:success failure:failure];
     [self.operationQueue addOperation:operation];
-    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
-//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
     
     return operation;
 }
