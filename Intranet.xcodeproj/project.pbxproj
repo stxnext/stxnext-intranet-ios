@@ -45,7 +45,6 @@
 		0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF7FA7418214FB50056F907 /* CoreData.framework */; };
 		0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7B1821590C0056F907 /* DatabaseManager.m */; };
 		0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */; };
-		272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF88C183220F90014FBCA /* SettingsViewController.m */; };
 		272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF88F183229460014FBCA /* AppDelegate+Navigation.m */; };
 		272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272DF89518324D320014FBCA /* AddressBook.framework */; };
 		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
@@ -144,8 +143,6 @@
 		0CF7FA7D182163800056F907 /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
 		0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
 		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		272DF88B183220F90014FBCA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		272DF88C183220F90014FBCA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		272DF88E183229460014FBCA /* AppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Navigation.h"; sourceTree = "<group>"; };
 		272DF88F183229460014FBCA /* AppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		272DF89518324D320014FBCA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -347,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
-				66DBCA5C18AC99B700BB2D13 /* mockup */,
 				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
@@ -355,6 +351,7 @@
 				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
+				66DBCA5C18AC99B700BB2D13 /* mockup */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -364,14 +361,12 @@
 			children = (
 				660DE6AF189A32E700E1905D /* FilterViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
-				272DF88B183220F90014FBCA /* SettingsViewController.h */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
 				660DE6B0189A32E700E1905D /* FilterViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
-				272DF88C183220F90014FBCA /* SettingsViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
@@ -632,7 +627,6 @@
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
-				272DF88D183220F90014FBCA /* SettingsViewController.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

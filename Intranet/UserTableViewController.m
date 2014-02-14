@@ -180,8 +180,8 @@ static CGFloat tabBarHeight;
     
     self.filterStructure = [[NSMutableArray alloc] init];
     
-    NSArray *types = @[@"Pracownicy", @"Klienci", @"Freelancers"];
-    NSArray *people = @[@"Wszyscy", @"Obecni", @"Nieobecni", @"Spóźnienia"];
+    NSArray *types = @[WORKERS, CLIENTS, FREELANCERS];
+    NSArray *people = @[ALL, PRESENT, ABSENT, LATE];
     NSMutableArray *locations = [[NSMutableArray alloc] init];
     NSMutableArray *roles = [[NSMutableArray alloc] init];
     NSMutableArray *groups = [[NSMutableArray alloc] init];
@@ -229,8 +229,8 @@ static CGFloat tabBarHeight;
     if (self.filterSelections == nil)
     {
         self.filterSelections = [NSMutableArray arrayWithArray:@[
-                                                                 [NSMutableArray arrayWithArray:@[@"Pracownicy"]],
-                                                                 [NSMutableArray arrayWithArray:@[@"Wszyscy"]],
+                                                                 [NSMutableArray arrayWithArray:@[WORKERS]],
+                                                                 [NSMutableArray arrayWithArray:@[ALL]],
                                                                  [[NSMutableArray alloc] init],
                                                                  [[NSMutableArray alloc] init],
                                                                  [[NSMutableArray alloc] init]
@@ -243,23 +243,23 @@ static CGFloat tabBarHeight;
     }
     else
     {
-        if ([self.filterSelections[0][0] isEqualToString:@"Pracownicy"])
+        if ([self.filterSelections[0][0] isEqualToString:WORKERS])
         {
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
             
-            if ([self.filterSelections[1][0] isEqualToString:@"Wszyscy"])
+            if ([self.filterSelections[1][0] isEqualToString:ALL])
             {
                 
             }
-            else if ([self.filterSelections[1][0] isEqualToString:@"Obecni"])
+            else if ([self.filterSelections[1][0] isEqualToString:PRESENT])
             {
                 _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = 0 && lates.@count = 0"]];
             }
-            else if ([self.filterSelections[1][0] isEqualToString:@"Nieobecni"])
+            else if ([self.filterSelections[1][0] isEqualToString:ABSENT])
             {
                 _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count > 0"]];
             }
-            else if ([self.filterSelections[1][0] isEqualToString:@"Spóźnienia"])
+            else if ([self.filterSelections[1][0] isEqualToString:LATE])
             {
                 _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
             }
@@ -306,11 +306,11 @@ static CGFloat tabBarHeight;
                 }]];
             }
         }
-        else if ([self.filterSelections[0][0] isEqualToString:@"Klienci"])
+        else if ([self.filterSelections[0][0] isEqualToString:CLIENTS])
         {
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
         }
-        else if ([self.filterSelections[0][0] isEqualToString:@"Freelancers"])
+        else if ([self.filterSelections[0][0] isEqualToString:FREELANCERS])
         {
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }

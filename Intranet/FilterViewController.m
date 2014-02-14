@@ -27,7 +27,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    if ([[filterSelections[0] firstObject] isEqualToString:@"Pracownicy"])
+    if ([[filterSelections[0] firstObject] isEqualToString:WORKERS])
     {
         return [self.filterStructure count];
     }
@@ -96,8 +96,8 @@
     if (indexPath.section == 0 && indexPath.row == 0)
     {
         filterSelections = [NSMutableArray arrayWithArray:@[
-                                                            [NSMutableArray arrayWithArray:@[@"Pracownicy"]],
-                                                            [NSMutableArray arrayWithArray:@[@"Wszyscy"]],
+                                                            [NSMutableArray arrayWithArray:@[WORKERS]],
+                                                            [NSMutableArray arrayWithArray:@[ALL]],
                                                             [[NSMutableArray alloc] init],
                                                             [[NSMutableArray alloc] init],
                                                             [[NSMutableArray alloc] init]
