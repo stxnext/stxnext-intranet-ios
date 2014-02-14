@@ -207,12 +207,6 @@
         
         for (NSHTTPCookie *cookie in storage.cookies)
         {
-            NSLog(@"DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
-                  ((NSHTTPCookie *)cookie).name,
-                  ((NSHTTPCookie *)cookie).value,
-                  ((NSHTTPCookie *)cookie).expiresDate);
-            
-            
             [storage deleteCookie:cookie];
         }
         
@@ -244,11 +238,6 @@
                                                   
                                                   for (NSHTTPCookie *cookie in storage.cookies)
                                                   {
-                                                      NSLog(@"DELETE STORAGE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
-                                                            ((NSHTTPCookie *)cookie).name,
-                                                            ((NSHTTPCookie *)cookie).value,
-                                                            ((NSHTTPCookie *)cookie).expiresDate);                                                      
-                                                      
                                                       [storage deleteCookie:cookie];
                                                   }
                                                   
@@ -282,7 +271,10 @@
     {
         self.title = @"Me";
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:self
+                                                                                 action:@selector(logout:)];
         
         if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
         {
@@ -326,8 +318,6 @@
         }
         else
         {
-            self.title = @"About";
-            
             if (self.webView == nil)
             {
                 self.webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -358,7 +348,8 @@
         self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
         self.userImage.layer.borderWidth = 1;
     }
-    self.userName.text = /**/self.user.name;//*/[NSString stringWithFormat:@"%@ %@ %@",self.user.name, self.user.name, self.user.name];
+    
+    self.userName.text = self.user.name;
     
     if (self.user.phone)
     {
@@ -539,7 +530,11 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    self.loadingLabel.text = @"Loading error";
+    CGPoint center = self.loadingLabel.center;
+    self.loadingLabel.text = @"Loading error.";
+    [self.loadingLabel sizeToFit];
+    
+    self.loadingLabel.center = center;
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

@@ -326,21 +326,6 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }
     }
-    /*
-     NSLog(@"\nusers: %d\nlates: %d\nabsences: %d",
-     [JSONSerializationHelper objectsWithClass:[RMUser class]
-     withSortDescriptor:nil
-     withPredicate:nil
-     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
-     [JSONSerializationHelper objectsWithClass:[RMLate class]
-     withSortDescriptor:nil
-     withPredicate:nil
-     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count,
-     [JSONSerializationHelper objectsWithClass:[RMAbsence class]
-     withSortDescriptor:nil
-     withPredicate:nil
-     inManagedContext:[DatabaseManager sharedManager].managedObjectContext].count);
-     */
     
     [_tableView reloadData];
 }

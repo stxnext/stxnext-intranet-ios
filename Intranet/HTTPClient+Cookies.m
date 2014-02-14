@@ -52,13 +52,6 @@
             
             if (properties != nil)
             {
-                NSLog(@"SAVE cookie Name: %@, \nValue: %@, \nExpires: %@\n",
-                      ((NSHTTPCookie *)cookie).name,
-                      ((NSHTTPCookie *)cookie).value,
-                      ((NSHTTPCookie *)cookie).expiresDate);
-
-                
-                
                 [cookiesProperties addObject:properties];
             }
         }
@@ -107,19 +100,6 @@
 - (void)deleteCookies
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSData *cookiesData = [defaults objectForKey:kIntranetCookies];
-    NSArray *cookiesProperties = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
-
-    
-    for (NSDictionary *cookie in cookiesProperties)
-    {
-     
-
-        NSLog(@"DELETE DEFAULTS cookie Name: %@, \nValue: %@\n",
-              [cookie objectForKey:@"Name"],
-              [cookie objectForKey:@"Value"]);
-    }
     
     [defaults removeObjectForKey:kIntranetCookies];
     [defaults synchronize];

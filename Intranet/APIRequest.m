@@ -40,8 +40,6 @@
                                                                                      action:@"users.json"
                                                                                  parameters:nil];
     
-//    [request blockRedirections];
-    
     return request;
 }
 

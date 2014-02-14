@@ -81,8 +81,6 @@ static HTTPClient* _sharedClient = nil;
 {
     [operation setCompletionBlockWithSuccess:success failure:failure];
     [self.operationQueue addOperation:operation];
-//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
-    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
     
     return operation;
 }
@@ -100,10 +98,6 @@ static HTTPClient* _sharedClient = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:nil
                                                                       failure:nil];
-    
-    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
-//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
-    
     return operation;
 }
 
@@ -122,10 +116,6 @@ static HTTPClient* _sharedClient = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:nil
                                                                       failure:nil];
-    
-    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
-//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
-
     return operation;
 }
 

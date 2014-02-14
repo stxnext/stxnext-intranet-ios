@@ -56,9 +56,9 @@
         [context deleteObject:object];
 }
 
-+ (NSDate*)dateFromJSONObject:(id)jsonObject withDateFormat:(NSString*)dateFormat
++ (NSDate *)dateFromJSONObject:(id)jsonObject withDateFormat:(NSString*)dateFormat
 {
-    NSDateFormatter* formatter = [NSDateFormatter new];
+    NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:dateFormat];
     
     return [formatter dateFromString:jsonObject];
