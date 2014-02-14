@@ -8,7 +8,8 @@
 
 #import "HTTPClient.h"
 
-#define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
+//#define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
+#define kConfigAPIBaseURL @"http://mobileapp.splash.stxnext.local/"
 
 @implementation HTTPClient
 
@@ -21,7 +22,9 @@ static HTTPClient* _sharedClient = nil;
     
     NSURL* baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
     _sharedClient = [[HTTPClient alloc] initWithBaseURL:baseUrl];
+    _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:_sharedClient.responseSerializer.acceptableContentTypes, @"text/plain", nil];
     //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     
     [_sharedClient.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status)
@@ -78,8 +81,7 @@ static HTTPClient* _sharedClient = nil;
 {
     [operation setCompletionBlockWithSuccess:success failure:failure];
     [self.operationQueue addOperation:operation];
-    
-//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
 //    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
     
     return operation;
@@ -100,7 +102,7 @@ static HTTPClient* _sharedClient = nil;
                                                                       failure:nil];
     
     NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
-    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+//    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
     
     return operation;
 }
@@ -121,7 +123,7 @@ static HTTPClient* _sharedClient = nil;
                                                                       success:nil
                                                                       failure:nil];
     
-//    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
+    NSLog(@"[REQUEST URL]\n%@\n", [operation.request.URL description]);
 //    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
 
     return operation;

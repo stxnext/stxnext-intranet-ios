@@ -41,7 +41,7 @@ static CGFloat tabBarHeight;
     _userList = [NSArray array];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Odśwież"];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
     [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
     _refreshControl = refresh;
     self.refreshControl = refresh;
@@ -49,10 +49,10 @@ static CGFloat tabBarHeight;
     [_tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
-    self.title = @"Lista osób";
+    self.title = @"People";
     
     //update data
-    if ([APP_DELEGATE userLoggedType] != UserLoginTypeFalse)
+    if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
     {
         [self loadUsersFromAPIWithNotification];
     }
@@ -188,15 +188,15 @@ static CGFloat tabBarHeight;
     
     for (RMUser *user in users)
     {
-        if (user.location)
+        if (user.location && ![user.isClient boolValue])
         {
-            if (![locations containsObject:user.location])
+            if (![locations containsObject:[user.location capitalizedString]])
             {
                 [locations addObject:[user.location capitalizedString]];
             }
         }
         
-        if (user.roles)
+        if (user.roles && ![user.isClient boolValue])
         {
             for (NSString *role in user.roles)
             {
@@ -207,7 +207,7 @@ static CGFloat tabBarHeight;
             }
         }
         
-        if (user.groups)
+        if (user.groups && ![user.isClient boolValue])
         {
             for (NSString *group in user.groups)
             {
@@ -266,7 +266,14 @@ static CGFloat tabBarHeight;
             
             for (NSString *location in self.filterSelections[2])
             {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"location = %@", location]];
+                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                        if ([[((RMUser *)evaluatedObject).location capitalizedString] isEqualToString:location])
+                        {
+                            return YES;
+                        }
+                    
+                    return NO;
+                }]];
             }
             
             for (NSString *role in self.filterSelections[3])
@@ -371,7 +378,7 @@ static CGFloat tabBarHeight;
                                               [RMUser mapFromJSON:user];
                                           }
                                           
-                                          NSLog(@"Loaded: %i users", [responseObject[@"users"] count]);
+                                          NSLog(@"Loaded From API: %i users", [responseObject[@"users"] count]);
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];
@@ -385,7 +392,10 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"Loaded: 0 users");
+                                          NSLog(@"%@", operation);
+                                          NSLog(@"%@", error);
+                                          
+                                          NSLog(@"Loaded From API: 0 users");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           
                                           if ([operation redirectToLoginView])
@@ -536,6 +546,9 @@ static CGFloat tabBarHeight;
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
     
+    cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
+    cell.userImage.layer.borderWidth = 1;
+    
     cell.clockView.hidden = ((user.lates.count + user.absences.count) == 0);
     cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
     
@@ -653,6 +666,7 @@ static CGFloat tabBarHeight;
     {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil] instantiateViewControllerWithIdentifier:@"NoSelectionUserDetails"];
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+        nvc.navigationBar.tintColor = MAIN_APP_COLOR;
         
         self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
     }
@@ -661,7 +675,6 @@ static CGFloat tabBarHeight;
 - (IBAction)showPlaningPoker:(id)sender
 {
     PlaningPokerViewController *ppvc = [[PlaningPokerViewController alloc] initWithNibName:@"PlaningPokerViewController" bundle:nil];
-    
     ppvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:ppvc];

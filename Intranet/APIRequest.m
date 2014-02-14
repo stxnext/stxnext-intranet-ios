@@ -37,7 +37,7 @@
 + (AFHTTPRequestOperation *)getFalseUsers
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
-                                                                                     action:@"api/users?full=1&inactive=1"
+                                                                                     action:@"users.json"
                                                                                  parameters:nil];
     
 //    [request blockRedirections];
@@ -57,7 +57,7 @@
 + (AFHTTPRequestOperation *)getFalsePresence
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
-                                                                                     action:@"api/presence"
+                                                                                     action:@"presence.json"
                                                                                  parameters:nil];
     
     return request;

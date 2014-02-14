@@ -42,8 +42,8 @@ const NSString* MapKeyAbsenceUserName = @"name";
                                                                                                     withId:[json[MapKeyAbsenceUserId] validObject]
                                                                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                                                                              withDecorator:^(NSManagedObject<JSONMapping> *object) {
-                                                                                                 RMUser* user = (RMUser*)object;
-                                                                                                 user.name = [json[MapKeyAbsenceUserName] validObject];
+//                                                                                                 RMUser* user = (RMUser*)object;
+//                                                                                                 user.name = [json[MapKeyAbsenceUserName] validObject];
                                                                                              }];
                                           [absence.user addAbsencesObject:absence];
                                       }];

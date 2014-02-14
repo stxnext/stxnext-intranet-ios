@@ -58,8 +58,8 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"[ZAPYTANIE URL]\n%@\n", [request.URL description]);
-    NSLog(@"[ZAPYTANIE HEADERS]\n%@\n", [request.allHTTPHeaderFields descriptionInStringsFileFormat]);    
+//    NSLog(@"[ZAPYTANIE URL]\n%@\n", [request.URL description]);
+//    NSLog(@"[ZAPYTANIE HEADERS]\n%@\n", [request.allHTTPHeaderFields descriptionInStringsFileFormat]);    
     
     // Break if already found a code
     if (_isFinished)

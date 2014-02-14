@@ -42,19 +42,19 @@
     switch (section)
     {
         case 0:
-            return @"Pokaż";
+            return @"Show";
             
         case 1:
-            return @"Obecność";
+            return @"Presences";
 
         case 2:
-            return @"Lokalizacja";
+            return @"Localization";
             
         case 3:
-            return @"Rola";
+            return @"Roles";
             
         case 4:
-            return @"Grupa";
+            return @"Groups";
     }
     
     return @"";

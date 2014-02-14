@@ -44,8 +44,8 @@ const NSString* MapKeyLateUserName = @"name";
                                                                                                  withId:[json[MapKeyLateUserId] validObject]
                                                                                        inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                                                                           withDecorator:^(NSManagedObject<JSONMapping> *object) {
-                                                                                              RMUser* user = (RMUser*)object;
-                                                                                              user.name = [json[MapKeyLateUserName] validObject];
+//                                                                                              RMUser* user = (RMUser*)object;
+//                                                                                              user.name = [json[MapKeyLateUserName] validObject];
                                                                                           }];
                                           [late.user addLatesObject:late];
                                       }];

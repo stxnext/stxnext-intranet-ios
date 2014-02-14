@@ -33,7 +33,6 @@
     [super viewDidAppear:animated];
     
     //code here
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -101,7 +100,7 @@
     
     if (cell == self.mainCell)
     {
-        float size = self.explanationLabel.frame.size.height + 10 + self.userName.frame.size.height + 10;
+        float size = self.explanationLabel.frame.size.height + 20 + self.userName.frame.size.height + 20;
         
         return size > cell.frame.size.height ? size : cell.frame.size.height;
     }
@@ -111,7 +110,7 @@
 
 #pragma mark - Actions
 
-- (void)openUrl:(NSURL*)url orAlertWithText:(NSString*)alertText
+- (void)openUrl:(NSURL *)url orAlertWithText:(NSString *)alertText
 {
     if ([[UIApplication sharedApplication] canOpenURL:url])
     {
@@ -119,20 +118,20 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Błąd" withText:alertText];
+        [UIAlertView alertWithTitle:@"Error" withText:alertText];
     }
 }
 
 - (void)phoneCall
 {
     [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phone]]
-  orAlertWithText:@"Nie znaleziono aplikacji obsługującej połączenia telefoniczne."];
+  orAlertWithText:@"Call app not found."];
 }
 
 - (void)phoneDeskCall
 {
     [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phoneDesk]]
-  orAlertWithText:@"Nie znaleziono aplikacji obsługującej połączenia telefoniczne."];
+  orAlertWithText:@"Call app not found."];
 }
 
 - (void)emailSend
@@ -150,21 +149,21 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Błąd"
-                           withText:@"Nie znaleziono aplikacji obsługującej wiadomości email."];
+        [UIAlertView alertWithTitle:@"Error"
+                           withText:@"Email app not found."];
     }
 }
 
 - (void)skypeCall
 {
     [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:self.user.skype]]
-  orAlertWithText:@"Nie znaleziono aplikacji do komunikacji skype."];
+  orAlertWithText:@"Skype app not found."];
 }
 
 - (void)ircSend
 {
     [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:self.user.irc]]
-  orAlertWithText:@"Nie znaleziono aplikacji do komunikacji IRC."];
+  orAlertWithText:@"IRC app not found."];
 }
 
 - (void)addToContacts
@@ -185,11 +184,11 @@
 {
     if ([_user isInContacts])
     {
-        self.addToContactLabel.text = NSLocalizedString(@"usuń z kontaktów", nil);
+        self.addToContactLabel.text = @"remove from contacts";
     }
     else
     {
-        self.addToContactLabel.text = NSLocalizedString(@"dodaj do kontaktów", nil);
+        self.addToContactLabel.text = @"add to contacts";
     }
 }
 
@@ -266,16 +265,13 @@
 {
     if (self.user)
     {
-//        if (INTERFACE_IS_PAD)
-//        {
-            self.title = @"Informacje";
-//        }
+        self.title = @"Info";
         
         [self updateGUI];
     }
     else
     {
-        self.title = @"Ja";
+        self.title = @"Me";
         
         CGRect frame = [[UIScreen mainScreen] bounds];
         frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
@@ -283,7 +279,7 @@
         emptyView.backgroundColor = [UIColor whiteColor];
         
         UILabel *loadingLabel = [[UILabel alloc] init];
-        loadingLabel.text = @"Ładowanie danych...";
+        loadingLabel.text = @"Loading...";
         [loadingLabel sizeToFit];
         loadingLabel.center = emptyView.center;
         [emptyView addSubview:loadingLabel];
@@ -299,7 +295,7 @@
         [self.view addSubview:emptyView];
         
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Wyloguj" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
         
         [[HTTPClient sharedClient] startOperation:[APIRequest user]
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -352,7 +348,10 @@
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
     
-    self.userName.text = self.user.name;
+    self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.userImage.layer.borderWidth = 1;
+    
+    self.userName.text = /**/self.user.name;//*/[NSString stringWithFormat:@"%@ %@ %@",self.user.name, self.user.name, self.user.name];
     
     if (self.user.phone)
     {
@@ -508,7 +507,10 @@
     self.explanationLabel.text = text;
     
     [self.userName sizeToFit];
+    [self.userName layoutIfNeeded];
     [self.explanationLabel sizeToFit];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -549,7 +551,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    [self.explanationLabel sizeToFit];
+    [self updateGUI];
     
     return YES;
 }

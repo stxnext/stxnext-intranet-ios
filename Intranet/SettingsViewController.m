@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Ja";
+    self.title = @"Me";
     
     [[HTTPClient sharedClient] startOperation:[APIRequest user]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
