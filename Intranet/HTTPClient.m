@@ -95,8 +95,6 @@ static HTTPClient *_sharedClient = nil;
                                                                    URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters];
     
-    [request setTimeoutInterval:4];
-
     [self addAuthCookiesToRequest:request];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -114,8 +112,6 @@ static HTTPClient *_sharedClient = nil;
                                                                                 URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                                parameters:parameters
                                                                 constructingBodyWithBlock:block];
-    
-    [request setTimeoutInterval:4];
     
     [self addAuthCookiesToRequest:request];
     

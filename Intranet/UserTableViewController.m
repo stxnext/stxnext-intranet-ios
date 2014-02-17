@@ -181,6 +181,54 @@ static CGFloat tabBarHeight;
     [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
 }
 
+- (NSString *)formatRole:(NSString *)role
+{
+    if ([role isEqualToString:@"ACCOUNTANT"] || [role isEqualToString:@"ADMIN"] || [role isEqualToString:@"OFFICE MANAGER"] || [role isEqualToString:@"PROGRAMMER"] || [role isEqualToString:@"RECRUITER"] || [role isEqualToString:@"TESTER"] || [role isEqualToString:@"TECH LEAD"])
+    {
+        return [role capitalizedString];
+    }
+    
+    if ([role isEqualToString:@"BUSINESS DEV"])
+    {
+        return @"Business Development";
+    }
+
+    if ([role isEqualToString:@"CEO A"])
+    {
+        return @"CEO's Assistant";
+    }
+
+    if ([role isEqualToString:@"MARKETING SPEC"])
+    {
+        return @"Marketing Specialist";
+    }
+
+    if ([role isEqualToString:@"QA LEAD"])
+    {
+        return @"QA Lead";
+    }
+    
+    return role;
+}
+
+- (NSString *)formatGroup:(NSString *)group
+{
+    if ([group isEqualToString:@"admin"] || [group isEqualToString:@"business"] || [group isEqualToString:@"coordinator"] || [group isEqualToString:@"employee"] || [group isEqualToString:@"scrum master"])
+    {
+        return [group capitalizedString];
+    }
+    
+    
+    if ([group isEqualToString:@"hr"])
+    {
+        return [group uppercaseString];
+    }
+    
+    return group;
+}
+
+
+
 - (void)loadUsersFromDatabase
 {
     NSLog(@"Loading from: Database");
@@ -191,7 +239,27 @@ static CGFloat tabBarHeight;
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:nil
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-    
+
+    for (RMUser *user in users)
+    {
+        NSMutableArray *_tempRoleArray = [[NSMutableArray alloc] init];
+        NSMutableArray *_tempGroupArray = [[NSMutableArray alloc] init];
+        
+        for (NSString *role in user.roles)
+        {
+            [_tempRoleArray addObject:[self formatRole:role]];
+        }
+        
+        user.roles = _tempRoleArray;
+        
+        for (NSString *group in user.groups)
+        {
+            [_tempGroupArray addObject:[self formatGroup:group]];
+        }
+        
+        user.groups = _tempGroupArray;
+    }
+
     self.filterStructure = [[NSMutableArray alloc] init];
     
     NSArray *types = @[WORKERS, CLIENTS, FREELANCERS];
@@ -393,7 +461,7 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeFalse ? [APIRequest getFalseUsers] : [APIRequest getUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -443,7 +511,7 @@ static CGFloat tabBarHeight;
                                           [self.tableView reloadData];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeFalse ? [APIRequest getFalsePresence] : [APIRequest getPresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)

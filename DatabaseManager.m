@@ -10,19 +10,21 @@
 
 @implementation DatabaseManager
 
-static DatabaseManager* _sharedManager = nil;
+static DatabaseManager *_sharedManager = nil;
 
-+ (DatabaseManager*)sharedManager
++ (DatabaseManager *)sharedManager
 {
     return _sharedManager ?: (_sharedManager = [DatabaseManager new]);
 }
 
 #pragma mark Database
 
-- (NSManagedObjectContext*)managedObjectContext
+- (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext != nil)
+    {
         return _managedObjectContext;
+    }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     
@@ -35,10 +37,12 @@ static DatabaseManager* _sharedManager = nil;
     return _managedObjectContext;
 }
 
-- (NSManagedObjectModel*)managedObjectModel
+- (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil)
+    {
         return _managedObjectModel;
+    }
     
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Database" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -46,10 +50,12 @@ static DatabaseManager* _sharedManager = nil;
     return _managedObjectModel;
 }
 
-- (NSPersistentStoreCoordinator*)persistentStoreCoordinator
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     if (_persistentStoreCoordinator != nil)
+    {
         return _persistentStoreCoordinator;
+    }
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
@@ -60,16 +66,18 @@ static DatabaseManager* _sharedManager = nil;
                               };
     
     NSError *error;
+    
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
     {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        
         return nil;
     }
     
     return _persistentStoreCoordinator;
 }
 
-- (NSURL*)applicationDocumentsDirectory
+- (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
@@ -77,7 +85,9 @@ static DatabaseManager* _sharedManager = nil;
 - (void)saveContext
 {
     if (_managedObjectContext == nil)
+    {
         return;
+    }
     
     NSError *error;
     

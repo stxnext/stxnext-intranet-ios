@@ -13,12 +13,12 @@
 
 #pragma mark Helpers
 
-+ (NSManagedObject<JSONMapping>*)objectWithClass:(Class<JSONMapping>)class
-                                          withId:(NSNumber*)id
-                                inManagedContext:(NSManagedObjectContext*)context
-                                   withDecorator:(void (^)(NSManagedObject<JSONMapping>* object))decorator;
++ (NSManagedObject<JSONMapping> *)objectWithClass:(Class<JSONMapping>)class
+                                           withId:(NSNumber *)id
+inManagedContext:(NSManagedObjectContext *)context
+withDecorator:(void (^)(NSManagedObject<JSONMapping> *object))decorator;
 {
-    NSManagedObject<JSONMapping>* object = (NSManagedObject<JSONMapping>*)[context fetchObjectForEntityName:[class coreDataEntityName]
+    NSManagedObject<JSONMapping> *object = (NSManagedObject<JSONMapping>*)[context fetchObjectForEntityName:[class coreDataEntityName]
                                                                                          withSortDescriptor:nil
                                                                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %d", id.integerValue]];
     

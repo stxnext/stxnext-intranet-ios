@@ -43,11 +43,12 @@ const NSString* MapKeyUserGroups = @"groups";
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
     NSLog(@"%@", json);
+    
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                       withDecorator:^(NSManagedObject<JSONMapping>* object) {
-                                          RMUser* user = (RMUser*)object;
+                                          RMUser *user = (RMUser *)object;
                                           user.name = [json[MapKeyUserName] validObject];
                                           user.imageURL = [json[MapKeyUserImageURL] validObject];
                                           user.avatarURL = [json[MapKeyUserAvatarURL] validObject];
@@ -55,9 +56,16 @@ const NSString* MapKeyUserGroups = @"groups";
                                           user.isFreelancer = [json[MapKeyUserIsFreelancer] validObject];
                                           user.isClient = [json[MapKeyUserIsClient] validObject];
                                           user.isActive = [json[MapKeyUserIsActive] validObject];
-                                          user.startWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStartWork] validObject] withDateFormat:@"yyyy-MM-dd"];
-                                          user.startFullTimeWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStartFullTimeWork] validObject] withDateFormat:@"yyyy-MM-dd"];
-                                          user.stopWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStopWork] validObject] withDateFormat:@"yyyy-MM-dd"];
+                                          
+                                          user.startWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStartWork] validObject]
+                                                                                        withDateFormat:@"yyyy-MM-dd"];
+                                          
+                                          user.startFullTimeWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStartFullTimeWork] validObject]
+                                                                                                withDateFormat:@"yyyy-MM-dd"];
+                                          
+                                          user.stopWork = [JSONSerializationHelper dateFromJSONObject:[json[MapKeyUserStopWork] validObject]
+                                                                                       withDateFormat:@"yyyy-MM-dd"];
+                                          
                                           user.phone = [json[MapKeyUserPhone] validObject];
                                           user.phoneDesk = [json[MapKeyUserPhoneDesk] validObject];
                                           user.skype = [json[MapKeyUserSkype] validObject];
@@ -65,6 +73,7 @@ const NSString* MapKeyUserGroups = @"groups";
                                           user.email = [json[MapKeyUserEmail] validObject];
                                           user.tasksLink = [json[MapKeyUserTasksLink] validObject];
                                           user.availabilityLink = [json[MapKeyUserAvailabilityLink] validObject];
+
                                           user.roles = [json[MapKeyUserRoles] validObject];
                                           user.groups = [json[MapKeyUserGroups] validObject];
                                       }];
