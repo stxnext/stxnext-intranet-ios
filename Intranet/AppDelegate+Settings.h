@@ -12,7 +12,9 @@ typedef enum
 {
     UserLoginTypeNO = 0,
     UserLoginTypeTrue = 1,
-    UserLoginTypeFalse = 2
+    UserLoginTypeFalse = 2,
+    UserLoginTypeError = 3
+    
 }UserLoginType;
 
 @interface AppDelegate (Settings)

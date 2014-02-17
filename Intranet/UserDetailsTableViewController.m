@@ -269,16 +269,14 @@
     }
     else
     {
-        self.title = @"Me";
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(logout:)];
-        
         if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
         {
             [self addEmptyView];
+            self.title = @"Me";
             
             [[HTTPClient sharedClient] startOperation:[APIRequest user]
                                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -318,15 +316,20 @@
         }
         else
         {
+            self.title = @"About";
+            
             if (self.webView == nil)
             {
                 self.webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
                 self.webView .scalesPageToFit = YES;
                 self.webView.delegate = self;
-                [self.webView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stxnext.com"]]];
                 
                 [self.view addSubview:self.webView ];
             }
+            
+            [self.webView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stxnext.com"]]];
+            
+            [self addEmptyView];
         }
     }
 }
@@ -504,7 +507,7 @@
     
     self.explanationLabel.text = text;
     
-    if (self.navigationController.viewControllers.count <= 1)
+    if (self.navigationController.viewControllers.count <= 1 || [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
     {
         self.addToContactsCell.hidden = YES;
     }
@@ -520,7 +523,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [self addEmptyView];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

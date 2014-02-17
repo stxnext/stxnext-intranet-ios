@@ -46,16 +46,18 @@
             
             for (int i = 0; i < numberOfPeople; i++)
             {
-                NSString* name = [RMUser fullNameForPerson:CFArrayGetValueAtIndex(allPeople, i)];
+                NSString *name = [RMUser fullNameForPerson:CFArrayGetValueAtIndex(allPeople, i)];
                 
                 if ([name caseInsensitiveCompare:self.name] == NSOrderedSame)
                 {
                     result = YES;
+                    
                     break;
                 }
             }
             
-            if (allPeople) CFRelease(allPeople);
+            if (allPeople)
+                CFRelease(allPeople);
         }
         else
         {

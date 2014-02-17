@@ -13,14 +13,16 @@
 
 @implementation HTTPClient
 
-static HTTPClient* _sharedClient = nil;
+static HTTPClient *_sharedClient = nil;
 
-+ (HTTPClient*)sharedClient
++ (HTTPClient *)sharedClient
 {
     if (_sharedClient)
+    {
         return _sharedClient;
+    }
     
-    NSURL* baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
+    NSURL *baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
     _sharedClient = [[HTTPClient alloc] initWithBaseURL:baseUrl];
     _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
     //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -75,7 +77,7 @@ static HTTPClient* _sharedClient = nil;
 
 #pragma mark Client public methods
 
-- (AFHTTPRequestOperation*)startOperation:(AFHTTPRequestOperation*)operation
+- (AFHTTPRequestOperation *)startOperation:(AFHTTPRequestOperation *)operation
                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
@@ -92,6 +94,8 @@ static HTTPClient* _sharedClient = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method]
                                                                    URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters];
+    
+    [request setTimeoutInterval:4];
 
     [self addAuthCookiesToRequest:request];
     
@@ -110,6 +114,8 @@ static HTTPClient* _sharedClient = nil;
                                                                                 URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                                parameters:parameters
                                                                 constructingBodyWithBlock:block];
+    
+    [request setTimeoutInterval:4];
     
     [self addAuthCookiesToRequest:request];
     

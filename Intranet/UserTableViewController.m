@@ -57,7 +57,7 @@ static CGFloat tabBarHeight;
         [self loadUsersFromAPIWithNotification];
     }
     
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse)
+    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse || [APP_DELEGATE userLoggedType] == UserLoginTypeError)
     {
         [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
     }
@@ -103,7 +103,7 @@ static CGFloat tabBarHeight;
 - (void)showLoginScreen
 {
     [LoginViewController presentAfterSetupWithDecorator:^(UIModalViewController *controller) {
-        LoginViewController* customController = (LoginViewController*)controller;
+        LoginViewController *customController = (LoginViewController*)controller;
         customController.delegate = self;
     }];
 }
@@ -114,6 +114,7 @@ static CGFloat tabBarHeight;
     [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:code]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // We expect 302
+                                          [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
@@ -185,7 +186,9 @@ static CGFloat tabBarHeight;
     NSLog(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]
+                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                             ascending:YES
+                                                                                              selector:@selector(localizedCompare:)]
                                                  withPredicate:nil
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
     
@@ -388,6 +391,8 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          canShowNoResultsMessage = YES;
+                                          [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
                                           NSLog(@"%@", operation);
                                           NSLog(@"%@", error);
                                           
@@ -398,6 +403,8 @@ static CGFloat tabBarHeight;
                                           {
                                               [self showLoginScreen];
                                           }
+                                          
+                                          [self.tableView reloadData];
                                       }];
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
@@ -443,7 +450,10 @@ static CGFloat tabBarHeight;
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           }
                                       }
-                                      failure:nil];
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          NSLog(@"Error");
+                                      }];
 }
 
 #pragma mark - Filter delegate
