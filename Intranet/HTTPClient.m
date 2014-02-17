@@ -8,8 +8,8 @@
 
 #import "HTTPClient.h"
 
-//#define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
-#define kConfigAPIBaseURL @"http://mobileapp.splash.stxnext.local/"
+#define kConfigAPIBaseURL @"https://intranet.stxnext.pl/"
+//#define kConfigAPIBaseURL @"http://mobileapp.splash.stxnext.local/"
 
 @implementation HTTPClient
 

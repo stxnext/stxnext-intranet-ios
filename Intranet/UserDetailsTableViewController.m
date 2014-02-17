@@ -419,7 +419,7 @@
         
         [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
-        self.groupsLabel.text = [string capitalizedString];
+        self.groupsLabel.text = /*[*/string /*capitalizedString]*/;
     }
     else
     {
@@ -437,7 +437,7 @@
         
         [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
-        self.rolesLabel.text = [string capitalizedString];
+        self.rolesLabel.text = /*[*/string /*capitalizedString]*/;
     }
     else
     {

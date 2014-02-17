@@ -204,9 +204,9 @@ static CGFloat tabBarHeight;
     {
         if (user.location && ![user.isClient boolValue])
         {
-            if (![locations containsObject:[user.location capitalizedString]])
+            if (![locations containsObject:/*[*/user.location /*capitalizedString]*/])
             {
-                [locations addObject:[user.location capitalizedString]];
+                [locations addObject:/*[*/user.location /*capitalizedString]*/];
             }
         }
         
@@ -214,9 +214,9 @@ static CGFloat tabBarHeight;
         {
             for (NSString *role in user.roles)
             {
-                if (![roles containsObject:[role capitalizedString]])
+                if (![roles containsObject:/*[*/role /*capitalizedString]*/])
                 {
-                    [roles addObject:[role capitalizedString]];
+                    [roles addObject:/*[*/role /*capitalizedString]*/];
                 }
             }
         }
@@ -225,9 +225,9 @@ static CGFloat tabBarHeight;
         {
             for (NSString *group in user.groups)
             {
-                if (![groups containsObject:[group capitalizedString]])
+                if (![groups containsObject:/*[*/group /*capitalizedString]*/])
                 {
-                    [groups addObject:[group capitalizedString]];
+                    [groups addObject:/*[*/group /*capitalizedString]*/];
                 }
             }
         }
@@ -278,46 +278,84 @@ static CGFloat tabBarHeight;
                 _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
             }
             
-            for (NSString *location in self.filterSelections[2])
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            
+            if ([self.filterSelections[2] count])
             {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                        if ([[((RMUser *)evaluatedObject).location capitalizedString] isEqualToString:location])
+                [tempArray removeAllObjects];
+                
+                for (NSString *location in self.filterSelections[2])
+                {
+                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                        if ([/*[*/((RMUser *)evaluatedObject).location /*capitalizedString]*/ isEqualToString:location])
                         {
                             return YES;
                         }
+                        
+                        return NO;
+                    }]];
                     
-                    return NO;
-                }]];
+                    if ([filteredArray count])
+                    {
+                        [tempArray addObjectsFromArray:filteredArray];
+                    }
+                }
+                
+                _userList = [NSArray arrayWithArray:tempArray];
+            }
+
+            if ([self.filterSelections[3] count])
+            {
+                [tempArray removeAllObjects];
+                
+                for (NSString *role in self.filterSelections[3])
+                {
+                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                        for (NSString *str in ((RMUser *)evaluatedObject).roles)
+                        {
+                            if ([/*[*/str /*capitalizedString]*/ isEqualToString:role])
+                            {
+                                return YES;
+                            }
+                        }
+                        
+                        return NO;
+                    }]];
+                    
+                    if ([filteredArray count])
+                    {
+                        [tempArray addObjectsFromArray:filteredArray];
+                    }
+                }
+                
+                _userList = [NSArray arrayWithArray:tempArray];
             }
             
-            for (NSString *role in self.filterSelections[3])
+            if ([self.filterSelections[4] count])
             {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    for (NSString *str in ((RMUser *)evaluatedObject).roles)
-                    {
-                        if ([[str capitalizedString] isEqualToString:role])
+                [tempArray removeAllObjects];
+                
+                for (NSString *group in self.filterSelections[4])
+                {
+                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                        for (NSString *str in ((RMUser *)evaluatedObject).groups)
                         {
-                            return YES;
+                            if ([/*[*/str /*capitalizedString]*/ isEqualToString:group])
+                            {
+                                return YES;
+                            }
                         }
-                    }
+                        
+                        return NO;
+                    }]];
                     
-                    return NO;
-                }]];
-            }
-            
-            for (NSString *group in self.filterSelections[4])
-            {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    for (NSString *str in ((RMUser *)evaluatedObject).groups)
+                    if ([filteredArray count])
                     {
-                        if ([[str capitalizedString] isEqualToString:group])
-                        {
-                            return YES;
-                        }
+                        [tempArray addObjectsFromArray:filteredArray];
                     }
-                    
-                    return NO;
-                }]];
+                }
+                
+                _userList = [NSArray arrayWithArray:tempArray];
             }
         }
         else if ([self.filterSelections[0][0] isEqualToString:CLIENTS])
