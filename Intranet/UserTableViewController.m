@@ -253,119 +253,117 @@ static CGFloat tabBarHeight;
     
     if (searchedString.length > 0)
     {
-        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
+        users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
     }
-    else
+
+    if ([self.filterSelections[0][0] isEqualToString:WORKERS])
     {
-        if ([self.filterSelections[0][0] isEqualToString:WORKERS])
+        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+        
+        if ([self.filterSelections[1][0] isEqualToString:ALL])
         {
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
             
-            if ([self.filterSelections[1][0] isEqualToString:ALL])
+        }
+        else if ([self.filterSelections[1][0] isEqualToString:PRESENT])
+        {
+            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = 0 && lates.@count = 0"]];
+        }
+        else if ([self.filterSelections[1][0] isEqualToString:ABSENT])
+        {
+            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count > 0"]];
+        }
+        else if ([self.filterSelections[1][0] isEqualToString:LATE])
+        {
+            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
+        }
+        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        
+        if ([self.filterSelections[2] count])
+        {
+            [tempArray removeAllObjects];
+            
+            for (NSString *location in self.filterSelections[2])
             {
+                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                    if ([/*[*/((RMUser *)evaluatedObject).location /*capitalizedString]*/ isEqualToString:location])
+                    {
+                        return YES;
+                    }
+                    
+                    return NO;
+                }]];
                 
-            }
-            else if ([self.filterSelections[1][0] isEqualToString:PRESENT])
-            {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = 0 && lates.@count = 0"]];
-            }
-            else if ([self.filterSelections[1][0] isEqualToString:ABSENT])
-            {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count > 0"]];
-            }
-            else if ([self.filterSelections[1][0] isEqualToString:LATE])
-            {
-                _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
-            }
-            
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            
-            if ([self.filterSelections[2] count])
-            {
-                [tempArray removeAllObjects];
-                
-                for (NSString *location in self.filterSelections[2])
+                if ([filteredArray count])
                 {
-                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                        if ([/*[*/((RMUser *)evaluatedObject).location /*capitalizedString]*/ isEqualToString:location])
+                    [tempArray addObjectsFromArray:filteredArray];
+                }
+            }
+            
+            _userList = [NSArray arrayWithArray:tempArray];
+        }
+        
+        if ([self.filterSelections[3] count])
+        {
+            [tempArray removeAllObjects];
+            
+            for (NSString *role in self.filterSelections[3])
+            {
+                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                    for (NSString *str in ((RMUser *)evaluatedObject).roles)
+                    {
+                        if ([/*[*/str /*capitalizedString]*/ isEqualToString:role])
                         {
                             return YES;
                         }
-                        
-                        return NO;
-                    }]];
-                    
-                    if ([filteredArray count])
-                    {
-                        [tempArray addObjectsFromArray:filteredArray];
                     }
-                }
+                    
+                    return NO;
+                }]];
                 
-                _userList = [NSArray arrayWithArray:tempArray];
-            }
-
-            if ([self.filterSelections[3] count])
-            {
-                [tempArray removeAllObjects];
-                
-                for (NSString *role in self.filterSelections[3])
+                if ([filteredArray count])
                 {
-                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                        for (NSString *str in ((RMUser *)evaluatedObject).roles)
-                        {
-                            if ([/*[*/str /*capitalizedString]*/ isEqualToString:role])
-                            {
-                                return YES;
-                            }
-                        }
-                        
-                        return NO;
-                    }]];
-                    
-                    if ([filteredArray count])
-                    {
-                        [tempArray addObjectsFromArray:filteredArray];
-                    }
+                    [tempArray addObjectsFromArray:filteredArray];
                 }
-                
-                _userList = [NSArray arrayWithArray:tempArray];
             }
             
-            if ([self.filterSelections[4] count])
+            _userList = [NSArray arrayWithArray:tempArray];
+        }
+        
+        if ([self.filterSelections[4] count])
+        {
+            [tempArray removeAllObjects];
+            
+            for (NSString *group in self.filterSelections[4])
             {
-                [tempArray removeAllObjects];
-                
-                for (NSString *group in self.filterSelections[4])
-                {
-                    NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                        for (NSString *str in ((RMUser *)evaluatedObject).groups)
-                        {
-                            if ([/*[*/str /*capitalizedString]*/ isEqualToString:group])
-                            {
-                                return YES;
-                            }
-                        }
-                        
-                        return NO;
-                    }]];
-                    
-                    if ([filteredArray count])
+                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                    for (NSString *str in ((RMUser *)evaluatedObject).groups)
                     {
-                        [tempArray addObjectsFromArray:filteredArray];
+                        if ([/*[*/str /*capitalizedString]*/ isEqualToString:group])
+                        {
+                            return YES;
+                        }
                     }
-                }
+                    
+                    return NO;
+                }]];
                 
-                _userList = [NSArray arrayWithArray:tempArray];
+                if ([filteredArray count])
+                {
+                    [tempArray addObjectsFromArray:filteredArray];
+                }
             }
+            
+            _userList = [NSArray arrayWithArray:tempArray];
         }
-        else if ([self.filterSelections[0][0] isEqualToString:CLIENTS])
-        {
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
-        }
-        else if ([self.filterSelections[0][0] isEqualToString:FREELANCERS])
-        {
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
-        }
+    }
+    else if ([self.filterSelections[0][0] isEqualToString:CLIENTS])
+    {
+        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
+    }
+    else if ([self.filterSelections[0][0] isEqualToString:FREELANCERS])
+    {
+        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
     }
     
     [_tableView reloadData];
@@ -429,7 +427,7 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          canShowNoResultsMessage = YES;
+//                                          canShowNoResultsMessage = YES;
                                           [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
                                           NSLog(@"%@", operation);
                                           NSLog(@"%@", error);
@@ -593,8 +591,7 @@ static CGFloat tabBarHeight;
     cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
     cell.userImage.layer.borderWidth = 1;
     
-    cell.clockView.hidden = ((user.lates.count + user.absences.count) == 0);
-    cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
+    cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
     
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
     absenceDateFormater.dateFormat = @"YYYY-MM-dd";
@@ -676,9 +673,12 @@ static CGFloat tabBarHeight;
     }
     else if ([segue.identifier isEqualToString:@"FilterSegue"])
     {
-        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
-        [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
-        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
+        if (self.filterSelections)
+        {
+            ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
+            [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
+            ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
+        }
     }
     else if ([segue.identifier isEqualToString:@"FilterPopoverSegue"])
     {
