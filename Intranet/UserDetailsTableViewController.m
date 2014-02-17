@@ -307,6 +307,15 @@
                                                                                             withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
                                                                                          inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
                                                   
+                                                  NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                                                       withSortDescriptor:nil
+                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
+                                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
+                                                  
+                                                  NSLog(@"%@", [RMUser class]);
+                                                  NSLog(@"%@", [DatabaseManager sharedManager].managedObjectContext);
+
+                                                  
                                                   [self removeEmptyView];
                                                   self.tableView.scrollEnabled = YES;
                                                   
@@ -342,7 +351,7 @@
     {
         [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
     }
-
+    
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
     
@@ -523,7 +532,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -583,7 +592,7 @@
     return YES;
 }
 
- - (void)addEmptyView
+- (void)addEmptyView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
     frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
@@ -610,6 +619,7 @@
 - (void)removeEmptyView
 {
     [self.emptyView removeFromSuperview];
+    [self.webView removeFromSuperview];
 }
 
 @end

@@ -74,10 +74,76 @@ const NSString* MapKeyUserGroups = @"groups";
                                           user.tasksLink = [json[MapKeyUserTasksLink] validObject];
                                           user.availabilityLink = [json[MapKeyUserAvailabilityLink] validObject];
 
-                                          user.roles = [json[MapKeyUserRoles] validObject];
-                                          user.groups = [json[MapKeyUserGroups] validObject];
+                                          
+                                          
+                                          NSMutableArray *_tempRoleArray = [[NSMutableArray alloc] init];
+                                          NSMutableArray *_tempGroupArray = [[NSMutableArray alloc] init];
+                                          
+                                          for (NSString *role in [json[MapKeyUserRoles] validObject])
+                                          {
+                                              [_tempRoleArray addObject:[self formatRole:role]];
+                                          }
+                                          
+                                          user.roles = _tempRoleArray;
+                                          
+                                          for (NSString *group in [json[MapKeyUserGroups] validObject])
+                                          {
+                                              [_tempGroupArray addObject:[self formatGroup:group]];
+                                          }
+                                          
+                                          user.groups = _tempGroupArray;
+
+//                                          user.roles = [json[MapKeyUserRoles] validObject];
+//                                          user.groups = [json[MapKeyUserGroups] validObject];
                                       }];
 }
+
++ (NSString *)formatRole:(NSString *)role
+{
+    if ([role isEqualToString:@"ACCOUNTANT"] || [role isEqualToString:@"ADMIN"] || [role isEqualToString:@"OFFICE MANAGER"] || [role isEqualToString:@"PROGRAMMER"] || [role isEqualToString:@"RECRUITER"] || [role isEqualToString:@"TESTER"] || [role isEqualToString:@"TECH LEAD"])
+    {
+        return [role capitalizedString];
+    }
+    
+    if ([role isEqualToString:@"BUSINESS DEV"])
+    {
+        return @"Business Development";
+    }
+    
+    if ([role isEqualToString:@"CEO A"])
+    {
+        return @"CEO's Assistant";
+    }
+    
+    if ([role isEqualToString:@"MARKETING SPEC"])
+    {
+        return @"Marketing Specialist";
+    }
+    
+    if ([role isEqualToString:@"QA LEAD"])
+    {
+        return @"QA Lead";
+    }
+    
+    return role;
+}
+
++ (NSString *)formatGroup:(NSString *)group
+{
+    if ([group isEqualToString:@"admin"] || [group isEqualToString:@"business"] || [group isEqualToString:@"coordinator"] || [group isEqualToString:@"employee"] || [group isEqualToString:@"scrum master"])
+    {
+        return [group capitalizedString];
+    }
+    
+    
+    if ([group isEqualToString:@"hr"])
+    {
+        return [group uppercaseString];
+    }
+    
+    return group;
+}
+
 
 - (id)mapToJSON
 {

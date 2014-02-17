@@ -239,9 +239,11 @@ static CGFloat tabBarHeight;
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:nil
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-
+/*
     for (RMUser *user in users)
     {
+        NSLog(@"%@" , user.objectID);
+        
         NSMutableArray *_tempRoleArray = [[NSMutableArray alloc] init];
         NSMutableArray *_tempGroupArray = [[NSMutableArray alloc] init];
         
@@ -258,8 +260,11 @@ static CGFloat tabBarHeight;
         }
         
         user.groups = _tempGroupArray;
-    }
 
+        NSLog(@"%@" , user.objectID);
+        
+    }
+//*/
     self.filterStructure = [[NSMutableArray alloc] init];
     
     NSArray *types = @[WORKERS, CLIENTS, FREELANCERS];
@@ -461,7 +466,7 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeFalse ? [APIRequest getFalseUsers] : [APIRequest getUsers]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -496,7 +501,6 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //                                          canShowNoResultsMessage = YES;
-                                          [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
                                           NSLog(@"%@", operation);
                                           NSLog(@"%@", error);
                                           
@@ -511,7 +515,7 @@ static CGFloat tabBarHeight;
                                           [self.tableView reloadData];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeFalse ? [APIRequest getFalsePresence] : [APIRequest getPresence]
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -555,7 +559,6 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          
                                           NSLog(@"Error");
                                       }];
 }
