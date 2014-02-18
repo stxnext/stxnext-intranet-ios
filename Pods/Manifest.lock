@@ -22,7 +22,6 @@ PODS:
   - iCarousel (1.7.6)
   - LBBlurredImage (0.2.0)
   - NSObject+AutoDescription (0.1)
-  - SHActionSheetBlocks (2.3.0)
   - UIAlertView+Blocks (0.8)
 
 DEPENDENCIES:
@@ -32,7 +31,6 @@ DEPENDENCIES:
   - iCarousel
   - LBBlurredImage
   - NSObject+AutoDescription
-  - SHActionSheetBlocks
   - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
@@ -42,7 +40,6 @@ SPEC CHECKSUMS:
   iCarousel: e23a26d7ba722215a42144e80adb0dcb59bebc41
   LBBlurredImage: 26bacd10063a6e886de6a374f4727c3cefb22fc2
   NSObject+AutoDescription: 95a585c85920551aed4ab18a5b96f62a572e0ef0
-  SHActionSheetBlocks: d1194997eb32ea752a906043ac97887615a270ad
   UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
 
 COCOAPODS: 0.29.0

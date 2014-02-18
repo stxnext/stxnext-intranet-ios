@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-               BuildableName = "Intranet.app"
+               BuildableName = "STX Intranet.app"
                BlueprintName = "Intranet"
                ReferencedContainer = "container:Intranet.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>

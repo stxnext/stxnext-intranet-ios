@@ -10,7 +10,7 @@
 
 @implementation NSManagedObjectContext (Fetch)
 
-- (NSArray*)fetchObjectsForEntityName:(NSString*)entityName
+- (NSArray *)fetchObjectsForEntityName:(NSString*)entityName
                    withSortDescriptor:(NSSortDescriptor*)sortDescriptor
                         withPredicate:(NSPredicate*)predicate
                             withLimit:(NSNumber*)limit
@@ -29,9 +29,11 @@
     NSError *error = nil;
     NSArray *fetchedObjects = [self executeFetchRequest:request error:&error];
     NSLog(@"%@", request);
-    if (error)
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     
+    if (error)
+    {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
     return fetchedObjects;
 }
 

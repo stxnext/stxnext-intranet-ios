@@ -14,10 +14,14 @@
 #import "AppDelegate+Settings.h"
 
 @interface UserDetailsTableViewController ()
+{
+    BOOL isPageLoaded;
+}
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) UILabel *loadingLabel;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -37,17 +41,20 @@
     [super viewDidAppear:animated];
     
     //code here
+    
+//    [self loadUser];
+//    [self updateAddToContactsButton];
+//    self.tableView.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     //code here
     
-    [super viewWillAppear:animated];
-    
-    // check if user is in system contacts or not
     [self loadUser];
     [self updateAddToContactsButton];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -217,7 +224,15 @@
         self.user = nil;
         
         [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
-        [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+        
+        if (!INTERFACE_IS_PAD)
+        {
+            [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+        }
+        else
+        {
+            [APP_DELEGATE showLoginScreenForiPad];
+        }
     }
     else
     {
@@ -246,8 +261,17 @@
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
                                                   self.user = nil;
+                                                  
                                                   [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
-                                                  [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+                                                  
+                                                  if (!INTERFACE_IS_PAD)
+                                                  {
+                                                      [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
+                                                  }
+                                                  else
+                                                  {
+                                                      [APP_DELEGATE showLoginScreenForiPad];
+                                                  }
                                               }
                                               else
                                               {
@@ -265,6 +289,14 @@
     {
         self.title = @"Info";
         
+        if (INTERFACE_IS_PAD)
+        {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+        }
+        
         [self updateGUI];
     }
     else
@@ -276,6 +308,8 @@
         if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
         {
             [self addEmptyView];
+            [self.webView removeFromSuperview];
+            
             self.title = @"Me";
             
             [[HTTPClient sharedClient] startOperation:[APIRequest user]
@@ -302,15 +336,10 @@
                                                       }
                                                   }
                                                   
-                                                  self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                                                       withSortDescriptor:nil
-                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
-                                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
+                                                  self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
+                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
                                                   
-                                                  NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                                                       withSortDescriptor:nil
-                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
-                                                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
+                                                  NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
                                                   
                                                   NSLog(@"%@", [RMUser class]);
                                                   NSLog(@"%@", [DatabaseManager sharedManager].managedObjectContext);
@@ -326,19 +355,24 @@
         else
         {
             self.title = @"About";
+
+//            [self.webView removeFromSuperview];
             
             if (self.webView == nil)
             {
-                self.webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-                self.webView .scalesPageToFit = YES;
+                isPageLoaded = NO;
+                self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+                self.webView.scalesPageToFit = YES;
                 self.webView.delegate = self;
-                
-                [self.view addSubview:self.webView ];
             }
-            
-            [self.webView  loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stxnext.com"]]];
-            
-            [self addEmptyView];
+
+            if (!isPageLoaded)
+            {
+                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
+                
+                [self.view addSubview:self.webView];
+                [self addEmptyView];
+            }
         }
     }
 }
@@ -351,15 +385,11 @@
     {
         [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
     }
-    
+        
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
-    
-    if ([APP_DELEGATE userLoggedType] != UserLoginTypeFalse)
-    {
-        self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-        self.userImage.layer.borderWidth = 1;
-    }
+    self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.userImage.layer.borderWidth = 1;
     
     self.userName.text = self.user.name;
     
@@ -428,7 +458,7 @@
         
         [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
-        self.groupsLabel.text = /*[*/string /*capitalizedString]*/;
+        self.groupsLabel.text = string;
     }
     else
     {
@@ -446,7 +476,7 @@
         
         [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
-        self.rolesLabel.text = /*[*/string /*capitalizedString]*/;
+        self.rolesLabel.text = string;
     }
     else
     {
@@ -537,11 +567,14 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    isPageLoaded = YES;
     [self removeEmptyView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    isPageLoaded = NO;
+    
     CGPoint center = self.loadingLabel.center;
     self.loadingLabel.text = @"Loading error.";
     [self.loadingLabel sizeToFit];
@@ -596,6 +629,9 @@
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
     frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
+
+    [self.emptyView removeFromSuperview];
+    
     self.emptyView = [[UIView alloc] initWithFrame:frame];
     self.emptyView.backgroundColor = [UIColor whiteColor];
     
@@ -604,13 +640,17 @@
     [self.loadingLabel sizeToFit];
     self.loadingLabel.center = self.emptyView.center;
     [self.emptyView addSubview:self.loadingLabel];
-    
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [activityView startAnimating];
+
+    if (self.activityView == nil)
+    {
+        self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self.activityView startAnimating];
+    }
+
     CGPoint center = self.emptyView.center;
-    center.y -= self.loadingLabel.frame.size.height/2 + activityView.frame.size.height/2;
-    activityView.center = center;
-    [self.emptyView addSubview:activityView];
+    center.y -= self.loadingLabel.frame.size.height/2 + self.activityView.frame.size.height/2;
+    self.activityView.center = center;
+    [self.emptyView addSubview:self.activityView];
     
     self.tableView.scrollEnabled = NO;
     [self.view addSubview:self.emptyView];
@@ -619,7 +659,6 @@
 - (void)removeEmptyView
 {
     [self.emptyView removeFromSuperview];
-    [self.webView removeFromSuperview];
 }
 
 @end

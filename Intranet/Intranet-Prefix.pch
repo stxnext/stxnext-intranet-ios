@@ -24,11 +24,12 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
+//#define NSLog //NSLog
+
 // External headers
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
-#import <SHActionSheetBlocks.h>
 
 // Custom categories
 #import "AppDelegate+Modals.h"
@@ -36,6 +37,7 @@
 #import "UITableView+Additions.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+NetworkCookies.h"
+#import "UIView+Additions.h"
 
 // Custom headers
 #import "Database.h"

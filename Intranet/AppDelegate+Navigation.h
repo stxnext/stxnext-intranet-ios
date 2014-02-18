@@ -17,5 +17,6 @@ typedef enum
 @interface AppDelegate (Navigation)
 
 - (void)goToTabAtIndex:(NSUInteger)index;
+- (void)showLoginScreenForiPad;
 
 @end

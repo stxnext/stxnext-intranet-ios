@@ -102,6 +102,8 @@ static CGFloat tabBarHeight;
 
 - (void)showLoginScreen
 {
+    [self showNoSelectionUserDetails];
+    
     [LoginViewController presentAfterSetupWithDecorator:^(UIModalViewController *controller) {
         LoginViewController *customController = (LoginViewController*)controller;
         customController.delegate = self;
@@ -181,54 +183,6 @@ static CGFloat tabBarHeight;
     [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
 }
 
-- (NSString *)formatRole:(NSString *)role
-{
-    if ([role isEqualToString:@"ACCOUNTANT"] || [role isEqualToString:@"ADMIN"] || [role isEqualToString:@"OFFICE MANAGER"] || [role isEqualToString:@"PROGRAMMER"] || [role isEqualToString:@"RECRUITER"] || [role isEqualToString:@"TESTER"] || [role isEqualToString:@"TECH LEAD"])
-    {
-        return [role capitalizedString];
-    }
-    
-    if ([role isEqualToString:@"BUSINESS DEV"])
-    {
-        return @"Business Development";
-    }
-
-    if ([role isEqualToString:@"CEO A"])
-    {
-        return @"CEO's Assistant";
-    }
-
-    if ([role isEqualToString:@"MARKETING SPEC"])
-    {
-        return @"Marketing Specialist";
-    }
-
-    if ([role isEqualToString:@"QA LEAD"])
-    {
-        return @"QA Lead";
-    }
-    
-    return role;
-}
-
-- (NSString *)formatGroup:(NSString *)group
-{
-    if ([group isEqualToString:@"admin"] || [group isEqualToString:@"business"] || [group isEqualToString:@"coordinator"] || [group isEqualToString:@"employee"] || [group isEqualToString:@"scrum master"])
-    {
-        return [group capitalizedString];
-    }
-    
-    
-    if ([group isEqualToString:@"hr"])
-    {
-        return [group uppercaseString];
-    }
-    
-    return group;
-}
-
-
-
 - (void)loadUsersFromDatabase
 {
     NSLog(@"Loading from: Database");
@@ -237,34 +191,9 @@ static CGFloat tabBarHeight;
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                              ascending:YES
                                                                                               selector:@selector(localizedCompare:)]
-                                                 withPredicate:nil
+                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-/*
-    for (RMUser *user in users)
-    {
-        NSLog(@"%@" , user.objectID);
-        
-        NSMutableArray *_tempRoleArray = [[NSMutableArray alloc] init];
-        NSMutableArray *_tempGroupArray = [[NSMutableArray alloc] init];
-        
-        for (NSString *role in user.roles)
-        {
-            [_tempRoleArray addObject:[self formatRole:role]];
-        }
-        
-        user.roles = _tempRoleArray;
-        
-        for (NSString *group in user.groups)
-        {
-            [_tempGroupArray addObject:[self formatGroup:group]];
-        }
-        
-        user.groups = _tempGroupArray;
-
-        NSLog(@"%@" , user.objectID);
-        
-    }
-//*/
+    
     self.filterStructure = [[NSMutableArray alloc] init];
     
     NSArray *types = @[WORKERS, CLIENTS, FREELANCERS];
@@ -277,9 +206,9 @@ static CGFloat tabBarHeight;
     {
         if (user.location && ![user.isClient boolValue])
         {
-            if (![locations containsObject:/*[*/user.location /*capitalizedString]*/])
+            if (![locations containsObject:user.location])
             {
-                [locations addObject:/*[*/user.location /*capitalizedString]*/];
+                [locations addObject:user.location];
             }
         }
         
@@ -287,9 +216,9 @@ static CGFloat tabBarHeight;
         {
             for (NSString *role in user.roles)
             {
-                if (![roles containsObject:/*[*/role /*capitalizedString]*/])
+                if (![roles containsObject:role])
                 {
-                    [roles addObject:/*[*/role /*capitalizedString]*/];
+                    [roles addObject:role];
                 }
             }
         }
@@ -298,9 +227,9 @@ static CGFloat tabBarHeight;
         {
             for (NSString *group in user.groups)
             {
-                if (![groups containsObject:/*[*/group /*capitalizedString]*/])
+                if (![groups containsObject:group])
                 {
-                    [groups addObject:/*[*/group /*capitalizedString]*/];
+                    [groups addObject:group];
                 }
             }
         }
@@ -359,7 +288,7 @@ static CGFloat tabBarHeight;
             for (NSString *location in self.filterSelections[2])
             {
                 NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    if ([/*[*/((RMUser *)evaluatedObject).location /*capitalizedString]*/ isEqualToString:location])
+                    if ([((RMUser *)evaluatedObject).location isEqualToString:location])
                     {
                         return YES;
                     }
@@ -385,7 +314,7 @@ static CGFloat tabBarHeight;
                 NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
                     for (NSString *str in ((RMUser *)evaluatedObject).roles)
                     {
-                        if ([/*[*/str /*capitalizedString]*/ isEqualToString:role])
+                        if ([str isEqualToString:role])
                         {
                             return YES;
                         }
@@ -412,7 +341,7 @@ static CGFloat tabBarHeight;
                 NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
                     for (NSString *str in ((RMUser *)evaluatedObject).groups)
                     {
-                        if ([/*[*/str /*capitalizedString]*/ isEqualToString:group])
+                        if ([str isEqualToString:group])
                         {
                             return YES;
                         }
@@ -617,7 +546,7 @@ static CGFloat tabBarHeight;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int number = _userList.count;
+    NSInteger number = _userList.count;
     
     if (number == 0 && canShowNoResultsMessage)
     {

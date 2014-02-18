@@ -18,7 +18,7 @@
 @interface PlaningPokerViewController () <UIActionSheetDelegate>
 {
     int radius;
-    int selectedIndex;
+    NSInteger selectedIndex;
     BOOL isAnimating;
     BOOL isCardShowed;
     CGFloat vShift;

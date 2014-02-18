@@ -66,12 +66,6 @@
 #define COCOAPODS_VERSION_MINOR_NSObject_AutoDescription 1
 #define COCOAPODS_VERSION_PATCH_NSObject_AutoDescription 0
 
-// SHActionSheetBlocks
-#define COCOAPODS_POD_AVAILABLE_SHActionSheetBlocks
-#define COCOAPODS_VERSION_MAJOR_SHActionSheetBlocks 2
-#define COCOAPODS_VERSION_MINOR_SHActionSheetBlocks 3
-#define COCOAPODS_VERSION_PATCH_SHActionSheetBlocks 0
-
 // UIAlertView+Blocks
 #define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
 #define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0

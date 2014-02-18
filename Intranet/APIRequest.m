@@ -37,7 +37,7 @@
 + (AFHTTPRequestOperation *)getFalseUsers
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
-                                                                                     action:@"users.json"
+                                                                                     action:@"mobile.app/users.json"
                                                                                  parameters:nil];
     
     return request;
@@ -55,7 +55,7 @@
 + (AFHTTPRequestOperation *)getFalsePresence
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
-                                                                                     action:@"presence.json"
+                                                                                     action:@"mobile.app/presence.json"
                                                                                  parameters:nil];
     
     return request;
