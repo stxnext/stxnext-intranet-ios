@@ -19,8 +19,8 @@
 
 @interface AppDelegate (Modals)
 
-+ (void)presentViewControllerWithIdentifier:(NSString*)identifier
-                          inStoryboardNamed:(NSString*)storyboardName
-                    withControllerDecorator:(void (^)(UIViewController* viewController))decoratorblock;
++ (void)presentViewControllerWithIdentifier:(NSString *)identifier
+                          inStoryboardNamed:(NSString *)storyboardName
+                    withControllerDecorator:(void (^)(UIViewController *viewController))decoratorblock;
 
 @end

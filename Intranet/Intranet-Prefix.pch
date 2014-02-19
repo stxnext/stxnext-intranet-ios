@@ -24,7 +24,7 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
-//#define NSLog //NSLog
+#define NSLog //NSLog
 
 // External headers
 #import <GooglePlus/GooglePlus.h>

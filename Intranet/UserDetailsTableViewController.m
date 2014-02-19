@@ -285,7 +285,7 @@
 
 - (void)loadUser
 {
-    if (self.user)
+    if (self.navigationController.viewControllers.count > 1)
     {
         self.title = @"Info";
         
@@ -307,50 +307,53 @@
                                                                                  action:@selector(logout:)];
         if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
         {
-            [self addEmptyView];
-            [self.webView removeFromSuperview];
-            
-            self.title = @"Me";
-            
-            [[HTTPClient sharedClient] startOperation:[APIRequest user]
-                                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                  // error
-                                                  // We expect 302
-                                              }
-                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                  NSString *html = operation.responseString;
-                                                  NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                                  
-                                                  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
-                                                  NSString *userID ;
-                                                  
-                                                  for (NSString *line in htmlArray)
-                                                  {
-                                                      userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                                      
-                                                      if ([predicate evaluateWithObject:userID])
-                                                      {
-                                                          userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                                                          
-                                                          break;
-                                                      }
+            if (!self.user)
+            {
+                [self addEmptyView];
+                [self.webView removeFromSuperview];
+                
+                self.title = @"Me";
+                
+                [[HTTPClient sharedClient] startOperation:[APIRequest user]
+                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                      // error
+                                                      // We expect 302
                                                   }
-                                                  
-                                                  self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
-                                                                                            withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-                                                  
-                                                  NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
-                                                  
-                                                  NSLog(@"%@", [RMUser class]);
-                                                  NSLog(@"%@", [DatabaseManager sharedManager].managedObjectContext);
-
-                                                  
-                                                  [self removeEmptyView];
-                                                  self.tableView.scrollEnabled = YES;
-                                                  
-                                                  [self updateGUI];
-                                                  [self.tableView reloadData];
-                                              }];
+                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                      NSString *html = operation.responseString;
+                                                      NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
+                                                      
+                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
+                                                      NSString *userID ;
+                                                      
+                                                      for (NSString *line in htmlArray)
+                                                      {
+                                                          userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                                          
+                                                          if ([predicate evaluateWithObject:userID])
+                                                          {
+                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                              
+                                                              break;
+                                                          }
+                                                      }
+                                                      
+                                                      self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
+                                                                                                withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
+                                                      
+                                                      NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
+                                                      
+                                                      NSLog(@"%@", [RMUser class]);
+                                                      NSLog(@"%@", [DatabaseManager sharedManager].managedObjectContext);
+                                                      
+                                                      
+                                                      [self removeEmptyView];
+                                                      self.tableView.scrollEnabled = YES;
+                                                      
+                                                      [self updateGUI];
+                                                      [self.tableView reloadData];
+                                                  }];
+            }
         }
         else
         {
@@ -628,7 +631,7 @@
 - (void)addEmptyView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
-    frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
+//    frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
 
     [self.emptyView removeFromSuperview];
     
