@@ -22,4 +22,7 @@ typedef enum
 - (void)setUserLoggedType:(UserLoginType)userLoggedType;
 - (UserLoginType)userLoggedType;
 
+- (NSString *)myUserId;
+- (void)setMyUserId:(NSString *)userId;
+
 @end

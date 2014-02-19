@@ -21,4 +21,24 @@
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"userLoggedType"];
 }
 
+- (NSString *)myUserId
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
+}
+
+- (void)setMyUserId:(NSString *)userId
+{
+    if (userId)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:userId forKey:@"myUserId"];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"myUserId"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 @end

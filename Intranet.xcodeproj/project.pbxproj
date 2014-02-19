@@ -64,6 +64,7 @@
 		66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D518A4D0ED00049C37 /* CardView.m */; };
 		66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D618A4D0ED00049C37 /* CardView.xib */; };
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
+		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +169,8 @@
 		66BFF3D618A4D0ED00049C37 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
+		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -343,12 +346,14 @@
 			children = (
 				660DE6AF189A32E700E1905D /* FilterViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
+				66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
 				660DE6B0189A32E700E1905D /* FilterViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
+				66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
@@ -552,6 +557,7 @@
 				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
+				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,

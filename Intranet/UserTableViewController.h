@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "FilterViewController.h"
 
-@interface UserTableViewController : UITableViewController<LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface UserTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
@@ -21,6 +21,7 @@
     NSArray *_userList;
     UIActionSheet *actionSheet;
 }
+
 @property (strong, nonatomic) NSMutableArray *filterStructure;
 @property (strong, nonatomic) NSMutableArray *filterSelections;
 

@@ -132,7 +132,7 @@ static CGFloat tabBarHeight;
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
                                               [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
-
+                                              
                                               [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
                                               
                                               [self loadUsersFromAPI];
@@ -257,7 +257,7 @@ static CGFloat tabBarHeight;
     {
         users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
     }
-
+    
     if ([self.filterSelections[0][0] isEqualToString:WORKERS])
     {
         _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
@@ -429,7 +429,7 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                                          canShowNoResultsMessage = YES;
+                                          //                                          canShowNoResultsMessage = YES;
                                           NSLog(@"%@", operation);
                                           NSLog(@"%@", error);
                                           

@@ -261,6 +261,7 @@
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
                                                   self.user = nil;
+                                                  [APP_DELEGATE setMyUserId:nil];
                                                   
                                                   [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
                                                   
@@ -314,12 +315,14 @@
                 
                 self.title = @"Me";
                 
-                [[HTTPClient sharedClient] startOperation:[APIRequest user]
-                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                      // error
-                                                      // We expect 302
-                                                  }
-                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (![APP_DELEGATE myUserId])
+                {
+                    [[HTTPClient sharedClient] startOperation:[APIRequest user]
+                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                          // error
+                                                          // We expect 302
+                                                      }
+                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                       NSString *html = operation.responseString;
                                                       NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
                                                       
@@ -334,32 +337,23 @@
                                                           {
                                                               userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
                                                               
+                                                              [APP_DELEGATE setMyUserId:userID];
+                                                              
                                                               break;
                                                           }
                                                       }
-                                                      
-                                                      self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
-                                                                                                withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-                                                      
-                                                      NSLog(@"%@", [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID] inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
-                                                      
-                                                      NSLog(@"%@", [RMUser class]);
-                                                      NSLog(@"%@", [DatabaseManager sharedManager].managedObjectContext);
-                                                      
-                                                      
-                                                      [self removeEmptyView];
-                                                      self.tableView.scrollEnabled = YES;
-                                                      
-                                                      [self updateGUI];
-                                                      [self.tableView reloadData];
-                                                  }];
+                                                          [self loadMe];
+                                                      }];
+                }
+                else
+                {
+                    [self loadMe];
+                }
             }
         }
         else
         {
             self.title = @"About";
-
-//            [self.webView removeFromSuperview];
             
             if (self.webView == nil)
             {
@@ -380,6 +374,22 @@
     }
 }
 
+- (void)loadMe
+{
+    NSString *userID = [APP_DELEGATE myUserId];
+    
+    self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
+                                              withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
+                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
+    
+    [self removeEmptyView];
+    self.tableView.scrollEnabled = YES;
+    
+    [self updateGUI];
+    [self.tableView reloadData];
+
+}
+
 - (void)updateGUI
 {
     [self.tableView hideEmptySeparators];
@@ -388,7 +398,7 @@
     {
         [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
     }
-        
+    
     self.userImage.layer.cornerRadius = 5;
     self.userImage.clipsToBounds = YES;
     self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
