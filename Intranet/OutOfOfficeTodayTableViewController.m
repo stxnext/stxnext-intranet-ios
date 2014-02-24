@@ -45,18 +45,59 @@
                                                  withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
 
+    _userList = [[NSMutableArray alloc] init];
     
-    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && (absences.@count > 0 || lates.@count > 0)"]];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]]];
+//    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.isWorkingFromHome == 1"]]];
 
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        
+        RMUser *user = (RMUser *)evaluatedObject;
+
+        if (user.isClient == NO || user.isFreelancer == NO)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 1)
+                {
+                    NSLog(@"%@", late);
+                    return YES;
+                }
+
+            }
+            
+            
+        }
+        
+        
+        return NO;
+    }]]];
+
+    
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.@count > 0"]]];
+
+    
     [self.tableView reloadData];
 }
 
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [_userList count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger number = _userList.count;
+    NSInteger number = [_userList[section] count];
     /*
     if (number == 0 && canShowNoResultsMessage)
     {
@@ -83,7 +124,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMUser *user = _userList[indexPath.row];
+    RMUser *user = _userList[indexPath.section][indexPath.row];
     
     static NSString *CellIdentifier = @"UserCell";
     
@@ -163,6 +204,21 @@
     return self.tableView.rowHeight;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section)
+    {
+        case 0:
+            return @"ABSENCE / HOLIDAY";
+
+        case 1:
+            return @"WORK FROM HOME";
+        case 2:
+            return @"OUT OF OFFICE";
+    }
+    
+    return @"";
+}
 #pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -179,7 +235,7 @@
         
         currentIndexPath = indexPath;
         
-        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
     }
 }
 

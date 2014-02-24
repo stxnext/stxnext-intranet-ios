@@ -10,7 +10,7 @@
 
 @interface OutOfOfficeTodayTableViewController : UITableViewController
 {
-    NSArray *_userList;
+    NSMutableArray *_userList;
 }
 
 @end
