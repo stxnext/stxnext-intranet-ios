@@ -71,11 +71,42 @@
     return request;
 }
 
-+ (AFHTTPRequestOperation  *)user
++ (AFHTTPRequestOperation *)user
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
                                                                                      action:@"user/edit"
                                                                                  parameters:nil];
+    [request blockRedirections];
+    
+    return request;
+}
+
+
+
+
+
++ (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
+                                                                                     action:@"api/absence"
+                                                                                 parameters:parameters];
+
+    NSLog(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
+    NSLog(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
+    NSLog(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
+
+    [request blockRedirections];
+    
+    return request;
+}
+
++ (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
+                                                                                     action:@"api/lateness"
+                                                                                 parameters:parameters];
+    
     [request blockRedirections];
     
     return request;

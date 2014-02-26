@@ -28,7 +28,7 @@
         [animation setSubtype:kCATransitionFade];
         [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
         [animation setFillMode:kCAFillModeBoth];
-        [animation setDuration:.3];
+        [animation setDuration:.1];
         [[self layer] addAnimation:animation forKey:@"UITableViewReloadDataAnimationKey"];   
     }
 }

@@ -28,7 +28,7 @@
     
     NSError *error = nil;
     NSArray *fetchedObjects = [self executeFetchRequest:request error:&error];
-    NSLog(@"%@", request);
+//    NSLog(@"%@", request);
     
     if (error)
     {

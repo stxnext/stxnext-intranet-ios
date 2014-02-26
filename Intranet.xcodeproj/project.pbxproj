@@ -54,10 +54,14 @@
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
+		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
+		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
+		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
+		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
 		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
 		66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D318A4D0ED00049C37 /* Images.xcassets */; };
@@ -152,6 +156,12 @@
 		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		660DE6AF189A32E700E1905D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		660DE6B0189A32E700E1905D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTypeTableViewController.h; sourceTree = "<group>"; };
+		6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTypeTableViewController.m; sourceTree = "<group>"; };
+		6627C82918BC89F2003893EB /* ExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplanationViewController.h; sourceTree = "<group>"; };
+		6627C82A18BC89F2003893EB /* ExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplanationViewController.m; sourceTree = "<group>"; };
+		6627C82C18BCAAD9003893EB /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
 		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
@@ -160,6 +170,8 @@
 		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
+		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
 		66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerViewController.m; sourceTree = "<group>"; };
 		66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaningPokerViewController.xib; sourceTree = "<group>"; };
@@ -358,6 +370,7 @@
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
 				0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */,
+				6627C82618BC6FE6003893EB /* New Request */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -379,6 +392,8 @@
 				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
 				66515F1918B38A7700092BB2 /* UIView+Additions.m */,
 				66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */,
+				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
+				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -408,6 +423,19 @@
 			);
 			name = Database;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		6627C82618BC6FE6003893EB /* New Request */ = {
+			isa = PBXGroup;
+			children = (
+				66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */,
+				6627C82918BC89F2003893EB /* ExplanationViewController.h */,
+				6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */,
+				66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */,
+				6627C82A18BC89F2003893EB /* ExplanationViewController.m */,
+				6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */,
+			);
+			name = "New Request";
 			sourceTree = "<group>";
 		};
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
@@ -535,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */,
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
@@ -547,6 +576,7 @@
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
+				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
@@ -570,7 +600,9 @@
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
+				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
+				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,

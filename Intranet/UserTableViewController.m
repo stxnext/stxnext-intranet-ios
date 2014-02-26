@@ -120,8 +120,8 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
-                                          NSLog(@"----------[FINISHED REQUEST URL]\n%@\n", [operation.request.URL description]);
-                                          NSLog(@"----------[FINISHED RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
+//                                          NSLog(@"----------[FINISHED REQUEST URL]\n%@\n", [operation.request.URL description]);
+//                                          NSLog(@"----------[FINISHED RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
                                           
                                           NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields
                                                                                                     forURL:operation.response.URL];
@@ -430,8 +430,8 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           //                                          canShowNoResultsMessage = YES;
-                                          NSLog(@"%@", operation);
-                                          NSLog(@"%@", error);
+//                                          NSLog(@"%@", operation);
+//                                          NSLog(@"%@", error);
                                           
                                           NSLog(@"Loaded From API: 0 users");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];

@@ -24,6 +24,8 @@ static HTTPClient *_sharedClient = nil;
     
     NSURL *baseUrl = [NSURL URLWithString:kConfigAPIBaseURL];
     _sharedClient = [[HTTPClient alloc] initWithBaseURL:baseUrl];
+
+    
     _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
     //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -91,9 +93,21 @@ static HTTPClient *_sharedClient = nil;
                                                action:(NSString *)URLString
                                            parameters:(NSDictionary *)parameters
 {
+    [self.requestSerializer setQueryStringSerializationWithBlock:^NSString *(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error) {
+        NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:error];
+        
+        return [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    }];
+    
+//    self.requestSerializer set
+    
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method]
                                                                    URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters];
+    
+    
+    [request setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     [self addAuthCookiesToRequest:request];
     

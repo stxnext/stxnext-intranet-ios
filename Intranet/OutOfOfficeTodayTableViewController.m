@@ -48,11 +48,9 @@
     _userList = [[NSMutableArray alloc] init];
     
     
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]]];
-//    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.isWorkingFromHome == 1"]]];
-
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
+    
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        
         RMUser *user = (RMUser *)evaluatedObject;
 
         if (user.isClient == NO || user.isFreelancer == NO)
@@ -66,27 +64,19 @@
             {
                 if ([late.isWorkingFromHome intValue] == 1)
                 {
-                    NSLog(@"%@", late);
                     return YES;
                 }
-
             }
-            
-            
         }
         
-        
         return NO;
-    }]]];
-
+    }]]?:[[NSArray alloc] init]];
     
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.@count > 0"]]];
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.@count > 0"]]?:[[NSArray alloc] init]];
 
     
     [self.tableView reloadData];
 }
-
 
 #pragma mark - Table view data source
 
@@ -142,7 +132,7 @@
     cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
     cell.userImage.layer.borderWidth = 1;
     
-    cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
+    cell.clockView.hidden = NO;
     
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
     absenceDateFormater.dateFormat = @"YYYY-MM-dd";
@@ -152,7 +142,7 @@
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
     
-    if (user.lates.count)
+    if (indexPath.section == 1 || indexPath.section == 2)
     {
         cell.clockView.color = MAIN_YELLOW_COLOR;
         
@@ -169,7 +159,7 @@
             }
         }];
     }
-    else if (user.absences.count)
+    else if (indexPath.section == 0)
     {
         cell.clockView.color = MAIN_RED_COLOR;
         
@@ -213,6 +203,7 @@
 
         case 1:
             return @"WORK FROM HOME";
+            
         case 2:
             return @"OUT OF OFFICE";
     }

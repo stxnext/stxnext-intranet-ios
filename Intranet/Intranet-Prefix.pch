@@ -38,6 +38,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+NetworkCookies.h"
 #import "UIView+Additions.h"
+#import "NSDate+Additions.h"
 
 // Custom headers
 #import "Database.h"

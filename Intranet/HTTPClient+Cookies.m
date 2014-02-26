@@ -20,7 +20,7 @@
 - (BOOL)addAuthCookiesToRequest:(NSMutableURLRequest *)request
 {
     NSArray *cookies = [self loadCookies];
-    
+        
     if ([self authCookiesPresent])
     {
         NSDictionary *cookieHeader = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
