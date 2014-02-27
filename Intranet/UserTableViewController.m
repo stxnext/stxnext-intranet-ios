@@ -49,7 +49,7 @@ static CGFloat tabBarHeight;
     [_tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
-    self.title = @"People";
+    self.title = @"All";
     
     //update data
     if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
@@ -119,9 +119,6 @@ static CGFloat tabBarHeight;
                                           [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          
-//                                          NSLog(@"----------[FINISHED REQUEST URL]\n%@\n", [operation.request.URL description]);
-//                                          NSLog(@"----------[FINISHED RESPONSE HEADERS]\n%@\n", [[operation.response allHeaderFields] descriptionInStringsFileFormat]);
                                           
                                           NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields
                                                                                                     forURL:operation.response.URL];
@@ -384,6 +381,14 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromAPI
 {
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        [self stopRefreshData];
+        [self loadUsers];
+        
+        return;
+    }
+    
     __block NSInteger operations = 2;
     __block BOOL deletedUsers = NO;
     
@@ -409,7 +414,6 @@ static CGFloat tabBarHeight;
                                           }
                                           
                                           // Add to database
-                                          //
                                           for (id user in responseObject[@"users"])
                                           {
                                               [RMUser mapFromJSON:user];
@@ -429,9 +433,6 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          //                                          canShowNoResultsMessage = YES;
-//                                          NSLog(@"%@", operation);
-//                                          NSLog(@"%@", error);
                                           
                                           NSLog(@"Loaded From API: 0 users");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -446,7 +447,8 @@ static CGFloat tabBarHeight;
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          // Delete from database
+                                          // Delete from database'
+
                                           @synchronized (self)
                                           {
                                               if (!deletedUsers)
@@ -550,8 +552,8 @@ static CGFloat tabBarHeight;
     
     if (number == 0 && canShowNoResultsMessage)
     {
-        [UIAlertView showWithTitle:@"Informacja"
-                           message:@"Brak osób o podanych kryteriach wyszukiwania."
+        [UIAlertView showWithTitle:@"Info"
+                           message:@"Nothing to show."
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {

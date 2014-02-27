@@ -41,10 +41,6 @@
     [super viewDidAppear:animated];
     
     //code here
-    
-//    [self loadUser];
-//    [self updateAddToContactsButton];
-//    self.tableView.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -358,7 +354,7 @@
             if (self.webView == nil)
             {
                 isPageLoaded = NO;
-                self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+                self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height - 114)];
                 self.webView.scalesPageToFit = YES;
                 self.webView.delegate = self;
             }
@@ -387,7 +383,6 @@
     
     [self updateGUI];
     [self.tableView reloadData];
-
 }
 
 - (void)updateGUI
@@ -641,7 +636,6 @@
 - (void)addEmptyView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
-//    frame.size.height -= self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height*2;
 
     [self.emptyView removeFromSuperview];
     

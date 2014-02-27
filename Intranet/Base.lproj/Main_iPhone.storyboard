@@ -427,11 +427,11 @@
             </objects>
             <point key="canvasLocation" x="2042" y="312"/>
         </scene>
-        <!--Navigation Controller - People-->
+        <!--Navigation Controller - All-->
         <scene sceneID="pLe-vT-XJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nvf-NT-HOc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="People" image="tabbar_icon_users" id="3B0-eY-fjy"/>
+                    <tabBarItem key="tabBarItem" title="All" image="tabbar_icon_users" id="3B0-eY-fjy"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="egg-Ro-Cxg">
@@ -709,7 +709,7 @@
                     <navigationItem key="navigationItem" id="LVp-eE-K9x">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kFI-xb-R5m">
                             <connections>
-                                <segue destination="5BH-pb-TmP" kind="modal" id="KlV-yG-Rfc"/>
+                                <segue destination="5BH-pb-TmP" kind="modal" identifier="AddOOOFormTableViewControllerId" id="KlV-yG-Rfc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -876,7 +876,7 @@
                         <sections>
                             <tableViewSection headerTitle="Request for:" id="ac3-NN-ech">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="03h-hr-oaZ" style="IBUITableViewCellStyleDefault" id="Hp6-Ll-43v">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="03h-hr-oaZ" detailTextLabel="VoN-83-Dol" style="IBUITableViewCellStyleValue1" id="Hp6-Ll-43v">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hp6-Ll-43v" id="PNb-Pn-PGD">
@@ -884,16 +884,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Absence / Holiday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="03h-hr-oaZ">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                                    <rect key="frame" x="15" y="11" width="140" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VoN-83-Dol">
+                                                    <rect key="frame" x="261" y="11" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="mUy-5c-pYU" style="IBUITableViewCellStyleDefault" id="W61-ug-YEk">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="mUy-5c-pYU" detailTextLabel="ASH-rU-xrA" style="IBUITableViewCellStyleValue1" id="W61-ug-YEk">
                                         <rect key="frame" x="0.0" y="163" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W61-ug-YEk" id="TJH-xt-x2h">
@@ -901,10 +908,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Out of office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mUy-5c-pYU">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                                    <rect key="frame" x="15" y="11" width="95" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ASH-rU-xrA">
+                                                    <rect key="frame" x="261" y="11" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1447,11 +1461,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1699" y="-1016"/>
         </scene>
-        <!--Navigation Controller - Out of Office Today-->
+        <!--Navigation Controller - Out-->
         <scene sceneID="eoU-qG-hpL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="11o-D8-hKM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Out of Office Today" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
+                    <tabBarItem key="tabBarItem" title="Out" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JyO-Gv-2XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1469,7 +1483,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Navigation Controller-->
         <scene sceneID="t4L-sy-UxT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5BH-pb-TmP" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="AddOOOFormTableViewControllerId" storyboardIdentifier="AddOOOFormTableViewControllerId" automaticallyAdjustsScrollViewInsets="NO" id="5BH-pb-TmP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jCD-Dh-9un">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -27,8 +27,6 @@ static HTTPClient *_sharedClient = nil;
 
     
     _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
-    //_sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
-
     
     [_sharedClient.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status)
@@ -98,9 +96,7 @@ static HTTPClient *_sharedClient = nil;
         
         return [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
     }];
-    
-//    self.requestSerializer set
-    
+        
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method]
                                                                    URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
                                                                   parameters:parameters];

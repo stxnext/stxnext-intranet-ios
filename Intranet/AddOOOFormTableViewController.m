@@ -8,6 +8,8 @@
 
 #import "AddOOOFormTableViewController.h"
 #import "APIRequest.h"
+#import "AppDelegate+Navigation.h"
+#import "AppDelegate+Settings.h"
 
 typedef enum
 {
@@ -29,7 +31,9 @@ typedef enum
     self.title = @"New Request";
     
     [super viewDidLoad];
-    self.currentType = -1;
+
+    self.currentType = 0;
+    self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
     
     self.OOOFromPicker.minimumDate = self.OOOToPicker.minimumDate = self.OOODatePicker.minimumDate = self.absenceHolidayStartPicker.minimumDate = self.absenceHolidayEndPicker.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
@@ -41,8 +45,13 @@ typedef enum
     self.OOOFromPicker.minimumDate = [tomorrow dateWithHour:9 minute:0 second:0];
     self.OOOToPicker.minimumDate = [tomorrow dateWithHour:17 minute:0 second:0];
     
+    [self getFreeDays];
     
-    
+    [self dateTimeValueChanged:self.absenceHolidayStartPicker];
+    [self dateTimeValueChanged:self.absenceHolidayEndPicker];
+    [self dateTimeValueChanged:self.OOODatePicker];
+    [self dateTimeValueChanged:self.OOOFromPicker];
+    [self dateTimeValueChanged:self.OOOToPicker];
     
     currentUnCollapsedPickerIndex = -1;
     currentRequest = RequestTypeAbsenceHoliday;
@@ -51,183 +60,150 @@ typedef enum
 
 - (IBAction)cancel:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    NSLog(@"%@ %@", connection, error);
-}
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    NSLog(@"%@ %@", connection, challenge);
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    NSLog(@"%@ %@", connection, response);
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    NSLog(@"%@ %@", connection, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    //    [self.responseData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSLog(@"%@", connection);
-    //    NSLog(@"response data - %@", [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding]);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)done:(id)sender
 {
-    
-    switch (currentRequest)
+    if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
     {
-        case RequestTypeAbsenceHoliday:
+        switch (currentRequest)
         {
-            NSString *popup_type = nil;
-            
-            if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Planned leave"])
+            case RequestTypeAbsenceHoliday:
             {
-                popup_type = @"planowany";
-            }
-            else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Leave at request"])
-            {
-                popup_type = @"zadanie";
-            }
-            else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Illness"])
-            {
-                popup_type = @"l4";
-            }
-            else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Compassionate leave"])
-            {
-                popup_type = @"okolicznosciowy";
-            }
-            else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Absence"])
-            {
-                popup_type = @"inne";
-            }
-            
-            self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            popup_type = [popup_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *from = [self.absenceHolidayCellStart.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *to = [self.absenceHolidayCellEnd.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            
-            if (from.length && to.length && popup_type.length && self.explanation.length)
-            {
-                NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[popup_type,
-                                                                                from,
-                                                                                to,
-                                                                                self.explanation]
-                                                                      forKeys:@[@"popup_type",
-                                                                                @"popup_date_start",
-                                                                                @"popup_date_end",
-                                                                                @"popup_remarks"]];
+                NSString *popup_type = nil;
                 
-                NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"absence"];
+                if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Planned leave"])
+                {
+                    popup_type = @"planowany";
+                }
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Leave at request"])
+                {
+                    popup_type = @"zadanie";
+                }
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Illness"])
+                {
+                    popup_type = @"l4";
+                }
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Compassionate leave"])
+                {
+                    popup_type = @"okolicznosciowy";
+                }
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Absence"])
+                {
+                    popup_type = @"inne";
+                }
                 
-                [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                popup_type = [popup_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString *from = [self.absenceHolidayCellStart.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString *to = [self.absenceHolidayCellEnd.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                if (from.length && to.length && popup_type.length && self.explanation.length)
+                {
+                    if (![[from componentsSeparatedByString:@"/"][1] isEqualToString:[to componentsSeparatedByString:@"/"][1]])
+                    {
+                        [UIAlertView showWithTitle:@"Info"
+                                           message:@"Please split the date into 2 months."
+                                             style:UIAlertViewStyleDefault
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                 }];
+                        
+                        return;
+                    }
                     
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[popup_type,
+                                                                                    from,
+                                                                                    to,
+                                                                                    self.explanation]
+                                                                          forKeys:@[@"popup_type",
+                                                                                    @"popup_date_start",
+                                                                                    @"popup_date_end",
+                                                                                    @"popup_remarks"]];
                     
-                    //                NSLog(@"====================");
-                    //                NSLog(@"%@", operation.responseString);
-                    //                NSLog(@"%@", responseObject);
-                    //                NSLog(@"====================");
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"absence"];
                     
-                    [UIAlertView showWithTitle:@"Error"
-                                       message:@"New request adding failed"
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                        
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        
+                        [UIAlertView showWithTitle:@"Error"
+                                           message:@"Request has not been added. Please try again."
+                                             style:UIAlertViewStyleDefault
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                 }];
+                    }];
+                }
+                else
+                {
+                    [UIAlertView showWithTitle:@"Info"
+                                       message:@"All fields required."
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                              }];
-                    
-                    //                NSLog(@"====================");
-                    //                NSLog(@"%@", operation.responseString);
-                    //                NSLog(@"%@", error);
-                    //                NSLog(@"====================");
-                }];
+                }
             }
-            else
+                break;
+                
+            case RequestTypeOutOfOffice:
             {
-                [UIAlertView showWithTitle:@"Info"
-                                   message:@"All fields required"
-                                     style:UIAlertViewStyleDefault
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                         }];
-            }
-        }
-            break;
-            
-        case RequestTypeOutOfOffice:
-        {
-            self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *from = [self.OOOCellFrom.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *to = [self.OOOCellTo.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *date = [self.OOOCellDate.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            
-            if (from.length && to.length && date.length && self.explanation.length)
-            {
-                NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
-                                                                                to,
-                                                                                date,
-                                                                                [NSNumber numberWithBool:self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark],
-                                                                                self.explanation]
-                                                                      forKeys:@[@"late_start",
-                                                                                @"late_end",
-                                                                                @"popup_date",
-                                                                                @"work_from_home",
-                                                                                @"popup_explanation"]];
+                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString *from = [self.OOOCellFrom.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString *to = [self.OOOCellTo.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString *date = [self.OOOCellDate.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
-                
-                NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
-                
-                [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (from.length && to.length && date.length && self.explanation.length)
+                {
+                    NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
+                                                                                    to,
+                                                                                    date,
+                                                                                    [NSNumber numberWithBool:self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark],
+                                                                                    self.explanation]
+                                                                          forKeys:@[@"late_start",
+                                                                                    @"late_end",
+                                                                                    @"popup_date",
+                                                                                    @"work_from_home",
+                                                                                    @"popup_explanation"]];
                     
-                    [self dismissViewControllerAnimated:YES completion:nil];
                     
-                    //                NSLog(@"====================");
-                    //                NSLog(@"%@", operation.responseString);
-                    //                NSLog(@"%@", responseObject);
-                    //                NSLog(@"====================");
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
                     
-                    [UIAlertView showWithTitle:@"Error"
-                                       message:@"New request adding failed"
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                        
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        
+                        [UIAlertView showWithTitle:@"Error"
+                                           message:@"Request has not been added. Please try again."
+                                             style:UIAlertViewStyleDefault
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                 }];
+                    }];
+                }
+                else
+                {
+                    [UIAlertView showWithTitle:@"Info"
+                                       message:@"All fields required."
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                              }];
-                    
-                    
-                    //                NSLog(@"====================");
-                    //                NSLog(@"%@", operation.responseString);
-                    //                NSLog(@"%@", error);
-                    //                NSLog(@"====================");
-                }];
+                }
             }
-            else
-            {
-                [UIAlertView showWithTitle:@"Info"
-                                   message:@"All fields required"
-                                     style:UIAlertViewStyleDefault
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                         }];
-            }
+                break;
         }
-            break;
     }
-    
-    
-    
+    else
+    {
+        [self cancel:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -577,9 +553,7 @@ typedef enum
             self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
         }
             break;
-            
-            /////////////////////////////////////////////////////////////////////
-            
+                        
         case DateTimeTypeOOODate:
         {
             if ([sender.date compare:[NSDate date]] == NSOrderedAscending)
@@ -616,6 +590,18 @@ typedef enum
     }
     
     [self.tableView reloadDataAnimated:YES];
+}
+
+- (void)getFreeDays
+{
+    [[HTTPClient sharedClient] startOperation:[APIRequest getFreeDays] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", [responseObject objectForKey:@"left"]];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    }];
 }
 
 @end

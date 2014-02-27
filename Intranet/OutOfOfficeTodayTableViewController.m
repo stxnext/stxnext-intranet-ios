@@ -7,6 +7,7 @@
 //
 
 #import "OutOfOfficeTodayTableViewController.h"
+#import "AddOOOFormTableViewController.h"
 #import "UserDetailsTableViewController.h"
 #import "UserListCell.h"
 @interface OutOfOfficeTodayTableViewController ()
@@ -22,7 +23,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Out of Office Today";
+    self.title = @"Out";
     
     [self.tableView hideEmptySeparators];
 }
@@ -47,13 +48,12 @@
 
     _userList = [[NSMutableArray alloc] init];
     
-    
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
     
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         RMUser *user = (RMUser *)evaluatedObject;
 
-        if (user.isClient == NO || user.isFreelancer == NO)
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
         {
             return NO;
         }
@@ -75,7 +75,7 @@
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         RMUser *user = (RMUser *)evaluatedObject;
         
-        if (user.isClient == NO || user.isFreelancer == NO)
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
         {
             return NO;
         }
@@ -108,27 +108,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger number = [_userList[section] count];
-    /*
-    if (number == 0 && canShowNoResultsMessage)
+    NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
+    
+    if (count == 0)
     {
-        [UIAlertView showWithTitle:@"Informacja"
-                           message:@"Brak osób o podanych kryteriach wyszukiwania."
+        [UIAlertView showWithTitle:@"Info"
+                           message:@"Nothing to show."
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                     canShowNoResultsMessage = NO;
-                     [self performBlockOnMainThread:^{
-                         self.filterSelections = nil;
-                         [self loadUsersFromDatabase];
-                     } afterDelay:0.75];
                  }];
     }
     
-    if (number)
-    {
-        canShowNoResultsMessage = NO;
-    }
-     */
     return number;
 }
 
@@ -230,6 +221,7 @@
     
     return @"";
 }
+
 #pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -248,6 +240,23 @@
         
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && ![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        [UIAlertView showWithTitle:@"Error"
+                           message:@"No Internet connection."
+                             style:UIAlertViewStyleDefault
+                 cancelButtonTitle:nil
+                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                 }];
+
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

@@ -81,10 +81,6 @@
     return request;
 }
 
-
-
-
-
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
@@ -106,6 +102,20 @@
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
                                                                                      action:@"api/lateness"
                                                                                  parameters:parameters];
+    
+    [request blockRedirections];
+    
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getFreeDays
+{
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    dateFormater.dateFormat = @"dd/MM/yyyy";
+    
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:[NSString stringWithFormat:@"api/absence_days?date_start=%@&type=planowany", [dateFormater stringFromDate:[NSDate date]] ]
+                                                                                 parameters:nil];
     
     [request blockRedirections];
     

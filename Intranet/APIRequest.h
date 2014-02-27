@@ -18,8 +18,7 @@
 + (AFHTTPRequestOperation *)logout;
 + (AFHTTPRequestOperation *)user;
 
-
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;
-
++ (AFHTTPRequestOperation *)getFreeDays;
 @end

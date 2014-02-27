@@ -13,6 +13,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
     // Disable hiding split controller children on iPad
     if ([self.window.rootViewController isKindOfClass:[UISplitViewController class]])
     {

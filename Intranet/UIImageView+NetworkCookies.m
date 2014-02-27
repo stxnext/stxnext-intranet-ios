@@ -14,7 +14,7 @@
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [[HTTPClient sharedClient] addAuthCookiesToRequest:request];
-    [self setImageWithURLRequest:request placeholderImage:nil success:nil failure:nil];
+    [self setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"tabbar_icon_me_big"] success:nil failure:nil];
 }
 
 @end
