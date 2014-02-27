@@ -33,6 +33,17 @@ typedef enum
     
     self.OOOFromPicker.minimumDate = self.OOOToPicker.minimumDate = self.OOODatePicker.minimumDate = self.absenceHolidayStartPicker.minimumDate = self.absenceHolidayEndPicker.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
+    NSDateComponents *deltaComps = [[NSDateComponents alloc] init];
+    [deltaComps setDay:1];
+    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
+    
+    self.OOODatePicker.date = self.absenceHolidayStartPicker.date = self.absenceHolidayEndPicker.date = tomorrow;
+    self.OOOFromPicker.minimumDate = [tomorrow dateWithHour:9 minute:0 second:0];
+    self.OOOToPicker.minimumDate = [tomorrow dateWithHour:17 minute:0 second:0];
+    
+    
+    
+    
     currentUnCollapsedPickerIndex = -1;
     currentRequest = RequestTypeAbsenceHoliday;
     [self updateTableView];

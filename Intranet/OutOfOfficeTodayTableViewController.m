@@ -72,7 +72,27 @@
         return NO;
     }]]?:[[NSArray alloc] init]];
     
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && lates.@count > 0"]]?:[[NSArray alloc] init]];
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if (user.isClient == NO || user.isFreelancer == NO)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 0)
+                {
+                    return YES;
+                }
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
 
     
     [self.tableView reloadData];
