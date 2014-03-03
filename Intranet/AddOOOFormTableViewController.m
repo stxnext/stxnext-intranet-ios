@@ -35,23 +35,23 @@ typedef enum
     self.currentType = 0;
     self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
     
-    self.OOOFromPicker.minimumDate = self.OOOToPicker.minimumDate = self.OOODatePicker.minimumDate = self.absenceHolidayStartPicker.minimumDate = self.absenceHolidayEndPicker.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
+    self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
     NSDateComponents *deltaComps = [[NSDateComponents alloc] init];
     [deltaComps setDay:1];
     NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
     
-    self.OOODatePicker.date = self.absenceHolidayStartPicker.date = self.absenceHolidayEndPicker.date = tomorrow;
-    self.OOOFromPicker.minimumDate = [tomorrow dateWithHour:9 minute:0 second:0];
-    self.OOOToPicker.minimumDate = [tomorrow dateWithHour:17 minute:0 second:0];
+    self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
+    self.OOOPickerFrom.date = [tomorrow dateWithHour:9 minute:0 second:0];
+    self.OOOPickerTo.date = [tomorrow dateWithHour:17 minute:0 second:0];
     
     [self getFreeDays];
     
-    [self dateTimeValueChanged:self.absenceHolidayStartPicker];
-    [self dateTimeValueChanged:self.absenceHolidayEndPicker];
-    [self dateTimeValueChanged:self.OOODatePicker];
-    [self dateTimeValueChanged:self.OOOFromPicker];
-    [self dateTimeValueChanged:self.OOOToPicker];
+    [self dateTimeValueChanged:self.absenceHolidayPickerStart];
+    [self dateTimeValueChanged:self.absenceHolidayPickerEnd];
+    [self dateTimeValueChanged:self.OOOPickerDate];
+    [self dateTimeValueChanged:self.OOOPickerFrom];
+    [self dateTimeValueChanged:self.OOOPickerTo];
     
     currentUnCollapsedPickerIndex = -1;
     currentRequest = RequestTypeAbsenceHoliday;
@@ -528,40 +528,40 @@ typedef enum
     {
         case DateTimeTypeAbsenceHolidayStart:
         {
-            if ([sender.date compare:[NSDate date]] == NSOrderedAscending)
+            if ([self.absenceHolidayPickerStart.date compare:[NSDate date]] == NSOrderedAscending)
             {
-                [sender setDate:[NSDate date] animated:YES];
+                [self.absenceHolidayPickerStart setDate:[NSDate date] animated:YES];
             }
             
-            self.absenceHolidayCellStart.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+            self.absenceHolidayCellStart.detailTextLabel.text = [dateFormater stringFromDate:self.absenceHolidayPickerStart.date];
             
-            if ([self.absenceHolidayEndPicker.date compare:self.absenceHolidayStartPicker.date] ==  NSOrderedAscending)
+            if ([self.absenceHolidayPickerEnd.date compare:self.absenceHolidayPickerStart.date] ==  NSOrderedAscending)
             {
-                [self.absenceHolidayEndPicker setDate:self.absenceHolidayStartPicker.date animated:YES];
-                self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+                [self.absenceHolidayPickerEnd setDate:self.absenceHolidayPickerStart.date animated:YES];
+                self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:self.absenceHolidayPickerStart.date];
             }
         }
             break;
             
         case DateTimeTypeAbsenceHolidayEnd:
         {
-            if ([self.absenceHolidayEndPicker.date compare:self.absenceHolidayStartPicker.date] ==  NSOrderedAscending)
+            if ([self.absenceHolidayPickerEnd.date compare:self.absenceHolidayPickerStart.date] ==  NSOrderedAscending)
             {
-                [self.absenceHolidayEndPicker setDate:self.absenceHolidayStartPicker.date animated:YES];
+                [self.absenceHolidayPickerEnd setDate:self.absenceHolidayPickerStart.date animated:YES];
             }
             
-            self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+            self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:self.absenceHolidayPickerEnd.date];
         }
             break;
                         
         case DateTimeTypeOOODate:
         {
-            if ([sender.date compare:[NSDate date]] == NSOrderedAscending)
+            if ([self.OOOPickerDate.date compare:[NSDate date]] == NSOrderedAscending)
             {
-                [sender setDate:[NSDate date] animated:YES];
+                [self.OOOPickerDate setDate:[NSDate date] animated:YES];
             }
             
-            self.OOOCellDate.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+            self.OOOCellDate.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerDate.date];
         }
             break;
             
@@ -569,22 +569,22 @@ typedef enum
         {
             self.OOOCellFrom.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
             
-            if ([self.OOOToPicker.date compare:self.OOOFromPicker.date] ==  NSOrderedAscending)
+            if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOToPicker setDate:self.OOOFromPicker.date animated:YES];
-                self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
+                self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];
             }
         }
             break;
             
         case DateTimeTypeOOOTo:
         {
-            if ([self.OOOToPicker.date compare:self.OOOFromPicker.date] ==  NSOrderedAscending)
+            if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOToPicker setDate:self.OOOFromPicker.date animated:YES];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
             }
             
-            self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:sender.date];
+            self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];
         }
             break;
     }

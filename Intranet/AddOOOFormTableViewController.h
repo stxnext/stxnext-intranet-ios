@@ -24,34 +24,47 @@ typedef enum
 }
 
 @property (copy, nonatomic) NSString *explanation;
+@property (nonatomic, assign) NSInteger currentType;
 
+
+// 0' section
+// cells
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCell;
 
 
+// 1' section
+// cells
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellStart;
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellStartPicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayStartPicker;
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellEnd;
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellEndPicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayEndPicker;
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellType;
 @property (weak, nonatomic) IBOutlet UITableViewCell *absenceHolidayCellExplanation;
-@property (nonatomic, assign) NSInteger currentType;
+
+// pickers
+@property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayPickerStart;
+@property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayPickerEnd;
 
 
+// 2' section
+// cells
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellDate;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellDatePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *OOODatePicker;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellFrom;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellFromPicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *OOOFromPicker;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellTo;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellToPicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *OOOToPicker;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellWorkFromHome;
 @property (weak, nonatomic) IBOutlet UITableViewCell *OOOCellExplanation;
 
+// pickers
+@property (weak, nonatomic) IBOutlet UIDatePicker *OOOPickerDate;
+@property (weak, nonatomic) IBOutlet UIDatePicker *OOOPickerFrom;
+@property (weak, nonatomic) IBOutlet UIDatePicker *OOOPickerTo;
+
+
+// actions
 - (IBAction)dateTimeValueChanged:(UIDatePicker *)sender;
 
 @end

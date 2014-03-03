@@ -419,7 +419,7 @@ static CGFloat tabBarHeight;
                                               [RMUser mapFromJSON:user];
                                           }
                                           
-                                          NSLog(@"Loaded From API: %i users", [responseObject[@"users"] count]);
+                                          NSLog(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];

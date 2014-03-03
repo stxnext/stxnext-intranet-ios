@@ -18,7 +18,7 @@
 
 - (UserLoginType)userLoggedType
 {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"userLoggedType"];
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"userLoggedType"];
 }
 
 - (NSString *)myUserId

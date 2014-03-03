@@ -15,7 +15,7 @@
     [super viewWillAppear:animated];
     
     CGRect bounds = self.view.superview.bounds;
-    bounds.size = self.contentSizeForViewInPopover;
+    bounds.size = self.preferredContentSize;
     self.view.superview.bounds = bounds;
 }
 
@@ -41,12 +41,12 @@
 
 #pragma mark Modal delegate
 
-+ (NSString*)storyboardIdentifier
++ (NSString *)storyboardIdentifier
 {
     @throw [NSException exceptionWithName:@"Not implemented" reason:nil userInfo:nil];
 }
 
-+ (NSString*)viewControllerIdentifier
++ (NSString *)viewControllerIdentifier
 {
     @throw [NSException exceptionWithName:@"Not implemented" reason:nil userInfo:nil];
 }
