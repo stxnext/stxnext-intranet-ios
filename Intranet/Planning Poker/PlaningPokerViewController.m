@@ -51,7 +51,7 @@
     radius = UnSelectedRadius;
 	_wrap = YES;
 	self.items = [NSMutableArray arrayWithArray:@[@"0",
-                                                  @"1/2",
+                                                  @"½",
                                                   @"1",
                                                   @"2",
                                                   @"3",
@@ -104,7 +104,7 @@
     _carousel.decelerationRate = 0.8;
 //    _carousel.ignorePerpendicularSwipes = NO;
 
-    if (!iOS7_PLUS)
+    if (!BLURED_BACKGROUND)
     {
         self.title = @"Planning Poker";
         
@@ -116,16 +116,15 @@
     }
     
     selectedIndex = -1;
-    
-//    [self.backgroundImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)]];
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
-    if (iOS7_PLUS)
+    if (BLURED_BACKGROUND)
     {
         [self showBlurBackground];
     }
@@ -140,8 +139,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -153,19 +150,6 @@
 {
     [self.backgroundImageView setImageToBlur:self.backgroundImage blurRadius:10 completionBlock:nil];
     self.backgroundImageView.alpha = 0.75;
-    /*
-    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:self.backgroundImage];
-    GPUImageiOSBlurFilter *stillImageFilter = [[GPUImageiOSBlurFilter alloc] init];
-    stillImageFilter.blurRadiusInPixels = .50f;
-    stillImageFilter.saturation = 0.0;
-    
-    [stillImageSource addTarget:stillImageFilter];
-    [stillImageSource processImage];
-    
-    UIImage *currentFilteredVideoFrame = [stillImageFilter imageFromCurrentlyProcessedOutput];
-    
-    self.backgroundImageView.image = currentFilteredVideoFrame;
-     */
 }
 
 - (void)viewDidUnload
@@ -272,22 +256,22 @@
 
 - (void)carouselWillBeginScrollingAnimation:(iCarousel *)carousel
 {
-//    NSLog(@"carouselWillBeginScrollingAnimation %i", carousel.currentItemIndex);
+
 }
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
-//    NSLog(@"carouselDidEndScrollingAnimation %i", carousel.currentItemIndex);
+
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
-//    NSLog(@"carouselDidScroll %i", carousel.isVertical);
+
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
-//    NSLog(@"carouselCurrentItemIndexDidChange");
+
 }
 
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
@@ -300,17 +284,17 @@
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
-//    NSLog(@"carouselDidEndDragging");
+
 }
 
 - (void)carouselWillBeginDecelerating:(iCarousel *)carousel
 {
-//    NSLog(@"carouselWillBeginDecelerating");
+
 }
 
 - (void)carouselDidEndDecelerating:(iCarousel *)carousel
 {
-//    NSLog(@"carouselDidEndDecelerating");
+
 }
 
 - (BOOL)carousel:(iCarousel *)carousel shouldSelectItemAtIndex:(NSInteger)index
@@ -414,7 +398,7 @@
 
 - (void)moveCardUp
 {
-    vShift = fabs(self.carousel.center.y - self.view.center.y);
+    vShift = fabs(self.carousel.center.y - self.view.center.y - (BLURED_BACKGROUND ? 0 : 22));
     
     if (!isAnimating)
     {

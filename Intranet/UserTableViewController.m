@@ -725,7 +725,7 @@ static CGFloat tabBarHeight;
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:ppvc];
     
-    if (iOS7_PLUS)
+    if (BLURED_BACKGROUND)
     {
         ppvc.backgroundImage = [self.view.superview.superview.superview convertViewToImage];
         [nvc setNavigationBarHidden:YES animated:NO];

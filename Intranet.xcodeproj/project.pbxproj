@@ -54,6 +54,25 @@
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
+		661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */; };
+		661AE45318C48CF400B7A4F5 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */; };
+		661AE45418C48CF400B7A4F5 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44218C48CF400B7A4F5 /* Lato-Bold.ttf */; };
+		661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44318C48CF400B7A4F5 /* Lato-BoldItalic.ttf */; };
+		661AE45618C48CF400B7A4F5 /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44418C48CF400B7A4F5 /* Lato-Hairline.ttf */; };
+		661AE45718C48CF400B7A4F5 /* Lato-HairlineItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44518C48CF400B7A4F5 /* Lato-HairlineItalic.ttf */; };
+		661AE45818C48CF400B7A4F5 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44618C48CF400B7A4F5 /* Lato-Heavy.ttf */; };
+		661AE45918C48CF400B7A4F5 /* Lato-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44718C48CF400B7A4F5 /* Lato-HeavyItalic.ttf */; };
+		661AE45A18C48CF400B7A4F5 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44818C48CF400B7A4F5 /* Lato-Italic.ttf */; };
+		661AE45B18C48CF400B7A4F5 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44918C48CF400B7A4F5 /* Lato-Light.ttf */; };
+		661AE45C18C48CF400B7A4F5 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44A18C48CF400B7A4F5 /* Lato-LightItalic.ttf */; };
+		661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44B18C48CF400B7A4F5 /* Lato-Medium.ttf */; };
+		661AE45E18C48CF400B7A4F5 /* Lato-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44C18C48CF400B7A4F5 /* Lato-MediumItalic.ttf */; };
+		661AE45F18C48CF400B7A4F5 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44D18C48CF400B7A4F5 /* Lato-Regular.ttf */; };
+		661AE46018C48CF400B7A4F5 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44E18C48CF400B7A4F5 /* Lato-Semibold.ttf */; };
+		661AE46118C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44F18C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf */; };
+		661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45018C48CF400B7A4F5 /* Lato-Thin.ttf */; };
+		661AE46318C48CF400B7A4F5 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */; };
+		661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */; };
 		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
@@ -156,6 +175,26 @@
 		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		660DE6AF189A32E700E1905D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		660DE6B0189A32E700E1905D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		661AE44218C48CF400B7A4F5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		661AE44318C48CF400B7A4F5 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		661AE44418C48CF400B7A4F5 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
+		661AE44518C48CF400B7A4F5 /* Lato-HairlineItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-HairlineItalic.ttf"; sourceTree = "<group>"; };
+		661AE44618C48CF400B7A4F5 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
+		661AE44718C48CF400B7A4F5 /* Lato-HeavyItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-HeavyItalic.ttf"; sourceTree = "<group>"; };
+		661AE44818C48CF400B7A4F5 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
+		661AE44918C48CF400B7A4F5 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		661AE44A18C48CF400B7A4F5 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		661AE44B18C48CF400B7A4F5 /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
+		661AE44C18C48CF400B7A4F5 /* Lato-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-MediumItalic.ttf"; sourceTree = "<group>"; };
+		661AE44D18C48CF400B7A4F5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		661AE44E18C48CF400B7A4F5 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		661AE44F18C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		661AE45018C48CF400B7A4F5 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
+		661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
+		661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TCCustomFont.h"; sourceTree = "<group>"; };
+		661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TCCustomFont.m"; sourceTree = "<group>"; };
 		6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTypeTableViewController.h; sourceTree = "<group>"; };
 		6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTypeTableViewController.m; sourceTree = "<group>"; };
 		6627C82918BC89F2003893EB /* ExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplanationViewController.h; sourceTree = "<group>"; };
@@ -323,6 +362,7 @@
 				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
 				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
 				0CE37C55181E8ED10087C96E /* InfoPlist.strings */,
+				661AE43F18C48CF400B7A4F5 /* Lato2OFL */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -379,21 +419,23 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
+				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
+				661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */,
 				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
 				66515F1818B38A7700092BB2 /* UIView+Additions.h */,
 				66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
+				661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */,
 				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
 				66515F1918B38A7700092BB2 /* UIView+Additions.m */,
 				66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */,
-				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
-				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -423,6 +465,31 @@
 			);
 			name = Database;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		661AE43F18C48CF400B7A4F5 /* Lato2OFL */ = {
+			isa = PBXGroup;
+			children = (
+				661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */,
+				661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */,
+				661AE44218C48CF400B7A4F5 /* Lato-Bold.ttf */,
+				661AE44318C48CF400B7A4F5 /* Lato-BoldItalic.ttf */,
+				661AE44418C48CF400B7A4F5 /* Lato-Hairline.ttf */,
+				661AE44518C48CF400B7A4F5 /* Lato-HairlineItalic.ttf */,
+				661AE44618C48CF400B7A4F5 /* Lato-Heavy.ttf */,
+				661AE44718C48CF400B7A4F5 /* Lato-HeavyItalic.ttf */,
+				661AE44818C48CF400B7A4F5 /* Lato-Italic.ttf */,
+				661AE44918C48CF400B7A4F5 /* Lato-Light.ttf */,
+				661AE44A18C48CF400B7A4F5 /* Lato-LightItalic.ttf */,
+				661AE44B18C48CF400B7A4F5 /* Lato-Medium.ttf */,
+				661AE44C18C48CF400B7A4F5 /* Lato-MediumItalic.ttf */,
+				661AE44D18C48CF400B7A4F5 /* Lato-Regular.ttf */,
+				661AE44E18C48CF400B7A4F5 /* Lato-Semibold.ttf */,
+				661AE44F18C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf */,
+				661AE45018C48CF400B7A4F5 /* Lato-Thin.ttf */,
+				661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */,
+			);
+			path = Lato2OFL;
 			sourceTree = "<group>";
 		};
 		6627C82618BC6FE6003893EB /* New Request */ = {
@@ -512,14 +579,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */,
+				661AE45B18C48CF400B7A4F5 /* Lato-Light.ttf in Resources */,
+				661AE45918C48CF400B7A4F5 /* Lato-HeavyItalic.ttf in Resources */,
 				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
+				661AE45718C48CF400B7A4F5 /* Lato-HairlineItalic.ttf in Resources */,
 				66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */,
+				661AE45818C48CF400B7A4F5 /* Lato-Heavy.ttf in Resources */,
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
+				661AE45318C48CF400B7A4F5 /* Lato-BlackItalic.ttf in Resources */,
+				661AE45F18C48CF400B7A4F5 /* Lato-Regular.ttf in Resources */,
+				661AE46318C48CF400B7A4F5 /* Lato-ThinItalic.ttf in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
 				0CE37C57181E8ED10087C96E /* InfoPlist.strings in Resources */,
+				661AE45E18C48CF400B7A4F5 /* Lato-MediumItalic.ttf in Resources */,
+				661AE45C18C48CF400B7A4F5 /* Lato-LightItalic.ttf in Resources */,
+				661AE45418C48CF400B7A4F5 /* Lato-Bold.ttf in Resources */,
+				661AE45618C48CF400B7A4F5 /* Lato-Hairline.ttf in Resources */,
 				0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */,
+				661AE46018C48CF400B7A4F5 /* Lato-Semibold.ttf in Resources */,
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
+				661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */,
+				661AE46118C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf in Resources */,
 				66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */,
+				661AE45A18C48CF400B7A4F5 /* Lato-Italic.ttf in Resources */,
+				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
+				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
+				661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +675,7 @@
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
+				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
@@ -676,6 +762,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -710,6 +797,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-all_load";
 				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
