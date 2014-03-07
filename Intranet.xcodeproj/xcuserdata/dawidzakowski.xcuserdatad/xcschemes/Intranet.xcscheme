@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-               BuildableName = "Intranet.app"
+               BuildableName = "STX Intranet.app"
                BlueprintName = "Intranet"
                ReferencedContainer = "container:Intranet.xcodeproj">
             </BuildableReference>
@@ -38,12 +38,22 @@
                ReferencedContainer = "container:Intranet.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0C303C4118C9EF20002AA21D"
+               BuildableName = "Pods-installTests.xctest"
+               BlueprintName = "Pods-installTests"
+               ReferencedContainer = "container:Intranet.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>
@@ -62,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>
@@ -80,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0CE37C48181E8ED10087C96E"
-            BuildableName = "Intranet.app"
+            BuildableName = "STX Intranet.app"
             BlueprintName = "Intranet"
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>

@@ -7,4 +7,4 @@ pod 'GPUImage'
 pod 'NSObject+AutoDescription'
 pod 'LBBlurredImage'
 pod 'CocoaLumberjack'
-
+pod 'Parse'

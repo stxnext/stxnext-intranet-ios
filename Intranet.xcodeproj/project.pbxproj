@@ -10,6 +10,7 @@
 		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
+		0C303C3618C9EF20002AA21D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */; };
 		0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */; };
 		0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */; };
@@ -90,9 +91,22 @@
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0C303C3318C9EF20002AA21D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0C303C3518C9EF20002AA21D /* libPods-install.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-install.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NetworkCookies.h"; sourceTree = "<group>"; };
 		0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NetworkCookies.m"; sourceTree = "<group>"; };
 		0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsSegue.h; sourceTree = "<group>"; };
@@ -226,6 +240,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0C303C3218C9EF20002AA21D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C303C3618C9EF20002AA21D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CE37C46181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				0CE37C49181E8ED10087C96E /* STX Intranet.app */,
+				0C303C3518C9EF20002AA21D /* libPods-install.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -522,6 +545,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0C303C3418C9EF20002AA21D /* Pods-install */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C303C5518C9EF20002AA21D /* Build configuration list for PBXNativeTarget "Pods-install" */;
+			buildPhases = (
+				0C303C5718C9EF3D002AA21D /* ShellScript */,
+				0C303C3118C9EF20002AA21D /* Sources */,
+				0C303C3218C9EF20002AA21D /* Frameworks */,
+				0C303C3318C9EF20002AA21D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-install";
+			productName = "Pods-install";
+			productReference = 0C303C3518C9EF20002AA21D /* libPods-install.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		0CE37C48181E8ED10087C96E /* Intranet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CE37C81181E8ED10087C96E /* Build configuration list for PBXNativeTarget "Intranet" */;
@@ -569,6 +610,7 @@
 			projectRoot = "";
 			targets = (
 				0CE37C48181E8ED10087C96E /* Intranet */,
+				0C303C3418C9EF20002AA21D /* Pods-install */,
 			);
 		};
 /* End PBXProject section */
@@ -611,6 +653,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0C303C5718C9EF3D002AA21D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}\npod install --verbose > pods_install.log";
+		};
 		48B2064B704B4D7C9DEE49AE /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -644,6 +699,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0C303C3118C9EF20002AA21D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CE37C45181E8ED10087C96E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -727,6 +789,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0C303C5118C9EF20002AA21D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				DSTROOT = /tmp/Pods_install.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-install/Pods-install-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0C303C5218C9EF20002AA21D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				DSTROOT = /tmp/Pods_install.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-install/Pods-install-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		0CE37C7F181E8ED10087C96E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -846,6 +938,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0C303C5518C9EF20002AA21D /* Build configuration list for PBXNativeTarget "Pods-install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C303C5118C9EF20002AA21D /* Debug */,
+				0C303C5218C9EF20002AA21D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		0CE37C44181E8ED10087C96E /* Build configuration list for PBXProject "Intranet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -41,6 +41,7 @@ install_resource()
       ;;
   esac
 }
+install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
 install_resource "GPUImage/framework/Resources/lookup.png"
 install_resource "GPUImage/framework/Resources/lookup_amatorka.png"
 install_resource "GPUImage/framework/Resources/lookup_miss_etikate.png"
