@@ -37,7 +37,7 @@
 
 - (void)loadUsersFromDatabase
 {
-    NSLog(@"Loading from: Database");
+    DDLogInfo(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"

@@ -24,7 +24,16 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
-//#define NSLog //NSLog
+// logger
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+#import "DDFileLogger.h"
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_ERROR;
+#endif
 
 // External headers
 #import <GooglePlus/GooglePlus.h>

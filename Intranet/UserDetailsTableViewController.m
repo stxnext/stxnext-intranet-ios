@@ -600,25 +600,25 @@
     {
         case MFMailComposeResultCancelled:
         {
-            NSLog(@"Mail cancelled");
+            DDLogInfo(@"Mail cancelled");
         }
             break;
             
         case MFMailComposeResultSaved:
         {
-            NSLog(@"Mail saved");
+            DDLogInfo(@"Mail saved");
         }
             break;
             
         case MFMailComposeResultSent:
         {
-            NSLog(@"Mail sent");
+            DDLogInfo(@"Mail sent");
         }
             break;
             
         case MFMailComposeResultFailed:
         {
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            DDLogInfo(@"Mail sent failure: %@", [error localizedDescription]);
         }
             break;
     }

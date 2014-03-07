@@ -182,7 +182,7 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromDatabase
 {
-    NSLog(@"Loading from: Database");
+    DDLogInfo(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -392,7 +392,7 @@ static CGFloat tabBarHeight;
     __block NSInteger operations = 2;
     __block BOOL deletedUsers = NO;
     
-    NSLog(@"Loading from: API");
+    DDLogInfo(@"Loading from: API");
     
     [self.filterSelections removeAllObjects];
     [self.filterStructure removeAllObjects];
@@ -419,7 +419,7 @@ static CGFloat tabBarHeight;
                                               [RMUser mapFromJSON:user];
                                           }
                                           
-                                          NSLog(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
+                                          DDLogInfo(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
                                           
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];
@@ -434,7 +434,7 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
-                                          NSLog(@"Loaded From API: 0 users");
+                                          DDLogError(@"Users API Loading Error");
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           
                                           if ([operation redirectToLoginView])
@@ -479,7 +479,7 @@ static CGFloat tabBarHeight;
                                           // Save database
                                           [[DatabaseManager sharedManager] saveContext];
                                           
-                                          NSLog(@"Loaded: absences and lates");
+                                          DDLogInfo(@"Loaded: absences and lates");
                                           
                                           // Load from database
                                           [self loadUsersFromDatabase];
@@ -490,7 +490,7 @@ static CGFloat tabBarHeight;
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"Error");
+                                          DDLogError(@"Presence API Loading Error");
                                       }];
 }
 

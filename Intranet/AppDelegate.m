@@ -9,10 +9,14 @@
 #import "AppDelegate.h"
 #import "AppDelegate+SplitControllerDelegate.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     // Disable hiding split controller children on iPad

@@ -69,7 +69,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
     {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         
         return nil;
     }
@@ -93,7 +93,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error])
     {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
 

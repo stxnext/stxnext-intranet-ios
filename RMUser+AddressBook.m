@@ -61,7 +61,7 @@
         }
         else
         {
-            NSLog(@"AB INAVAILABLE");
+            DDLogError(@"AB INAVAILABLE");
         }
     }];
     
@@ -122,7 +122,7 @@
                 if (error != NULL)
                 {
                     CFStringRef errorDesc = CFErrorCopyDescription(error);
-                    NSLog(@"Contact not added: %@", errorDesc);
+                    DDLogError(@"Contact not added: %@", errorDesc);
                     if (errorDesc) CFRelease(errorDesc);
                 }
                 else
@@ -132,7 +132,7 @@
                     if (error != NULL)
                     {
                         CFStringRef errorDesc = CFErrorCopyDescription(error);
-                        NSLog(@"Contact not saved: %@", errorDesc);
+                        DDLogError(@"Contact not saved: %@", errorDesc);
                         if (errorDesc) CFRelease(errorDesc);
                     }
                 }
@@ -178,7 +178,7 @@
             }
             else
             {
-                NSLog(@"AB INAVAILABLE");
+                DDLogError(@"AB INAVAILABLE");
             }
         }];
     }
@@ -208,7 +208,7 @@
         }
         else
         {
-            NSLog(@"AB INAVAILABLE");
+            DDLogError(@"AB INAVAILABLE");
         }
     }];
 }
@@ -229,24 +229,24 @@
                 NSString *firstName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonFirstNameProperty));
                 NSString *lastName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonLastNameProperty));
                 
-                NSLog(@"Name: %@ %@", firstName, lastName);
+                DDLogInfo(@"DDLogInfo: %@ %@", firstName, lastName);
                 
                 ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
                 
                 for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++)
                 {
                     NSString *phoneNumber = (__bridge NSString *) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-                    NSLog(@"phone: %@", phoneNumber);
+                    DDLogInfo(@"phone: %@", phoneNumber);
                 }
                 
-                NSLog(@"=============================================");
+                DDLogInfo(@"=============================================");
             }
             
             if (allPeople) CFRelease(allPeople);
         }
         else
         {
-            NSLog(@"AB INAVAILABLE");
+            DDLogError(@"AB INAVAILABLE");
         }
     }];
 }
