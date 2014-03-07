@@ -60,6 +60,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import "NSObject+DelayedBlocks.h"
 #import "NSObject+AutoDescription.h"
 #import "NSObject+CleanDescription.h"
+#import "PFModels.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT             (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))

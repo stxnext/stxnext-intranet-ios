@@ -11,6 +11,15 @@
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
 		0C303C3618C9EF20002AA21D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
+		0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C5A18C9F54D002AA21D /* PFGame.m */; };
+		0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C5E18C9F5D5002AA21D /* PFModels.m */; };
+		0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */; };
+		0C303C6518C9FBAA002AA21D /* PFTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6418C9FBAA002AA21D /* PFTicket.m */; };
+		0C303C6818C9FC49002AA21D /* PFRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6718C9FC49002AA21D /* PFRound.m */; };
+		0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429CEE18C9FD5D00BB9CBA /* PFVote.m */; };
+		0C429D1318CA059700BB9CBA /* RMUser+CurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429D1218CA059700BB9CBA /* RMUser+CurrentUser.m */; };
+		0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */; };
+		0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429D1818CA174C00BB9CBA /* PFPerson.m */; };
 		0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */; };
 		0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */; };
 		0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */; };
@@ -107,6 +116,24 @@
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0C303C3518C9EF20002AA21D /* libPods-install.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-install.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C303C5918C9F54D002AA21D /* PFGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFGame.h; sourceTree = "<group>"; };
+		0C303C5A18C9F54D002AA21D /* PFGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFGame.m; sourceTree = "<group>"; };
+		0C303C5D18C9F5D5002AA21D /* PFModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFModels.h; sourceTree = "<group>"; };
+		0C303C5E18C9F5D5002AA21D /* PFModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFModels.m; sourceTree = "<group>"; };
+		0C303C6018C9F8B4002AA21D /* AppDelegate+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Parse.h"; sourceTree = "<group>"; };
+		0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Parse.m"; sourceTree = "<group>"; };
+		0C303C6318C9FBAA002AA21D /* PFTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFTicket.h; sourceTree = "<group>"; };
+		0C303C6418C9FBAA002AA21D /* PFTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFTicket.m; sourceTree = "<group>"; };
+		0C303C6618C9FC49002AA21D /* PFRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFRound.h; sourceTree = "<group>"; };
+		0C303C6718C9FC49002AA21D /* PFRound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFRound.m; sourceTree = "<group>"; };
+		0C429CED18C9FD5D00BB9CBA /* PFVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFVote.h; sourceTree = "<group>"; };
+		0C429CEE18C9FD5D00BB9CBA /* PFVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFVote.m; sourceTree = "<group>"; };
+		0C429D1118CA059700BB9CBA /* RMUser+CurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+CurrentUser.h"; sourceTree = "<group>"; };
+		0C429D1218CA059700BB9CBA /* RMUser+CurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+CurrentUser.m"; sourceTree = "<group>"; };
+		0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionsViewController.h; sourceTree = "<group>"; };
+		0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionsViewController.m; sourceTree = "<group>"; };
+		0C429D1718CA174C00BB9CBA /* PFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPerson.h; sourceTree = "<group>"; };
+		0C429D1818CA174C00BB9CBA /* PFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPerson.m; sourceTree = "<group>"; };
 		0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NetworkCookies.h"; sourceTree = "<group>"; };
 		0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NetworkCookies.m"; sourceTree = "<group>"; };
 		0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsSegue.h; sourceTree = "<group>"; };
@@ -266,6 +293,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C303C5818C9F46A002AA21D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0C303C5D18C9F5D5002AA21D /* PFModels.h */,
+				0C303C5E18C9F5D5002AA21D /* PFModels.m */,
+				0C303C5918C9F54D002AA21D /* PFGame.h */,
+				0C303C5A18C9F54D002AA21D /* PFGame.m */,
+				0C303C6318C9FBAA002AA21D /* PFTicket.h */,
+				0C303C6418C9FBAA002AA21D /* PFTicket.m */,
+				0C303C6618C9FC49002AA21D /* PFRound.h */,
+				0C303C6718C9FC49002AA21D /* PFRound.m */,
+				0C429CED18C9FD5D00BB9CBA /* PFVote.h */,
+				0C429CEE18C9FD5D00BB9CBA /* PFVote.m */,
+				0C429D1718CA174C00BB9CBA /* PFPerson.h */,
+				0C429D1818CA174C00BB9CBA /* PFPerson.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		0C43A79C1822618700FB513D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +329,8 @@
 				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
 				0CF7FA6118214B200056F907 /* RMUser.m */,
+				0C429D1118CA059700BB9CBA /* RMUser+CurrentUser.h */,
+				0C429D1218CA059700BB9CBA /* RMUser+CurrentUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -412,6 +460,8 @@
 				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
+				0C303C6018C9F8B4002AA21D /* AppDelegate+Parse.h */,
+				0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -531,6 +581,9 @@
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
 			isa = PBXGroup;
 			children = (
+				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
+				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
+				0C303C5818C9F46A002AA21D /* Models */,
 				66BFF3D418A4D0ED00049C37 /* CardView.h */,
 				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
 				66BFF3D518A4D0ED00049C37 /* CardView.m */,
@@ -714,11 +767,16 @@
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
+				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
+				0C429D1318CA059700BB9CBA /* RMUser+CurrentUser.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
+				0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
+				0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */,
+				0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */,
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
@@ -735,12 +793,14 @@
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
+				0C303C6518C9FBAA002AA21D /* PFTicket.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
+				0C303C6818C9FC49002AA21D /* PFRound.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
@@ -752,10 +812,12 @@
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
+				0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
+				0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,6 +1007,7 @@
 				0C303C5218C9EF20002AA21D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0CE37C44181E8ED10087C96E /* Build configuration list for PBXProject "Intranet" */ = {
 			isa = XCConfigurationList;
