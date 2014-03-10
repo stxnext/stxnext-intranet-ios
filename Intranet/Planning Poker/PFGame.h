@@ -16,10 +16,10 @@ typedef enum PokerDeckType {
 @interface PFGame : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSDate* startDate;
+@property (nonatomic, strong) NSDate* endDate;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) PFUser* owner;
 @property (nonatomic, strong) NSNumber* deck;
-@property (nonatomic, strong) NSNumber* isFinished;
 
 @property (nonatomic, strong) NSArray* players;
 @property (nonatomic, strong) NSArray* tickets;

@@ -11,7 +11,10 @@
 @interface PFTicket : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSString* description;
 @property (nonatomic, strong) NSNumber* finalEstimate;
+@property (nonatomic, strong) NSDate* startDate;
+@property (nonatomic, strong) NSDate* endDate;
 
 @property (nonatomic, strong) NSArray* rounds;
 

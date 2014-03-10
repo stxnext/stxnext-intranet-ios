@@ -11,7 +11,7 @@
 
 @implementation PFRound
 
-@dynamic index, startDate, timeout, votes;
+@dynamic index, startDate, endDate, timeout, votes;
 
 + (NSString *)parseClassName
 {
