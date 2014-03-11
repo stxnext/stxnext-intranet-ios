@@ -59,7 +59,7 @@ static CGFloat tabBarHeight;
     
     if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse || [APP_DELEGATE userLoggedType] == UserLoginTypeError)
     {
-        [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+        [self.tabBarController.tabBar.items[2] setTitle:@"About"];
     }
 }
 
@@ -130,7 +130,7 @@ static CGFloat tabBarHeight;
                                           {
                                               [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
                                               
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
+                                              [self.tabBarController.tabBar.items[2] setTitle:@"Me"];
                                               
                                               [self loadUsersFromAPI];
                                           }
@@ -139,7 +139,7 @@ static CGFloat tabBarHeight;
                                               //error with login (e.g. account not exists)
                                               [APP_DELEGATE setUserLoggedType:UserLoginTypeFalse];
                                               
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+                                              [self.tabBarController.tabBar.items[2] setTitle:@"About"];
                                               
                                               [self loadUsersFromAPI];
                                           }

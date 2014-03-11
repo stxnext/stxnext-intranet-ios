@@ -25,9 +25,9 @@
 {
     [super viewDidDisappear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(explanationViewController:explanation:)])
+    if ([self.delegate respondsToSelector:@selector(explanationViewController:didFinishWithExplanation:)])
     {
-        [self.delegate explanationViewController:self explanation:self.textView.text];
+        [self.delegate explanationViewController:self didFinishWithExplanation:self.textView.text];
     }
 }
 

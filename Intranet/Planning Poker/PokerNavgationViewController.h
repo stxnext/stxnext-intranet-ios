@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlaningPokerNavgationViewController : UINavigationController
+@interface PokerNavgationViewController : UINavigationController
 
 @end

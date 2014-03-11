@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 STXNext. All rights reserved.
 //
 
-#import "PlaningPokerNavgationViewController.h"
+#import "PokerNavgationViewController.h"
 
-@interface PlaningPokerNavgationViewController ()
+@interface PokerNavgationViewController ()
 
 @end
 
-@implementation PlaningPokerNavgationViewController
+@implementation PokerNavgationViewController
 
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController

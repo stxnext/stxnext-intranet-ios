@@ -496,7 +496,7 @@ typedef enum
 
 #pragma mark -  RequestTypeTableViewControllerDelegate
 
-- (void)explanationViewController:(ExplanationViewController *)explanationViewController explanation:(NSString *)explanation
+- (void)explanationViewController:(ExplanationViewController *)explanationViewController didFinishWithExplanation:(NSString *)explanation
 {
     self.explanation = explanation;
     self.absenceHolidayCellExplanation.detailTextLabel.text = self.OOOCellExplanation.detailTextLabel.text = self.explanation;

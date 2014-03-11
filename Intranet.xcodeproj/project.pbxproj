@@ -88,9 +88,14 @@
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		663AF0C518CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */; };
-		663AF0C818CEF53600CD1865 /* PlaningPokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */; };
+		663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */; };
+		663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
+		66572AC818CF2E8400B0951F /* TextInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572AC718CF2E8400B0951F /* TextInputViewController.xib */; };
+		66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACB18CF3D5400B0951F /* PokerSession.m */; };
+		66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */; };
+		66572AD118CF44E100B0951F /* CardsTypeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
@@ -99,6 +104,8 @@
 		66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D518A4D0ED00049C37 /* CardView.m */; };
 		66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D618A4D0ED00049C37 /* CardView.xib */; };
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
+		66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */; };
+		66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54D18CF293200C14F5D /* TextInputViewController.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -247,12 +254,20 @@
 		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
 		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
 		663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanningPokerStoryboard.storyboard; sourceTree = "<group>"; };
-		663AF0C618CEF53600CD1865 /* PlaningPokerNavgationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerNavgationViewController.h; sourceTree = "<group>"; };
-		663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerNavgationViewController.m; sourceTree = "<group>"; };
+		663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerNavgationViewController.h; sourceTree = "<group>"; };
+		663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNavgationViewController.m; sourceTree = "<group>"; };
+		663AF0CC18CEFE6800CD1865 /* PokerNewSessionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerNewSessionTableViewController.h; sourceTree = "<group>"; };
+		663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNewSessionTableViewController.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		66572AC718CF2E8400B0951F /* TextInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextInputViewController.xib; sourceTree = "<group>"; };
+		66572ACA18CF3D5400B0951F /* PokerSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSession.h; sourceTree = "<group>"; };
+		66572ACB18CF3D5400B0951F /* PokerSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSession.m; sourceTree = "<group>"; };
+		66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsTypeTableViewController.h; sourceTree = "<group>"; };
+		66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsTypeTableViewController.m; sourceTree = "<group>"; };
+		66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardsTypeTableViewController.xib; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
@@ -266,6 +281,10 @@
 		66BFF3D618A4D0ED00049C37 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionsListTableViewController.h; sourceTree = "<group>"; };
+		66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionsListTableViewController.m; sourceTree = "<group>"; };
+		66D0F54C18CF293200C14F5D /* TextInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputViewController.h; sourceTree = "<group>"; };
+		66D0F54D18CF293200C14F5D /* TextInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputViewController.m; sourceTree = "<group>"; };
 		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -583,24 +602,60 @@
 			name = "New Request";
 			sourceTree = "<group>";
 		};
+		66572AC918CF3D4200B0951F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				66572ACA18CF3D5400B0951F /* PokerSession.h */,
+				66572ACB18CF3D5400B0951F /* PokerSession.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
 			isa = PBXGroup;
 			children = (
-				66BFF3D418A4D0ED00049C37 /* CardView.h */,
-				663AF0C618CEF53600CD1865 /* PlaningPokerNavgationViewController.h */,
-				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
+				66D0F54318CF183800C14F5D /* new */,
 				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
-				66BFF3D518A4D0ED00049C37 /* CardView.m */,
-				663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */,
-				66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */,
 				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
-				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
 				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
-				66BFF3D618A4D0ED00049C37 /* CardView.xib */,
-				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
 				0C303C5818C9F46A002AA21D /* Models */,
+				66D0F54218CF17E200C14F5D /* Old */,
 			);
 			path = "Planning Poker";
+			sourceTree = "<group>";
+		};
+		66D0F54218CF17E200C14F5D /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				66BFF3D418A4D0ED00049C37 /* CardView.h */,
+				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
+				66BFF3D518A4D0ED00049C37 /* CardView.m */,
+				66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */,
+				66BFF3D618A4D0ED00049C37 /* CardView.xib */,
+				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		66D0F54318CF183800C14F5D /* new */ = {
+			isa = PBXGroup;
+			children = (
+				66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */,
+				663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */,
+				663AF0CC18CEFE6800CD1865 /* PokerNewSessionTableViewController.h */,
+				66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */,
+				66D0F54C18CF293200C14F5D /* TextInputViewController.h */,
+				66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */,
+				663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */,
+				663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */,
+				66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */,
+				66D0F54D18CF293200C14F5D /* TextInputViewController.m */,
+				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
+				66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */,
+				66572AC718CF2E8400B0951F /* TextInputViewController.xib */,
+				66572AC918CF3D4200B0951F /* Data */,
+			);
+			name = new;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -682,6 +737,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */,
+				66572AC818CF2E8400B0951F /* TextInputViewController.xib in Resources */,
 				661AE45B18C48CF400B7A4F5 /* Lato-Light.ttf in Resources */,
 				661AE45918C48CF400B7A4F5 /* Lato-HeavyItalic.ttf in Resources */,
 				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
@@ -708,6 +764,7 @@
 				661AE45A18C48CF400B7A4F5 /* Lato-Italic.ttf in Resources */,
 				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
 				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
+				66572AD118CF44E100B0951F /* CardsTypeTableViewController.xib in Resources */,
 				661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -774,8 +831,10 @@
 			files = (
 				6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */,
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
+				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
+				66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */,
 				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0C429D1318CA059700BB9CBA /* RMUser+CurrentUser.m in Sources */,
@@ -789,6 +848,7 @@
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
+				66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
@@ -808,6 +868,7 @@
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
+				663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
 				0C303C6818C9FC49002AA21D /* PFRound.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
@@ -819,8 +880,9 @@
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
+				66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
-				663AF0C818CEF53600CD1865 /* PlaningPokerNavgationViewController.m in Sources */,
+				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,

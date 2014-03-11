@@ -31,7 +31,7 @@
             <objects>
                 <tableViewController id="eBK-zg-izl" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zBt-hv-5ub">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -581,13 +581,7 @@
                             <outlet property="delegate" destination="LJs-xu-3pC" id="vF9-Mz-KEg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="UDE-8V-cSN">
-                        <barButtonItem key="leftBarButtonItem" image="Planing Poker" id="6oE-Mg-r8f">
-                            <connections>
-                                <action selector="showPlaningPoker:" destination="LJs-xu-3pC" id="bj4-g9-x2d"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="UDE-8V-cSN"/>
                     <connections>
                         <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
                         <outlet property="_showPlanningPokerButton" destination="6oE-Mg-r8f" id="5Gx-5H-511"/>
@@ -596,6 +590,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Er7-6X-pl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem image="Planing Poker" id="6oE-Mg-r8f">
+                    <connections>
+                        <action selector="showPlaningPoker:" destination="LJs-xu-3pC" id="bj4-g9-x2d"/>
+                    </connections>
+                </barButtonItem>
                 <searchDisplayController id="o92-rd-xLi">
                     <connections>
                         <outlet property="delegate" destination="LJs-xu-3pC" id="gKp-i5-kGE"/>
@@ -1585,10 +1584,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1857" y="1893"/>
         </scene>
-        <!--Planing Poker Navgation View Controller - Poker-->
+        <!--Poker Navgation View Controller - Poker-->
         <scene sceneID="VAv-Nu-KxP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sc2-h2-uN9" customClass="PlaningPokerNavgationViewController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sc2-h2-uN9" customClass="PokerNavgationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Poker" image="Planing Poker" id="pd5-kG-AXL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zgo-UD-TKu">
@@ -1693,7 +1692,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="set-Zf-g71"/>
+        <segue reference="8yv-kA-sUN"/>
         <segue reference="UDv-nT-GSA"/>
     </inferredMetricsTieBreakers>
 </document>

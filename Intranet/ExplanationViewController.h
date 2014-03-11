@@ -20,6 +20,6 @@
 
 @protocol ExplanationViewControllerDelegate <NSObject>
 
-- (void)explanationViewController:(ExplanationViewController *)explanationViewController explanation:(NSString *)explanation;
+- (void)explanationViewController:(ExplanationViewController *)explanationViewController didFinishWithExplanation:(NSString *)explanation;
 
 @end

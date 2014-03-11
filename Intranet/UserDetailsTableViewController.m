@@ -547,7 +547,7 @@
         }];
     }
     
-    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
