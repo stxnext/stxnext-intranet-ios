@@ -87,6 +87,8 @@
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
+		663AF0C518CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */; };
+		663AF0C818CEF53600CD1865 /* PlaningPokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
@@ -244,6 +246,9 @@
 		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
 		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
+		663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanningPokerStoryboard.storyboard; sourceTree = "<group>"; };
+		663AF0C618CEF53600CD1865 /* PlaningPokerNavgationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerNavgationViewController.h; sourceTree = "<group>"; };
+		663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerNavgationViewController.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
@@ -296,18 +301,18 @@
 		0C303C5818C9F46A002AA21D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0C303C5D18C9F5D5002AA21D /* PFModels.h */,
-				0C303C5E18C9F5D5002AA21D /* PFModels.m */,
 				0C303C5918C9F54D002AA21D /* PFGame.h */,
-				0C303C5A18C9F54D002AA21D /* PFGame.m */,
-				0C303C6318C9FBAA002AA21D /* PFTicket.h */,
-				0C303C6418C9FBAA002AA21D /* PFTicket.m */,
-				0C303C6618C9FC49002AA21D /* PFRound.h */,
-				0C303C6718C9FC49002AA21D /* PFRound.m */,
-				0C429CED18C9FD5D00BB9CBA /* PFVote.h */,
-				0C429CEE18C9FD5D00BB9CBA /* PFVote.m */,
+				0C303C5D18C9F5D5002AA21D /* PFModels.h */,
 				0C429D1718CA174C00BB9CBA /* PFPerson.h */,
+				0C303C6618C9FC49002AA21D /* PFRound.h */,
+				0C303C6318C9FBAA002AA21D /* PFTicket.h */,
+				0C429CED18C9FD5D00BB9CBA /* PFVote.h */,
+				0C303C5A18C9F54D002AA21D /* PFGame.m */,
+				0C303C5E18C9F5D5002AA21D /* PFModels.m */,
 				0C429D1818CA174C00BB9CBA /* PFPerson.m */,
+				0C303C6718C9FC49002AA21D /* PFRound.m */,
+				0C303C6418C9FBAA002AA21D /* PFTicket.m */,
+				0C429CEE18C9FD5D00BB9CBA /* PFVote.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -581,16 +586,19 @@
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
 			isa = PBXGroup;
 			children = (
-				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
-				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
-				0C303C5818C9F46A002AA21D /* Models */,
 				66BFF3D418A4D0ED00049C37 /* CardView.h */,
+				663AF0C618CEF53600CD1865 /* PlaningPokerNavgationViewController.h */,
 				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
+				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
 				66BFF3D518A4D0ED00049C37 /* CardView.m */,
+				663AF0C718CEF53600CD1865 /* PlaningPokerNavgationViewController.m */,
 				66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */,
+				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
+				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
 				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
 				66BFF3D618A4D0ED00049C37 /* CardView.xib */,
 				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
+				0C303C5818C9F46A002AA21D /* Models */,
 			);
 			path = "Planning Poker";
 			sourceTree = "<group>";
@@ -686,6 +694,7 @@
 				661AE46318C48CF400B7A4F5 /* Lato-ThinItalic.ttf in Resources */,
 				0CE37C60181E8ED10087C96E /* Main_iPhone.storyboard in Resources */,
 				0CE37C57181E8ED10087C96E /* InfoPlist.strings in Resources */,
+				663AF0C518CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard in Resources */,
 				661AE45E18C48CF400B7A4F5 /* Lato-MediumItalic.ttf in Resources */,
 				661AE45C18C48CF400B7A4F5 /* Lato-LightItalic.ttf in Resources */,
 				661AE45418C48CF400B7A4F5 /* Lato-Bold.ttf in Resources */,
@@ -811,6 +820,7 @@
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
+				663AF0C818CEF53600CD1865 /* PlaningPokerNavgationViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
