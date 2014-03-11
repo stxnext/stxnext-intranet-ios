@@ -11,7 +11,7 @@
 
 @implementation PFTicket
 
-@dynamic name, finalEstimate, rounds;
+@dynamic name, finalEstimate, rounds, description, startDate, endDate;
 
 + (NSString *)parseClassName
 {

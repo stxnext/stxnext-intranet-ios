@@ -11,7 +11,7 @@
 
 @implementation PFGame
 
-@dynamic startDate, title, owner, deck, isFinished, players, tickets;
+@dynamic startDate, endDate, title, owner, deck, players, tickets;
 
 + (NSString *)parseClassName
 {
