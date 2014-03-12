@@ -279,24 +279,14 @@
 
 - (void)textInputViewController:(TextInputViewController *)textInputViewController didFinishWithResult:(NSString *)result
 {
+    result = [result stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
     NSMutableString *cardValues = [NSMutableString stringWithString:[result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
     NSRegularExpression *regex;
     
-    
-    
-    // usuwamy poczatkowe przecinki...
-    regex = [NSRegularExpression regularExpressionWithPattern:@"^[ ]*,[ ]*"
-                                                      options:0
-                                                        error:nil];
-    
-    while ([regex replaceMatchesInString:cardValues
-                                 options:0
-                                   range:NSMakeRange(0, [cardValues length])
-                            withTemplate:@""]);
-    
-    // ...i koncowe przecinki
-    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]*,[ ]*$"
+    // usuwamy poczatkowe .i koncowe przecinki...
+    regex = [NSRegularExpression regularExpressionWithPattern:@"(^[ ]*,[ ]*|[ ]*,[ ]*$)"
                                                       options:0
                                                         error:nil];
     
@@ -314,10 +304,7 @@
                                  options:0
                                    range:NSMakeRange(0, [cardValues length])
                             withTemplate:@","] > 0);
-    
-    
-    
-    
+
     // kosmetyka
     regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]+,[ ]+"
                                                       options:0
@@ -346,8 +333,6 @@
                           options:0
                             range:NSMakeRange(0, [cardValues length])
                      withTemplate:@" "];
-    
-    
     
     self.customCardValues = cardValues;
     
