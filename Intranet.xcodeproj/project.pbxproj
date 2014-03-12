@@ -602,6 +602,19 @@
 			name = "New Request";
 			sourceTree = "<group>";
 		};
+		664CD79218D03AA60031DC4F /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */,
+				66D0F54C18CF293200C14F5D /* TextInputViewController.h */,
+				66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */,
+				66D0F54D18CF293200C14F5D /* TextInputViewController.m */,
+				66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */,
+				66572AC718CF2E8400B0951F /* TextInputViewController.xib */,
+			);
+			name = Additional;
+			sourceTree = "<group>";
+		};
 		66572AC918CF3D4200B0951F /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,11 +627,11 @@
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
 			isa = PBXGroup;
 			children = (
-				66D0F54318CF183800C14F5D /* new */,
 				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
 				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
 				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
 				0C303C5818C9F46A002AA21D /* Models */,
+				66D0F54318CF183800C14F5D /* New */,
 				66D0F54218CF17E200C14F5D /* Old */,
 			);
 			path = "Planning Poker";
@@ -637,25 +650,20 @@
 			name = Old;
 			sourceTree = "<group>";
 		};
-		66D0F54318CF183800C14F5D /* new */ = {
+		66D0F54318CF183800C14F5D /* New */ = {
 			isa = PBXGroup;
 			children = (
-				66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */,
 				663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */,
 				663AF0CC18CEFE6800CD1865 /* PokerNewSessionTableViewController.h */,
 				66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */,
-				66D0F54C18CF293200C14F5D /* TextInputViewController.h */,
-				66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */,
 				663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */,
 				663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */,
 				66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */,
-				66D0F54D18CF293200C14F5D /* TextInputViewController.m */,
 				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
-				66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */,
-				66572AC718CF2E8400B0951F /* TextInputViewController.xib */,
 				66572AC918CF3D4200B0951F /* Data */,
+				664CD79218D03AA60031DC4F /* Additional */,
 			);
-			name = new;
+			name = New;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

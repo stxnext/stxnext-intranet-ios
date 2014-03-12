@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
     PokerSessionTypeNormal
 };
 
-@interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate>
+@interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate>
 {
     
 }
@@ -25,4 +25,5 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
 @property (nonatomic, strong) NSMutableArray *ticketList;
 @property (nonatomic, assign) PokerSessionType pokerSessionType;
 @property (nonatomic, strong) PokerSession *pokerSession;
+
 @end

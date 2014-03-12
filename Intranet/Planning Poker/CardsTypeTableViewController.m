@@ -10,6 +10,8 @@
 
 @interface CardsTypeTableViewController ()
 
+@property (nonatomic, strong) NSIndexPath *selectedCellIndexPath;
+
 @end
 
 @implementation CardsTypeTableViewController
@@ -18,7 +20,21 @@
 {
     [super viewDidLoad];
     
+    self.selectedCellIndexPath = [self indexPathForCardValuesTitle:self.selectedCardsValuesTitle];
+    
     [self.tableView hideEmptySeparators];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if ([self.delegate respondsToSelector:@selector(cardsTypeTableViewController:didFinishWithValues:cardsValuesTitle:)])
+    {
+        [self.delegate cardsTypeTableViewController:self
+                                didFinishWithValues:[self cardValuesArrayForIndexPath:self.selectedCellIndexPath]
+                                   cardsValuesTitle:[self cardValuesTitleForIndexPath:self.selectedCellIndexPath]];
+    }
+    
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - Table view data source
@@ -34,14 +50,13 @@
     {
         case 0:
             return 4;
-
+            
         case 1:
             return 1;
     }
     
     return 0;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -54,37 +69,59 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     
+    
+    if (self.selectedCellIndexPath.row == indexPath.row && self.selectedCellIndexPath.section == indexPath.section)
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    cell.textLabel.text = [self cardValuesTitleForIndexPath:indexPath];
+    cell.detailTextLabel.text = [self cardValuesStringForIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedCellIndexPath = indexPath;
+    
     switch (indexPath.section)
     {
         case 0:
         {
+            self.selectedCellIndexPath = indexPath;
+            
             switch (indexPath.row)
             {
                 case 0:
                 {
-                    cell.textLabel.text = @"Fibonaci";
-                    cell.detailTextLabel.text = @"0, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, cafe";
+                    
+                    
                 }
                     break;
                     
                 case 1:
                 {
-                    cell.textLabel.text = @"Binary";
-                    cell.detailTextLabel.text = @"0, 1, 2, 4, 8, 16, 32, 64, 128, ?, cafe";
+                    
+                    
                 }
                     break;
                     
                 case 2:
                 {
-                    cell.textLabel.text = @"Large";
-                    cell.detailTextLabel.text = @"0, 10, 20, 30, 50, 80, 130, 200, 400, 999, ?, cafe";
+                    
+                    
                 }
                     break;
                     
                 case 3:
                 {
-                    cell.textLabel.text = @"1 to 10";
-                    cell.detailTextLabel.text = @"1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ?, cafe";
+                    
+                    
                 }
                     break;
             }
@@ -97,22 +134,224 @@
             {
                 case 0:
                 {
-                    cell.textLabel.text = @"Custom";
-                    cell.detailTextLabel.text = @"";
+                    TextInputViewController *textInputVC = [[TextInputViewController alloc] initWithNibName:@"TextInputViewController" bundle:nil];
+                    
+                    textInputVC.title = @"Custom";
+                    textInputVC.delegate = self;
+                    textInputVC.inputText = self.customCardValues;
+                    
+                    [self.navigationController pushViewController:textInputVC animated:YES];
                 }
                     break;
-                    
             }
         }
             break;
     }
     
-    return cell;
+    [self.tableView reloadDataAnimated:YES];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Helpers
+
+- (NSString *)cardValuesTitleForIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            switch (indexPath.row)
+            {
+                case 0:
+                    return FibonaciTitle;
+                    
+                case 1:
+                    return BinaryTitle;
+                    
+                case 2:
+                    return LargeTitle;
+                    
+                case 3:
+                    return OneToTenTitle;
+            }
+        }
+            break;
+            
+        case 1:
+        {
+            switch (indexPath.row)
+            {
+                case 0:
+                    return CustomTitle;
+            }
+        }
+            break;
+    }
     
+    return @"";
+}
+
+- (NSIndexPath *)indexPathForCardValuesTitle:(NSString *)cardValue
+{
+    if ([cardValue isEqualToString:FibonaciTitle])
+    {
+        return [NSIndexPath indexPathForRow:0 inSection:0];
+    }
+    
+    if ([cardValue isEqualToString:BinaryTitle])
+    {
+        return [NSIndexPath indexPathForRow:1 inSection:0];
+    }
+    
+    if ([cardValue isEqualToString:LargeTitle])
+    {
+        return [NSIndexPath indexPathForRow:2 inSection:0];
+    }
+    
+    if ([cardValue isEqualToString:OneToTenTitle])
+    {
+        return [NSIndexPath indexPathForRow:3 inSection:0];
+    }
+    
+    if ([cardValue isEqualToString:CustomTitle])
+    {
+        return [NSIndexPath indexPathForRow:0 inSection:1];
+    }
+    
+    return [NSIndexPath indexPathForRow:0 inSection:0];
+}
+
+- (NSString *)cardValuesStringForIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            switch (indexPath.row)
+            {
+                case 0:
+                    return FibonaciValues;
+                    
+                case 1:
+                    return BinaryValues;
+                    
+                case 2:
+                    return LargeValues;
+                    
+                case 3:
+                    return OneToTenValues;
+            }
+        }
+            break;
+            
+        case 1:
+        {
+            switch (indexPath.row)
+            {
+                case 0:
+                    return self.customCardValues;
+            }
+        }
+            break;
+    }
+    
+    return @"";
+}
+
+- (NSArray *)cardValuesArrayForIndexPath:(NSIndexPath *)indexPath
+{
+    return [[self cardValuesStringForIndexPath:indexPath] componentsSeparatedByString:@", "];
+}
+
+- (NSString *)customCardValues
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"customCardValues"];
+}
+
+- (void)setCustomCardValues:(NSString *)values
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setObject:values forKey:@"customCardValues"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - TextInputViewControllerDelegate
+
+- (void)textInputViewController:(TextInputViewController *)textInputViewController didFinishWithResult:(NSString *)result
+{
+    NSMutableString *cardValues = [NSMutableString stringWithString:[result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    
+    NSRegularExpression *regex;
+    
+    
+    
+    // usuwamy poczatkowe przecinki...
+    regex = [NSRegularExpression regularExpressionWithPattern:@"^[ ]*,[ ]*"
+                                                      options:0
+                                                        error:nil];
+    
+    while ([regex replaceMatchesInString:cardValues
+                                 options:0
+                                   range:NSMakeRange(0, [cardValues length])
+                            withTemplate:@""]);
+    
+    // ...i koncowe przecinki
+    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]*,[ ]*$"
+                                                      options:0
+                                                        error:nil];
+    
+    while ([regex replaceMatchesInString:cardValues
+                                 options:0
+                                   range:NSMakeRange(0, [cardValues length])
+                            withTemplate:@""]);
+    
+    // usuwamy puste karty
+    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]*[,]+[ ]*[,]+[ ]*"
+                                                      options:0
+                                                        error:nil];
+    
+    while ([regex replaceMatchesInString:cardValues
+                                 options:0
+                                   range:NSMakeRange(0, [cardValues length])
+                            withTemplate:@","] > 0);
+    
+    
+    
+    
+    // kosmetyka
+    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]+,[ ]+"
+                                                      options:0
+                                                        error:nil];
+    
+    [regex replaceMatchesInString:cardValues
+                          options:0
+                            range:NSMakeRange(0, [cardValues length])
+                     withTemplate:@","];
+    
+    regex = [NSRegularExpression regularExpressionWithPattern:@","
+                                                      options:0
+                                                        error:nil];
+    
+    [regex replaceMatchesInString:cardValues
+                          options:0
+                            range:NSMakeRange(0, [cardValues length])
+                     withTemplate:@", "];
+    
+    // usuwamy podwójne spacje
+    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]+"
+                                                      options:0
+                                                        error:nil];
+    
+    [regex replaceMatchesInString:cardValues
+                          options:0
+                            range:NSMakeRange(0, [cardValues length])
+                     withTemplate:@" "];
+    
+    
+    
+    self.customCardValues = cardValues;
+    
+    [self.tableView reloadDataAnimated:YES];
 }
 
 @end

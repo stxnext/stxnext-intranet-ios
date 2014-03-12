@@ -79,7 +79,6 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     }
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *defaultCellId = @"defaultCellId";
@@ -198,6 +197,24 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                 {
                     CardsTypeTableViewController *cardsTypeVC = [[CardsTypeTableViewController alloc] initWithNibName:@"CardsTypeTableViewController" bundle:nil];
                     cardsTypeVC.title = @"Cards";
+                    cardsTypeVC.selectedCardsValuesTitle = self.pokerSession.cardValuesTitle;
+
+                    if ([self.pokerSession.cardValuesTitle isEqualToString:CustomTitle])
+                    {
+                        NSMutableString *cardValues = [[NSMutableString alloc] initWithString:@""];
+                        
+                        for (NSString *value in self.pokerSession.cardValues)
+                        {
+                            [cardValues appendFormat:@"%@, ", value];
+                        }
+                        
+                        if (cardValues.length > 2)
+                        {
+                            cardsTypeVC.customCardValues = [cardValues substringWithRange:NSMakeRange(0, cardValues.length-2)];
+                        }
+                    }
+                    
+                    cardsTypeVC.delegate = self;
                     
                     [self.navigationController pushViewController:cardsTypeVC animated:YES];
                 }
@@ -226,58 +243,6 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     }
 }
 
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - TextInputViewControllerDelegate
 
 - (void)textInputViewController:(TextInputViewController *)textInputViewController didFinishWithResult:(NSString *)result
@@ -296,6 +261,21 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
         }
             break;
     }
+    
+    [self.tableView reloadDataAnimated:YES];
+}
+
+#pragma mark - CardsTypeTableViewControllerDelegate
+
+- (void)cardsTypeTableViewController:(CardsTypeTableViewController *)cardsTypeTableViewController
+                 didFinishWithValues:(NSArray *)values
+                    cardsValuesTitle:(NSString *)title
+{
+    DDLogCError(@"TITLE %@", title);
+    DDLogCError(@"VALUES %@", values);
+    
+    self.pokerSession.cardValues = values;
+    self.pokerSession.cardValuesTitle = title;
     
     [self.tableView reloadDataAnimated:YES];
 }
