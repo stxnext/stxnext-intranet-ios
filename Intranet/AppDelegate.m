@@ -10,6 +10,7 @@
 #import "AppDelegate+SplitControllerDelegate.h"
 #import "AppDelegate+Parse.h"
 
+#import "TeamManager.h"
 
 @implementation AppDelegate
 
@@ -29,6 +30,24 @@
         UISplitViewController* splitController = (UISplitViewController*)self.window.rootViewController;
         splitController.delegate = self;
     }
+    
+    [TeamManager downloadTeamsWithSuccess:^(NSArray *teamsInfos, NSArray *teamsMembers) {
+        for (TeamInfo *teamInfo in teamsInfos)
+        {
+            NSLog(@"%@", teamInfo.teamName);
+        }
+
+        for (NSArray *teams in teamsMembers)
+        {
+            for (TeamMember *member in teams)
+            {
+                NSLog(@"%@", member.user.name);
+            }
+        }
+        
+    } failure:^{
+        
+    }];
     
     return YES;
 }

@@ -72,7 +72,6 @@
     }
 }
 
-
 - (void)setMyUserId:(NSString *)userId
 {
     if (userId)
@@ -86,6 +85,5 @@
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
 
 @end

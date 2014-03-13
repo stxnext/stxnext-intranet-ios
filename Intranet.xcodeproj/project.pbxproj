@@ -91,6 +91,7 @@
 		663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */; };
 		663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
+		6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6645EF5E18D1E46F00B84371 /* TeamManager.m */; };
 		664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CD79418D0932E0031DC4F /* TeamsTableViewController.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66572AC818CF2E8400B0951F /* TextInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572AC718CF2E8400B0951F /* TextInputViewController.xib */; };
@@ -263,6 +264,8 @@
 		663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNewSessionTableViewController.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
+		6645EF5D18D1E46F00B84371 /* TeamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamManager.h; sourceTree = "<group>"; };
+		6645EF5E18D1E46F00B84371 /* TeamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamManager.m; sourceTree = "<group>"; };
 		664CD79318D0932E0031DC4F /* TeamsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsTableViewController.h; sourceTree = "<group>"; };
 		664CD79418D0932E0031DC4F /* TeamsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsTableViewController.m; sourceTree = "<group>"; };
 		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
@@ -630,7 +633,9 @@
 			isa = PBXGroup;
 			children = (
 				66572ACA18CF3D5400B0951F /* PokerSession.h */,
+				6645EF5D18D1E46F00B84371 /* TeamManager.h */,
 				66572ACB18CF3D5400B0951F /* PokerSession.m */,
+				6645EF5E18D1E46F00B84371 /* TeamManager.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -899,6 +904,7 @@
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
+				6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,

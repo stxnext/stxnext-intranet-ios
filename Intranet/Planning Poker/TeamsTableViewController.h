@@ -14,6 +14,7 @@
 @property (strong, nonatomic) id<TeamsTableViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSArray *previousSelectedUsers;
 @property (nonatomic, strong) NSNumber *previousSelectedTeamId;
+@property (nonatomic, strong) NSArray *teams;
 
 @end
 

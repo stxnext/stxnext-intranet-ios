@@ -7,34 +7,13 @@
 //
 
 #import "TeamsTableViewController.h"
-#import "AppDelegate+Settings.h"
 #import "UserListCell.h"
+#import "TeamManager.h"
 
+
+
+#import "AppDelegate+Settings.h"
 #import "APIRequest.h"
-
-@interface TeamMember : NSObject
-
-@property (nonatomic, strong) RMUser *user;
-@property (nonatomic, assign) BOOL isSelected;
-
-@end
-
-@implementation TeamMember
-@end
-
-
-
-
-@interface TeamInfo : NSObject
-
-@property (nonatomic, strong) NSNumber *teamId;
-@property (nonatomic, copy) NSString *teamName;
-
-@end
-
-@implementation TeamInfo
-@end
-
 
 
 
@@ -46,8 +25,8 @@
 
 
 
-@property (nonatomic, strong) NSMutableArray *teamsInfos;
-@property (nonatomic, strong) NSMutableArray *teamsMembers;
+@property (nonatomic, strong) NSArray *teamsInfos;
+@property (nonatomic, strong) NSArray *teamsMembers;
 
 @end
 
@@ -57,97 +36,61 @@
 {
     [super viewDidLoad];
     
-    self.teamsInfos = [[NSMutableArray alloc] init];
-    self.teamsMembers = [[NSMutableArray alloc] init];
-    
-    [APP_DELEGATE myUserIdWithBlockSuccess:^(NSString *userId) {
-        [[HTTPClient sharedClient] startOperation:[APIRequest getTeams]
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              
-                                              NSArray *teams = [responseObject objectForKey:@"teams"];
+    self.teamsInfos = [NSArray new];
+    self.teamsMembers = [NSArray new];
 
-                                              NSNumber *myId = [NSNumber numberWithInt:[userId intValue]];
-                                              
-                                              BOOL isFirstTeam = YES;
-                                              
-                                              currentSelectedSection = 0;
-                                              
-                                              int tempSelectedSection = 0;
-                                              
-                                              for (NSDictionary *team in teams)
-                                              {
-                                                  NSString *teamName = [team objectForKey:@"name"];
-                                                  NSNumber *teamId = [team objectForKey:@"id"];
-                                                  NSArray *users = [team objectForKey:@"users"];
-                                                  
-                                                  if ([users containsObject:myId])
-                                                  {
-                                                      NSMutableArray *teamUsers = [[NSMutableArray alloc] init];
-
-                                                      for (NSNumber *userId in users)
-                                                      {
-                                                          RMUser *user = [[JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                                                                 withSortDescriptor:nil
-                                                                                                      withPredicate:[NSPredicate predicateWithFormat:@"id = %i", [userId intValue]]
-                                                                                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-                                                          
-                                                          if ([user.isActive boolValue])
-                                                          {
-                                                              TeamMember *teamUser = [[TeamMember alloc] init];
-                                                              teamUser.user = user;
-                                                              
-                                                              if (self.previousSelectedUsers.count)
-                                                              {
-                                                                  if (self.previousSelectedTeamId.intValue == teamId.intValue)
-                                                                  {
-                                                                      teamUser.isSelected = [self.previousSelectedUsers containsObject:user.id];
-                                                                      currentSelectedSection = tempSelectedSection;
-                                                                  }
-                                                                  else
-                                                                  {
-                                                                      teamUser.isSelected = NO;
-                                                                  }
-                                                              }
-                                                              else
-                                                              {
-                                                                  teamUser.isSelected = isFirstTeam;
-                                                              }
-                                                              
-                                                              [teamUsers addObject:teamUser];
-                                                          }
-                                                      }
-                                                      
-                                                      isFirstTeam = NO;
-                                                      
-                                                      if (teamUsers.count)
-                                                      {
-                                                          TeamInfo *teamInfo = [TeamInfo new];
-                                                          teamInfo.teamName = teamName;
-                                                          teamInfo.teamId = teamId;
-                                                          
-                                                          [self.teamsInfos addObject:teamInfo];
-                                                          [self.teamsMembers addObject:teamUsers];
-                                                          
-                                                          tempSelectedSection++;
-                                                      }
-                                                  }
-                                              }
-                                              
-                                              [self.tableView reloadDataAnimated:YES];
-                                          }
-                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              
-                                          }];
+    [TeamManager downloadTeamsWithSuccess:^(NSArray *teamsInfos, NSArray *teamsMembers) {
+        self.teamsInfos = teamsInfos;
+        self.teamsMembers = teamsMembers;
+        
+        BOOL isFirstTeam = YES;
+        
+        currentSelectedSection = 0;
+        
+        int tempSelectedSection = 0;
+        int teamCounter = 0;
+        
+        for (NSArray *teams in self.teamsMembers)
+        {
+            for (TeamMember *teamMember in teams)
+            {
+                NSNumber *teamId = ((TeamInfo *)self.teamsInfos[teamCounter]).teamId;
+                
+                if (self.previousSelectedUsers.count)
+                {
+                    if (self.previousSelectedTeamId.intValue == teamId.intValue)
+                    {
+                        teamMember.isSelected = [self.previousSelectedUsers containsObject:teamMember.user.id];
+                        currentSelectedSection = tempSelectedSection;
+                    }
+                    else
+                    {
+                        teamMember.isSelected = NO;
+                    }
+                }
+                else
+                {
+                    teamMember.isSelected = isFirstTeam;
+                }
+            }
+            
+            tempSelectedSection++;
+            isFirstTeam = NO;
+            teamCounter++;
+        }
+        
+        [self.tableView reloadDataAnimated:YES];
+        
     } failure:^{
         
     }];
-    
+
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if ([self.delegate respondsToSelector:@selector(teamsTableViewController:didFinishWithIDs:teamTitle:teamId:)])
+    if ([self.delegate respondsToSelector:@selector(teamsTableViewController:didFinishWithIDs:teamTitle:teamId:)] && self.teamsMembers.count)
     {
         NSMutableArray *teamMembersIDs = [NSMutableArray new];
         
