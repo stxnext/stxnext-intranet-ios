@@ -32,6 +32,8 @@ static CGFloat tabBarHeight;
 {
     [super viewDidLoad];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
+    
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
@@ -575,77 +577,16 @@ static CGFloat tabBarHeight;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMUser *user = _userList[indexPath.row];
-    
-    static NSString *CellIdentifier = @"UserCell";
-    
-    UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:[UserListCell cellId]];
     
     if (!cell)
     {
-        cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[UserListCell cellId]];
     }
     
-    cell.userName.text = user.name;
-    cell.userImage.layer.cornerRadius = 5;
-    cell.userImage.clipsToBounds = YES;
+    RMUser *user = _userList[indexPath.row];
     
-    cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    cell.userImage.layer.borderWidth = 1;
-    
-    cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    
-    if (user.lates.count)
-    {
-        cell.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-        }];
-    }
-    else if (user.absences.count)
-    {
-        cell.clockView.color = MAIN_RED_COLOR;
-        
-        [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
-            
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-        }];
-    }
-    
-    [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    
-    cell.warningDateLabel.text = hours;
-    
-    if (user.avatarURL)
-    {
-        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
-    }
+    cell.user = user;
     
     return cell;
 }
@@ -655,11 +596,31 @@ static CGFloat tabBarHeight;
     return _tableView.rowHeight;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserDetailsTableViewController *userDetailsTVC = [[self storyboard] instantiateViewControllerWithIdentifier:@"UserDetailsTableViewControllerId"];
+    currentIndexPath = indexPath;
+
+    userDetailsTVC.user = _userList[indexPath.row];
+    
+    if (INTERFACE_IS_PAD)
+    {
+//        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil] instantiateViewControllerWithIdentifier:@"NoSelectionUserDetails"];
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:userDetailsTVC];
+        nvc.navigationBar.tintColor = MAIN_APP_COLOR;
+        self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
+    }
+    else
+    {
+        [self.navigationController pushViewController:userDetailsTVC animated:YES];
+    }
+}
+
 #pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
+/*    if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
     {
         UserListCell *cell = (UserListCell *)sender;
         NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
@@ -673,7 +634,8 @@ static CGFloat tabBarHeight;
         
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
-    else if ([segue.identifier isEqualToString:@"FilterSegue"])
+    else */
+    if ([segue.identifier isEqualToString:@"FilterSegue"])
     {
         if (self.filterSelections)
         {

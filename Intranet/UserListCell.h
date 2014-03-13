@@ -15,5 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *warningDateLabel;
 @property (weak, nonatomic) IBOutlet ClockView *clockView;
+@property (strong, nonatomic) RMUser *user;
+
++ (NSString *)cellId;
 
 @end

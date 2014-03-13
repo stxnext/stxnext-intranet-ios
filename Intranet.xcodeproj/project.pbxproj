@@ -91,12 +91,15 @@
 		663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */; };
 		663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
+		664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CD79418D0932E0031DC4F /* TeamsTableViewController.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66572AC818CF2E8400B0951F /* TextInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572AC718CF2E8400B0951F /* TextInputViewController.xib */; };
 		66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACB18CF3D5400B0951F /* PokerSession.m */; };
 		66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */; };
-		66572AD118CF44E100B0951F /* CardsTypeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
+		6671A3EE18D19B3C00F60190 /* CardTypeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */; };
+		6671A3F018D19C1800F60190 /* TeamsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */; };
+		6671A3F218D1A54700F60190 /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3F118D1A54700F60190 /* UserListCell.xib */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
 		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
@@ -260,6 +263,8 @@
 		663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNewSessionTableViewController.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
+		664CD79318D0932E0031DC4F /* TeamsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsTableViewController.h; sourceTree = "<group>"; };
+		664CD79418D0932E0031DC4F /* TeamsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsTableViewController.m; sourceTree = "<group>"; };
 		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		66572AC718CF2E8400B0951F /* TextInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextInputViewController.xib; sourceTree = "<group>"; };
@@ -267,9 +272,11 @@
 		66572ACB18CF3D5400B0951F /* PokerSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSession.m; sourceTree = "<group>"; };
 		66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsTypeTableViewController.h; sourceTree = "<group>"; };
 		66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsTypeTableViewController.m; sourceTree = "<group>"; };
-		66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardsTypeTableViewController.xib; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CardTypeStoryboard.storyboard; sourceTree = "<group>"; };
+		6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamsStoryboard.storyboard; sourceTree = "<group>"; };
+		6671A3F118D1A54700F60190 /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
@@ -366,6 +373,7 @@
 				66063DC6182149A300C30C93 /* UserListCell.h */,
 				66600E591833984600BA9DC3 /* ClockView.m */,
 				66063DC7182149A300C30C93 /* UserListCell.m */,
+				6671A3F118D1A54700F60190 /* UserListCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -477,15 +485,15 @@
 			isa = PBXGroup;
 			children = (
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
+				0C303C6018C9F8B4002AA21D /* AppDelegate+Parse.h */,
 				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
+				0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */,
 				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
-				0C303C6018C9F8B4002AA21D /* AppDelegate+Parse.h */,
-				0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -606,10 +614,13 @@
 			isa = PBXGroup;
 			children = (
 				66572ACD18CF44E100B0951F /* CardsTypeTableViewController.h */,
+				664CD79318D0932E0031DC4F /* TeamsTableViewController.h */,
 				66D0F54C18CF293200C14F5D /* TextInputViewController.h */,
 				66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */,
+				664CD79418D0932E0031DC4F /* TeamsTableViewController.m */,
 				66D0F54D18CF293200C14F5D /* TextInputViewController.m */,
-				66572ACF18CF44E100B0951F /* CardsTypeTableViewController.xib */,
+				6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */,
+				6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */,
 				66572AC718CF2E8400B0951F /* TextInputViewController.xib */,
 			);
 			name = Additional;
@@ -763,16 +774,18 @@
 				661AE45C18C48CF400B7A4F5 /* Lato-LightItalic.ttf in Resources */,
 				661AE45418C48CF400B7A4F5 /* Lato-Bold.ttf in Resources */,
 				661AE45618C48CF400B7A4F5 /* Lato-Hairline.ttf in Resources */,
+				6671A3F018D19C1800F60190 /* TeamsStoryboard.storyboard in Resources */,
 				0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */,
 				661AE46018C48CF400B7A4F5 /* Lato-Semibold.ttf in Resources */,
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
 				661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */,
 				661AE46118C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf in Resources */,
+				6671A3EE18D19B3C00F60190 /* CardTypeStoryboard.storyboard in Resources */,
 				66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */,
 				661AE45A18C48CF400B7A4F5 /* Lato-Italic.ttf in Resources */,
+				6671A3F218D1A54700F60190 /* UserListCell.xib in Resources */,
 				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
 				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
-				66572AD118CF44E100B0951F /* CardsTypeTableViewController.xib in Resources */,
 				661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +900,7 @@
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
+				664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,

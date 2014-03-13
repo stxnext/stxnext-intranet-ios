@@ -25,6 +25,7 @@
     
     self.title = @"Out";
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
     [self.tableView hideEmptySeparators];
 }
 
@@ -222,10 +223,22 @@
     return @"";
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserDetailsTableViewController *userDetailsTVC = [[self storyboard] instantiateViewControllerWithIdentifier:@"UserDetailsTableViewControllerId"];
+    
+    currentIndexPath = indexPath;
+    
+    userDetailsTVC.user = _userList[indexPath.section][indexPath.row];
+    
+    [self.navigationController pushViewController:userDetailsTVC animated:YES];
+}
+
 #pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    /*
     if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
     {
         UserListCell *cell = (UserListCell *)sender;
@@ -240,6 +253,7 @@
         
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
     }
+     */
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender

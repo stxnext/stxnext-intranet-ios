@@ -282,7 +282,7 @@
 
 - (void)loadUser
 {
-    if (self.navigationController.viewControllers.count > 1)
+    if (self.navigationController.viewControllers.count > 1 || INTERFACE_IS_PAD)
     {
         self.title = @"Info";
         
@@ -311,40 +311,11 @@
                 
                 self.title = @"Me";
                 
-                if (![APP_DELEGATE myUserId])
-                {
-                    [[HTTPClient sharedClient] startOperation:[APIRequest user]
-                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                          // error
-                                                          // We expect 302
-                                                      }
-                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                      NSString *html = operation.responseString;
-                                                      NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                                      
-                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
-                                                      NSString *userID ;
-                                                      
-                                                      for (NSString *line in htmlArray)
-                                                      {
-                                                          userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                                          
-                                                          if ([predicate evaluateWithObject:userID])
-                                                          {
-                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                                                              
-                                                              [APP_DELEGATE setMyUserId:userID];
-                                                              
-                                                              break;
-                                                          }
-                                                      }
-                                                          [self loadMe];
-                                                      }];
-                }
-                else
-                {
+                [APP_DELEGATE myUserIdWithBlockSuccess:^(NSString *userId) {
                     [self loadMe];
-                }
+                } failure:^{
+                    
+                }];
             }
         }
         else

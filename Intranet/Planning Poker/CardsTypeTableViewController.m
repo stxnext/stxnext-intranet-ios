@@ -303,10 +303,10 @@
     while ([regex replaceMatchesInString:cardValues
                                  options:0
                                    range:NSMakeRange(0, [cardValues length])
-                            withTemplate:@","] > 0);
+                            withTemplate:@","]);
 
     // kosmetyka
-    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]+,[ ]+"
+    regex = [NSRegularExpression regularExpressionWithPattern:@"[ ]*,[ ]*"
                                                       options:0
                                                         error:nil];
     

@@ -26,7 +26,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -39,15 +39,19 @@
     switch (section)
     {
         case 0:
-            return @"New";
+            return @"Upcoming";
             
         case 1:
+            return @"Now";
+
+        case 2:
             return @"Completed";
-            
+
         default:
             return @"";
     }
 }
+
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

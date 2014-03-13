@@ -13,7 +13,7 @@
 
 @implementation RMUser (CurrentUser)
 
-+ (NSString*)userId
++ (NSString *)userId
 {
     return [APP_DELEGATE myUserId];
 }

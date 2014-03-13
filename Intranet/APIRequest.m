@@ -86,12 +86,7 @@
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
                                                                                      action:@"api/absence"
                                                                                  parameters:parameters];
-
-    DDLogInfo(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
-    DDLogInfo(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
-    DDLogInfo(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
-    DDLogInfo(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
-
+    
     [request blockRedirections];
     
     return request;
@@ -122,4 +117,14 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)getTeams
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/teams"
+                                                                                 parameters:nil];
+    
+    [request blockRedirections];
+    
+    return request;
+}
 @end

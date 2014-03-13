@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PokerSession.h"
 #import "TextInputViewController.h"
 #import "CardsTypeTableViewController.h"
-#import "PokerSession.h"
+#import "TeamsTableViewController.h"
 
 typedef NS_ENUM(NSUInteger, PokerSessionType)
 {

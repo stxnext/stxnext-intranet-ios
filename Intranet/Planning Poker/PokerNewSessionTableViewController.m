@@ -195,7 +195,9 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     
                 case 2:
                 {
-                    CardsTypeTableViewController *cardsTypeVC = [[CardsTypeTableViewController alloc] initWithNibName:@"CardsTypeTableViewController" bundle:nil];
+                    CardsTypeTableViewController *cardsTypeVC = [[UIStoryboard storyboardWithName:@"CardTypeStoryboard" bundle:nil] instantiateInitialViewController];
+                    
+//                    [[CardsTypeTableViewController alloc] initWithNibName:@"CardsTypeTableViewController" bundle:nil];
                     cardsTypeVC.title = @"Cards";
                     cardsTypeVC.selectedCardsValuesTitle = self.pokerSession.cardValuesTitle;
 
@@ -222,7 +224,10 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     
                 case 3:
                 {
+                    TeamsTableViewController *teamsVC = [[UIStoryboard storyboardWithName:@"TeamsStoryboard" bundle:nil] instantiateInitialViewController];
+                    teamsVC.title = @"Team";
                     
+                    [self.navigationController pushViewController:teamsVC animated:YES];
                 }
                     break;
                     
