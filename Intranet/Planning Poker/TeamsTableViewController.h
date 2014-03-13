@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TeamsTableViewControllerDelegate;
 @interface TeamsTableViewController : UITableViewController
+
+@property (strong, nonatomic) id<TeamsTableViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSArray *previousSelectedUsers;
+@property (nonatomic, strong) NSNumber *previousSelectedTeamId;
+
+@end
+
+@protocol TeamsTableViewControllerDelegate <NSObject>
+
+- (void)teamsTableViewController:(TeamsTableViewController *)teamsTableViewController
+                didFinishWithIDs:(NSArray *)values
+                       teamTitle:(NSString *)title
+                          teamId:(NSNumber *)teamId;
 
 @end

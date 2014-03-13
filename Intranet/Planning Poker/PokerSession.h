@@ -16,8 +16,9 @@
 @property (nonatomic, copy) NSString *cardValuesTitle;
 @property (nonatomic, strong) NSArray *cardValues;
 
-@property (nonatomic, copy) NSString *teamIDsTitle;
-@property (nonatomic, strong) NSArray *teamIDs;
+@property (nonatomic, copy) NSString *teamTitle;
+@property (nonatomic, strong) NSArray *teamUsersIDs;
+@property (nonatomic, strong) NSNumber *teamID;
 
 @property (nonatomic, strong) NSArray *tickets;
 

@@ -22,8 +22,8 @@
         self.cardValuesTitle = @"";
         self.cardValues = @[];
         
-        self.teamIDsTitle = @"";
-        self.teamIDs = @[];
+        self.teamTitle = @"";
+        self.teamUsersIDs = @[];
         
         self.tickets = @[];
         

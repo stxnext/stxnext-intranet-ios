@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                 case 3:
                 {
                     cell.textLabel.text = @"Team";
-                    cell.detailTextLabel.text = self.pokerSession.teamIDsTitle;
+                    cell.detailTextLabel.text = self.pokerSession.teamTitle;
                 }
                     break;
                     
@@ -226,6 +226,9 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                 {
                     TeamsTableViewController *teamsVC = [[UIStoryboard storyboardWithName:@"TeamsStoryboard" bundle:nil] instantiateInitialViewController];
                     teamsVC.title = @"Team";
+                    teamsVC.delegate = self;
+                    teamsVC.previousSelectedUsers = self.pokerSession.teamUsersIDs;
+                    teamsVC.previousSelectedTeamId = self.pokerSession.teamID;
                     
                     [self.navigationController pushViewController:teamsVC animated:YES];
                 }
@@ -281,6 +284,22 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     
     self.pokerSession.cardValues = values;
     self.pokerSession.cardValuesTitle = title;
+    
+    [self.tableView reloadDataAnimated:YES];
+}
+
+#pragma mark - TeamsTableViewControllerDelegate
+
+- (void)teamsTableViewController:(TeamsTableViewController *)teamsTableViewController
+                didFinishWithIDs:(NSArray *)values
+                       teamTitle:(NSString *)title
+                          teamId:(NSNumber *)teamId
+{
+    self.pokerSession.teamUsersIDs = values;
+    self.pokerSession.teamTitle = title;
+    self.pokerSession.teamID = teamId;
+    
+    DDLogError(@"%i %@ %@", [teamId intValue], title, values);
     
     [self.tableView reloadDataAnimated:YES];
 }

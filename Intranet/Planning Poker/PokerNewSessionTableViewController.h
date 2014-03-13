@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
     PokerSessionTypeNormal
 };
 
-@interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate>
+@interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate, TeamsTableViewControllerDelegate>
 {
     
 }
