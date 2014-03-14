@@ -165,4 +165,7 @@ xcuserdata
 Intranet.xcworkspace/xcshareddata/
 Intranet.xcworkspace/xcshareddata/*
 
+Intranet.xcodeproj/xcuserdata/*
+Pods/Pods.xcodeproj/xcuserdata
+
 pods_install.log

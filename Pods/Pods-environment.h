@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 0
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
+// CocoaAsyncSocket
+#define COCOAPODS_POD_AVAILABLE_CocoaAsyncSocket
+#define COCOAPODS_VERSION_MAJOR_CocoaAsyncSocket 7
+#define COCOAPODS_VERSION_MINOR_CocoaAsyncSocket 3
+#define COCOAPODS_VERSION_PATCH_CocoaAsyncSocket 4
+
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
 #define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 1
@@ -101,6 +107,12 @@
 #define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
 #define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
 #define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
+
+// XCAsyncTestCase
+#define COCOAPODS_POD_AVAILABLE_XCAsyncTestCase
+#define COCOAPODS_VERSION_MAJOR_XCAsyncTestCase 0
+#define COCOAPODS_VERSION_MINOR_XCAsyncTestCase 0
+#define COCOAPODS_VERSION_PATCH_XCAsyncTestCase 1
 
 // google-plus-ios-sdk
 #define COCOAPODS_POD_AVAILABLE_google_plus_ios_sdk
