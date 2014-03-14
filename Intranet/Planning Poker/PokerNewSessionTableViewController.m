@@ -23,6 +23,9 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
 - (void)viewDidLoad
 {
     self.pokerSession = [[PokerSession alloc] init];
+    isDatePickerHidden = YES;
+    
+    self.pokerSession.date = [NSDate date];
     
     switch (self.pokerSessionType)
     {
@@ -69,7 +72,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     switch (section)
     {
         case 0:
-            return self.pokerSessionType == PokerSessionTypeNormal ? 5 : 4;
+            return self.pokerSessionType == PokerSessionTypeNormal ? 6 : 4;
             
         case 1:
             return 1;
@@ -132,13 +135,42 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     cell.accessoryType = UITableViewCellAccessoryNone;
                     cell.textLabel.text = @"Date";
                     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-                    dateFormater.dateFormat = @"dd/MM/YYYY";
+                    dateFormater.dateFormat = @"HH:mm dd/MM/YYYY";
                     cell.detailTextLabel.text = [dateFormater stringFromDate:self.pokerSession.date];
                 }
                     break;
+                    
+                case 5:
+                {
+                    static NSString *pickerCellId = @"DateCellId";
+                    
+                    cell = [tableView dequeueReusableCellWithIdentifier:pickerCellId];
+                    
+                    if (cell == nil)
+                    {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:pickerCellId];
+                    }
+                    
+                    if (!datePicker)
+                    {
+                        [cell performBlockOnAllSubviews:^(UIView *view) {
+                            if ([view isKindOfClass:[UIDatePicker class]])
+                            {
+                                datePicker = (UIDatePicker *)view;
+                                datePicker.minimumDate = [NSDate date];
+                                [datePicker addTarget:self action:@selector(dateTimeValueChanged:) forControlEvents:UIControlEventValueChanged];
+                            }
+                        }];
+                    }
+                    
+                    datePicker.date = self.pokerSession.date;
+                }
+                    break;
+
             }
         }
             break;
+            
             
         case 1:
         {
@@ -152,6 +184,16 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 5)
+    {
+        return isDatePickerHidden ? 0 : 162;
+    }
+    
+    return self.tableView.rowHeight;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -236,9 +278,17 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     
                 case 4:
                 {
+                    isDatePickerHidden = !isDatePickerHidden;
+                    [self.tableView reloadDataAnimated:YES];
+                }
+                    break;
+                    
+                case 5:
+                {
                     
                 }
                     break;
+
             }
         }
             break;
@@ -279,9 +329,6 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                  didFinishWithValues:(NSArray *)values
                     cardsValuesTitle:(NSString *)title
 {
-    DDLogCError(@"TITLE %@", title);
-    DDLogCError(@"VALUES %@", values);
-    
     self.pokerSession.cardValues = values;
     self.pokerSession.cardValuesTitle = title;
     
@@ -299,9 +346,15 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
     self.pokerSession.teamTitle = title;
     self.pokerSession.teamID = teamId;
     
-    DDLogError(@"%i %@ %@", [teamId intValue], title, values);
-    
     [self.tableView reloadDataAnimated:YES];
+}
+
+
+- (void)dateTimeValueChanged:(UIDatePicker *)sender
+{
+    self.pokerSession.date = sender.date;
+    
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

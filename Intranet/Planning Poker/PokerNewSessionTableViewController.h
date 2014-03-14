@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
 
 @interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate, TeamsTableViewControllerDelegate>
 {
-    
+    BOOL isDatePickerHidden;
+    UIDatePicker *datePicker;
 }
 
 @property (nonatomic, strong) NSMutableArray *ticketList;
