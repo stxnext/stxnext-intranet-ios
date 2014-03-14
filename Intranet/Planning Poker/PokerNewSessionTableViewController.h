@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
     UIDatePicker *datePicker;
 }
 
-@property (nonatomic, strong) NSMutableArray *ticketList;
+//@property (nonatomic, strong) NSMutableArray *ticketList;
 @property (nonatomic, assign) PokerSessionType pokerSessionType;
 @property (nonatomic, strong) PokerSession *pokerSession;
 

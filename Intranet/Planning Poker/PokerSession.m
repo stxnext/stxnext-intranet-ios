@@ -25,7 +25,7 @@
         self.teamTitle = @"";
         self.teamUsersIDs = @[];
         
-        self.tickets = @[];
+        self.tickets = [NSMutableArray new];
         
         self.date = nil;
     }
