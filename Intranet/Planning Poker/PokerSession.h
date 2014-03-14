@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSArray *teamUsersIDs;
 @property (nonatomic, strong) NSNumber *teamID;
 
-@property (nonatomic, strong) NSArray *tickets;
+@property (nonatomic, strong) NSMutableArray *tickets;
 
 @property (nonatomic, strong) NSDate *date;
 

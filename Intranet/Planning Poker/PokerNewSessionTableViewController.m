@@ -8,10 +8,11 @@
 
 #import "PokerNewSessionTableViewController.h"
 
-typedef NS_ENUM(NSUInteger, BasicInfo)
+typedef NS_ENUM(NSUInteger, InputType)
 {
-    BasicInfoTitle,
-    BasicInfoSummary
+    InputTypeTitle,
+    InputTypeSummary,
+    InputTypeTicket
 };
 
 @interface PokerNewSessionTableViewController ()
@@ -75,7 +76,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
             return self.pokerSessionType == PokerSessionTypeNormal ? 6 : 4;
             
         case 1:
-            return 1;
+            return 1 + self.pokerSession.tickets.count;
 
         default:
             return 0;
@@ -125,7 +126,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
 
                 case 3:
                 {
-                    cell.textLabel.text = @"Team";
+                    cell.textLabel.text = @"Players";
                     cell.detailTextLabel.text = self.pokerSession.teamTitle;
                 }
                     break;
@@ -135,7 +136,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     cell.accessoryType = UITableViewCellAccessoryNone;
                     cell.textLabel.text = @"Date";
                     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-                    dateFormater.dateFormat = @"HH:mm dd/MM/YYYY";
+                    dateFormater.dateFormat = @"dd/MM/YYYY HH:mm";
                     cell.detailTextLabel.text = [dateFormater stringFromDate:self.pokerSession.date];
                 }
                     break;
@@ -174,9 +175,13 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
             
         case 1:
         {
-            if (indexPath.row == self.ticketList.count)
+            if (indexPath.row == 0/*self.pokerSession.tickets.count*/)
             {
                 return [tableView dequeueReusableCellWithIdentifier:@"newTicketCellID"];
+            }
+            else
+            {
+                cell.textLabel.text = self.pokerSession.tickets[indexPath.row-1];
             }
 
         }
@@ -188,7 +193,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 5)
+    if (indexPath.row == 5 && indexPath.section == 0)
     {
         return isDatePickerHidden ? 0 : 162;
     }
@@ -226,7 +231,7 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                     TextInputViewController *textInputVC = [[TextInputViewController alloc] initWithNibName:@"TextInputViewController" bundle:nil];
 
                     textInputVC.title = indexPath.row == 0 ? @"Title" : @"Description";
-                    textInputVC.type = indexPath.row == 0 ? BasicInfoTitle : BasicInfoSummary;
+                    textInputVC.type = indexPath.row == 0 ? InputTypeTitle : InputTypeSummary;
                     textInputVC.inputText = indexPath.row == 0 ? self.pokerSession.title : self.pokerSession.summary;
                     
                     textInputVC.delegate = self;
@@ -239,7 +244,6 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
                 {
                     CardsTypeTableViewController *cardsTypeVC = [[UIStoryboard storyboardWithName:@"CardTypeStoryboard" bundle:nil] instantiateInitialViewController];
                     
-//                    [[CardsTypeTableViewController alloc] initWithNibName:@"CardsTypeTableViewController" bundle:nil];
                     cardsTypeVC.title = @"Cards";
                     cardsTypeVC.selectedCardsValuesTitle = self.pokerSession.cardValuesTitle;
 
@@ -295,6 +299,23 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
             
         case 1:
         {
+            if (indexPath.row == 0)
+            {
+                TextInputViewController *textInputVC = [[TextInputViewController alloc] initWithNibName:@"TextInputViewController" bundle:nil];
+                
+                textInputVC.title = @"New Ticket";
+                textInputVC.type = InputTypeTicket;
+//                textInputVC.inputText = indexPath.row == 0 ? self.pokerSession.title : self.pokerSession.summary;
+                
+                textInputVC.delegate = self;
+                
+                [self.navigationController pushViewController:textInputVC animated:YES];
+
+            }
+            else
+            {
+                
+            }
             
         }
             break;
@@ -307,15 +328,21 @@ typedef NS_ENUM(NSUInteger, BasicInfo)
 {
     switch (textInputViewController.type)
     {
-        case BasicInfoTitle:
+        case InputTypeTitle:
         {
             self.pokerSession.title = result;
         }
             break;
             
-        case BasicInfoSummary:
+        case InputTypeSummary:
         {
             self.pokerSession.summary = result;
+        }
+            break;
+            
+        case InputTypeTicket:
+        {
+            [self.pokerSession.tickets addObject:result];
         }
             break;
     }

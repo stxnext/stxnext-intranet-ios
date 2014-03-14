@@ -24,7 +24,7 @@
 
 - (NSString *)myUserId
 {
-    return @"54";[[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
+    return /*@"54";*/[[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
 }
 //213,
 //54, Konrad
