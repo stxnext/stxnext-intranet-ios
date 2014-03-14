@@ -41,6 +41,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>
 #import "AsyncSocket.h"
+#import "TCPClient.h"
 
 // Custom categories
 #import "AppDelegate+Modals.h"

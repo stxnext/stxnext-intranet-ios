@@ -11,3 +11,4 @@
 
 #import "AsyncSocket.h"
 #import "XCTestCase+AsyncTesting.h"
+#import "TCPClient.h"

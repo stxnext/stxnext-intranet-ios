@@ -26,6 +26,8 @@
 		0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */; };
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
+		0C86BF4918D334EE00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
+		0C86BF4E18D3487C00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
 		0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */; };
 		0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
 		0C9D7C8E18D31BA3009E8010 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
@@ -175,6 +177,8 @@
 		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
+		0C86BF4718D334EE00988E3D /* TCPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPClient.m; sourceTree = "<group>"; };
+		0C86BF4818D334EE00988E3D /* TCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPClient.h; sourceTree = "<group>"; };
 		0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+CustomAlert.h"; sourceTree = "<group>"; };
 		0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+CustomAlert.m"; sourceTree = "<group>"; };
 		0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Intranet Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -464,6 +468,8 @@
 				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
 				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
 				0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */,
+				0C86BF4818D334EE00988E3D /* TCPClient.h */,
+				0C86BF4718D334EE00988E3D /* TCPClient.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -947,6 +953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C86BF4E18D3487C00988E3D /* TCPClient.m in Sources */,
 				0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1003,6 +1010,7 @@
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
+				0C86BF4918D334EE00988E3D /* TCPClient.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
@@ -1276,6 +1284,7 @@
 				0C9D7C9C18D31BA3009E8010 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0CE37C44181E8ED10087C96E /* Build configuration list for PBXProject "Intranet" */ = {
 			isa = XCConfigurationList;
