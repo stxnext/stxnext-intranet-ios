@@ -33,7 +33,7 @@ CGFloat const kLBBlurredImageDefaultSaturationDeltaFactor = 1.8;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        UIImage *blurredImage = [image applyBlurWithRadius:kLBBlurredImageDefaultBlurRadius
+        UIImage *blurredImage = [image applyBlurWithRadius:blurRadius
                                                  tintColor:nil
                                      saturationDeltaFactor:kLBBlurredImageDefaultSaturationDeltaFactor
                                                  maskImage:nil];
