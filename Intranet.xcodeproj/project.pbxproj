@@ -27,6 +27,11 @@
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */; };
+		0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
+		0C9D7C8E18D31BA3009E8010 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
+		0C9D7C8F18D31BA3009E8010 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
+		0C9D7C9518D31BA3009E8010 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9318D31BA3009E8010 /* InfoPlist.strings */; };
+		0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */; };
 		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
 		0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */; };
@@ -115,6 +120,16 @@
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0C9D7C9918D31BA3009E8010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CE37C41181E8ED10087C96E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CE37C48181E8ED10087C96E;
+			remoteInfo = Intranet;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		0C303C3318C9EF20002AA21D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -162,6 +177,11 @@
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
 		0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+CustomAlert.h"; sourceTree = "<group>"; };
 		0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+CustomAlert.m"; sourceTree = "<group>"; };
+		0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Intranet Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C9D7C9218D31BA3009E8010 /* Intranet Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Intranet Tests-Info.plist"; sourceTree = "<group>"; };
+		0C9D7C9418D31BA3009E8010 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Intranet_Tests.m; sourceTree = "<group>"; };
+		0C9D7C9818D31BA3009E8010 /* Intranet Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Intranet Tests-Prefix.pch"; sourceTree = "<group>"; };
 		0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlusConfig.h; sourceTree = "<group>"; };
 		0C9E8724181EA39800E90F5E /* GooglePlusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusClient.h; sourceTree = "<group>"; };
 		0C9E8725181EA39800E90F5E /* GooglePlusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusClient.m; sourceTree = "<group>"; };
@@ -316,6 +336,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0C9D7C8918D31BA3009E8010 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */,
+				0C9D7C8F18D31BA3009E8010 /* UIKit.framework in Frameworks */,
+				0C9D7C8E18D31BA3009E8010 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CE37C46181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -392,6 +422,25 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		0C9D7C9018D31BA3009E8010 /* Intranet Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */,
+				0C9D7C9118D31BA3009E8010 /* Supporting Files */,
+			);
+			path = "Intranet Tests";
+			sourceTree = "<group>";
+		};
+		0C9D7C9118D31BA3009E8010 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0C9D7C9218D31BA3009E8010 /* Intranet Tests-Info.plist */,
+				0C9D7C9318D31BA3009E8010 /* InfoPlist.strings */,
+				0C9D7C9818D31BA3009E8010 /* Intranet Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		0C9E8722181EA27200E90F5E /* GooglePlus */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +474,7 @@
 				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
+				0C9D7C9018D31BA3009E8010 /* Intranet Tests */,
 				0CE37C4A181E8ED10087C96E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -434,6 +484,7 @@
 			children = (
 				0CE37C49181E8ED10087C96E /* STX Intranet.app */,
 				0C303C3518C9EF20002AA21D /* libPods-install.a */,
+				0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -714,6 +765,24 @@
 			productReference = 0C303C3518C9EF20002AA21D /* libPods-install.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		0C9D7C8B18D31BA3009E8010 /* Intranet Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C9D7C9D18D31BA3009E8010 /* Build configuration list for PBXNativeTarget "Intranet Tests" */;
+			buildPhases = (
+				0C9D7C8818D31BA3009E8010 /* Sources */,
+				0C9D7C8918D31BA3009E8010 /* Frameworks */,
+				0C9D7C8A18D31BA3009E8010 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0C9D7C9A18D31BA3009E8010 /* PBXTargetDependency */,
+			);
+			name = "Intranet Tests";
+			productName = "Intranet Tests";
+			productReference = 0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0CE37C48181E8ED10087C96E /* Intranet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CE37C81181E8ED10087C96E /* Build configuration list for PBXNativeTarget "Intranet" */;
@@ -742,6 +811,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = STXNext;
 				TargetAttributes = {
+					0C9D7C8B18D31BA3009E8010 = {
+						TestTargetID = 0CE37C48181E8ED10087C96E;
+					};
 					0CE37C48181E8ED10087C96E = {
 						DevelopmentTeam = B7EKJ66X5Q;
 					};
@@ -762,11 +834,20 @@
 			targets = (
 				0CE37C48181E8ED10087C96E /* Intranet */,
 				0C303C3418C9EF20002AA21D /* Pods-install */,
+				0C9D7C8B18D31BA3009E8010 /* Intranet Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0C9D7C8A18D31BA3009E8010 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C9D7C9518D31BA3009E8010 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CE37C47181E8ED10087C96E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -862,6 +943,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0C9D7C8818D31BA3009E8010 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CE37C45181E8ED10087C96E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -936,7 +1025,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0C9D7C9A18D31BA3009E8010 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CE37C48181E8ED10087C96E /* Intranet */;
+			targetProxy = 0C9D7C9918D31BA3009E8010 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		0C9D7C9318D31BA3009E8010 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0C9D7C9418D31BA3009E8010 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		0CE37C55181E8ED10087C96E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -989,6 +1094,52 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0C9D7C9B18D31BA3009E8010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/STX Intranet.app/STX Intranet";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Intranet Tests/Intranet Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Intranet Tests/Intranet Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0C9D7C9C18D31BA3009E8010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/STX Intranet.app/STX Intranet";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Intranet Tests/Intranet Tests-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Intranet Tests/Intranet Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1117,6 +1268,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0C9D7C9D18D31BA3009E8010 /* Build configuration list for PBXNativeTarget "Intranet Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C9D7C9B18D31BA3009E8010 /* Debug */,
+				0C9D7C9C18D31BA3009E8010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		0CE37C44181E8ED10087C96E /* Build configuration list for PBXProject "Intranet" */ = {
 			isa = XCConfigurationList;

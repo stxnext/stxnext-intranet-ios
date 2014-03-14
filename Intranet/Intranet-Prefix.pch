@@ -40,6 +40,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>
+#import "AsyncSocket.h"
 
 // Custom categories
 #import "AppDelegate+Modals.h"
