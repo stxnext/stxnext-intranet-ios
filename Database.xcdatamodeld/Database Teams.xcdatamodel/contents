@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Absence" representedClassName="RMAbsence" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="remarks" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,6 +14,11 @@
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="stop" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="lates" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Team" representedClassName="RMTeam" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="teams" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="RMUser" syncable="YES">
         <attribute name="availabilityLink" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,10 +43,12 @@
         <attribute name="tasksLink" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="absences" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Absence" inverseName="user" inverseEntity="Absence" syncable="YES"/>
         <relationship name="lates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Late" inverseName="user" inverseEntity="Late" syncable="YES"/>
+        <relationship name="teams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="users" inverseEntity="Team" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Absence" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Late" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="375"/>
+        <element name="Absence" positionX="27" positionY="123" width="128" height="120"/>
+        <element name="Late" positionX="486" positionY="99" width="128" height="135"/>
+        <element name="Team" positionX="-146" positionY="-484" width="128" height="88"/>
+        <element name="User" positionX="216" positionY="-558" width="128" height="388"/>
     </elements>
 </model>

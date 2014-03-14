@@ -29,7 +29,8 @@ const NSString* MapKeyLateUserName = @"name";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    DDLogVerbose(@"%@", json);
+//    DDLogVerbose(@"%@", json);
+    
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext

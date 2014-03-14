@@ -42,13 +42,14 @@ const NSString* MapKeyUserGroups = @"groups";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    DDLogVerbose(@"%@", json);
+//    DDLogVerbose(@"%@", json);
     
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                       withDecorator:^(NSManagedObject<JSONMapping>* object) {
                                           RMUser *user = (RMUser *)object;
+                                          
                                           user.name = [json[MapKeyUserName] validObject];
                                           user.imageURL = [json[MapKeyUserImageURL] validObject];
                                           user.avatarURL = [json[MapKeyUserAvatarURL] validObject];
@@ -73,8 +74,6 @@ const NSString* MapKeyUserGroups = @"groups";
                                           user.email = [json[MapKeyUserEmail] validObject];
                                           user.tasksLink = [json[MapKeyUserTasksLink] validObject];
                                           user.availabilityLink = [json[MapKeyUserAvailabilityLink] validObject];
-
-                                          
                                           
                                           NSMutableArray *_tempRoleArray = [[NSMutableArray alloc] init];
                                           NSMutableArray *_tempGroupArray = [[NSMutableArray alloc] init];

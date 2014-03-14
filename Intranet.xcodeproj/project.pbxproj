@@ -46,12 +46,10 @@
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
 		0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA48182144E20056F907 /* Database.xcdatamodeld */; };
 		0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */; };
-		0CF7FA6218214B200056F907 /* RMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6118214B200056F907 /* RMUser.m */; };
 		0CF7FA6518214B300056F907 /* RMLate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6418214B300056F907 /* RMLate.m */; };
 		0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6718214B370056F907 /* RMAbsence.m */; };
 		0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */; };
 		0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6D18214D060056F907 /* RMLate+Additions.m */; };
-		0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */; };
 		0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF7FA7418214FB50056F907 /* CoreData.framework */; };
 		0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7B1821590C0056F907 /* DatabaseManager.m */; };
 		0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */; };
@@ -98,6 +96,10 @@
 		66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACB18CF3D5400B0951F /* PokerSession.m */; };
 		66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
+		6671238C18D2E8AB00D6E8B5 /* RMAbsence+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6671238B18D2E8AB00D6E8B5 /* RMAbsence+Additions.m */; };
+		6671238F18D2E8CE00D6E8B5 /* RMTeam+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6671238E18D2E8CE00D6E8B5 /* RMTeam+Additions.m */; };
+		6671239518D2EA0A00D6E8B5 /* RMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6671239418D2EA0A00D6E8B5 /* RMUser.m */; };
+		6671239618D2EA4D00D6E8B5 /* RMTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 6671239118D2E9C500D6E8B5 /* RMTeam.m */; };
 		6671A3EE18D19B3C00F60190 /* CardTypeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */; };
 		6671A3F018D19C1800F60190 /* TeamsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */; };
 		6671A3F218D1A54700F60190 /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3F118D1A54700F60190 /* UserListCell.xib */; };
@@ -193,8 +195,6 @@
 		0CF7FA49182144E20056F907 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		0CF7FA5A18214AAF0056F907 /* JSONSerializationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSerializationHelper.h; sourceTree = "<group>"; };
 		0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSerializationHelper.m; sourceTree = "<group>"; };
-		0CF7FA6018214B200056F907 /* RMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMUser.h; sourceTree = "<group>"; };
-		0CF7FA6118214B200056F907 /* RMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMUser.m; sourceTree = "<group>"; };
 		0CF7FA6318214B300056F907 /* RMLate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLate.h; sourceTree = "<group>"; };
 		0CF7FA6418214B300056F907 /* RMLate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLate.m; sourceTree = "<group>"; };
 		0CF7FA6618214B370056F907 /* RMAbsence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbsence.h; sourceTree = "<group>"; };
@@ -204,7 +204,6 @@
 		0CF7FA6C18214D060056F907 /* RMLate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMLate+Additions.h"; sourceTree = "<group>"; };
 		0CF7FA6D18214D060056F907 /* RMLate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMLate+Additions.m"; sourceTree = "<group>"; };
 		0CF7FA6F18214D2B0056F907 /* RMAbsence+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMAbsence+Additions.h"; sourceTree = "<group>"; };
-		0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMAbsence+Additions.m"; sourceTree = "<group>"; };
 		0CF7FA7318214D5F0056F907 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		0CF7FA7418214FB50056F907 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0CF7FA7A1821590C0056F907 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
@@ -277,6 +276,14 @@
 		66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsTypeTableViewController.m; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		6671237B18D2E4E100D6E8B5 /* Database Teams.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Database Teams.xcdatamodel"; sourceTree = "<group>"; };
+		6671238B18D2E8AB00D6E8B5 /* RMAbsence+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMAbsence+Additions.m"; sourceTree = "<group>"; };
+		6671238D18D2E8CE00D6E8B5 /* RMTeam+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMTeam+Additions.h"; sourceTree = "<group>"; };
+		6671238E18D2E8CE00D6E8B5 /* RMTeam+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMTeam+Additions.m"; sourceTree = "<group>"; };
+		6671239018D2E9C500D6E8B5 /* RMTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTeam.h; sourceTree = "<group>"; };
+		6671239118D2E9C500D6E8B5 /* RMTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTeam.m; sourceTree = "<group>"; };
+		6671239318D2EA0A00D6E8B5 /* RMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMUser.h; sourceTree = "<group>"; };
+		6671239418D2EA0A00D6E8B5 /* RMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMUser.m; sourceTree = "<group>"; };
 		6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CardTypeStoryboard.storyboard; sourceTree = "<group>"; };
 		6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamsStoryboard.storyboard; sourceTree = "<group>"; };
 		6671A3F118D1A54700F60190 /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
@@ -353,18 +360,22 @@
 				0CF7FA6618214B370056F907 /* RMAbsence.h */,
 				0CF7FA6C18214D060056F907 /* RMLate+Additions.h */,
 				0CF7FA6318214B300056F907 /* RMLate.h */,
+				6671238D18D2E8CE00D6E8B5 /* RMTeam+Additions.h */,
+				6671239018D2E9C500D6E8B5 /* RMTeam.h */,
 				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
 				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
-				0CF7FA6018214B200056F907 /* RMUser.h */,
-				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
+				0C429D1118CA059700BB9CBA /* RMUser+CurrentUser.h */,
+				6671239318D2EA0A00D6E8B5 /* RMUser.h */,
+				6671238B18D2E8AB00D6E8B5 /* RMAbsence+Additions.m */,
 				0CF7FA6718214B370056F907 /* RMAbsence.m */,
 				0CF7FA6D18214D060056F907 /* RMLate+Additions.m */,
 				0CF7FA6418214B300056F907 /* RMLate.m */,
+				6671238E18D2E8CE00D6E8B5 /* RMTeam+Additions.m */,
+				6671239118D2E9C500D6E8B5 /* RMTeam.m */,
 				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
-				0CF7FA6118214B200056F907 /* RMUser.m */,
-				0C429D1118CA059700BB9CBA /* RMUser+CurrentUser.h */,
 				0C429D1218CA059700BB9CBA /* RMUser+CurrentUser.m */,
+				6671239418D2EA0A00D6E8B5 /* RMUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -855,6 +866,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6671239618D2EA4D00D6E8B5 /* RMTeam.m in Sources */,
 				6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */,
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
@@ -864,6 +876,7 @@
 				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0C429D1318CA059700BB9CBA /* RMUser+CurrentUser.m in Sources */,
+				6671238C18D2E8AB00D6E8B5 /* RMAbsence+Additions.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
@@ -881,7 +894,6 @@
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
-				0CF7FA6218214B200056F907 /* RMUser.m in Sources */,
 				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
@@ -903,12 +915,12 @@
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
-				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
 				6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */,
+				6671239518D2EA0A00D6E8B5 /* RMUser.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
@@ -918,6 +930,7 @@
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 				0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */,
+				6671238F18D2E8CE00D6E8B5 /* RMTeam+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,7 +967,6 @@
 		0C303C5118C9EF20002AA21D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				DSTROOT = /tmp/Pods_install.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pods-install/Pods-install-Prefix.pch";
@@ -971,7 +983,6 @@
 		0C303C5218C9EF20002AA21D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				DSTROOT = /tmp/Pods_install.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pods-install/Pods-install-Prefix.pch";
@@ -1063,7 +1074,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1082,7 +1092,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1133,9 +1142,10 @@
 		0CF7FA48182144E20056F907 /* Database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6671237B18D2E4E100D6E8B5 /* Database Teams.xcdatamodel */,
 				0CF7FA49182144E20056F907 /* Database.xcdatamodel */,
 			);
-			currentVersion = 0CF7FA49182144E20056F907 /* Database.xcdatamodel */;
+			currentVersion = 6671237B18D2E4E100D6E8B5 /* Database Teams.xcdatamodel */;
 			path = Database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

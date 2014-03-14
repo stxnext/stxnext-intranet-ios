@@ -15,5 +15,6 @@
 #import "RMUser+Additions.h"
 #import "RMLate+Additions.h"
 #import "RMAbsence+Additions.h"
+#import "RMTeam+Additions.h"
 
 #endif

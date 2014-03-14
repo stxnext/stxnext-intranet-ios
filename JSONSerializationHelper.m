@@ -18,10 +18,11 @@
 inManagedContext:(NSManagedObjectContext *)context
 withDecorator:(void (^)(NSManagedObject<JSONMapping> *object))decorator;
 {
+
     NSManagedObject<JSONMapping> *object = (NSManagedObject<JSONMapping>*)[context fetchObjectForEntityName:[class coreDataEntityName]
                                                                                          withSortDescriptor:nil
                                                                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %d", id.integerValue]];
-    
+
     if (decorator)
         decorator(object);
     
@@ -50,7 +51,10 @@ withDecorator:(void (^)(NSManagedObject<JSONMapping> *object))decorator;
 
 + (void)deleteObjectsWithClass:(Class<JSONMapping>)class inManagedContext:(NSManagedObjectContext*)context
 {
-    NSArray *objects = [self objectsWithClass:class withSortDescriptor:nil withPredicate:nil inManagedContext:context];
+    NSArray *objects = [self objectsWithClass:class
+                           withSortDescriptor:nil
+                                withPredicate:nil
+                             inManagedContext:context];
     
     for (NSManagedObject* object in objects)
         [context deleteObject:object];

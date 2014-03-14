@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Facebook-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GPUImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>Pods-NSObject+AutoDescription.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,102 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>041E8EE5955F47FDB62C2032</key>
+		<key>25D65C3C4E544C7ABE3BCC95</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C3275B77B174967B7D9728A</key>
+		<key>399BCA039E684A2C9EBAD00D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>642CA7610085468AB285243A</key>
+		<key>4EE4108C8AAF4D40A54474D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69B4FFF85B85457996E43927</key>
+		<key>596C8E7D31204237B335F5A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>71451CA88E8342348A538547</key>
+		<key>70B8DBAB7C154B8BBFFFEEDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7791CD7D0CEB4256BC696CD6</key>
+		<key>7F3B7A6F60544D848C6B86E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>782B52F317F4458081C3134B</key>
+		<key>92305516681A44E88154BA90</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83D6CDECD84A443CB8780FE2</key>
+		<key>98C6C7F29D504DDDB3AA41A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85C3D38F5EA34E969327078B</key>
+		<key>A80B60766BC74661B36F369D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9645FBFD23324DCA8610B25C</key>
+		<key>D105C9EEB4934DADB4F58835</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98C4C1A620B54FE191F6B2F5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>990027FF20ED42DDA63F0464</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9FEC400715254FACA1859D97</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD8E7F2C331F4EC3B86CF9CE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DB4E9EF6046342B7A84C6324</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E4D225ED7EC3481EB400ABD6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E57CEEB943724ED9ACC087C5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB02DAA75E76452BB436C182</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F214281488D041AF87922FA2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8D3A9C8346E4FAD82A2B2EC</key>
+		<key>E6B6408618364CABAF52627B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -30,7 +30,7 @@ PODS:
   - NSObject+AutoDescription (0.1)
   - Parse (1.2.18):
     - Facebook-iOS-SDK (~> 3.11)
-  - UIAlertView+Blocks (0.8)
+  - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0.2)
@@ -53,6 +53,6 @@ SPEC CHECKSUMS:
   LBBlurredImage: 26bacd10063a6e886de6a374f4727c3cefb22fc2
   NSObject+AutoDescription: 95a585c85920551aed4ab18a5b96f62a572e0ef0
   Parse: 6dd57f2af9f89dc6facc755cec4e96f8b739b1fb
-  UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
+  UIAlertView+Blocks: bac565670861210aff25f574638f0c552648a0a8
 
 COCOAPODS: 0.29.0

@@ -127,4 +127,16 @@
     
     return request;
 }
+
++ (AFHTTPRequestOperation *)getFalseTeams
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"mobile.app/teams.json"
+                                                                                 parameters:nil];
+    
+    [request blockRedirections];
+    
+    return request;
+}
+
 @end

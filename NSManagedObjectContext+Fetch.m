@@ -39,8 +39,11 @@
 - (id)fetchObjectForEntityName:(NSString*)entityName
             withSortDescriptor:(NSSortDescriptor*)sortDescriptor
                  withPredicate:(NSPredicate*)predicate
-{
-    return [self fetchObjectsForEntityName:entityName withSortDescriptor:sortDescriptor withPredicate:predicate withLimit:@( 1 )].lastObject;
+{    
+    return [self fetchObjectsForEntityName:entityName
+                        withSortDescriptor:sortDescriptor
+                             withPredicate:predicate
+                                 withLimit:@( 1 )].lastObject;
 }
 
 @end

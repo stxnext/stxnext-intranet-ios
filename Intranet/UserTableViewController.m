@@ -184,6 +184,30 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromDatabase
 {
+    /*
+    {
+        NSArray *teams = [JSONSerializationHelper objectsWithClass:[RMTeam class]
+                                                withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                 ascending:YES
+                                                                                                  selector:@selector(localizedCompare:)]
+                                                     withPredicate:nil
+                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        
+//        for (RMTeam *team in teams)
+//        {
+//            NSLog(@"team name %@", team.name);
+//            NSLog(@"team id %i", [team.id intValue]);
+//            
+//            for (RMUser *user in team.users)
+//            {
+//                NSLog(@"team user %@", user.name);
+//            }
+//            NSLog(@" " );
+//        }
+
+    }
+    */
     DDLogInfo(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -192,6 +216,18 @@ static CGFloat tabBarHeight;
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    /*
+    for (RMUser *user in users)
+    {
+               NSLog(@"USER %@", user.name);
+        for (RMTeam *team in user.teams)
+        {
+            NSLog(@"TEAM %@", team.name);
+        }
+        
+        NSLog(@" ");
+    }
+    */
     
     self.filterStructure = [[NSMutableArray alloc] init];
     
@@ -391,7 +427,7 @@ static CGFloat tabBarHeight;
         return;
     }
     
-    __block NSInteger operations = 2;
+    __block NSInteger operations = 3;
     __block BOOL deletedUsers = NO;
     
     DDLogInfo(@"Loading from: API");
@@ -420,7 +456,8 @@ static CGFloat tabBarHeight;
                                           {
                                               [RMUser mapFromJSON:user];
                                           }
-                                          
+
+     
                                           DDLogInfo(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
                                           
                                           // Save database
@@ -494,6 +531,54 @@ static CGFloat tabBarHeight;
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           DDLogError(@"Presence API Loading Error");
                                       }];
+    
+    
+    
+    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getTeams] : [APIRequest getFalseTeams]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          // Delete from database'
+                                          
+                                          @synchronized (self)
+                                          {
+                                              if (!deletedUsers)
+                                              {
+                                                  [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                                  deletedUsers = YES;
+                                              }
+                                              
+                                              [JSONSerializationHelper deleteObjectsWithClass:[RMTeam class]
+                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                              
+//                                              [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
+//                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                                          }
+                                          
+
+                                          // Add to database
+
+                                          for (id team in responseObject[@"teams"])
+                                          {
+                                              [RMTeam mapFromJSON:team];
+                                          }
+                                          
+                                          // Save database
+                                          [[DatabaseManager sharedManager] saveContext];
+                                          
+                                          DDLogInfo(@"Loaded: teams");
+
+                                          // Load from database
+                                          [self loadUsersFromDatabase];
+
+                                          if (--operations == 0)
+                                          {
+                                              [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          }
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          DDLogError(@"Teams API Loading Error");
+                                      }];
+
 }
 
 #pragma mark - Filter delegate

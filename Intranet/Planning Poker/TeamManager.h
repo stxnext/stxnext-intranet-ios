@@ -29,10 +29,10 @@
 @interface TeamManager : NSObject
 
 
-
+/*
 + (void)downloadTeamsWithSuccess:(void (^)(NSArray *teamsInfos, NSArray *teamsMembers))success
                          failure:(void (^)(void))failure;
-
+*/
 
 @end
 

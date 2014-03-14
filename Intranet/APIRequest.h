@@ -22,5 +22,6 @@
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)getFreeDays;
 + (AFHTTPRequestOperation *)getTeams;
++ (AFHTTPRequestOperation *)getFalseTeams;
 
 @end
