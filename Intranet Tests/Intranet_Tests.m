@@ -26,56 +26,99 @@
     [super tearDown];
 }
 
-- (void)test_001_cocoaAsyncSocketWithHttpbinJson
+- (void)test_001_tcpClientWithHttpbinJson
 {
-    AsyncSocket* socket = [[AsyncSocket alloc] initWithDelegate:self];
+    __block TCPClient* client = [[TCPClient alloc] initWithHostName:@"httpbin.org" withPort:80];
     
-    NSError *err = nil;
-    
-    if (![socket connectToHost:@"httpbin.org" onPort:80 error:&err])
-        XCTFail(@"Could not connect to host: %@", err);
+    [client connectWithCompletionHandler:^(NSError *error) {
+        if (error)
+        {
+            [self notify:XCTAsyncTestCaseStatusFailed];
+            return;
+        }
+        
+        NSString* request = @"GET /get HTTP/1.1\r\nHost: httpbin.org\r\n\r\n";
+        NSData* data = [request dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [client write:data withComplectionHandler:^(NSError *error) {
+            if (error)
+            {
+                [self notify:XCTAsyncTestCaseStatusFailed];
+                return;
+            }
+            
+            [client readWithCompletionHandler:^(NSData *data, NSError *error) {
+                if (error)
+                {
+                    [self notify:XCTAsyncTestCaseStatusFailed];
+                    return;
+                }
+                
+                NSString* response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                
+                if (![response hasPrefix:@"HTTP/1.1 200 OK"])
+                {
+                    XCTFail(@"Server response invalid: %@", response);
+                    [self notify:XCTAsyncTestCaseStatusFailed];
+                    
+                    return;
+                }
+                
+                NSArray* parts = [response componentsSeparatedByString:@"\r\n\r\n"];
+                NSString* bodyString = parts.count < 2 ? nil : parts[1];
+                NSData* bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+                id json = [NSJSONSerialization JSONObjectWithData:bodyData options:0 error:nil];
+                NSString* hostField = json[@"headers"][@"Host"];
+                
+                XCTAssertEqualObjects(hostField, @"httpbin.org", @"Response json field invalid");
+                [self notify:XCTAsyncTestCaseStatusSucceeded];
+            }];
+        }];
+    }];
     
     [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:30.0];
 }
 
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
+- (void)test_002_tcpClientWithIntranetLocalServer
 {
-    if (err)
-    {
-        XCTFail(@"Could not connect to host: %@", err);
-        [self notify:XCTAsyncTestCaseStatusFailed];
-    }
-}
-
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
-{
-    NSString* request = @"GET /get HTTP/1.1\r\nHost: httpbin.org\r\n\r\n";
-    NSData* data = [request dataUsingEncoding:NSUTF8StringEncoding];
-    [sock writeData:data withTimeout:30.0 tag:0];
-    [sock readDataWithTimeout:30.0 tag:0];
-}
-
-- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    NSString* response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    __block TCPClient* client = [[TCPClient alloc] initWithHostName:@"10.93.1.12" withPort:8080];
     
-    if (![response hasPrefix:@"HTTP/1.1 200 OK"])
-    {
-        XCTFail(@"Server response invalid: %@", response);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+    [client connectWithCompletionHandler:^(NSError *error) {
+        if (error)
+        {
+            [self notify:XCTAsyncTestCaseStatusFailed];
+            return;
+        }
         
-        return;
-    }
+        NSString* request = @"{\"request\":{\"request_name\":\"card_decks\"}}\r\n";
+        NSData* data = [request dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [client write:data withComplectionHandler:^(NSError *error) {
+            if (error)
+            {
+                [self notify:XCTAsyncTestCaseStatusFailed];
+                return;
+            }
+            
+            [client readWithCompletionHandler:^(NSData *data, NSError *error) {
+                if (error)
+                {
+                    [self notify:XCTAsyncTestCaseStatusFailed];
+                    return;
+                }
+                
+                id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                NSArray* decks = json[@"decks"];
+                
+                if (decks.count > 0)
+                    [self notify:XCTAsyncTestCaseStatusSucceeded];
+                else
+                    [self notify:XCTAsyncTestCaseStatusFailed];
+            }];
+        }];
+    }];
     
-    // Validate json
-    NSArray* parts = [response componentsSeparatedByString:@"\r\n\r\n"];
-    NSString* bodyString = parts.count < 2 ? nil : parts[1];
-    NSData* bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    id json = [NSJSONSerialization JSONObjectWithData:bodyData options:0 error:nil];
-    NSString* hostField = json[@"headers"][@"Host"];
-    
-    XCTAssertEqualObjects(hostField, @"httpbin.org", @"Response json field invalid");
-    [self notify:XCTAsyncTestCaseStatusSucceeded];
+    [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:30.0];
 }
 
 @end
