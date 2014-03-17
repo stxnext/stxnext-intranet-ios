@@ -41,9 +41,11 @@ typedef enum
     [deltaComps setDay:1];
     NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
     
-    self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
-    self.OOOPickerFrom.date = [tomorrow dateWithHour:9 minute:0 second:0];
-    self.OOOPickerTo.date = [tomorrow dateWithHour:17 minute:0 second:0];
+    self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
+    
+    self.OOOPickerDate.date = [NSDate date];
+    self.OOOPickerFrom.date = [[NSDate date] dateWithHour:9 minute:0 second:0];
+    self.OOOPickerTo.date = [[NSDate date] dateWithHour:17 minute:0 second:0];
     
     [self getFreeDays];
     
