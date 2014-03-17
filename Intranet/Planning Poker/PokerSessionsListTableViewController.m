@@ -7,10 +7,10 @@
 //
 
 #import "PokerSessionsListTableViewController.h"
-#import "PokerNewSessionTableViewController.h"
 
 @interface PokerSessionsListTableViewController ()
 
+@property (nonatomic, strong) NSArray *sessions;
 @end
 
 @implementation PokerSessionsListTableViewController
@@ -18,6 +18,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.sessions = @[[NSMutableArray new], [NSMutableArray new], [NSMutableArray new]];
+    
+    
+    PokerSession *testSession = [PokerSession new];
+    [testSession fillWithTestData];
+    
+    [self.sessions[0] addObject:testSession];
+    [self.sessions[1] addObject:testSession];
+    [self.sessions[2] addObject:testSession];
     
     [self.tableView hideEmptySeparators];
 }
@@ -31,7 +41,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.sessions[section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -46,31 +56,46 @@
 
         case 2:
             return @"Completed";
-
-        default:
-            return @"";
     }
+    
+    return @"";
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *cellId =  @"CellId";
     
-    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+    }
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = ((PokerSession *)self.sessions[indexPath.section][indexPath.row]).title;
+    cell.detailTextLabel.text = ((PokerSession *)self.sessions[indexPath.section][indexPath.row]).summary;
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PokerNewSessionTableViewController *pokerNewSessionTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PokerNewSessionTableViewControllerId"];
+    pokerNewSessionTVC.pokerSession = self.sessions[indexPath.section][indexPath.row];
+    pokerNewSessionTVC.pokerSessionType = PokerSessionTypeEdit;
+    pokerNewSessionTVC.delegate = self;
+    
+    [self.navigationController pushViewController:pokerNewSessionTVC animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return indexPath.section == 0;
 }
-*/
+//*/
 
 /*
 // Override to support editing the table view.
@@ -101,6 +126,21 @@
 }
 */
 
+#pragma mark -  PokerNewSessionTableViewControllerDelegate
+
+- (void)pokerNewSessionTableViewController:(PokerNewSessionTableViewController *)pokerNewSessionTableViewController didFinishWithPokerSession:(PokerSession *)pokerSession
+{
+    if (pokerNewSessionTableViewController.pokerSessionType == PokerSessionTypeEdit)
+    {
+        
+    }
+    else
+    {
+        [self.sessions[0] addObject:pokerSession];
+    }
+
+    [self.tableView reloadDataAnimated:YES];
+}
 
 #pragma mark - Navigation
 
@@ -110,10 +150,12 @@
     if ([segue.identifier isEqualToString:@"QuickPokerId"])
     {
        ((PokerNewSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).pokerSessionType = PokerSessionTypeQuick;
+        ((PokerNewSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).delegate = self;
     }
     else if ([segue.identifier isEqualToString:@"NormalPokerId"])
     {
-       ((PokerNewSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).pokerSessionType = PokerSessionTypeNormal;
+        ((PokerNewSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).pokerSessionType = PokerSessionTypeNormal;
+        ((PokerNewSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).delegate = self;
     }
 }
 

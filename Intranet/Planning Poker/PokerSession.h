@@ -24,4 +24,6 @@
 
 @property (nonatomic, strong) NSDate *date;
 
+- (void)fillWithTestData;
+
 @end

@@ -24,10 +24,13 @@ typedef NS_ENUM(NSUInteger, InputType)
 
 - (void)viewDidLoad
 {
-    self.pokerSession = [[PokerSession alloc] init];
+    if (!self.pokerSession)
+    {
+        self.pokerSession = [[PokerSession alloc] init];
+        self.pokerSession.date = [NSDate date];
+    }
+
     isDatePickerHidden = YES;
-    
-    self.pokerSession.date = [NSDate date];
     
     switch (self.pokerSessionType)
     {
@@ -42,12 +45,27 @@ typedef NS_ENUM(NSUInteger, InputType)
             self.title = @"New Poker";
         }
             break;
+            
+        case PokerSessionTypeEdit:
+        {
+            self.title = @"Edit Poker";
+        }
+            break;
     }
     
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save)];
+    if (self.pokerSessionType != PokerSessionTypeEdit)
+    {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                              target:self
+                                                                                              action:@selector(cancel)];
+        
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                               target:self
+                                                                                               action:@selector(save)];
+    }
     
     [self.tableView hideEmptySeparators];
 }
@@ -59,14 +77,33 @@ typedef NS_ENUM(NSUInteger, InputType)
 
 - (void)save
 {
+    if ([self.delegate respondsToSelector:@selector(pokerNewSessionTableViewController:didFinishWithPokerSession:)])
+    {
+        [self.delegate pokerNewSessionTableViewController:self didFinishWithPokerSession:self.pokerSession];
+
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.pokerSessionType == PokerSessionTypeEdit && ![self.navigationController.viewControllers containsObject:self])
+    {
+        if ([self.delegate respondsToSelector:@selector(pokerNewSessionTableViewController:didFinishWithPokerSession:)])
+        {            
+            [self.delegate pokerNewSessionTableViewController:self didFinishWithPokerSession:self.pokerSession];
+            [self.navigationController popViewControllerAnimated:YES];;
+        }
+    }
     
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.pokerSessionType == PokerSessionTypeNormal ? 2 : 1;
+    return self.pokerSessionType == PokerSessionTypeNormal || self.pokerSession.tickets.count ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -74,7 +111,7 @@ typedef NS_ENUM(NSUInteger, InputType)
     switch (section)
     {
         case 0:
-            return self.pokerSessionType == PokerSessionTypeNormal ? 6 : 4;
+            return self.pokerSessionType == PokerSessionTypeNormal || self.pokerSession.tickets.count  ? 6 : 4;
             
         case 1:
             return 1 + self.pokerSession.tickets.count;
@@ -211,10 +248,9 @@ typedef NS_ENUM(NSUInteger, InputType)
             
         case 1:
             return @"Tickets";
-            
-        default:
-            return @"";
     }
+    
+    return @"";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

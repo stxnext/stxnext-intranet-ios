@@ -33,4 +33,21 @@
     return self;
 }
 
+- (void)fillWithTestData
+{
+    self.title = @"Test title";
+    self.summary = @"Test summary";
+    
+    self.cardValuesTitle = @"Custom";
+    self.cardValues = @[@"ticket 1", @"ticket 2", @"ticket 3"];
+    
+    self.teamTitle = @"Test team";
+    self.teamUsersIDs = @[@141, @176, @170, @195, @208];
+    
+    self.tickets = [NSMutableArray arrayWithArray:@[@"ticket 1", @"ticket 2", @"ticket 3"]];
+    
+    self.date = [NSDate date];
+    
+}
+
 @end

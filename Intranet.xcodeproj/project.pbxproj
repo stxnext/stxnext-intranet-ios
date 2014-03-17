@@ -744,8 +744,8 @@
 				663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */,
 				66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */,
 				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
-				66572AC918CF3D4200B0951F /* Data */,
 				664CD79218D03AA60031DC4F /* Additional */,
+				66572AC918CF3D4200B0951F /* Data */,
 			);
 			name = New;
 			sourceTree = "<group>";
