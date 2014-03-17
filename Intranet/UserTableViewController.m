@@ -208,6 +208,7 @@ static CGFloat tabBarHeight;
 
     }
     */
+    
     DDLogInfo(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -219,7 +220,7 @@ static CGFloat tabBarHeight;
     /*
     for (RMUser *user in users)
     {
-               NSLog(@"USER %@", user.name);
+        NSLog(@"USER %@", user.name);
         for (RMTeam *team in user.teams)
         {
             NSLog(@"TEAM %@", team.name);
@@ -456,7 +457,6 @@ static CGFloat tabBarHeight;
                                           {
                                               [RMUser mapFromJSON:user];
                                           }
-
      
                                           DDLogInfo(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
                                           
@@ -481,7 +481,8 @@ static CGFloat tabBarHeight;
                                               [self showLoginScreen];
                                           }
                                           
-                                          [self.tableView reloadData];
+                                          --operations;
+                                          [self loadUsersFromDatabase];
                                       }];
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
@@ -530,9 +531,10 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           DDLogError(@"Presence API Loading Error");
+                                          
+                                          --operations;
+                                          [self loadUsersFromDatabase];
                                       }];
-    
-    
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getTeams] : [APIRequest getFalseTeams]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -549,12 +551,8 @@ static CGFloat tabBarHeight;
                                               
                                               [JSONSerializationHelper deleteObjectsWithClass:[RMTeam class]
                                                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                              
-//                                              [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
-//                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
                                           }
                                           
-
                                           // Add to database
 
                                           for (id team in responseObject[@"teams"])
@@ -577,8 +575,10 @@ static CGFloat tabBarHeight;
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           DDLogError(@"Teams API Loading Error");
+                                          
+                                          --operations;
+                                          [self loadUsersFromDatabase];
                                       }];
-
 }
 
 #pragma mark - Filter delegate

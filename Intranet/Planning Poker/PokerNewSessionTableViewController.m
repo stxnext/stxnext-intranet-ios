@@ -12,7 +12,8 @@ typedef NS_ENUM(NSUInteger, InputType)
 {
     InputTypeTitle,
     InputTypeSummary,
-    InputTypeTicket
+    InputTypeTicket,
+    InputTypeTicketEdit
 };
 
 @interface PokerNewSessionTableViewController ()
@@ -305,16 +306,25 @@ typedef NS_ENUM(NSUInteger, InputType)
                 
                 textInputVC.title = @"New Ticket";
                 textInputVC.type = InputTypeTicket;
-//                textInputVC.inputText = indexPath.row == 0 ? self.pokerSession.title : self.pokerSession.summary;
                 
                 textInputVC.delegate = self;
                 
                 [self.navigationController pushViewController:textInputVC animated:YES];
-
             }
             else
             {
+                TextInputViewController *textInputVC = [[TextInputViewController alloc] initWithNibName:@"TextInputViewController" bundle:nil];
                 
+                textInputVC.title = @"New Ticket";
+                textInputVC.type = InputTypeTicketEdit;
+                
+                itemToChange = indexPath.row - 1;
+                
+                textInputVC.inputText = self.pokerSession.tickets[itemToChange];
+                
+                textInputVC.delegate = self;
+                
+                [self.navigationController pushViewController:textInputVC animated:YES];
             }
             
         }
@@ -325,29 +335,38 @@ typedef NS_ENUM(NSUInteger, InputType)
 #pragma mark - TextInputViewControllerDelegate
 
 - (void)textInputViewController:(TextInputViewController *)textInputViewController didFinishWithResult:(NSString *)result
-{
-    switch (textInputViewController.type)
+{    
+    if (result.length)
     {
-        case InputTypeTitle:
+        switch (textInputViewController.type)
         {
-            self.pokerSession.title = result;
+            case InputTypeTitle:
+            {
+                self.pokerSession.title = result;
+            }
+                break;
+                
+            case InputTypeSummary:
+            {
+                self.pokerSession.summary = result;
+            }
+                break;
+                
+            case InputTypeTicket:
+            {
+                [self.pokerSession.tickets addObject:result];
+            }
+                break;
+                
+            case InputTypeTicketEdit:
+            {
+                [self.pokerSession.tickets replaceObjectAtIndex:itemToChange withObject:result];
+            }
+                break;
         }
-            break;
-            
-        case InputTypeSummary:
-        {
-            self.pokerSession.summary = result;
-        }
-            break;
-            
-        case InputTypeTicket:
-        {
-            [self.pokerSession.tickets addObject:result];
-        }
-            break;
+        
+        [self.tableView reloadDataAnimated:YES];
     }
-    
-    [self.tableView reloadDataAnimated:YES];
 }
 
 #pragma mark - CardsTypeTableViewControllerDelegate

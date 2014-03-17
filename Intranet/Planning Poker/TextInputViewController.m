@@ -28,7 +28,7 @@
     if ([self.delegate respondsToSelector:@selector(textInputViewController:didFinishWithResult:)])
     {
         [self.delegate textInputViewController:self
-                           didFinishWithResult:[self.inputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+                           didFinishWithResult:[self.inputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
 }
 

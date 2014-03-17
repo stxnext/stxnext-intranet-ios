@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
 {
     BOOL isDatePickerHidden;
     UIDatePicker *datePicker;
+    NSInteger itemToChange;
 }
 
 //@property (nonatomic, strong) NSMutableArray *ticketList;
