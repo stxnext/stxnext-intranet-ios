@@ -94,7 +94,7 @@
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		663AF0C518CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */; };
 		663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */; };
-		663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */; };
+		663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6645EF5E18D1E46F00B84371 /* TeamManager.m */; };
 		664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CD79418D0932E0031DC4F /* TeamsTableViewController.m */; };
@@ -283,8 +283,8 @@
 		663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanningPokerStoryboard.storyboard; sourceTree = "<group>"; };
 		663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerNavgationViewController.h; sourceTree = "<group>"; };
 		663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNavgationViewController.m; sourceTree = "<group>"; };
-		663AF0CC18CEFE6800CD1865 /* PokerNewSessionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerNewSessionTableViewController.h; sourceTree = "<group>"; };
-		663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNewSessionTableViewController.m; sourceTree = "<group>"; };
+		663AF0CC18CEFE6800CD1865 /* PokerSessionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionTableViewController.h; sourceTree = "<group>"; };
+		663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionTableViewController.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		6645EF5D18D1E46F00B84371 /* TeamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamManager.h; sourceTree = "<group>"; };
@@ -738,10 +738,10 @@
 			isa = PBXGroup;
 			children = (
 				663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */,
-				663AF0CC18CEFE6800CD1865 /* PokerNewSessionTableViewController.h */,
+				663AF0CC18CEFE6800CD1865 /* PokerSessionTableViewController.h */,
 				66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */,
 				663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */,
-				663AF0CD18CEFE6800CD1865 /* PokerNewSessionTableViewController.m */,
+				663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */,
 				66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */,
 				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
 				664CD79218D03AA60031DC4F /* Additional */,
@@ -1002,7 +1002,7 @@
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
-				663AF0CE18CEFE6800CD1865 /* PokerNewSessionTableViewController.m in Sources */,
+				663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
 				0C303C6818C9FC49002AA21D /* PFRound.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,

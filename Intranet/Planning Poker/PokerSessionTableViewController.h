@@ -14,13 +14,14 @@
 
 typedef NS_ENUM(NSUInteger, PokerSessionType)
 {
-    PokerSessionTypeQuick,
-    PokerSessionTypeNormal,
-    PokerSessionTypeEdit
+    PokerSessionTypeNewQuick,
+    PokerSessionTypeNewNormal,
+    PokerSessionTypeEdit,
+    PokerSessionTypePlay
 };
 
-@protocol PokerNewSessionTableViewControllerDelegate;
-@interface PokerNewSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate, TeamsTableViewControllerDelegate>
+@protocol PokerSessionTableViewControllerDelegate;
+@interface PokerSessionTableViewController : UITableViewController <TextInputViewControllerDelegate, CardsTypeTableViewControllerDelegate, TeamsTableViewControllerDelegate>
 {
     BOOL isDatePickerHidden;
     UIDatePicker *datePicker;
@@ -28,14 +29,14 @@ typedef NS_ENUM(NSUInteger, PokerSessionType)
 }
 
 //@property (nonatomic, strong) NSMutableArray *ticketList;
-@property (nonatomic, strong) id<PokerNewSessionTableViewControllerDelegate> delegate;
+@property (nonatomic, strong) id<PokerSessionTableViewControllerDelegate> delegate;
 @property (nonatomic, assign) PokerSessionType pokerSessionType;
 @property (nonatomic, strong) PokerSession *pokerSession;
 
 @end
 
-@protocol PokerNewSessionTableViewControllerDelegate <NSObject>
+@protocol PokerSessionTableViewControllerDelegate <NSObject>
 
-- (void)pokerNewSessionTableViewController:(PokerNewSessionTableViewController *)pokerNewSessionTableViewController didFinishWithPokerSession:(PokerSession *)pokerSession;
+- (void)pokerSessionTableViewController:(PokerSessionTableViewController *)pokerSessionTableViewController didFinishWithPokerSession:(PokerSession *)pokerSession;
 
 @end

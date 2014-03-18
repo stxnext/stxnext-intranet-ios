@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="311" y="248"/>
         </scene>
-        <!--Poker New Session Table View Controller - New Poker Session-->
+        <!--Poker Session Table View Controller - New Poker Session-->
         <scene sceneID="7AA-zJ-gni">
             <objects>
-                <tableViewController storyboardIdentifier="PokerNewSessionTableViewControllerId" id="YT3-Ug-NEn" customClass="PokerNewSessionTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PokerNewSessionTableViewControllerId" id="YT3-Ug-NEn" customClass="PokerSessionTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CB7-oa-Wn1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

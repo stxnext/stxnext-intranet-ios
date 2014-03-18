@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PokerNewSessionTableViewController.h"
+#import "PokerSessionTableViewController.h"
 
-@interface PokerSessionsListTableViewController : UITableViewController <PokerNewSessionTableViewControllerDelegate>
+@interface PokerSessionsListTableViewController : UITableViewController <PokerSessionTableViewControllerDelegate>
 
 @end
