@@ -244,11 +244,10 @@ typedef NS_ENUM(NSUInteger, InputType)
                 }
             }
                 break;
-                
-                
+                                
             case 1:
             {
-                if (indexPath.row == 0/*self.pokerSession.tickets.count*/)
+                if (indexPath.row == 0)
                 {
                     return [tableView dequeueReusableCellWithIdentifier:@"newTicketCellID"];
                 }
@@ -308,7 +307,11 @@ typedef NS_ENUM(NSUInteger, InputType)
 {
     if (self.pokerSessionType == PokerSessionTypePlay)
     {
+        PlaningPokerViewController *voteVC = [[PlaningPokerViewController alloc] initWithNibName:@"PlaningPokerViewController" bundle:nil];
+        voteVC.title = [self.pokerSession.tickets firstObject];
+        voteVC.items = self.pokerSession.cardValues;
         
+        [self.navigationController pushViewController:voteVC animated:YES];
     }
     else
     {

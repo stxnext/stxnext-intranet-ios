@@ -110,6 +110,8 @@
 		6671A3EE18D19B3C00F60190 /* CardTypeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */; };
 		6671A3F018D19C1800F60190 /* TeamsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */; };
 		6671A3F218D1A54700F60190 /* UserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6671A3F118D1A54700F60190 /* UserListCell.xib */; };
+		667A2CEB18D84FBB00FCB319 /* PokerVoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667A2CEA18D84FBB00FCB319 /* PokerVoteViewController.m */; };
+		667A2CED18D84FD500FCB319 /* PokerVoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667A2CEC18D84FD500FCB319 /* PokerVoteView.xib */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
 		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
@@ -311,6 +313,9 @@
 		6671A3ED18D19B3C00F60190 /* CardTypeStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CardTypeStoryboard.storyboard; sourceTree = "<group>"; };
 		6671A3EF18D19C1800F60190 /* TeamsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamsStoryboard.storyboard; sourceTree = "<group>"; };
 		6671A3F118D1A54700F60190 /* UserListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListCell.xib; sourceTree = "<group>"; };
+		667A2CE918D84FBB00FCB319 /* PokerVoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerVoteViewController.h; sourceTree = "<group>"; };
+		667A2CEA18D84FBB00FCB319 /* PokerVoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerVoteViewController.m; sourceTree = "<group>"; };
+		667A2CEC18D84FD500FCB319 /* PokerVoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PokerVoteView.xib; sourceTree = "<group>"; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
@@ -738,12 +743,15 @@
 			isa = PBXGroup;
 			children = (
 				663AF0C618CEF53600CD1865 /* PokerNavgationViewController.h */,
-				663AF0CC18CEFE6800CD1865 /* PokerSessionTableViewController.h */,
 				66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */,
+				663AF0CC18CEFE6800CD1865 /* PokerSessionTableViewController.h */,
+				667A2CE918D84FBB00FCB319 /* PokerVoteViewController.h */,
 				663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */,
-				663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */,
 				66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */,
+				663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */,
+				667A2CEA18D84FBB00FCB319 /* PokerVoteViewController.m */,
 				663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */,
+				667A2CEC18D84FD500FCB319 /* PokerVoteView.xib */,
 				664CD79218D03AA60031DC4F /* Additional */,
 				66572AC918CF3D4200B0951F /* Data */,
 			);
@@ -863,6 +871,7 @@
 				661AE45B18C48CF400B7A4F5 /* Lato-Light.ttf in Resources */,
 				661AE45918C48CF400B7A4F5 /* Lato-HeavyItalic.ttf in Resources */,
 				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
+				667A2CED18D84FD500FCB319 /* PokerVoteView.xib in Resources */,
 				661AE45718C48CF400B7A4F5 /* Lato-HairlineItalic.ttf in Resources */,
 				66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */,
 				661AE45818C48CF400B7A4F5 /* Lato-Heavy.ttf in Resources */,
@@ -1020,6 +1029,7 @@
 				6671239518D2EA0A00D6E8B5 /* RMUser.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
+				667A2CEB18D84FBB00FCB319 /* PokerVoteViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,

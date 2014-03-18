@@ -39,8 +39,21 @@
     self.summary = @"Test summary";
     
     self.cardValuesTitle = @"Custom";
-    self.cardValues = @[@"ticket 1", @"ticket 2", @"ticket 3"];
-    
+    self.cardValues = @[@"0",
+                        @"½",
+                        @"1",
+                        @"2",
+                        @"3",
+                        @"5",
+                        @"8",
+                        @"13",
+                        @"20",
+                        @"40",
+                        @"100",
+                        @"?",
+                        @"cafe"
+                        ];
+
     self.teamTitle = @"Test team";
     self.teamUsersIDs = @[@141, @176, @170, @195, @208];
     

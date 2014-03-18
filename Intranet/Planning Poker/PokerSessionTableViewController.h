@@ -11,6 +11,8 @@
 #import "TextInputViewController.h"
 #import "CardsTypeTableViewController.h"
 #import "TeamsTableViewController.h"
+#import "PokerVoteViewController.h"
+#import "PlaningPokerViewController.h"
 
 typedef NS_ENUM(NSUInteger, PokerSessionType)
 {

@@ -705,21 +705,6 @@ static CGFloat tabBarHeight;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-/*    if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
-    {
-        UserListCell *cell = (UserListCell *)sender;
-        NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
-        
-        if (indexPath == nil)
-        {
-            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:cell];
-        }
-        
-        currentIndexPath = indexPath;
-        
-        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
-    }
-    else */
     if ([segue.identifier isEqualToString:@"FilterSegue"])
     {
         if (self.filterSelections)
@@ -771,12 +756,6 @@ static CGFloat tabBarHeight;
     ppvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:ppvc];
-    
-    if (BLURED_BACKGROUND)
-    {
-        ppvc.backgroundImage = [self.view.superview.superview.superview convertViewToImage];
-        [nvc setNavigationBarHidden:YES animated:NO];
-    }
     
     [self presentViewController:nvc animated:YES completion:nil];
 }

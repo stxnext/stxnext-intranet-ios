@@ -75,26 +75,8 @@
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
-#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 12
+#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 13
 #define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 0
-
-// GPUImage
-#define COCOAPODS_POD_AVAILABLE_GPUImage
-#define COCOAPODS_VERSION_MAJOR_GPUImage 0
-#define COCOAPODS_VERSION_MINOR_GPUImage 1
-#define COCOAPODS_VERSION_PATCH_GPUImage 2
-
-// LBBlurredImage
-#define COCOAPODS_POD_AVAILABLE_LBBlurredImage
-#define COCOAPODS_VERSION_MAJOR_LBBlurredImage 0
-#define COCOAPODS_VERSION_MINOR_LBBlurredImage 2
-#define COCOAPODS_VERSION_PATCH_LBBlurredImage 0
-
-// NSObject+AutoDescription
-#define COCOAPODS_POD_AVAILABLE_NSObject_AutoDescription
-#define COCOAPODS_VERSION_MAJOR_NSObject_AutoDescription 0
-#define COCOAPODS_VERSION_MINOR_NSObject_AutoDescription 1
-#define COCOAPODS_VERSION_PATCH_NSObject_AutoDescription 0
 
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse

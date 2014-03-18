@@ -16,9 +16,6 @@
 
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UILabel *planingPokerTitleLabel;
-
-- (IBAction)close;
+@property (nonatomic, strong) NSMutableArray *items;
 
 @end

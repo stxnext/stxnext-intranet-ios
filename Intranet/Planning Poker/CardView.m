@@ -26,7 +26,7 @@
 {
     self = [super initWithCoder:aDecoder];
  
-    if(self)
+    if (self)
     {
         [self setup];
     }
@@ -39,7 +39,6 @@
     [[NSBundle mainBundle] loadNibNamed:@"CardView" owner:self options:nil];
     [self addSubview:self.view];
 }
-
 
 - (void)setCardNumbersValue:(NSString *)value
 {

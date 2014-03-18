@@ -8,8 +8,6 @@
 
 #import "PlaningPokerViewController.h"
 #import "CardView.h"
-#import "GPUImage.h"
-#import <LBBlurredImage/UIImageView+LBBlurredImage.h>
 
 #define UnSelectedRadius 700
 #define SelectedRadius 1000
@@ -23,23 +21,20 @@
     BOOL isCardShowed;
     CGFloat vShift;
     CGPoint startPoint;
-    
-    GPUImageView *_blurView;
-    UIView *_backgroundView;
 }
 
 @property (nonatomic, assign) BOOL wrap;
-@property (nonatomic, strong) NSMutableArray *items;
+
 
 @end
 
 
 @implementation PlaningPokerViewController
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -50,20 +45,24 @@
 {
     radius = UnSelectedRadius;
 	_wrap = YES;
-	self.items = [NSMutableArray arrayWithArray:@[@"0",
-                                                  @"½",
-                                                  @"1",
-                                                  @"2",
-                                                  @"3",
-                                                  @"5",
-                                                  @"8",
-                                                  @"13",
-                                                  @"20",
-                                                  @"40",
-                                                  @"100",
-                                                  @"?",
-                                                  @"cafe"
-                                                  ]];
+    
+    if (!self.items)
+    {
+        self.items = [NSMutableArray arrayWithArray:@[@"0",
+                                                      @"½",
+                                                      @"1",
+                                                      @"2",
+                                                      @"3",
+                                                      @"5",
+                                                      @"8",
+                                                      @"13",
+                                                      @"20",
+                                                      @"40",
+                                                      @"100",
+                                                      @"?",
+                                                      @"cafe"
+                                                      ]];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -92,9 +91,7 @@
 	_carousel.dataSource = nil;
 }
 
-#pragma mark -
-#pragma mark View lifecycle
-
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -104,16 +101,9 @@
     _carousel.decelerationRate = 0.8;
 //    _carousel.ignorePerpendicularSwipes = NO;
 
-    if (!BLURED_BACKGROUND)
-    {
-        self.title = @"Planning Poker";
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                                target:self
                                                                                                action:@selector(close)];
-        self.closeButton.hidden = YES;
-        self.planingPokerTitleLabel.hidden = YES;
-    }
     
     selectedIndex = -1;
 }
@@ -123,11 +113,6 @@
     [super viewWillAppear:animated];
 
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
-    if (BLURED_BACKGROUND)
-    {
-        [self showBlurBackground];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -144,12 +129,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-}
-
-- (void)showBlurBackground
-{
-    [self.backgroundImageView setImageToBlur:self.backgroundImage blurRadius:10 completionBlock:nil];
-    self.backgroundImageView.alpha = 0.75;
 }
 
 - (void)viewDidUnload
@@ -398,7 +377,7 @@
 
 - (void)moveCardUp
 {
-    vShift = fabs(self.carousel.center.y - self.view.center.y - (BLURED_BACKGROUND ? 0 : 22));
+    vShift = fabs(self.carousel.center.y - self.view.center.y - 22);
     
     if (!isAnimating)
     {
