@@ -38,15 +38,13 @@
 
     
     [APP_DELEGATE myUserIdWithBlockSuccess:^(NSString *userId) {
+        
         NSArray *teams = [JSONSerializationHelper objectsWithClass:[RMTeam class]
                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                                  ascending:YES
                                                                                                   selector:@selector(localizedCompare:)]
                                                      withPredicate:nil
                                                   inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        
-        
         
         NSNumber *myId = [NSNumber numberWithInt:[userId intValue]];
         
@@ -111,8 +109,6 @@
     } failure:^{
         
     }];
-    
-
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
 }

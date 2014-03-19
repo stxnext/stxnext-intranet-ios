@@ -229,6 +229,7 @@ typedef NS_ENUM(NSUInteger, InputType)
                         if (!datePicker)
                         {
                             [cell performBlockOnAllSubviews:^(UIView *view) {
+                                
                                 if ([view isKindOfClass:[UIDatePicker class]])
                                 {
                                     datePicker = (UIDatePicker *)view;
@@ -309,7 +310,7 @@ typedef NS_ENUM(NSUInteger, InputType)
     {
         PlaningPokerViewController *voteVC = [[PlaningPokerViewController alloc] initWithNibName:@"PlaningPokerViewController" bundle:nil];
         voteVC.title = [self.pokerSession.tickets firstObject];
-        voteVC.items = self.pokerSession.cardValues;
+        voteVC.items = [NSMutableArray arrayWithArray:self.pokerSession.cardValues];
         
         [self.navigationController pushViewController:voteVC animated:YES];
     }

@@ -99,11 +99,11 @@
     
     _carousel.type = iCarouselTypeWheel;
     _carousel.decelerationRate = 0.8;
-//    _carousel.ignorePerpendicularSwipes = NO;
-
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                               target:self
-                                                                                               action:@selector(close)];
+    //    _carousel.ignorePerpendicularSwipes = NO;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                           target:self
+                                                                                           action:@selector(close)];
     
     selectedIndex = -1;
 }
@@ -111,14 +111,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -223,8 +222,21 @@
 {
     if (carousel.viewpointOffset.height > 0)
     {
-        [self flipCard];
-        selectedIndex = index;
+        if (index == selectedIndex)
+        {
+            [self flipCard];
+        }
+        else
+        {
+            [self moveCardDown];
+            selectedIndex = index;
+            
+            [self performBlockOnMainThread:^{
+                
+                [self moveCardUp];
+                
+            } afterDelay:0.4];
+        }
     }
     else
     {
@@ -235,22 +247,22 @@
 
 - (void)carouselWillBeginScrollingAnimation:(iCarousel *)carousel
 {
-
+    
 }
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel
 {
-
+    
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel
 {
-
+    
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
-
+    
 }
 
 - (void)carouselWillBeginDragging:(iCarousel *)carousel
@@ -263,17 +275,17 @@
 
 - (void)carouselDidEndDragging:(iCarousel *)carousel willDecelerate:(BOOL)decelerate
 {
-
+    
 }
 
 - (void)carouselWillBeginDecelerating:(iCarousel *)carousel
 {
-
+    
 }
 
 - (void)carouselDidEndDecelerating:(iCarousel *)carousel
 {
-
+    
 }
 
 - (BOOL)carousel:(iCarousel *)carousel shouldSelectItemAtIndex:(NSInteger)index
@@ -351,14 +363,14 @@
         {
             CGPoint currPoint = [recognizer locationInView:(CardView *)[_carousel itemViewAtIndex:_carousel.currentItemIndex]];
             
-            if (/*abs(startPoint.x - currPoint.x) < 100 && */!isAnimating)
+            if (!isAnimating)
             {
                 if (_carousel.viewpointOffset.height > 0 && (currPoint.y - startPoint.y) > 80)
                 {
                     [self moveCardDown];
                     selectedIndex = _carousel.currentItemIndex;
                 }
-                    else if (_carousel.viewpointOffset.height == 0 && (startPoint.y - currPoint.y) > 80)
+                else if (_carousel.viewpointOffset.height == 0 && (startPoint.y - currPoint.y) > 80)
                 {
                     selectedIndex = _carousel.currentItemIndex;
                     [self moveCardUp];
@@ -369,7 +381,7 @@
             
         default:
         {
-             
+            
         }
             break;
     }
@@ -383,6 +395,7 @@
     {
         isAnimating = YES;
         _carousel.scrollEnabled = NO;
+        
         [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             
             CGSize offset = CGSizeMake(0, vShift);
@@ -410,7 +423,7 @@
     if (!isAnimating)
     {
         isAnimating = YES;
-                _carousel.scrollEnabled = NO;
+        _carousel.scrollEnabled = NO;
         
         if (isCardShowed)
         {
@@ -455,7 +468,7 @@
                         } completion:^(BOOL finished) {
                             
                         }];
-
+        
         isCardShowed = NO;
     }
     else
@@ -473,7 +486,7 @@
                         } completion:^(BOOL finished) {
                             
                         }];
-
+        
         isCardShowed = YES;
     }
 }

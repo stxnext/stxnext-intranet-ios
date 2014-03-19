@@ -7,10 +7,14 @@
 //
 
 #import "PokerSessionsListTableViewController.h"
+#import "PokerSessionManager.h"
 
 @interface PokerSessionsListTableViewController ()
 
-@property (nonatomic, strong) NSArray *sessions;
+@property (nonatomic, strong) PokerSessionManager *sessionsUpcommingSessions;
+@property (nonatomic, strong) PokerSessionManager *sessionsNowSessions;
+@property (nonatomic, strong) PokerSessionManager *sessionsCompletedSessions;
+
 @end
 
 @implementation PokerSessionsListTableViewController
@@ -19,14 +23,16 @@
 {
     [super viewDidLoad];
     
-    self.sessions = @[[NSMutableArray new], [NSMutableArray new], [NSMutableArray new]];
-    
     PokerSession *testSession = [PokerSession new];
     [testSession fillWithTestData];
+
+    self.sessionsUpcommingSessions = [PokerSessionManager new];
+    self.sessionsNowSessions = [PokerSessionManager new];
+    self.sessionsCompletedSessions = [PokerSessionManager new];
     
-    [self.sessions[0] addObject:testSession];
-    [self.sessions[1] addObject:testSession];
-    [self.sessions[2] addObject:testSession];
+    [self.sessionsUpcommingSessions addPokerSession:testSession];
+    [self.sessionsNowSessions addPokerSession:testSession];
+    [self.sessionsCompletedSessions addPokerSession:testSession];
     
     [self.tableView hideEmptySeparators];
 }
@@ -35,29 +41,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3; 
+    return [self numberOfSessionManagers];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.sessions[section] count];
+    return [[self sessionManagerForSection:section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    switch (section)
-    {
-        case 0:
-            return @"Upcoming";
-            
-        case 1:
-            return @"Now";
-
-        case 2:
-            return @"Completed";
-    }
-    
-    return @"";
+    return [self titleForSessionManagerAtSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,8 +66,9 @@
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.text = ((PokerSession *)self.sessions[indexPath.section][indexPath.row]).title;
-    cell.detailTextLabel.text = ((PokerSession *)self.sessions[indexPath.section][indexPath.row]).summary;
+    
+    cell.textLabel.text =  [[self sessionManagerForSection:indexPath.section] pokerSessionAtIndex:indexPath.row].title;
+    cell.detailTextLabel.text =  [[self sessionManagerForSection:indexPath.section] pokerSessionAtIndex:indexPath.row].summary;
     
     return cell;
 }
@@ -81,7 +76,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PokerSessionTableViewController *pokerNewSessionTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PokerNewSessionTableViewControllerId"];
-    pokerNewSessionTVC.pokerSession = self.sessions[indexPath.section][indexPath.row];
+    
+    pokerNewSessionTVC.pokerSession = [[self sessionManagerForSection:indexPath.section] pokerSessionAtIndex:indexPath.row];
+
     pokerNewSessionTVC.pokerSessionType = PokerSessionTypePlay;
     pokerNewSessionTVC.delegate = self;
     
@@ -98,7 +95,7 @@
     }
     else
     {
-        [self.sessions[0] addObject:pokerSession];
+        [self.sessionsUpcommingSessions addPokerSession:pokerSession];
     }
 
     [self.tableView reloadDataAnimated:YES];
@@ -106,19 +103,112 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"QuickPokerId"])
     {
-       ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).pokerSessionType = PokerSessionTypeNewQuick;
-        ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).delegate = self;
+        PokerSessionTableViewController *pokerSesionVC = ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]);
+        
+        pokerSesionVC.pokerSessionType = PokerSessionTypeNewQuick;
+        pokerSesionVC.delegate = self;
     }
     else if ([segue.identifier isEqualToString:@"NormalPokerId"])
     {
-        ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).pokerSessionType = PokerSessionTypeNewNormal;
-        ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]).delegate = self;
+        PokerSessionTableViewController *pokerSesionVC = ((PokerSessionTableViewController *)((UINavigationController *)segue.destinationViewController).viewControllers[0]);
+        
+        pokerSesionVC.pokerSessionType = PokerSessionTypeNewNormal;
+        pokerSesionVC.delegate = self;
     }
+}
+
+#pragma mark - SessionManagers
+
+- (PokerSessionManager *)sessionManagerForSection:(NSUInteger)section
+{
+    switch (section)
+    {
+        case 0:
+        {
+            if (self.sessionsUpcommingSessions.count)
+            {
+                return self.sessionsUpcommingSessions;
+            }
+            else if (self.sessionsNowSessions.count)
+            {
+                return self.sessionsNowSessions;
+            }
+            else if (self.sessionsCompletedSessions.count)
+            {
+                return self.sessionsCompletedSessions;
+            }
+        }
+            break;
+
+        case 1:
+        {
+            if (self.sessionsNowSessions.count)
+            {
+                return self.sessionsNowSessions;
+            }
+            else if (self.sessionsCompletedSessions.count)
+            {
+                return self.sessionsCompletedSessions;
+            }
+        }
+            break;
+
+        case 2:
+        {
+            if (self.sessionsCompletedSessions.count)
+            {
+                return self.sessionsCompletedSessions;
+            }
+        }
+            break;
+
+    }
+    
+    return nil;
+}
+
+- (int)numberOfSessionManagers
+{
+    int result = 0;
+
+    if (self.sessionsUpcommingSessions.count)
+    {
+        result++;
+    }
+    
+    if (self.sessionsNowSessions.count)
+    {
+        result++;
+    }
+    
+    if (self.sessionsCompletedSessions.count)
+    {
+        result++;
+    }
+    
+    return result;
+}
+
+- (NSString *)titleForSessionManagerAtSection:(NSInteger)section
+{
+    if ([self sessionManagerForSection:section] == self.sessionsUpcommingSessions)
+    {
+        return @"Upcoming";
+    }
+    else if ([self sessionManagerForSection:section] == self.sessionsNowSessions)
+    {
+        return @"Now";
+    }
+    else if ([self sessionManagerForSection:section] == self.sessionsCompletedSessions)
+    {
+        return @"Completed";
+    }
+    
+    return nil;
 }
 
 @end

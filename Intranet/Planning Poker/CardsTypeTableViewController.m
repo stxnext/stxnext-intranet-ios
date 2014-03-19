@@ -67,8 +67,7 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-    }
-    
+    }    
     
     if (self.selectedCellIndexPath.row == indexPath.row && self.selectedCellIndexPath.section == indexPath.section)
     {
