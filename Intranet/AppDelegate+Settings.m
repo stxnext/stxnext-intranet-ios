@@ -30,9 +30,8 @@
 //54, Konrad
 //167
 
-- (void)myUserIdWithBlockSuccess:(void (^)(NSString *userId))success
+- (void)myUserIdWithSuccess:(void (^)(NSString *userId))success
                          failure:(void (^)(void))failure
-
 {
     if ([self myUserId])
     {

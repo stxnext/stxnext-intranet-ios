@@ -311,7 +311,7 @@
                 
                 self.title = @"Me";
                 
-                [APP_DELEGATE myUserIdWithBlockSuccess:^(NSString *userId) {
+                [APP_DELEGATE myUserIdWithSuccess:^(NSString *userId) {
                     [self loadMe];
                 } failure:^{
                     

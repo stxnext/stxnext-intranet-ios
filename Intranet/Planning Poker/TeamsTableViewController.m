@@ -36,8 +36,7 @@
     self.teamsInfos = [NSMutableArray new];
     self.teamsMembers = [NSMutableArray new];
 
-    
-    [APP_DELEGATE myUserIdWithBlockSuccess:^(NSString *userId) {
+    [APP_DELEGATE myUserIdWithSuccess:^(NSString *userId) {
         
         NSArray *teams = [JSONSerializationHelper objectsWithClass:[RMTeam class]
                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
