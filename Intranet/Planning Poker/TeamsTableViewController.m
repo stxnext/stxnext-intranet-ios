@@ -12,7 +12,7 @@
 
 
 
-#import "AppDelegate+Settings.h"
+#import "CurrentUser.h"
 #import "APIRequest.h"
 
 
@@ -36,7 +36,11 @@
     self.teamsInfos = [NSMutableArray new];
     self.teamsMembers = [NSMutableArray new];
 
-    [APP_DELEGATE myUserIdWithSuccess:^(NSString *userId) {
+    [[CurrentUser singleton] userIdWithStart:^(NSDictionary *params) {
+        
+    } end:^(NSDictionary *params) {
+        
+    } success:^(NSString *userId) {
         
         NSArray *teams = [JSONSerializationHelper objectsWithClass:[RMTeam class]
                                                 withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -104,8 +108,8 @@
         }
         
         [self.tableView reloadDataAnimated:YES];
-        
-    } failure:^{
+
+    } failure:^(NSDictionary *data) {
         
     }];
     

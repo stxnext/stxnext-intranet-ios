@@ -7,7 +7,7 @@
 //
 
 #import "TeamManager.h"
-#import "AppDelegate+Settings.h"
+#import "CurrentUser.h"
 #import "APIRequest.h"
 
 

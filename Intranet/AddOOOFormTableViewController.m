@@ -9,7 +9,7 @@
 #import "AddOOOFormTableViewController.h"
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
-#import "AppDelegate+Settings.h"
+#import "CurrentUser.h"
 
 typedef enum
 {
@@ -67,7 +67,7 @@ typedef enum
 
 - (IBAction)done:(id)sender
 {
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
+    if ([[CurrentUser singleton] userLoginType] == UserLoginTypeTrue)
     {
         switch (currentRequest)
         {

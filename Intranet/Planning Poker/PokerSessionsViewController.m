@@ -7,7 +7,7 @@
 //
 
 #import "PokerSessionsViewController.h"
-#import "RMUser+CurrentUser.h"
+#import "CurrentUser.h"
 
 @interface PokerSessionsViewController ()
 
@@ -29,14 +29,18 @@
     [super viewWillAppear:animated];
     
     self.parsePerson = nil;
-    self.currentUser = [RMUser loadCurrentUserFromDatabase];
-    
-    if (!_currentUser)
-    {
-        [RMUser loadCurrentUserWithCompletionHandler:^(RMUser *user, NSError *error) {
-            self.currentUser = user;
-        }];
-    }
+        
+    [[CurrentUser singleton] userWithStart:^(NSDictionary *params) {
+        
+    } end:^(NSDictionary *params) {
+        
+    } success:^(RMUser *user) {
+        
+        self.currentUser = user;
+        
+    } failure:^(NSDictionary *data) {
+        
+    }];
 }
 
 - (void)setCurrentUser:(RMUser *)currentUser

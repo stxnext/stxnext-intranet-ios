@@ -11,7 +11,7 @@
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
-#import "AppDelegate+Settings.h"
+#import "CurrentUser.h"
 
 @interface UserDetailsTableViewController ()
 {
@@ -200,7 +200,7 @@
 
 - (IBAction)logout:(id)sender
 {
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse)
+    if ([[CurrentUser singleton] userLoginType] == UserLoginTypeFalse)
     {
         [[HTTPClient sharedClient] deleteCookies];
         
@@ -218,7 +218,7 @@
         
         self.user = nil;
         
-        [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+        [[CurrentUser singleton] setLoginType:UserLoginTypeNO];
         
         if (!INTERFACE_IS_PAD)
         {
@@ -256,9 +256,9 @@
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
                                                   self.user = nil;
-                                                  [APP_DELEGATE setMyUserId:nil];
+                                                  [[CurrentUser singleton] setUserId:nil start:nil end:nil success:nil failure:nil];
                                                   
-                                                  [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+                                                  [[CurrentUser singleton] setLoginType:UserLoginTypeNO];
                                                   
                                                   if (!INTERFACE_IS_PAD)
                                                   {
@@ -301,7 +301,7 @@
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(logout:)];
-        if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
+        if ([[CurrentUser singleton] userLoginType] == UserLoginTypeTrue)
         {
             if (!self.user)
             {
@@ -310,9 +310,13 @@
                 
                 self.title = @"Me";
                 
-                [APP_DELEGATE myUserIdWithSuccess:^(NSString *userId) {
+                [[CurrentUser singleton] userIdWithStart:^(NSDictionary *params) {
+                    
+                } end:^(NSDictionary *params) {
+                    
+                } success:^(NSString *userId) {
                     [self loadMe];
-                } failure:^{
+                } failure:^(NSDictionary *data) {
                     
                 }];
             }
@@ -342,17 +346,23 @@
 
 - (void)loadMe
 {
-    NSString *userID = [APP_DELEGATE myUserId];
-    
-    self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
-                                              withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
-                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-    
-    [self removeEmptyView];
-    self.tableView.scrollEnabled = YES;
-    
-    [self updateGUI];
-    [self.tableView reloadData];
+    [[CurrentUser singleton] userWithStart:^(NSDictionary *params) {
+        
+    } end:^(NSDictionary *params) {
+        
+        [self removeEmptyView];
+        self.tableView.scrollEnabled = YES;
+        
+        [self updateGUI];
+        [self.tableView reloadData];
+        
+    } success:^(RMUser *user) {
+        
+        self.user = user;
+        
+    } failure:^(NSDictionary *data) {
+        
+    }];
 }
 
 - (void)updateGUI
@@ -524,7 +534,7 @@
     
     self.explanationLabel.text = text;
     
-    if (self.navigationController.viewControllers.count <= 1 || [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    if (self.navigationController.viewControllers.count <= 1 || [[CurrentUser singleton] userLoginType] != UserLoginTypeTrue)
     {
         self.addToContactsCell.hidden = YES;
     }

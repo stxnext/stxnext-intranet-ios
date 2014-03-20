@@ -13,7 +13,7 @@
 #import "UserDetailsTableViewController.h"
 #import "PlaningPokerViewController.h"
 #import "UIView+Screenshot.h"
-#import "AppDelegate+Settings.h"
+#import "CurrentUser.h"
 
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
@@ -54,12 +54,12 @@ static CGFloat tabBarHeight;
     self.title = @"All";
     
     //update data
-    if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
+    if ([[CurrentUser singleton] userLoginType] != UserLoginTypeNO)
     {
         [self loadUsersFromAPIWithNotification];
     }
     
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse || [APP_DELEGATE userLoggedType] == UserLoginTypeError)
+    if ([[CurrentUser singleton] userLoginType] == UserLoginTypeFalse || [[CurrentUser singleton] userLoginType] == UserLoginTypeError)
     {
         [self.tabBarController.tabBar.items[2] setTitle:@"About"];
     }
@@ -80,7 +80,7 @@ static CGFloat tabBarHeight;
 {
     [super viewDidAppear:animated];
     
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeNO)
+    if ([[CurrentUser singleton] userLoginType] == UserLoginTypeNO)
     {
         [self showLoginScreen];
     }
@@ -118,7 +118,7 @@ static CGFloat tabBarHeight;
     [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:code]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // We expect 302
-                                          [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
+                                          [[CurrentUser singleton] setLoginType:UserLoginTypeError];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
@@ -130,7 +130,7 @@ static CGFloat tabBarHeight;
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
+                                              [[CurrentUser singleton] setLoginType:UserLoginTypeTrue];
                                               
                                               [self.tabBarController.tabBar.items[2] setTitle:@"Me"];
                                               
@@ -139,7 +139,7 @@ static CGFloat tabBarHeight;
                                           else
                                           {
                                               //error with login (e.g. account not exists)
-                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeFalse];
+                                              [[CurrentUser singleton] setLoginType:UserLoginTypeFalse];
                                               
                                               [self.tabBarController.tabBar.items[2] setTitle:@"About"];
                                               
@@ -184,31 +184,6 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromDatabase
 {
-    /*
-    {
-        NSArray *teams = [JSONSerializationHelper objectsWithClass:[RMTeam class]
-                                                withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                                 ascending:YES
-                                                                                                  selector:@selector(localizedCompare:)]
-                                                     withPredicate:nil
-                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        
-//        for (RMTeam *team in teams)
-//        {
-//            NSLog(@"team name %@", team.name);
-//            NSLog(@"team id %i", [team.id intValue]);
-//            
-//            for (RMUser *user in team.users)
-//            {
-//                NSLog(@"team user %@", user.name);
-//            }
-//            NSLog(@" " );
-//        }
-
-    }
-    */
-    
     DDLogInfo(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -217,18 +192,6 @@ static CGFloat tabBarHeight;
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-    /*
-    for (RMUser *user in users)
-    {
-        NSLog(@"USER %@", user.name);
-        for (RMTeam *team in user.teams)
-        {
-            NSLog(@"TEAM %@", team.name);
-        }
-        
-        NSLog(@" ");
-    }
-    */
     
     self.filterStructure = [[NSMutableArray alloc] init];
     
@@ -439,7 +402,7 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
+    [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database
                                           @synchronized (self)
@@ -485,7 +448,7 @@ static CGFloat tabBarHeight;
                                           [self loadUsersFromDatabase];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
+    [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database'
 
@@ -536,7 +499,7 @@ static CGFloat tabBarHeight;
                                           [self loadUsersFromDatabase];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getTeams] : [APIRequest getFalseTeams]
+    [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getTeams] : [APIRequest getFalseTeams]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // Delete from database'
                                           
@@ -686,7 +649,6 @@ static CGFloat tabBarHeight;
     
     if (INTERFACE_IS_PAD)
     {
-//        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil] instantiateViewControllerWithIdentifier:@"NoSelectionUserDetails"];
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:userDetailsTVC];
         nvc.navigationBar.tintColor = MAIN_APP_COLOR;
         self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
