@@ -84,23 +84,11 @@
 #define COCOAPODS_VERSION_MINOR_Parse 2
 #define COCOAPODS_VERSION_PATCH_Parse 18
 
-// UIAlertView+Blocks
-#define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
-#define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
-#define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
-#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
-
 // XCAsyncTestCase
 #define COCOAPODS_POD_AVAILABLE_XCAsyncTestCase
 #define COCOAPODS_VERSION_MAJOR_XCAsyncTestCase 0
 #define COCOAPODS_VERSION_MINOR_XCAsyncTestCase 0
 #define COCOAPODS_VERSION_PATCH_XCAsyncTestCase 1
-
-// google-plus-ios-sdk
-#define COCOAPODS_POD_AVAILABLE_google_plus_ios_sdk
-#define COCOAPODS_VERSION_MAJOR_google_plus_ios_sdk 1
-#define COCOAPODS_VERSION_MINOR_google_plus_ios_sdk 4
-#define COCOAPODS_VERSION_PATCH_google_plus_ios_sdk 1
 
 // iCarousel
 #define COCOAPODS_POD_AVAILABLE_iCarousel

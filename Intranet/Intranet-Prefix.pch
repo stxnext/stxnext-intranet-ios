@@ -11,9 +11,10 @@
 #endif
 
 #ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import "IGLibraryHelper.h"
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
@@ -36,8 +37,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #endif
 
 // External headers
-#import <GooglePlus/GooglePlus.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>
 #import "AsyncSocket.h"
@@ -46,20 +45,13 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 // Custom categories
 #import "AppDelegate+Modals.h"
 #import "NSError+CustomError.h"
-#import "UITableView+Additions.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+NetworkCookies.h"
-#import "UIView+Additions.h"
-#import "NSDate+Additions.h"
 
 // Custom headers
 #import "Database.h"
-#import "GooglePlusConfig.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
-#import "UIAlertView+CustomAlert.h"
-#import "UIAlertView+Blocks.h"
-#import "NSObject+DelayedBlocks.h"
 #import "PFModels.h"
 
 // Convenience functions

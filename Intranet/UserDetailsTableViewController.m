@@ -125,7 +125,7 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Error" withText:alertText];
+        [UIAlertView showErrorWithMessage:alertText handler:nil];
     }
 }
 
@@ -156,8 +156,7 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Error"
-                           withText:@"Email app not found."];
+        [UIAlertView showErrorWithMessage:@"Email app not found." handler:nil];
     }
 }
 

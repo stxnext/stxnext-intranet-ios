@@ -105,12 +105,7 @@ typedef enum
                 {
                     if (![[from componentsSeparatedByString:@"/"][1] isEqualToString:[to componentsSeparatedByString:@"/"][1]])
                     {
-                        [UIAlertView showWithTitle:@"Info"
-                                           message:@"Please split the date into 2 months."
-                                             style:UIAlertViewStyleDefault
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
+                        [UIAlertView showInfoWithMessage:@"Please split the date into 2 months." handler:nil];
                         
                         return;
                     }
@@ -132,22 +127,12 @@ typedef enum
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-                        [UIAlertView showWithTitle:@"Error"
-                                           message:@"Request has not been added. Please try again."
-                                             style:UIAlertViewStyleDefault
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
+                        [UIAlertView showErrorWithMessage:@"Request has not been added. Please try again." handler:nil];
                     }];
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
-                                         style:UIAlertViewStyleDefault
-                             cancelButtonTitle:nil
-                             otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                             }];
+                    [UIAlertView showInfoWithMessage:@"All fields required." handler:nil];
                 }
             }
                 break;
@@ -181,22 +166,12 @@ typedef enum
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-                        [UIAlertView showWithTitle:@"Error"
-                                           message:@"Request has not been added. Please try again."
-                                             style:UIAlertViewStyleDefault
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
+                           [UIAlertView showErrorWithMessage:@"Request has not been added. Please try again." handler:nil];
                     }];
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
-                                         style:UIAlertViewStyleDefault
-                             cancelButtonTitle:nil
-                             otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                             }];
+                    [UIAlertView showErrorWithMessage:@"All fields required." handler:nil];
                 }
             }
                 break;

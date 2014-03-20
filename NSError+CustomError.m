@@ -10,7 +10,7 @@
 
 @implementation NSError (CustomError)
 
-+ (NSError*)errorWithDomain:(NSString*)domain localizedDescription:(NSString*)description code:(NSInteger)code
++ (NSError *)errorWithDomain:(NSString *)domain localizedDescription:(NSString *)description code:(NSInteger)code
 {
     return [NSError errorWithDomain:domain code:code userInfo:@{ NSLocalizedDescriptionKey : description }];
 }

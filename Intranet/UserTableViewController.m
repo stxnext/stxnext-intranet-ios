@@ -639,17 +639,13 @@ static CGFloat tabBarHeight;
     
     if (number == 0 && canShowNoResultsMessage)
     {
-        [UIAlertView showWithTitle:@"Info"
-                           message:@"Nothing to show."
-                             style:UIAlertViewStyleDefault
-                 cancelButtonTitle:nil
-                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                     canShowNoResultsMessage = NO;
-                     [self performBlockOnMainThread:^{
-                         self.filterSelections = nil;
-                         [self loadUsersFromDatabase];
-                     } afterDelay:0.75];
-                 }];
+        [UIAlertView showErrorWithMessage:@"Nothing to show." handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            canShowNoResultsMessage = NO;
+            [self performBlockOnMainThread:^{
+                self.filterSelections = nil;
+                [self loadUsersFromDatabase];
+            } afterDelay:0.75];
+        }];
     }
     
     if (number)

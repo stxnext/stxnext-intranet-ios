@@ -28,13 +28,11 @@
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C86BF4918D334EE00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
 		0C86BF4E18D3487C00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
-		0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */; };
 		0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
 		0C9D7C8E18D31BA3009E8010 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0C9D7C8F18D31BA3009E8010 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
 		0C9D7C9518D31BA3009E8010 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9318D31BA3009E8010 /* InfoPlist.strings */; };
 		0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */; };
-		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
 		0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */; };
 		0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
@@ -67,7 +65,6 @@
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
-		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
 		6613916518D9D4D70044BAA7 /* PokerSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6613916418D9D4D70044BAA7 /* PokerSessionManager.m */; };
 		661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */; };
@@ -91,15 +88,12 @@
 		661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */; };
 		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
-		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		663AF0C518CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */; };
 		663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */; };
 		663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */; };
-		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6645EF5E18D1E46F00B84371 /* TeamManager.m */; };
 		664CD79618D0932E0031DC4F /* TeamsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CD79418D0932E0031DC4F /* TeamsTableViewController.m */; };
-		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66572AC818CF2E8400B0951F /* TextInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66572AC718CF2E8400B0951F /* TextInputViewController.xib */; };
 		66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACB18CF3D5400B0951F /* PokerSession.m */; };
 		66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66572ACE18CF44E100B0951F /* CardsTypeTableViewController.m */; };
@@ -119,7 +113,9 @@
 		66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D318A4D0ED00049C37 /* Images.xcassets */; };
 		66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D518A4D0ED00049C37 /* CardView.m */; };
 		66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D618A4D0ED00049C37 /* CardView.xib */; };
-		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
+		66CCD41118DB0B5E00531622 /* libHelperLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CCD40818DB0B5E00531622 /* libHelperLibrary.a */; };
+		66CCD41218DB0B5E00531622 /* IGConcreteObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CCD40E18DB0B5E00531622 /* IGConcreteObject.m */; };
+		66CCD41318DB0B5E00531622 /* IGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CCD41018DB0B5E00531622 /* IGObject.m */; };
 		66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */; };
 		66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54D18CF293200C14F5D /* TextInputViewController.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
@@ -182,16 +178,11 @@
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
 		0C86BF4718D334EE00988E3D /* TCPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPClient.m; sourceTree = "<group>"; };
 		0C86BF4818D334EE00988E3D /* TCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPClient.h; sourceTree = "<group>"; };
-		0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+CustomAlert.h"; sourceTree = "<group>"; };
-		0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+CustomAlert.m"; sourceTree = "<group>"; };
 		0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Intranet Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9D7C9218D31BA3009E8010 /* Intranet Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Intranet Tests-Info.plist"; sourceTree = "<group>"; };
 		0C9D7C9418D31BA3009E8010 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Intranet_Tests.m; sourceTree = "<group>"; };
 		0C9D7C9818D31BA3009E8010 /* Intranet Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Intranet Tests-Prefix.pch"; sourceTree = "<group>"; };
-		0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlusConfig.h; sourceTree = "<group>"; };
-		0C9E8724181EA39800E90F5E /* GooglePlusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusClient.h; sourceTree = "<group>"; };
-		0C9E8725181EA39800E90F5E /* GooglePlusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusClient.m; sourceTree = "<group>"; };
 		0CE37C49181E8ED10087C96E /* STX Intranet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STX Intranet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C4C181E8ED10087C96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -251,8 +242,6 @@
 		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
 		66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewController.h; sourceTree = "<group>"; };
 		66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewController.m; sourceTree = "<group>"; };
-		66063DCC182149C700C30C93 /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
-		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		660DE6AF189A32E700E1905D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		660DE6B0189A32E700E1905D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		6613916318D9D4D70044BAA7 /* PokerSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionManager.h; sourceTree = "<group>"; };
@@ -281,8 +270,6 @@
 		6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTypeTableViewController.m; sourceTree = "<group>"; };
 		6627C82918BC89F2003893EB /* ExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplanationViewController.h; sourceTree = "<group>"; };
 		6627C82A18BC89F2003893EB /* ExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplanationViewController.m; sourceTree = "<group>"; };
-		6627C82C18BCAAD9003893EB /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
-		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
 		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
 		663AF0C418CEF08E00CD1865 /* PlanningPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlanningPokerStoryboard.storyboard; sourceTree = "<group>"; };
@@ -290,14 +277,10 @@
 		663AF0C718CEF53600CD1865 /* PokerNavgationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerNavgationViewController.m; sourceTree = "<group>"; };
 		663AF0CC18CEFE6800CD1865 /* PokerSessionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionTableViewController.h; sourceTree = "<group>"; };
 		663AF0CD18CEFE6800CD1865 /* PokerSessionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionTableViewController.m; sourceTree = "<group>"; };
-		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
-		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		6645EF5D18D1E46F00B84371 /* TeamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamManager.h; sourceTree = "<group>"; };
 		6645EF5E18D1E46F00B84371 /* TeamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamManager.m; sourceTree = "<group>"; };
 		664CD79318D0932E0031DC4F /* TeamsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsTableViewController.h; sourceTree = "<group>"; };
 		664CD79418D0932E0031DC4F /* TeamsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsTableViewController.m; sourceTree = "<group>"; };
-		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
-		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		66572AC718CF2E8400B0951F /* TextInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextInputViewController.xib; sourceTree = "<group>"; };
 		66572ACA18CF3D5400B0951F /* PokerSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSession.h; sourceTree = "<group>"; };
 		66572ACB18CF3D5400B0951F /* PokerSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSession.m; sourceTree = "<group>"; };
@@ -328,8 +311,40 @@
 		66BFF3D418A4D0ED00049C37 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
 		66BFF3D518A4D0ED00049C37 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
 		66BFF3D618A4D0ED00049C37 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
-		66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
-		66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		66CCD3EB18DB0B5D00531622 /* IGLibraryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGLibraryHelper.h; sourceTree = "<group>"; };
+		66CCD3EC18DB0B5D00531622 /* NSDate+Creation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Creation.h"; sourceTree = "<group>"; };
+		66CCD3ED18DB0B5D00531622 /* NSDate-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3EE18DB0B5D00531622 /* NSObject+Creation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Creation.h"; sourceTree = "<group>"; };
+		66CCD3EF18DB0B5D00531622 /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
+		66CCD3F018DB0B5D00531622 /* NSObject-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3F118DB0B5D00531622 /* NSString+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Conversion.h"; sourceTree = "<group>"; };
+		66CCD3F218DB0B5D00531622 /* NSString+Validation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Validation.h"; sourceTree = "<group>"; };
+		66CCD3F318DB0B5D00531622 /* NSString-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3F418DB0B5D00531622 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		66CCD3F518DB0B5D00531622 /* UIAlertView-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3F618DB0B5D00531622 /* UIColor+Creation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Creation.h"; sourceTree = "<group>"; };
+		66CCD3F718DB0B5D00531622 /* UIColor-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3F818DB0B5D00531622 /* UIDevice+Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Version.h"; sourceTree = "<group>"; };
+		66CCD3F918DB0B5D00531622 /* UIDevice-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3FA18DB0B5D00531622 /* UIImage+Creation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Creation.h"; sourceTree = "<group>"; };
+		66CCD3FB18DB0B5D00531622 /* UIImage-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3FC18DB0B5D00531622 /* UILabel+Dimension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dimension.h"; sourceTree = "<group>"; };
+		66CCD3FD18DB0B5D00531622 /* UILabel-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3FE18DB0B5D00531622 /* UIScreen+IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD3FF18DB0B5D00531622 /* UIScreen-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD40018DB0B5D00531622 /* UITableView+Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Action.h"; sourceTree = "<group>"; };
+		66CCD40118DB0B5E00531622 /* UITableView-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD40218DB0B5E00531622 /* UIView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Blocks.h"; sourceTree = "<group>"; };
+		66CCD40318DB0B5E00531622 /* UIView+Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Logging.h"; sourceTree = "<group>"; };
+		66CCD40418DB0B5E00531622 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		66CCD40518DB0B5E00531622 /* UIView-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD40618DB0B5E00531622 /* UIViewController+IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD40718DB0B5E00531622 /* UIViewController-IGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController-IGAdditions.h"; sourceTree = "<group>"; };
+		66CCD40818DB0B5E00531622 /* libHelperLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHelperLibrary.a; sourceTree = "<group>"; };
+		66CCD40D18DB0B5E00531622 /* IGConcreteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGConcreteObject.h; sourceTree = "<group>"; };
+		66CCD40E18DB0B5E00531622 /* IGConcreteObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGConcreteObject.m; sourceTree = "<group>"; };
+		66CCD40F18DB0B5E00531622 /* IGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGObject.h; sourceTree = "<group>"; };
+		66CCD41018DB0B5E00531622 /* IGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGObject.m; sourceTree = "<group>"; };
 		66D0F54418CF185100C14F5D /* PokerSessionsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionsListTableViewController.h; sourceTree = "<group>"; };
 		66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionsListTableViewController.m; sourceTree = "<group>"; };
 		66D0F54C18CF293200C14F5D /* TextInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputViewController.h; sourceTree = "<group>"; };
@@ -369,6 +384,7 @@
 				0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */,
 				0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */,
 				0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */,
+				66CCD41118DB0B5E00531622 /* libHelperLibrary.a in Frameworks */,
 				024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,16 +469,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0C9E8722181EA27200E90F5E /* GooglePlus */ = {
-			isa = PBXGroup;
-			children = (
-				0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */,
-				0C9E8724181EA39800E90F5E /* GooglePlusClient.h */,
-				0C9E8725181EA39800E90F5E /* GooglePlusClient.m */,
-			);
-			name = GooglePlus;
-			sourceTree = "<group>";
-		};
 		0C9E8727181EA9C900E90F5E /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,8 +493,10 @@
 			children = (
 				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
+				66CCD3E818DB0B5D00531622 /* IGHelperLibrary */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
 				0C9D7C9018D31BA3009E8010 /* Intranet Tests */,
+				66CCD40918DB0B5E00531622 /* Model */,
 				0CE37C4A181E8ED10087C96E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -526,7 +534,6 @@
 				0CF7CACC181FF2F400AAB9D4 /* Categories */,
 				0CF44E89181FE4BB005CC12B /* Controllers */,
 				0CF7FA471821449D0056F907 /* Database */,
-				0CF7CACD181FF30000AAB9D4 /* Externals */,
 				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* Network */,
 				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
@@ -603,33 +610,13 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
-				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
-				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
-				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
 				661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */,
-				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
-				66515F1818B38A7700092BB2 /* UIView+Additions.h */,
-				66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
-				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
-				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
-				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
 				661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */,
-				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
-				66515F1918B38A7700092BB2 /* UIView+Additions.m */,
-				66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */,
 			);
 			name = Categories;
-			sourceTree = "<group>";
-		};
-		0CF7CACD181FF30000AAB9D4 /* Externals */ = {
-			isa = PBXGroup;
-			children = (
-				0C9E8722181EA27200E90F5E /* GooglePlus */,
-			);
-			name = Externals;
 			sourceTree = "<group>";
 		};
 		0CF7FA471821449D0056F907 /* Database */ = {
@@ -737,6 +724,94 @@
 				66D0F54218CF17E200C14F5D /* Old */,
 			);
 			path = "Planning Poker";
+			sourceTree = "<group>";
+		};
+		66CCD3E818DB0B5D00531622 /* IGHelperLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				66CCD3E918DB0B5D00531622 /* include */,
+				66CCD40818DB0B5E00531622 /* libHelperLibrary.a */,
+			);
+			path = IGHelperLibrary;
+			sourceTree = "<group>";
+		};
+		66CCD3E918DB0B5D00531622 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				66CCD3EA18DB0B5D00531622 /* HelperLibrary */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		66CCD3EA18DB0B5D00531622 /* HelperLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				66CCD3EB18DB0B5D00531622 /* IGLibraryHelper.h */,
+				66CCD3EC18DB0B5D00531622 /* NSDate+Creation.h */,
+				66CCD3ED18DB0B5D00531622 /* NSDate-IGAdditions.h */,
+				66CCD3EE18DB0B5D00531622 /* NSObject+Creation.h */,
+				66CCD3EF18DB0B5D00531622 /* NSObject+DelayedBlocks.h */,
+				66CCD3F018DB0B5D00531622 /* NSObject-IGAdditions.h */,
+				66CCD3F118DB0B5D00531622 /* NSString+Conversion.h */,
+				66CCD3F218DB0B5D00531622 /* NSString+Validation.h */,
+				66CCD3F318DB0B5D00531622 /* NSString-IGAdditions.h */,
+				66CCD3F418DB0B5D00531622 /* UIAlertView+Blocks.h */,
+				66CCD3F518DB0B5D00531622 /* UIAlertView-IGAdditions.h */,
+				66CCD3F618DB0B5D00531622 /* UIColor+Creation.h */,
+				66CCD3F718DB0B5D00531622 /* UIColor-IGAdditions.h */,
+				66CCD3F818DB0B5D00531622 /* UIDevice+Version.h */,
+				66CCD3F918DB0B5D00531622 /* UIDevice-IGAdditions.h */,
+				66CCD3FA18DB0B5D00531622 /* UIImage+Creation.h */,
+				66CCD3FB18DB0B5D00531622 /* UIImage-IGAdditions.h */,
+				66CCD3FC18DB0B5D00531622 /* UILabel+Dimension.h */,
+				66CCD3FD18DB0B5D00531622 /* UILabel-IGAdditions.h */,
+				66CCD3FE18DB0B5D00531622 /* UIScreen+IGAdditions.h */,
+				66CCD3FF18DB0B5D00531622 /* UIScreen-IGAdditions.h */,
+				66CCD40018DB0B5D00531622 /* UITableView+Action.h */,
+				66CCD40118DB0B5E00531622 /* UITableView-IGAdditions.h */,
+				66CCD40218DB0B5E00531622 /* UIView+Blocks.h */,
+				66CCD40318DB0B5E00531622 /* UIView+Logging.h */,
+				66CCD40418DB0B5E00531622 /* UIView+Screenshot.h */,
+				66CCD40518DB0B5E00531622 /* UIView-IGAdditions.h */,
+				66CCD40618DB0B5E00531622 /* UIViewController+IGAdditions.h */,
+				66CCD40718DB0B5E00531622 /* UIViewController-IGAdditions.h */,
+			);
+			path = HelperLibrary;
+			sourceTree = "<group>";
+		};
+		66CCD40918DB0B5E00531622 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				66CCD40A18DB0B5E00531622 /* Data Store */,
+				66CCD40B18DB0B5E00531622 /* Network */,
+				66CCD40C18DB0B5E00531622 /* Objects */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		66CCD40A18DB0B5E00531622 /* Data Store */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Data Store";
+			sourceTree = "<group>";
+		};
+		66CCD40B18DB0B5E00531622 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		66CCD40C18DB0B5E00531622 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				66CCD40D18DB0B5E00531622 /* IGConcreteObject.h */,
+				66CCD40E18DB0B5E00531622 /* IGConcreteObject.m */,
+				66CCD40F18DB0B5E00531622 /* IGObject.h */,
+				66CCD41018DB0B5E00531622 /* IGObject.m */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		66D0F54218CF17E200C14F5D /* Old */ = {
@@ -985,8 +1060,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6671239618D2EA4D00D6E8B5 /* RMTeam.m in Sources */,
-				6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */,
-				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
@@ -997,12 +1070,10 @@
 				6671238C18D2E8AB00D6E8B5 /* RMAbsence+Additions.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
-				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */,
 				0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */,
-				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */,
@@ -1012,9 +1083,8 @@
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
-				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
+				66CCD41318DB0B5E00531622 /* IGObject.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
-				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
@@ -1022,7 +1092,6 @@
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
-				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
 				663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
@@ -1049,6 +1118,7 @@
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
 				6613916518D9D4D70044BAA7 /* PokerSessionManager.m in Sources */,
+				66CCD41218DB0B5E00531622 /* IGConcreteObject.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 				0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */,
 				6671238F18D2E8CE00D6E8B5 /* RMTeam+Additions.m in Sources */,
@@ -1265,6 +1335,10 @@
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IGHelperLibrary",
+				);
 				PRODUCT_NAME = "STX Intranet";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1283,6 +1357,10 @@
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IGHelperLibrary",
+				);
 				PRODUCT_NAME = "STX Intranet";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

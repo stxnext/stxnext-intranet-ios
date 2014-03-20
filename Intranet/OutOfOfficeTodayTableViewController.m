@@ -113,12 +113,7 @@
     
     if (count == 0)
     {
-        [UIAlertView showWithTitle:@"Info"
-                           message:@"Nothing to show."
-                             style:UIAlertViewStyleDefault
-                 cancelButtonTitle:nil
-                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                 }];
+        [UIAlertView showInfoWithMessage:@"Nothing to show." handler:nil];
     }
     
     return number;
@@ -260,13 +255,8 @@
 {
     if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && ![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        [UIAlertView showWithTitle:@"Error"
-                           message:@"No Internet connection."
-                             style:UIAlertViewStyleDefault
-                 cancelButtonTitle:nil
-                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                 }];
-
+        [UIAlertView showErrorWithMessage:@"No Internet connection." handler:nil];
+        
         return NO;
     }
     
