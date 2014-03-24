@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "APIRequest.h"
 
 #define kGoogleAuthSignInURL @"https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&redirect_uri=https%3A%2F%2Fintranet.stxnext.pl%2Fauth%2Fcallback&response_type=code&client_id=83120712902.apps.googleusercontent.com&access_type=offline"
 
@@ -72,16 +73,47 @@
     _isFinished = YES;
     
     // Call delegate
-    [_delegate finishedLoginWithCode:_code withError:nil];
-    
-    // Dismiss modal
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        [self close];
-    });
-    
+//    [_delegate finishedLoginWithCode:_code withError:nil];
+
+    [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:_code]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          
+                                          // We expect 302
+                                          [[CurrentUser singleton] setLoginType:UserLoginTypeError];
+                                          
+                                                [self.delegate loginViewController:self finishedLoginWithUserLoginType:UserLoginTypeError];
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:operation.response.allHeaderFields
+                                                                                                    forURL:operation.response.URL];
+                                          
+                                          [[HTTPClient sharedClient] saveCookies:cookies];
+                                          
+
+                                          // If redirected properly
+                                          if (operation.response.statusCode == 302 && cookies)
+                                          {
+                                              [[CurrentUser singleton] setLoginType:UserLoginTypeTrue];
+                                              
+                                              [self.delegate loginViewController:self finishedLoginWithUserLoginType:UserLoginTypeTrue];
+                                          }
+                                          else
+                                          {
+                                              [[CurrentUser singleton] setLoginType:UserLoginTypeFalse];
+                                              
+                                              [self.delegate loginViewController:self finishedLoginWithUserLoginType:UserLoginTypeFalse];
+                                          }
+                                          
+                                          // Dismiss modal
+                                          double delayInSeconds = 1.0;
+                                          dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                                          dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                                              
+                                              [self close];
+                                          });
+                                      }];
+
     // Prevent any further calls
     return NO;
 }

@@ -46,8 +46,8 @@
         <relationship name="teams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="users" inverseEntity="Team" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Absence" positionX="27" positionY="123" width="128" height="120"/>
-        <element name="Late" positionX="486" positionY="99" width="128" height="135"/>
+        <element name="Absence" positionX="27" positionY="123" width="128" height="118"/>
+        <element name="Late" positionX="486" positionY="99" width="128" height="133"/>
         <element name="Team" positionX="-146" positionY="-484" width="128" height="88"/>
         <element name="User" positionX="216" positionY="-558" width="128" height="388"/>
     </elements>

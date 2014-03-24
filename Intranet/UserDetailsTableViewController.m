@@ -200,25 +200,13 @@
 
 - (IBAction)logout:(id)sender
 {
-    if ([[CurrentUser singleton] userLoginType] == UserLoginTypeFalse)
-    {
-        [[HTTPClient sharedClient] deleteCookies];
+    [[CurrentUser singleton] logoutUserWithStart:^(NSDictionary *params) {
         
-        // delete all cookies (to remove Google login cookies)
-        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    } end:^(NSDictionary *params) {
         
-        for (NSHTTPCookie *cookie in storage.cookies)
-        {
-            [storage deleteCookie:cookie];
-        }
-        
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    } success:^(NSDictionary *params) {
         
         self.user = nil;
-        
-        [[CurrentUser singleton] setLoginType:UserLoginTypeNO];
         
         if (!INTERFACE_IS_PAD)
         {
@@ -228,53 +216,9 @@
         {
             [APP_DELEGATE showLoginScreenForiPad];
         }
-    }
-    else
-    {
-        [[HTTPClient sharedClient] startOperation:[APIRequest logout]
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              // logout error
-                                              
-                                              // We expect 302
-                                          }
-                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              if ([operation redirectToLoginView])
-                                              {
-                                                  [[HTTPClient sharedClient] deleteCookies];
-                                                  
-                                                  // delete all cookies (to remove Google login cookies)
-                                                  
-                                                  NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-                                                  
-                                                  for (NSHTTPCookie *cookie in storage.cookies)
-                                                  {
-                                                      [storage deleteCookie:cookie];
-                                                  }
-                                                  
-                                                  [[NSURLCache sharedURLCache] removeAllCachedResponses];
-                                                  
-                                                  [[NSUserDefaults standardUserDefaults] synchronize];
-                                                  
-                                                  self.user = nil;
-                                                  [[CurrentUser singleton] setUserId:nil start:nil end:nil success:nil failure:nil];
-                                                  
-                                                  [[CurrentUser singleton] setLoginType:UserLoginTypeNO];
-                                                  
-                                                  if (!INTERFACE_IS_PAD)
-                                                  {
-                                                      [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
-                                                  }
-                                                  else
-                                                  {
-                                                      [APP_DELEGATE showLoginScreenForiPad];
-                                                  }
-                                              }
-                                              else
-                                              {
-                                                  // logout error
-                                              }
-                                          }];
-    }
+    } failure:^(NSDictionary *data) {
+        
+    }];
 }
 
 #pragma mark - GUI

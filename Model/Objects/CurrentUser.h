@@ -18,6 +18,8 @@ typedef NS_ENUM(NSUInteger, UserLoginType)
 
 @interface CurrentUser : IGObject
 
++ (instancetype)singleton;
+
 - (void)setLoginType:(UserLoginType)userLoginType;
 - (UserLoginType)userLoginType;
 
@@ -36,5 +38,16 @@ typedef NS_ENUM(NSUInteger, UserLoginType)
                   end:(void (^)(NSDictionary *params))endActions
               success:(void (^)(RMUser *user))success
               failure:(void (^)(NSDictionary *data))failure;
+
+
+- (void)loginUserWithStart:(void (^)(NSDictionary *params))startActions
+                       end:(void (^)(NSDictionary *params))endActions
+                   success:(void (^)(NSDictionary *params))success
+                   failure:(void (^)(NSDictionary *data))failure;
+
+- (void)logoutUserWithStart:(void (^)(NSDictionary *params))startActions
+                        end:(void (^)(NSDictionary *params))endActions
+                    success:(void (^)(NSDictionary *params))success
+                    failure:(void (^)(NSDictionary *data))failure;
 
 @end

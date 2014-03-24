@@ -16,12 +16,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
     [self setupParseWithOptions:launchOptions];
     
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-    
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     // Disable hiding split controller children on iPad
     if ([self.window.rootViewController isKindOfClass:[UISplitViewController class]])

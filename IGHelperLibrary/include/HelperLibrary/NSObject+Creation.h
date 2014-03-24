@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (Creation)
-
+/*
 + (instancetype)singleton;
-
+*/
 @end

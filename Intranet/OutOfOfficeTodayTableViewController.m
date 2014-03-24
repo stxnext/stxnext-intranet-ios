@@ -10,6 +10,9 @@
 #import "AddOOOFormTableViewController.h"
 #import "UserDetailsTableViewController.h"
 #import "UserListCell.h"
+
+#import "Model.h"
+
 @interface OutOfOfficeTodayTableViewController ()
 {
     NSIndexPath *currentIndexPath;
@@ -25,6 +28,11 @@
     
     self.title = @"Out";
     
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+    [refresh addTarget:self action:@selector(downloadPresences)forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
     [self.tableView hideEmptySeparators];
 }
@@ -33,70 +41,49 @@
 {
     [super viewDidAppear:animated];
 
-    [self loadUsersFromDatabase];
+    [self loadPresences];
 }
 
-- (void)loadUsersFromDatabase
+#pragma mark - Presences
+
+- (void)downloadPresences
 {
-    DDLogInfo(@"Loading from: Database");
+    DDLogInfo(@"Loading Presences from: API");
     
-    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                             ascending:YES
-                                                                                              selector:@selector(localizedCompare:)]
-                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    [[Presences singleton] downloadPresencesWithStart:^(NSDictionary *params) {
+        
+    } end:^(NSDictionary *params) {
+        
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
+        
+    } success:^(NSArray *presences) {
+        
+        _userList = presences;
+        
+    } failure:^(NSDictionary *data) {
+        
+    }];
+}
 
-    _userList = [[NSMutableArray alloc] init];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
+- (void)loadPresences
+{
+    DDLogInfo(@"Loading Presences from: Database");
 
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
+    [[Presences singleton] presencesWithStart:^(NSDictionary *params) {
         
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 1)
-                {
-                    return YES;
-                }
-            }
-        }
+    } end:^(NSDictionary *params) {
         
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
         
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
+    } success:^(NSArray *presences) {
         
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 0)
-                {
-                    return YES;
-                }
-            }
-        }
+        _userList = presences;
         
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-
-    
-    [self.tableView reloadData];
+    } failure:^(NSDictionary *data) {
+        
+    }];
 }
 
 #pragma mark - Table view data source

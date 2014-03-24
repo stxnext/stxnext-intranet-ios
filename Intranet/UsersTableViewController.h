@@ -10,14 +10,12 @@
 #import "LoginViewController.h"
 #import "FilterViewController.h"
 
-@interface UserTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface UsersTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
     __weak IBOutlet UIBarButtonItem *_showPlanningPokerButton;
     
-    UIRefreshControl *_refreshControl;
-    UIActionSheet  *_actionSheet;
     NSArray *_userList;
     UIActionSheet *actionSheet;
 }
