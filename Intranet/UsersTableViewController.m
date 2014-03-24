@@ -35,7 +35,12 @@ static CGFloat tabBarHeight;
 {
     [super viewDidLoad];
     
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
+    self.searchDisplayController.searchResultsTableView.rowHeight = self.tableView.rowHeight;
     
     searchedString = @"";
     _userList = [NSArray array];
@@ -50,7 +55,7 @@ static CGFloat tabBarHeight;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
     tabBarHeight = self.tabBarController.tabBar.frame.size.height;
     
-    [_tableView hideEmptySeparators];
+    [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -72,7 +77,7 @@ static CGFloat tabBarHeight;
     
     if (currentIndexPath)
     {
-        [_tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
+        [self.tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
         currentIndexPath = nil;
     }
 }
@@ -105,20 +110,21 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsers
 {
-    DDLogInfo(@"Loading from: Database");
-    
     [[Users singleton] usersWithStart:^(NSDictionary *params) {
+        
+        [self.refreshControl endRefreshing];
+        [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } end:^(NSDictionary *params) {
         
-        [self.refreshControl endRefreshing];
-        [_tableView reloadData];
+        [self.tableView reloadData];
+        [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } success:^(NSArray *users) {
         
         if (searchedString.length > 0)
         {
-            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@ AND isClient = NO AND isFreelancer = NO", searchedString]];
         }
         else
         {
@@ -314,16 +320,7 @@ static CGFloat tabBarHeight;
 }
 
 - (void)downloadUsers
-{
-//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
-//    {
-//        [self loadUsers];
-//        
-//        return;
-//    }
-    
-    DDLogInfo(@"Loading from: API");
-    
+{    
     [self.filterSelections removeAllObjects];
     [self.filterStructure removeAllObjects];
     
@@ -331,14 +328,26 @@ static CGFloat tabBarHeight;
     self.filterStructure = nil;
     
     [[Model singleton] updateModelWithStart:^(NSDictionary *params) {
-        
+
+//        [self.refreshControl endRefreshing];
+        self.tableView.hidden = YES;
+        [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
+    
     } end:^(NSDictionary *params) {
         
-        [self.refreshControl endRefreshing];
-        
+        [self.tableView reloadData];
+        [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
+
     } success:^(NSArray *users, NSArray *presences, NSArray *teams) {
         
-        [self loadUsers];
+        if (searchedString.length > 0)
+        {
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@ AND isClient = NO AND isFreelancer = NO", searchedString]];
+        }
+        else
+        {
+            _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];;
+        }
         
     } failure:^(NSArray *users, NSArray *presences, NSArray *teams , ModelErrorType error) {
         
@@ -421,7 +430,7 @@ static CGFloat tabBarHeight;
     
     [self loadUsers];
     
-    [_tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 - (void)closePopover
@@ -487,7 +496,7 @@ static CGFloat tabBarHeight;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:[UserListCell cellId]];
+    UserListCell *cell = [tableView dequeueReusableCellWithIdentifier:[UserListCell cellId]];
     
     if (!cell)
     {
@@ -503,7 +512,7 @@ static CGFloat tabBarHeight;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return _tableView.rowHeight;
+    return tableView.rowHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

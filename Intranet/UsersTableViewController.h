@@ -12,7 +12,7 @@
 
 @interface UsersTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {
-    IBOutlet UITableView *_tableView;
+//    IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
     __weak IBOutlet UIBarButtonItem *_showPlanningPokerButton;
     

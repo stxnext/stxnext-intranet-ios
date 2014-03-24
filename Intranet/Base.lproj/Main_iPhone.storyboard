@@ -35,6 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection id="IUb-yD-egt">
                                 <cells>
@@ -586,8 +587,8 @@
                     <connections>
                         <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
                         <outlet property="_showPlanningPokerButton" destination="6oE-Mg-r8f" id="5Gx-5H-511"/>
-                        <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
                         <outlet property="searchDisplayController" destination="o92-rd-xLi" id="XYs-Hp-hGo"/>
+                        <outlet property="view" destination="DqE-ng-1VX" id="Pe4-ah-DBc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Er7-6X-pl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -637,7 +638,7 @@
             <objects>
                 <tableViewController id="qlc-xU-5my" customClass="OutOfOfficeTodayTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" sectionHeaderHeight="22" sectionFooterHeight="22" id="xTy-ga-8iD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1469,6 +1470,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="11o-D8-hKM" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Out" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JyO-Gv-2XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

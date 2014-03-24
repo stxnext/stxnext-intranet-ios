@@ -65,6 +65,21 @@
     }
     else
     {
+        if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+        {
+            if (failure)
+            {
+                failure(nil);
+            }
+            
+            if (endActions)
+            {
+                endActions(nil);
+            }
+            
+            return;
+        }
+     
         if (startActions)
         {
             startActions(nil);
@@ -159,10 +174,30 @@
               success:(void (^)(RMUser *user))success
               failure:(void (^)(NSDictionary *data))failure
 {
-    if (startActions)
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        startActions(nil);
+        if ([self userId])
+        {
+            if (success)
+            {
+                success((RMUser *)[[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
+                                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %@", [self userId]]
+                                                            inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject]);
+            }
+        }
+        else if (failure)
+        {
+            failure(nil);
+        }
+        
+        if (endActions)
+        {
+            endActions(nil);
+        }
+        
+        return;
     }
+
     
     [self userIdWithStart:startActions end:endActions success:^(NSString *userId) {
         

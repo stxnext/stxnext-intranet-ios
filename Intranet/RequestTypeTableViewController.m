@@ -50,12 +50,14 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     [self performBlockOnMainThread:^{
+        
         if ([self.delegate respondsToSelector:@selector(requestTypeTableViewController:didSelectTypeWith:type:)])
         {
             [self.delegate requestTypeTableViewController:self didSelectTypeWith:indexPath.row type:cell.textLabel.text];
         }
         
         [self.navigationController popViewControllerAnimated:YES];
+        
     } afterDelay:0.25];
 }
 

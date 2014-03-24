@@ -121,6 +121,7 @@
 		66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54518CF185100C14F5D /* PokerSessionsListTableViewController.m */; };
 		66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54D18CF293200C14F5D /* TextInputViewController.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
+		66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F35BF018E03A8900F43D30 /* LoaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +358,8 @@
 		66D0F54D18CF293200C14F5D /* TextInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputViewController.m; sourceTree = "<group>"; };
 		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
+		66F35BEF18E03A8900F43D30 /* LoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderView.h; sourceTree = "<group>"; };
+		66F35BF018E03A8900F43D30 /* LoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderView.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -543,6 +546,7 @@
 				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
 				0C43A79D1822723500FB513D /* Views */,
+				6646CC9A18E039CD0041C454 /* Loader View */,
 			);
 			path = Intranet;
 			sourceTree = "<group>";
@@ -687,6 +691,15 @@
 				6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */,
 			);
 			name = "New Request";
+			sourceTree = "<group>";
+		};
+		6646CC9A18E039CD0041C454 /* Loader View */ = {
+			isa = PBXGroup;
+			children = (
+				66F35BEF18E03A8900F43D30 /* LoaderView.h */,
+				66F35BF018E03A8900F43D30 /* LoaderView.m */,
+			);
+			name = "Loader View";
 			sourceTree = "<group>";
 		};
 		664CD79218D03AA60031DC4F /* Additional */ = {
@@ -1134,6 +1147,7 @@
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
+				66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				66C5603F18DC4C5A00291952 /* FilterViewController.m in Sources */,
 				66CCD41818DB1B2200531622 /* CurrentUser.m in Sources */,

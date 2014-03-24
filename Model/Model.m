@@ -38,6 +38,34 @@
     __block NSArray *newTeams;
     __block ModelErrorType error = ModelErrorTypeDefault;
     
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        if (failure)
+        {
+            [[Users singleton] usersWithStart:nil end:nil success:^(NSArray *users) {
+                newUsers = users;
+            } failure:nil];
+            
+            [[Presences singleton] presencesWithStart:nil end:nil success:^(NSArray *presences) {
+                newPresences = presences;
+            } failure:nil];
+            
+            [[Teams singleton] teamsWithStart:nil end:nil success:^(NSArray *teams) {
+                newTeams = teams;
+            } failure:nil];
+            
+            failure(newUsers, newPresences, newTeams, error);
+        }
+        
+        if (endActions)
+        {
+            endActions(nil);
+        }
+
+        return;
+    }
+    
+    
     if (startActions)
     {
         startActions(nil);

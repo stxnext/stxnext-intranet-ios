@@ -30,6 +30,8 @@
                    success:(void (^)(NSArray *presences))success
                    failure:(void (^)(NSDictionary *data))failure
 {
+    DDLogInfo(@"Loading Presences from: Database");
+    
     NSArray *presences = [self getPresencesFromDatabase];
     
     if (presences.count)
@@ -58,6 +60,26 @@
                            success:(void (^)(NSArray *presences))success
                            failure:(void (^)(NSDictionary *data))failure
 {
+    DDLogInfo(@"Loading Presences from: API");
+    
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        if (success)
+        {
+            if (success)
+            {
+                success([self getPresencesFromDatabase]);
+            }
+            
+            if (endActions)
+            {
+                endActions(nil);
+            }
+        }
+        
+        return;
+    }
+    
     if (startActions)
     {
         startActions(nil);
@@ -96,7 +118,6 @@
         {
             success([self getPresencesFromDatabase]);
         }
-        
         
         if (endActions)
         {

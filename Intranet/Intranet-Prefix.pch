@@ -38,6 +38,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 static const int ddLogLevel = LOG_LEVEL_ERROR;
 #endif
 
+#import "LoaderView.h"
+
 // External headers
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>

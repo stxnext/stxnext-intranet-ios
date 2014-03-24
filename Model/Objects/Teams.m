@@ -32,6 +32,8 @@
                success:(void (^)(NSArray *teams))success
                failure:(void (^)(NSDictionary *data))failure
 {
+        DDLogInfo(@"Loading Teams from: Database");
+    
     NSArray *teams = [self getTeamsFromDatabase];
     
     if (teams.count)
@@ -60,6 +62,26 @@
                        success:(void (^)(NSArray *teams))success
                        failure:(void (^)(NSDictionary *data))failure
 {
+    DDLogInfo(@"Loading Teams from: API");
+    
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        if (success)
+        {
+            if (success)
+            {
+                success([self getTeamsFromDatabase]);
+            }
+            
+            if (endActions)
+            {
+                endActions(nil);
+            }
+        }
+        
+        return;
+    }
+    
     if (startActions)
     {
         startActions(nil);

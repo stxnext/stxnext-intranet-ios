@@ -33,6 +33,8 @@
                success:(void (^)(NSArray *users))success
                failure:(void (^)(UserErrorType error))failure;
 {
+    DDLogInfo(@"Loading users from: Database");
+    
     NSArray *users = [self getUsersFromDatabase];
     
     if (users.count)
@@ -61,6 +63,26 @@
                        success:(void (^)(NSArray *users))success
                        failure:(void (^)(UserErrorType error))failure;
 {
+    DDLogInfo(@"Loading users from: API");
+    
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        if (success)
+        {
+            if (success)
+            {
+                success([self getUsersFromDatabase]);
+            }
+            
+            if (endActions)
+            {
+                endActions(nil);
+            }
+        }
+        
+        return;
+    }
+    
     if (startActions)
     {
         startActions(nil);

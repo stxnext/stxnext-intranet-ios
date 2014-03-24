@@ -73,15 +73,15 @@
     _isFinished = YES;
     
     // Call delegate
-//    [_delegate finishedLoginWithCode:_code withError:nil];
-
+    //    [_delegate finishedLoginWithCode:_code withError:nil];
+    
     [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:_code]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           
                                           // We expect 302
                                           [[CurrentUser singleton] setLoginType:UserLoginTypeError];
                                           
-                                                [self.delegate loginViewController:self finishedLoginWithUserLoginType:UserLoginTypeError];
+                                          [self.delegate loginViewController:self finishedLoginWithUserLoginType:UserLoginTypeError];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
@@ -90,7 +90,7 @@
                                           
                                           [[HTTPClient sharedClient] saveCookies:cookies];
                                           
-
+                                          
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
@@ -113,7 +113,7 @@
                                               [self close];
                                           });
                                       }];
-
+    
     // Prevent any further calls
     return NO;
 }

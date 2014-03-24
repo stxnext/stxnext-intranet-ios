@@ -26,6 +26,7 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.title = @"Out";
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -47,15 +48,18 @@
 #pragma mark - Presences
 
 - (void)downloadPresences
-{
-    DDLogInfo(@"Loading Presences from: API");
-    
+{    
     [[Presences singleton] downloadPresencesWithStart:^(NSDictionary *params) {
+        
+//        [self.refreshControl endRefreshing];
+//        self.tableView.hidden = YES;
+        [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } end:^(NSDictionary *params) {
         
-        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
+//        self.tableView.hidden = NO;
+        [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } success:^(NSArray *presences) {
         
@@ -68,14 +72,17 @@
 
 - (void)loadPresences
 {
-    DDLogInfo(@"Loading Presences from: Database");
-
     [[Presences singleton] presencesWithStart:^(NSDictionary *params) {
         
+//        [self.refreshControl endRefreshing];
+//        self.tableView.hidden = YES;
+        [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
+
     } end:^(NSDictionary *params) {
         
-        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
+//        self.tableView.hidden = NO;
+        [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } success:^(NSArray *presences) {
         

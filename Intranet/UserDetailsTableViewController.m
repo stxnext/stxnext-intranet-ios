@@ -19,9 +19,6 @@
 }
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) UIView *emptyView;
-@property (nonatomic, strong) UILabel *loadingLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -33,37 +30,29 @@
 {
     [super viewDidLoad];
     
-    //code here
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    //code here
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //code here
+    [super viewWillAppear:animated];
     
     [self loadUser];
     [self updateAddToContactsButton];
-    
-    [super viewWillAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
-    //code here
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //code here
-    
     [super viewWillDisappear:animated];
 }
 
@@ -202,7 +191,11 @@
 {
     [[CurrentUser singleton] logoutUserWithStart:^(NSDictionary *params) {
         
+        [LoaderView showWithRefreshControl:nil tableView:self.tableView];
+        
     } end:^(NSDictionary *params) {
+        
+        [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
         
     } success:^(NSDictionary *params) {
         
@@ -248,18 +241,23 @@
         if ([[CurrentUser singleton] userLoginType] == UserLoginTypeTrue)
         {
             if (!self.user)
-            {
-                [self addEmptyView];
+            {                
                 [self.webView removeFromSuperview];
                 
                 self.title = @"Me";
                 
                 [[CurrentUser singleton] userIdWithStart:^(NSDictionary *params) {
                     
+                    [LoaderView showWithRefreshControl:nil tableView:self.tableView];
+                    
                 } end:^(NSDictionary *params) {
                     
+                    [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
+                    
                 } success:^(NSString *userId) {
+                
                     [self loadMe];
+                
                 } failure:^(NSDictionary *data) {
                     
                 }];
@@ -276,13 +274,13 @@
                 self.webView.scalesPageToFit = YES;
                 self.webView.delegate = self;
             }
-
+            
             if (!isPageLoaded)
             {
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
                 
                 [self.view addSubview:self.webView];
-                [self addEmptyView];
+                [LoaderView showWithRefreshControl:nil tableView:self.tableView];
             }
         }
     }
@@ -292,9 +290,14 @@
 {
     [[CurrentUser singleton] userWithStart:^(NSDictionary *params) {
         
+        [LoaderView showWithRefreshControl:nil tableView:self.tableView];
+        
     } end:^(NSDictionary *params) {
         
-        [self removeEmptyView];
+#warning TODO
+        
+        [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
+        
         self.tableView.scrollEnabled = YES;
         
         [self updateGUI];
@@ -500,18 +503,15 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     isPageLoaded = YES;
-    [self removeEmptyView];
+    
+    [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     isPageLoaded = NO;
     
-    CGPoint center = self.loadingLabel.center;
-    self.loadingLabel.text = @"Loading error.";
-    [self.loadingLabel sizeToFit];
-    
-    self.loadingLabel.center = center;
+    [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -555,41 +555,6 @@
     [self updateGUI];
     
     return YES;
-}
-
-- (void)addEmptyView
-{
-    CGRect frame = [[UIScreen mainScreen] bounds];
-
-    [self.emptyView removeFromSuperview];
-    
-    self.emptyView = [[UIView alloc] initWithFrame:frame];
-    self.emptyView.backgroundColor = [UIColor whiteColor];
-    
-    self.loadingLabel = [[UILabel alloc] init];
-    self.loadingLabel.text = @"Loading...";
-    [self.loadingLabel sizeToFit];
-    self.loadingLabel.center = self.emptyView.center;
-    [self.emptyView addSubview:self.loadingLabel];
-
-    if (self.activityView == nil)
-    {
-        self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [self.activityView startAnimating];
-    }
-
-    CGPoint center = self.emptyView.center;
-    center.y -= self.loadingLabel.frame.size.height/2 + self.activityView.frame.size.height/2;
-    self.activityView.center = center;
-    [self.emptyView addSubview:self.activityView];
-    
-    self.tableView.scrollEnabled = NO;
-    [self.view addSubview:self.emptyView];
-}
-
-- (void)removeEmptyView
-{
-    [self.emptyView removeFromSuperview];
 }
 
 @end
