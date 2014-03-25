@@ -329,7 +329,6 @@ static CGFloat tabBarHeight;
     
     [[Model singleton] updateModelWithStart:^(NSDictionary *params) {
 
-//        [self.refreshControl endRefreshing];
         self.tableView.hidden = YES;
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
     

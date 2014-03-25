@@ -25,7 +25,7 @@
     
     PokerSession *testSession = [PokerSession new];
     [testSession fillWithTestData];
-
+    
     self.sessionsUpcommingSessions = [PokerSessionManager new];
     self.sessionsNowSessions = [PokerSessionManager new];
     self.sessionsCompletedSessions = [PokerSessionManager new];
@@ -78,7 +78,7 @@
     PokerSessionTableViewController *pokerNewSessionTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PokerNewSessionTableViewControllerId"];
     
     pokerNewSessionTVC.pokerSession = [[self sessionManagerForSection:indexPath.section] pokerSessionAtIndex:indexPath.row];
-
+    
     pokerNewSessionTVC.pokerSessionType = PokerSessionTypePlay;
     pokerNewSessionTVC.delegate = self;
     
@@ -97,7 +97,7 @@
     {
         [self.sessionsUpcommingSessions addPokerSession:pokerSession];
     }
-
+    
     [self.tableView reloadDataAnimated:YES];
 }
 
@@ -125,47 +125,36 @@
 
 - (PokerSessionManager *)sessionManagerForSection:(NSUInteger)section
 {
-    switch (section)
+    int curr = -1;
+    
+    if (self.sessionsUpcommingSessions.count)
     {
-        case 0:
+        curr++;
+        
+        if (curr == section)
         {
-            if (self.sessionsUpcommingSessions.count)
-            {
-                return self.sessionsUpcommingSessions;
-            }
-            else if (self.sessionsNowSessions.count)
-            {
-                return self.sessionsNowSessions;
-            }
-            else if (self.sessionsCompletedSessions.count)
-            {
-                return self.sessionsCompletedSessions;
-            }
+            return self.sessionsUpcommingSessions;
         }
-            break;
-
-        case 1:
+    }
+    
+    if (self.sessionsNowSessions.count)
+    {
+        curr++;
+        
+        if (curr == section)
         {
-            if (self.sessionsNowSessions.count)
-            {
-                return self.sessionsNowSessions;
-            }
-            else if (self.sessionsCompletedSessions.count)
-            {
-                return self.sessionsCompletedSessions;
-            }
+            return self.sessionsNowSessions;
         }
-            break;
-
-        case 2:
+    }
+    
+    if (self.sessionsCompletedSessions.count)
+    {
+        curr++;
+        
+        if (curr == section)
         {
-            if (self.sessionsCompletedSessions.count)
-            {
-                return self.sessionsCompletedSessions;
-            }
+            return self.sessionsCompletedSessions;
         }
-            break;
-
     }
     
     return nil;
@@ -174,7 +163,7 @@
 - (int)numberOfSessionManagers
 {
     int result = 0;
-
+    
     if (self.sessionsUpcommingSessions.count)
     {
         result++;

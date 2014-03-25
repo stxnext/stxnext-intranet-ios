@@ -16,7 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [ReachabilityManager sharedManager];
+    
+    self.window.tintColor = MAIN_APP_COLOR;
     
     [self setupParseWithOptions:launchOptions];
     

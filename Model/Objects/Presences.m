@@ -62,8 +62,11 @@
 {
     DDLogInfo(@"Loading Presences from: API");
     
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
     {
+        DDLogError(@"Presences - no Internet");
+        
         if (success)
         {
             if (success)
@@ -124,6 +127,8 @@
             endActions(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"Presences - failure ");
         
         if (failure)
         {

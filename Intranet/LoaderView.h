@@ -12,7 +12,6 @@
 
 //+ (void)show;
 + (void)showWithRefreshControl:(UIRefreshControl *)refreshControll tableView:(UITableView *)tableView;
-//+ (void)showInView:(UIView *)view;
 
 //+ (void)hide;
 + (void)hideWithRefreshControl:(UIRefreshControl *)refreshControll tableView:(UITableView *)tableView;

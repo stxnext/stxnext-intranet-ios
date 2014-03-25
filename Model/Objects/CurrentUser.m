@@ -65,7 +65,8 @@
     }
     else
     {
-        if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+//        if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
         {
             if (failure)
             {
@@ -174,7 +175,8 @@
               success:(void (^)(RMUser *user))success
               failure:(void (^)(NSDictionary *data))failure
 {
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
     {
         if ([self userId])
         {

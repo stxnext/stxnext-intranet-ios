@@ -65,8 +65,11 @@
 {
     DDLogInfo(@"Loading users from: API");
     
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
     {
+        DDLogError(@"Users - no Internet");
+        
         if (success)
         {
             if (success)
@@ -119,6 +122,8 @@
             endActions(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"Users - failure ");
         
         DDLogError(@"Users API Loading Error");
         

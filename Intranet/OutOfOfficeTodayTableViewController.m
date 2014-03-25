@@ -10,6 +10,7 @@
 #import "AddOOOFormTableViewController.h"
 #import "UserDetailsTableViewController.h"
 #import "UserListCell.h"
+#import "OutOfOfficeManager.h"
 
 #import "Model.h"
 
@@ -17,6 +18,10 @@
 {
     NSIndexPath *currentIndexPath;
 }
+
+@property (nonatomic, strong) OutOfOfficeManager *holidayUsersManager;
+@property (nonatomic, strong) OutOfOfficeManager *workFromHomeUsersManager;
+@property (nonatomic, strong) OutOfOfficeManager *outOfOfficeUsersManager;
 
 @end
 
@@ -51,19 +56,16 @@
 {    
     [[Presences singleton] downloadPresencesWithStart:^(NSDictionary *params) {
         
-//        [self.refreshControl endRefreshing];
-//        self.tableView.hidden = YES;
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } end:^(NSDictionary *params) {
         
         [self.tableView reloadData];
-//        self.tableView.hidden = NO;
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } success:^(NSArray *presences) {
         
-        _userList = presences;
+        [self addUsers:presences];
         
     } failure:^(NSDictionary *data) {
         
@@ -74,19 +76,16 @@
 {
     [[Presences singleton] presencesWithStart:^(NSDictionary *params) {
         
-//        [self.refreshControl endRefreshing];
-//        self.tableView.hidden = YES;
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
 
     } end:^(NSDictionary *params) {
         
         [self.tableView reloadData];
-//        self.tableView.hidden = NO;
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
         
     } success:^(NSArray *presences) {
         
-        _userList = presences;
+        [self addUsers:presences];
         
     } failure:^(NSDictionary *data) {
         
@@ -97,25 +96,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_userList count];
+    return [self numberOfUserManagers];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger number = [_userList[section] count];
-    NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
-    
-    if (count == 0)
-    {
-        [UIAlertView showInfoWithMessage:@"Nothing to show." handler:nil];
-    }
-    
-    return number;
+    return [[self userManagerForSection:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMUser *user = _userList[indexPath.section][indexPath.row];
+    RMUser *user = [[self userManagerForSection:indexPath.section] userAtIndex:indexPath.row];
     
     static NSString *CellIdentifier = @"UserCell";
     
@@ -143,7 +134,7 @@
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
     
-    if (indexPath.section == 1 || indexPath.section == 2)
+    if ([self userManagerForSection:indexPath.section] != self.holidayUsersManager)
     {
         cell.clockView.color = MAIN_YELLOW_COLOR;
         
@@ -160,7 +151,7 @@
             }
         }];
     }
-    else if (indexPath.section == 0)
+    else
     {
         cell.clockView.color = MAIN_RED_COLOR;
         
@@ -197,19 +188,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    switch (section)
-    {
-        case 0:
-            return @"ABSENCE / HOLIDAY";
-
-        case 1:
-            return @"WORK FROM HOME";
-            
-        case 2:
-            return @"OUT OF OFFICE";
-    }
-    
-    return @"";
+    return [self titleForUserManagerAtSection:section];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -218,32 +197,12 @@
     
     currentIndexPath = indexPath;
     
-    userDetailsTVC.user = _userList[indexPath.section][indexPath.row];
+    userDetailsTVC.user = [[self userManagerForSection:indexPath.section] userAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:userDetailsTVC animated:YES];
 }
 
 #pragma mark - Storyboard
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    /*
-    if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
-    {
-        UserListCell *cell = (UserListCell *)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        
-        if (indexPath == nil)
-        {
-            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:cell];
-        }
-        
-        currentIndexPath = indexPath;
-        
-        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
-    }
-     */
-}
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
@@ -255,6 +214,123 @@
     }
     
     return YES;
+}
+
+#pragma mark - OutOfOfficeManagers
+
+- (void)addUsers:(NSArray *)users
+{
+    self.holidayUsersManager = [OutOfOfficeManager new];
+    self.workFromHomeUsersManager = [OutOfOfficeManager new];
+    self.outOfOfficeUsersManager = [OutOfOfficeManager new];
+
+    int i = 0;
+    
+    for (NSArray *usersArray in users)
+    {
+        for (RMUser *user in usersArray)
+        {
+            switch (i)
+            {
+                case 0:
+                {
+                    [self.holidayUsersManager addUser:user];
+                }
+                    break;
+                    
+                case 1:
+                {
+                    [self.workFromHomeUsersManager addUser:user];
+                }
+                    break;
+
+                case 2:
+                {
+                    [self.outOfOfficeUsersManager addUser:user];
+                }
+                    break;
+            }
+        }
+        
+        i++;
+    }
+}
+
+- (OutOfOfficeManager *)userManagerForSection:(NSUInteger)section
+{
+    int curr = -1;
+    
+    if (self.holidayUsersManager.count)
+    {
+        curr++;
+        
+        if (curr == section)
+        {
+            return self.holidayUsersManager;
+        }
+    }
+    
+    if (self.workFromHomeUsersManager.count)
+    {
+        curr++;
+        
+        if (curr == section)
+        {
+            return self.workFromHomeUsersManager;
+        }
+    }
+    
+    if (self.outOfOfficeUsersManager.count)
+    {
+        curr++;
+        
+        if (curr == section)
+        {
+            return self.outOfOfficeUsersManager;
+        }
+    }
+    
+    return nil;
+}
+
+- (int)numberOfUserManagers
+{
+    int result = 0;
+    
+    if (self.holidayUsersManager.count)
+    {
+        result++;
+    }
+    
+    if (self.workFromHomeUsersManager.count)
+    {
+        result++;
+    }
+    
+    if (self.outOfOfficeUsersManager.count)
+    {
+        result++;
+    }
+    
+    return result;
+}
+
+- (NSString *)titleForUserManagerAtSection:(NSInteger)section
+{
+    if ([self userManagerForSection:section] == self.holidayUsersManager)
+    {
+        return @"Absence / Holiday";
+    }
+    else if ([self userManagerForSection:section] == self.workFromHomeUsersManager)
+    {
+        return @"Work From Home";
+    }
+    else if ([self userManagerForSection:section] == self.outOfOfficeUsersManager)
+    {
+        return @"Out of Office";
+    }
+    
+    return nil;
 }
 
 @end

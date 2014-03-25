@@ -38,8 +38,11 @@
     __block NSArray *newTeams;
     __block ModelErrorType error = ModelErrorTypeDefault;
     
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    //    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
     {
+        DDLogError(@"Model - no Internet");
+        
         if (failure)
         {
             [[Users singleton] usersWithStart:nil end:nil success:^(NSArray *users) {
@@ -61,7 +64,7 @@
         {
             endActions(nil);
         }
-
+        
         return;
     }
     
@@ -74,8 +77,11 @@
     [[Users singleton] downloadUsersWithStart:nil end:^(NSDictionary *params) {
         [[Presences singleton] downloadPresencesWithStart:nil end:^(NSDictionary *params) {
             
+            DDLogInfo(@"Model-Presences - end");
+            
         } success:^(NSArray *presences) {
             
+            DDLogInfo(@"Model-Presences - success");
             newPresences = presences;
             operationsCount++;
             
@@ -104,6 +110,7 @@
             }
         } failure:^(NSDictionary *data) {
             
+            DDLogError(@"Model-Presences - failure ");
             failureCount++;
             operationsCount++;
             
@@ -123,8 +130,11 @@
         
         [[Teams singleton] downloadTeamsWithStart:nil end:^(NSDictionary *params) {
             
+            DDLogInfo(@"Model-Teams - end");
+            
         } success:^(NSArray *teams) {
             
+            DDLogInfo(@"Model-Teams - success");
             newTeams = teams;
             operationsCount++;
             
@@ -153,6 +163,7 @@
             }
         } failure:^(NSDictionary *data) {
             
+            DDLogError(@"Model-Teams - failure ");
             failureCount++;
             operationsCount++;
             
@@ -171,6 +182,7 @@
         }];
     } success:^(NSArray *users) {
         
+        DDLogInfo(@"Model - success ");
         newUsers = users;
         operationsCount++;
         
@@ -198,6 +210,8 @@
             }
         }
     } failure:^(UserErrorType err) {
+        
+        DDLogError(@"Model - failure ");
         
         if (err == UserErrorTypeReloginRequired)
         {

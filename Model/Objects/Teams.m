@@ -64,8 +64,11 @@
 {
     DDLogInfo(@"Loading Teams from: API");
     
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([ReachabilityManager isUnreachable])
     {
+        DDLogError(@"Teams - no Internet");
+        
         if (success)
         {
             if (success)
@@ -118,6 +121,8 @@
             endActions(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        DDLogError(@"Teams - failure ");
         
         if (failure)
         {

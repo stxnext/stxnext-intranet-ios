@@ -5,6 +5,7 @@
 #ifndef HelperLibrary_IGLibraryHelper_h
 #define HelperLibrary_IGLibraryHelper_h
 
+#import "ReachabilityManager.h"
 #import "NSDate-IGAdditions.h"
 #import "NSObject-IGAdditions.h"
 #import "NSString-IGAdditions.h"
