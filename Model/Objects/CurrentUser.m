@@ -51,10 +51,10 @@
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"]; //dla testów @"54" to Konrad
 }
 
-- (void)userIdWithStart:(void (^)(NSDictionary *params))startActions
-                    end:(void (^)(NSDictionary *params))endActions
+- (void)userIdWithStart:(void (^)(void))startActions
+                    end:(void (^)(void))endActions
                 success:(void (^)(NSString *userId))success
-                failure:(void (^)(NSDictionary *data))failure
+                failure:(void (^)(FailureErrorType error))failure
 {
     if ([self userId])
     {
@@ -70,12 +70,12 @@
         {
             if (failure)
             {
-                failure(nil);
+                failure(FailureErrorTypeNoInternetConnection);
             }
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
             
             return;
@@ -83,19 +83,19 @@
      
         if (startActions)
         {
-            startActions(nil);
+            startActions();
         }
         
         [[HTTPClient sharedClient] startOperation:[APIRequest user] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // error, we expect 302
             if (failure)
             {
-                failure(nil);
+                failure(FailureErrorTypeNet);
             }
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -126,7 +126,7 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }];
     }
@@ -138,14 +138,14 @@
 }
 
 - (void)setUserId:(NSString *)userId
-            start:(void (^)(NSDictionary *params))startActions
-              end:(void (^)(NSDictionary *params))endActions
-          success:(void (^)(NSDictionary *data))success
-          failure:(void (^)(NSDictionary *data))failure
+            start:(void (^)(void))startActions
+              end:(void (^)(void))endActions
+          success:(void (^)(void))success
+          failure:(void (^)(FailureErrorType error))failure
 {
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
     if (userId)
@@ -161,19 +161,19 @@
     
     if (success)
     {
-        success(nil);
+        success();
     }
     
     if (endActions)
     {
-        endActions(nil);
+        endActions();
     }
 }
 
-- (void)userWithStart:(void (^)(NSDictionary *params))startActions
-                  end:(void (^)(NSDictionary *params))endActions
+- (void)userWithStart:(void (^)(void))startActions
+                  end:(void (^)(void))endActions
               success:(void (^)(RMUser *user))success
-              failure:(void (^)(NSDictionary *data))failure
+              failure:(void (^)(RMUser *cachedUser, FailureErrorType error))failure
 {
 //    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     if ([ReachabilityManager isUnreachable])
@@ -189,12 +189,12 @@
         }
         else if (failure)
         {
-            failure(nil);
+            failure(nil, FailureErrorTypeNoInternetConnection);
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
         
         return;
@@ -212,41 +212,41 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
         
-    } failure:^(NSDictionary *data) {
+    } failure:^(FailureErrorType error) {
         
         if (failure)
         {
-            failure(nil);
+            failure(nil, error);
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }];
 }
 
 #pragma mark - Login and Logout
 
-- (void)loginUserWithStart:(void (^)(NSDictionary *params))startActions
-                       end:(void (^)(NSDictionary *params))endActions
-                   success:(void (^)(NSDictionary *params))success
-                   failure:(void (^)(NSDictionary *data))failure
+- (void)loginUserWithStart:(void (^)(void))startActions
+                       end:(void (^)(void))endActions
+                   success:(void (^)(void))success
+                   failure:(void (^)(FailureErrorType error))failure
 {
     
 }
 
-- (void)logoutUserWithStart:(void (^)(NSDictionary *params))startActions
-                        end:(void (^)(NSDictionary *params))endActions
-                    success:(void (^)(NSDictionary *params))success
-                    failure:(void (^)(NSDictionary *data))failure
+- (void)logoutUserWithStart:(void (^)(void))startActions
+                        end:(void (^)(void))endActions
+                    success:(void (^)(void))success
+                    failure:(void (^)(FailureErrorType error))failure
 {
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
     if ([[CurrentUser singleton] userLoginType] == UserLoginTypeFalse)
@@ -270,12 +270,12 @@
         
         if (success)
         {
-            success(nil);
+            success();
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }
     else
@@ -285,12 +285,12 @@
             // logout error
             if (failure)
             {
-                failure(nil);
+                failure(FailureErrorTypeNet);
             }
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -318,12 +318,12 @@
                 
                 if (success)
                 {
-                    success(nil);
+                    success();
                 }
                 
                 if (endActions)
                 {
-                    endActions(nil);
+                    endActions();
                 }
             }
             else

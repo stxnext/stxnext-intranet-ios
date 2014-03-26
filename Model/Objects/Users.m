@@ -28,10 +28,10 @@
     return sharedInstance;
 }
 
-- (void)usersWithStart:(void (^)(NSDictionary *params))startActions
-                   end:(void (^)(NSDictionary *params))endActions
+- (void)usersWithStart:(void (^)(void))startActions
+                   end:(void (^)(void))endActions
                success:(void (^)(NSArray *users))success
-               failure:(void (^)(UserErrorType error))failure;
+               failure:(void (^)(NSArray *cachedUsers, FailureErrorType error))failure
 {
     DDLogInfo(@"Loading users from: Database");
     
@@ -46,7 +46,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }
     else
@@ -58,10 +58,10 @@
     }
 }
 
-- (void)downloadUsersWithStart:(void (^)(NSDictionary *params))startActions
-                           end:(void (^)(NSDictionary *params))endActions
+- (void)downloadUsersWithStart:(void (^)(void))startActions
+                           end:(void (^)(void))endActions
                        success:(void (^)(NSArray *users))success
-                       failure:(void (^)(UserErrorType error))failure;
+                       failure:(void (^)(NSArray *cachedUsers, FailureErrorType error))failure
 {
     DDLogInfo(@"Loading users from: API");
     
@@ -79,7 +79,7 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }
         
@@ -88,7 +88,7 @@
     
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
     [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
@@ -119,7 +119,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -131,20 +131,20 @@
         {
             if (failure)
             {
-                failure(UserErrorTypeReloginRequired);
+                failure(nil, FailureErrorTypeLoginRequired);
             }
         }
         else
         {
             if (failure)
             {
-                failure(UserErrorTypeDefault);
+                failure([self getUsersFromDatabase], FailureErrorTypeDefault);
             }
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }];
 }

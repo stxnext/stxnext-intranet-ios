@@ -25,10 +25,10 @@
     return sharedInstance;
 }
 
-- (void)updateModelWithStart:(void (^)(NSDictionary *params))startActions
-                         end:(void (^)(NSDictionary *params))endActions
+- (void)updateModelWithStart:(void (^)(void))startActions
+                         end:(void (^)(void))endActions
                      success:(void (^)(NSArray *users, NSArray *presences, NSArray *teams))success
-                     failure:(void (^)(NSArray *users, NSArray *presences, NSArray *teams , ModelErrorType error))failure
+                     failure:(void (^)(NSArray *cachedUsers, NSArray *cachedPresences, NSArray *cachedTeams, FailureErrorType error))failure
 {
     __block int operationsCount = 0;
     __block int failureCount = 0;
@@ -36,9 +36,10 @@
     __block NSArray *newUsers;
     __block NSArray *newPresences;
     __block NSArray *newTeams;
-    __block ModelErrorType error = ModelErrorTypeDefault;
+    __block FailureErrorType error = FailureErrorTypeDefault;
     
     //    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    
     if ([ReachabilityManager isUnreachable])
     {
         DDLogError(@"Model - no Internet");
@@ -62,7 +63,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
         
         return;
@@ -71,11 +72,11 @@
     
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
-    [[Users singleton] downloadUsersWithStart:nil end:^(NSDictionary *params) {
-        [[Presences singleton] downloadPresencesWithStart:nil end:^(NSDictionary *params) {
+    [[Users singleton] downloadUsersWithStart:nil end:^{
+        [[Presences singleton] downloadPresencesWithStart:nil end:^{
             
             DDLogInfo(@"Model-Presences - end");
             
@@ -105,14 +106,15 @@
                 
                 if (endActions)
                 {
-                    endActions(nil);
+                    endActions();
                 }
             }
-        } failure:^(NSDictionary *data) {
+        } failure:^(NSArray *cachedPresences, FailureErrorType err) {
             
             DDLogError(@"Model-Presences - failure ");
             failureCount++;
             operationsCount++;
+            newPresences = cachedPresences;
             
             if (operationsCount == 3)
             {
@@ -123,12 +125,12 @@
                 
                 if (endActions)
                 {
-                    endActions(nil);
+                    endActions();
                 }
             }
         }];
         
-        [[Teams singleton] downloadTeamsWithStart:nil end:^(NSDictionary *params) {
+        [[Teams singleton] downloadTeamsWithStart:nil end:^{
             
             DDLogInfo(@"Model-Teams - end");
             
@@ -158,14 +160,16 @@
                 
                 if (endActions)
                 {
-                    endActions(nil);
+                    endActions();
                 }
             }
-        } failure:^(NSDictionary *data) {
+        } failure:^(NSArray *cachedTeams, FailureErrorType err) {
             
             DDLogError(@"Model-Teams - failure ");
+            
             failureCount++;
             operationsCount++;
+            newTeams = cachedTeams;
             
             if (operationsCount == 3)
             {
@@ -176,7 +180,7 @@
                 
                 if (endActions)
                 {
-                    endActions(nil);
+                    endActions();
                 }
             }
         }];
@@ -206,20 +210,21 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }
-    } failure:^(UserErrorType err) {
+    } failure:^(NSArray *cachedUsers, FailureErrorType err) {
         
         DDLogError(@"Model - failure ");
-        
-        if (err == UserErrorTypeReloginRequired)
+
+        if (err == FailureErrorTypeLoginRequired)
         {
-            error = ModelErrorTypeLoginRequired;
+            error = FailureErrorTypeLoginRequired;
         }
         
         failureCount++;
         operationsCount++;
+        newUsers = cachedUsers;
         
         if (operationsCount == 3)
         {
@@ -230,7 +235,7 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }
     }];

@@ -54,11 +54,11 @@
 
 - (void)downloadPresences
 {    
-    [[Presences singleton] downloadPresencesWithStart:^(NSDictionary *params) {
+    [[Presences singleton] downloadPresencesWithStart:^{
         
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [self.tableView reloadData];
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
@@ -67,18 +67,18 @@
         
         [self addUsers:presences];
         
-    } failure:^(NSDictionary *data) {
+    } failure:^(NSArray *cachedPresences, FailureErrorType error) {
         
     }];
 }
 
 - (void)loadPresences
 {
-    [[Presences singleton] presencesWithStart:^(NSDictionary *params) {
+    [[Presences singleton] presencesWithStart:^{
         
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
 
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [self.tableView reloadData];
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
@@ -87,7 +87,7 @@
         
         [self addUsers:presences];
         
-    } failure:^(NSDictionary *data) {
+    } failure:^(NSArray *cachedPresences, FailureErrorType error) {
         
     }];
 }

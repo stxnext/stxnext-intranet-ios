@@ -27,10 +27,10 @@
     return sharedInstance;
 }
 
-- (void)teamsWithStart:(void (^)(NSDictionary *params))startActions
-                   end:(void (^)(NSDictionary *params))endActions
+- (void)teamsWithStart:(void (^)(void))startActions
+                   end:(void (^)(void))endActions
                success:(void (^)(NSArray *teams))success
-               failure:(void (^)(NSDictionary *data))failure
+               failure:(void (^)(NSArray *cachedTeams, FailureErrorType error))failure
 {
         DDLogInfo(@"Loading Teams from: Database");
     
@@ -45,7 +45,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }
     else
@@ -57,10 +57,10 @@
     }
 }
 
-- (void)downloadTeamsWithStart:(void (^)(NSDictionary *params))startActions
-                           end:(void (^)(NSDictionary *params))endActions
+- (void)downloadTeamsWithStart:(void (^)(void))startActions
+                           end:(void (^)(void))endActions
                        success:(void (^)(NSArray *teams))success
-                       failure:(void (^)(NSDictionary *data))failure
+                       failure:(void (^)(NSArray *cachedTeams, FailureErrorType error))failure
 {
     DDLogInfo(@"Loading Teams from: API");
     
@@ -78,7 +78,7 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }
         
@@ -87,7 +87,7 @@
     
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
     [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getTeams] : [APIRequest getFalseTeams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -118,7 +118,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -126,12 +126,12 @@
         
         if (failure)
         {
-            failure(nil);
+            failure([self getTeamsFromDatabase], FailureErrorTypeDefault);
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }];
 }

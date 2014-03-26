@@ -24,30 +24,30 @@ typedef NS_ENUM(NSUInteger, UserLoginType)
 - (UserLoginType)userLoginType;
 
 - (void)setUserId:(NSString *)userId
-            start:(void (^)(NSDictionary *params))startActions
-              end:(void (^)(NSDictionary *params))endActions
-          success:(void (^)(NSDictionary *data))success
-          failure:(void (^)(NSDictionary *data))failure;
+            start:(void (^)(void))startActions
+              end:(void (^)(void))endActions
+          success:(void (^)(void))success
+          failure:(void (^)(FailureErrorType error))failure;
 
-- (void)userIdWithStart:(void (^)(NSDictionary *params))startActions
-                    end:(void (^)(NSDictionary *params))endActions
+- (void)userIdWithStart:(void (^)(void))startActions
+                    end:(void (^)(void))endActions
                 success:(void (^)(NSString *userId))success
-                failure:(void (^)(NSDictionary *data))failure;
+                failure:(void (^)(FailureErrorType error))failure;
 
-- (void)userWithStart:(void (^)(NSDictionary *params))startActions
-                  end:(void (^)(NSDictionary *params))endActions
+- (void)userWithStart:(void (^)(void))startActions
+                  end:(void (^)(void))endActions
               success:(void (^)(RMUser *user))success
-              failure:(void (^)(NSDictionary *data))failure;
+              failure:(void (^)(RMUser *cachedUser, FailureErrorType error))failure;
 
 
-- (void)loginUserWithStart:(void (^)(NSDictionary *params))startActions
-                       end:(void (^)(NSDictionary *params))endActions
-                   success:(void (^)(NSDictionary *params))success
-                   failure:(void (^)(NSDictionary *data))failure;
+- (void)loginUserWithStart:(void (^)(void))startActions
+                       end:(void (^)(void))endActions
+                   success:(void (^)(void))success
+                   failure:(void (^)(FailureErrorType error))failure;
 
-- (void)logoutUserWithStart:(void (^)(NSDictionary *params))startActions
-                        end:(void (^)(NSDictionary *params))endActions
-                    success:(void (^)(NSDictionary *params))success
-                    failure:(void (^)(NSDictionary *data))failure;
+- (void)logoutUserWithStart:(void (^)(void))startActions
+                        end:(void (^)(void))endActions
+                    success:(void (^)(void))success
+                    failure:(void (^)(FailureErrorType error))failure;
 
 @end

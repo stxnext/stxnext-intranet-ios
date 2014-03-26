@@ -39,22 +39,22 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
     
-    [[Teams singleton] teamsWithStart:^(NSDictionary *params) {
+    [[Teams singleton] teamsWithStart:^{
         
         [LoaderView showWithRefreshControl:nil tableView:self.tableView];
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [self.tableView reloadDataAnimated:YES];
         [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
         
     } success:^(NSArray *teams) {
         
-        [[CurrentUser singleton] userIdWithStart:^(NSDictionary *params) {
+        [[CurrentUser singleton] userIdWithStart:^{
 
             [LoaderView showWithRefreshControl:nil tableView:self.tableView];
             
-        } end:^(NSDictionary *params) {
+        } end:^{
             
             [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
             
@@ -115,10 +115,10 @@
                     }
                 }
             }
-        } failure:^(NSDictionary *data) {
+        } failure:^(FailureErrorType error) {
             
         }];
-    } failure:^(NSDictionary *data) {
+    } failure:^(NSArray *teams, FailureErrorType error) {
         
     }];
 }

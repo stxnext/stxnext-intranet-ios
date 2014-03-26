@@ -25,10 +25,10 @@
     return sharedInstance;
 }
 
-- (void)presencesWithStart:(void (^)(NSDictionary *params))startActions
-                       end:(void (^)(NSDictionary *params))endActions
+- (void)presencesWithStart:(void (^)(void))startActions
+                       end:(void (^)(void))endActions
                    success:(void (^)(NSArray *presences))success
-                   failure:(void (^)(NSDictionary *data))failure
+                   failure:(void (^)(NSArray *cachedPresences, FailureErrorType error))failure
 {
     DDLogInfo(@"Loading Presences from: Database");
     
@@ -43,7 +43,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }
     else
@@ -55,10 +55,10 @@
     }
 }
 
-- (void)downloadPresencesWithStart:(void (^)(NSDictionary *params))startActions
-                               end:(void (^)(NSDictionary *params))endActions
+- (void)downloadPresencesWithStart:(void (^)(void))startActions
+                               end:(void (^)(void))endActions
                            success:(void (^)(NSArray *presences))success
-                           failure:(void (^)(NSDictionary *data))failure
+                           failure:(void (^)(NSArray *cachedPresences, FailureErrorType error))failure
 {
     DDLogInfo(@"Loading Presences from: API");
     
@@ -76,7 +76,7 @@
             
             if (endActions)
             {
-                endActions(nil);
+                endActions();
             }
         }
         
@@ -85,7 +85,7 @@
     
     if (startActions)
     {
-        startActions(nil);
+        startActions();
     }
     
     [[HTTPClient sharedClient] startOperation:[[CurrentUser singleton] userLoginType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -124,7 +124,7 @@
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -132,12 +132,12 @@
         
         if (failure)
         {
-            failure(nil);
+            failure([self getPresencesFromDatabase], FailureErrorTypeDefault);
         }
         
         if (endActions)
         {
-            endActions(nil);
+            endActions();
         }
     }];
 }

@@ -12,14 +12,14 @@
 
 + (instancetype)singleton;
 
-- (void)teamsWithStart:(void (^)(NSDictionary *params))startActions
-                   end:(void (^)(NSDictionary *params))endActions
+- (void)teamsWithStart:(void (^)(void))startActions
+                   end:(void (^)(void))endActions
                success:(void (^)(NSArray *teams))success
-               failure:(void (^)(NSDictionary *data))failure;
+               failure:(void (^)(NSArray *cachedTeams, FailureErrorType error))failure;
 
-- (void)downloadTeamsWithStart:(void (^)(NSDictionary *params))startActions
-                           end:(void (^)(NSDictionary *params))endActions
+- (void)downloadTeamsWithStart:(void (^)(void))startActions
+                           end:(void (^)(void))endActions
                        success:(void (^)(NSArray *teams))success
-                       failure:(void (^)(NSDictionary *data))failure;
+                       failure:(void (^)(NSArray *cachedTeams, FailureErrorType error))failure;
 
 @end

@@ -110,12 +110,12 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsers
 {
-    [[Users singleton] usersWithStart:^(NSDictionary *params) {
+    [[Users singleton] usersWithStart:^{
         
         [self.refreshControl endRefreshing];
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [self.tableView reloadData];
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
@@ -310,9 +310,9 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
         }
          */
-    } failure:^(UserErrorType error) {
+    } failure:^(NSArray *cachedUsers, FailureErrorType error) {
        
-        if (error == UserErrorTypeReloginRequired)
+        if (error == FailureErrorTypeLoginRequired)
         {
             [self showLoginScreen];
         }
@@ -327,12 +327,12 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
-    [[Model singleton] updateModelWithStart:^(NSDictionary *params) {
+    [[Model singleton] updateModelWithStart:^{
 
         self.tableView.hidden = YES;
         [LoaderView showWithRefreshControl:self.refreshControl tableView:self.tableView];
     
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [self.tableView reloadData];
         [LoaderView hideWithRefreshControl:self.refreshControl tableView:self.tableView];
@@ -348,17 +348,17 @@ static CGFloat tabBarHeight;
             _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];;
         }
         
-    } failure:^(NSArray *users, NSArray *presences, NSArray *teams , ModelErrorType error) {
+    } failure:^(NSArray *cachedUsers, NSArray *cachedPresences, NSArray *cachedTeams , FailureErrorType error) {
         
         switch (error)
         {
-            case ModelErrorTypeDefault:
+            case FailureErrorTypeDefault:
             {
                 [self loadUsers];
             }
                 break;
                 
-            case ModelErrorTypeLoginRequired:
+            case FailureErrorTypeLoginRequired:
             {
                 _userList = nil;
                 [self.tableView reloadData];

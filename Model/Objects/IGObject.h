@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, FailureErrorType)
+{
+    FailureErrorTypeDefault,
+    FailureErrorTypeLoginRequired,
+    FailureErrorTypeNoInternetConnection,
+    FailureErrorTypeNet
+};
+
+
 @interface IGObject : NSObject
 
 #pragma mark - Creation
@@ -24,12 +33,12 @@
                    start:(void (^)(NSDictionary *params))startActions
                      end:(void (^)(NSDictionary *params))endActions
                  success:(void (^)(IGObject *object))success
-                 failure:(void (^)(NSDictionary *data))failure;
+                 failure:(void (^)(IGObject *cachedObject, FailureErrorType error))failure;
 
 - (void)setObject:(IGObject *)object
             start:(void (^)(NSDictionary *params))startActions
               end:(void (^)(NSDictionary *params))endActions
           success:(void (^)(NSDictionary *data))success
-          failure:(void (^)(NSDictionary *data))failure;
+          failure:(void (^)(FailureErrorType error))failure;
 
 @end

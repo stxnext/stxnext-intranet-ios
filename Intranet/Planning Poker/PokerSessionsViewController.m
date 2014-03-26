@@ -30,16 +30,16 @@
     
     self.parsePerson = nil;
         
-    [[CurrentUser singleton] userWithStart:^(NSDictionary *params) {
+    [[CurrentUser singleton] userWithStart:^{
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
     } success:^(RMUser *user) {
         
         self.currentUser = user;
         
-    } failure:^(NSDictionary *data) {
-        
+    } failure:^(RMUser *cachedUser, FailureErrorType error) {
+
     }];
 }
 

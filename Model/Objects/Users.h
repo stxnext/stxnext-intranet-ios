@@ -8,24 +8,18 @@
 
 #import "IGObject.h"
 
-typedef NS_ENUM(NSUInteger, UserErrorType)
-{
-    UserErrorTypeDefault,
-    UserErrorTypeReloginRequired
-};
-
 @interface Users : IGObject
 
 + (instancetype)singleton;
 
-- (void)usersWithStart:(void (^)(NSDictionary *params))startActions
-                   end:(void (^)(NSDictionary *params))endActions
+- (void)usersWithStart:(void (^)(void))startActions
+                   end:(void (^)(void))endActions
                success:(void (^)(NSArray *users))success
-               failure:(void (^)(UserErrorType error))failure;
+               failure:(void (^)(NSArray *cachedUsers, FailureErrorType error))failure;
 
-- (void)downloadUsersWithStart:(void (^)(NSDictionary *params))startActions
-                           end:(void (^)(NSDictionary *params))endActions
+- (void)downloadUsersWithStart:(void (^)(void))startActions
+                           end:(void (^)(void))endActions
                        success:(void (^)(NSArray *users))success
-                       failure:(void (^)(UserErrorType error))failure;
+                       failure:(void (^)(NSArray *cachedUsers, FailureErrorType error))failure;
 
 @end

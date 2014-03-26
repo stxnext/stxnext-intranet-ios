@@ -12,14 +12,14 @@
 
 + (instancetype)singleton;
 
-- (void)presencesWithStart:(void (^)(NSDictionary *params))startActions
-                       end:(void (^)(NSDictionary *params))endActions
+- (void)presencesWithStart:(void (^)(void))startActions
+                       end:(void (^)(void))endActions
                    success:(void (^)(NSArray *presences))success
-                   failure:(void (^)(NSDictionary *data))failure;
+                   failure:(void (^)(NSArray *cachedPresences, FailureErrorType error))failure;
 
-- (void)downloadPresencesWithStart:(void (^)(NSDictionary *params))startActions
-                               end:(void (^)(NSDictionary *params))endActions
+- (void)downloadPresencesWithStart:(void (^)(void))startActions
+                               end:(void (^)(void))endActions
                            success:(void (^)(NSArray *presences))success
-                           failure:(void (^)(NSDictionary *data))failure;
+                           failure:(void (^)(NSArray *cachedPresences, FailureErrorType error))failure;
 
 @end

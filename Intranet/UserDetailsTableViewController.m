@@ -189,15 +189,15 @@
 
 - (IBAction)logout:(id)sender
 {
-    [[CurrentUser singleton] logoutUserWithStart:^(NSDictionary *params) {
+    [[CurrentUser singleton] logoutUserWithStart:^{
         
         [LoaderView showWithRefreshControl:nil tableView:self.tableView];
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
         [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
         
-    } success:^(NSDictionary *params) {
+    } success:^{
         
         self.user = nil;
         
@@ -209,7 +209,7 @@
         {
             [APP_DELEGATE showLoginScreenForiPad];
         }
-    } failure:^(NSDictionary *data) {
+    } failure:^(FailureErrorType error) {
         
     }];
 }
@@ -246,11 +246,11 @@
                 
                 self.title = @"Me";
                 
-                [[CurrentUser singleton] userIdWithStart:^(NSDictionary *params) {
+                [[CurrentUser singleton] userIdWithStart:^{
                     
                     [LoaderView showWithRefreshControl:nil tableView:self.tableView];
                     
-                } end:^(NSDictionary *params) {
+                } end:^{
                     
                     [LoaderView hideWithRefreshControl:nil tableView:self.tableView];
                     
@@ -258,7 +258,7 @@
                 
                     [self loadMe];
                 
-                } failure:^(NSDictionary *data) {
+                } failure:^(FailureErrorType error) {
                     
                 }];
             }
@@ -288,11 +288,11 @@
 
 - (void)loadMe
 {
-    [[CurrentUser singleton] userWithStart:^(NSDictionary *params) {
+    [[CurrentUser singleton] userWithStart:^{
         
         [LoaderView showWithRefreshControl:nil tableView:self.tableView];
         
-    } end:^(NSDictionary *params) {
+    } end:^{
         
 #warning TODO
         
@@ -307,7 +307,7 @@
         
         self.user = user;
         
-    } failure:^(NSDictionary *data) {
+    } failure:^(RMUser *cachedUser, FailureErrorType error) {
         
     }];
 }

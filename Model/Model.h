@@ -11,19 +11,13 @@
 #import "Users.h"
 #import "Teams.h"
 
-typedef NS_ENUM(NSUInteger, ModelErrorType)
-{
-    ModelErrorTypeDefault,
-    ModelErrorTypeLoginRequired
-};
-
-@interface Model : NSObject
+@interface Model : IGObject
 
 + (instancetype)singleton;
 
-- (void)updateModelWithStart:(void (^)(NSDictionary *params))startActions
-                         end:(void (^)(NSDictionary *params))endActions
+- (void)updateModelWithStart:(void (^)(void))startActions
+                         end:(void (^)(void))endActions
                      success:(void (^)(NSArray *users, NSArray *presences, NSArray *teams))success
-                     failure:(void (^)(NSArray *users, NSArray *presences, NSArray *teams, ModelErrorType error))failure;
+                     failure:(void (^)(NSArray *cachedUsers, NSArray *cachedPresences, NSArray *cachedTeams, FailureErrorType error))failure;
 
 @end
