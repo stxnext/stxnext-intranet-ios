@@ -148,7 +148,7 @@ typedef enum
                     NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
                                                                                     to,
                                                                                     date,
-                                                                                    [NSNumber numberWithBool:self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark],
+                                                                                    self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark ? @"true" : @"false",
                                                                                     self.explanation]
                                                                           forKeys:@[@"late_start",
                                                                                     @"late_end",

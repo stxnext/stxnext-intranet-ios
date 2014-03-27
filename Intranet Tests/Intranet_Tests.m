@@ -28,7 +28,7 @@
 
 - (void)test_001_gameClient
 {
-    NSString* hostName = @"127.0.0.1";
+    NSString* hostName = @"bolt";
     unsigned int port = 9999;
     
     GameClient* client = [[GameClient alloc] initWithHostName:hostName withPort:port];
@@ -39,7 +39,7 @@
         {
             return;
         }
-        
+
         [client createUserWithEmail:@"user@example.com" name:@"Test User" externalId:@(50) imageUrl:@"http://" completionHandler:^(GMUser *user, NSError *error) {
             if (error)
             {
