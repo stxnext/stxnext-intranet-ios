@@ -7,7 +7,6 @@
 //
 
 #import "AddOOOFormTableViewController.h"
-#import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "CurrentUser.h"
 
@@ -47,7 +46,7 @@ typedef enum
     self.OOOPickerFrom.date = [[NSDate date] dateWithHour:9 minute:0 second:0];
     self.OOOPickerTo.date = [[NSDate date] dateWithHour:17 minute:0 second:0];
     
-    [self getFreeDays];
+    [self updateFreeDays];
     
     [self dateTimeValueChanged:self.absenceHolidayPickerStart];
     [self dateTimeValueChanged:self.absenceHolidayPickerEnd];
@@ -121,12 +120,12 @@ typedef enum
                     
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"absence"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[CurrentUser singleton] sendAbsence:JSON withStart:nil end:nil success:^{
                         
                         [self dismissViewControllerAnimated:YES completion:nil];
                         
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        
+                    } failure:^(FailureErrorType error) {
+                       
                         [UIAlertView showErrorWithMessage:@"Request has not been added. Please try again." handler:nil];
                     }];
                 }
@@ -160,13 +159,13 @@ typedef enum
                     
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[CurrentUser singleton] sendLateness:JSON withStart:nil end:nil success:^{
                         
                         [self dismissViewControllerAnimated:YES completion:nil];
                         
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    } failure:^(FailureErrorType error) {
                         
-                           [UIAlertView showErrorWithMessage:@"Request has not been added. Please try again." handler:nil];
+                        [UIAlertView showErrorWithMessage:@"Request has not been added. Please try again." handler:nil];
                     }];
                 }
                 else
@@ -569,16 +568,14 @@ typedef enum
     [self.tableView reloadDataAnimated:YES];
 }
 
-- (void)getFreeDays
+- (void)updateFreeDays
 {
-    [[HTTPClient sharedClient] startOperation:[APIRequest getFreeDays] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[CurrentUser singleton] freeDaysWithStart:nil end:nil success:^(NSString *freeDays) {
         
-        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", [responseObject objectForKey:@"left"]];
+        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", freeDays];
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-    }];
+    } failure:nil];
 }
 
 @end

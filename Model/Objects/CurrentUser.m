@@ -334,4 +334,113 @@
     }
 }
 
+- (void)freeDaysWithStart:(void (^)(void))startActions
+                      end:(void (^)(void))endActions
+                  success:(void (^)(NSString *freeDays))success
+                  failure:(void (^)(FailureErrorType error))failure
+{
+    if (startActions)
+    {
+        startActions();
+    }
+    
+    [[HTTPClient sharedClient] startOperation:[APIRequest getFreeDays] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (success)
+        {
+            success([NSString stringWithFormat:@"%@", [responseObject objectForKey:@"left"]]);
+        }
+
+        if (endActions)
+        {
+            endActions();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        if (failure)
+        {
+            failure(FailureErrorTypeDefault);
+        }
+        
+        if (endActions)
+        {
+            endActions();
+        }
+    }];
+}
+
+- (void)sendAbsence:(NSDictionary *)absence
+          withStart:(void (^)(void))startActions
+                end:(void (^)(void))endActions
+            success:(void (^)(void))success
+            failure:(void (^)(FailureErrorType error))failure
+{
+    if (startActions)
+    {
+        startActions();
+    }
+    
+    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:absence] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (success)
+        {
+            success();
+        }
+        
+        if (endActions)
+        {
+            endActions();
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if (failure)
+        {
+            failure(FailureErrorTypeDefault);
+        }
+        
+        if (endActions)
+        {
+            endActions();
+        }
+    }];
+}
+
+- (void)sendLateness:(NSDictionary *)lateness
+           withStart:(void (^)(void))startActions
+                 end:(void (^)(void))endActions
+             success:(void (^)(void))success
+             failure:(void (^)(FailureErrorType error))failure
+{
+    if (startActions)
+    {
+        startActions();
+    }
+    
+    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:lateness] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (success)
+        {
+            success();
+        }
+        
+        if (endActions)
+        {
+            endActions();
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if (failure)
+        {
+            failure(FailureErrorTypeDefault);
+        }
+        
+        if (endActions)
+        {
+            endActions();
+        }
+    }];
+}
+
 @end

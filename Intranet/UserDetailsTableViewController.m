@@ -8,8 +8,6 @@
 
 #import "UserDetailsTableViewController.h"
 #import "RMUser+AddressBook.h"
-#import "AFHTTPRequestOperation+Redirect.h"
-#import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "CurrentUser.h"
 

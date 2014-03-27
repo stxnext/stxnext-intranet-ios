@@ -50,4 +50,21 @@ typedef NS_ENUM(NSUInteger, UserLoginType)
                     success:(void (^)(void))success
                     failure:(void (^)(FailureErrorType error))failure;
 
+- (void)freeDaysWithStart:(void (^)(void))startActions
+                      end:(void (^)(void))endActions
+                  success:(void (^)(NSString *freeDays))success
+                  failure:(void (^)(FailureErrorType error))failure;
+
+- (void)sendAbsence:(NSDictionary *)absence
+          withStart:(void (^)(void))startActions
+                end:(void (^)(void))endActions
+            success:(void (^)(void))success
+            failure:(void (^)(FailureErrorType error))failure;
+
+- (void)sendLateness:(NSDictionary *)lateness
+           withStart:(void (^)(void))startActions
+                 end:(void (^)(void))endActions
+             success:(void (^)(void))success
+             failure:(void (^)(FailureErrorType error))failure;
+
 @end
