@@ -16,6 +16,7 @@
     user.email = self.email;
     user.externalId = self.id;
     user.name = self.name;
+    user.imageURL = self.imageURL;
     
     return user;
 }

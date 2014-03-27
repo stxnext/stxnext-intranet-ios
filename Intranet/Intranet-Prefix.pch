@@ -44,7 +44,6 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>
 #import "AsyncSocket.h"
-#import "GameClient.h"
 
 // Custom categories
 #import "AppDelegate+Modals.h"
@@ -54,6 +53,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 // Custom headers
 #import "Database.h"
+#import "GameManager.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
 #import "PFModels.h"
