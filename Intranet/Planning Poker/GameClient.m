@@ -172,12 +172,14 @@ const MessageAction NotificationCloseSession = @"close_session";
 - (void)createUserWithEmail:(NSString*)email
                        name:(NSString*)name
                  externalId:(NSNumber*)externalId
+                   imageUrl:(NSString*)imageUrl
           completionHandler:(void (^)(GMUser* user, NSError* error))completionBlock
 {
     GMUser* user = [GMUser new];
     user.email = email;
     user.name = name;
     user.externalId = externalId;
+    user.imageURL = imageUrl;
     
     GameMessage* request = [GameMessage new];
     request.type = MessageRequest;

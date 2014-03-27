@@ -62,6 +62,7 @@ typedef void (^MessageCallback)(GameMessage* message, NSError* error);
 - (void)createUserWithEmail:(NSString*)email
                        name:(NSString*)name
                  externalId:(NSNumber*)externalId
+                   imageUrl:(NSString*)imageUrl
           completionHandler:(void (^)(GMUser* user, NSError* error))completionBlock;
 
 - (void)createSessionWithDeck:(GMDeck*)deck

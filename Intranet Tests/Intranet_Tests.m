@@ -40,7 +40,7 @@
             return;
         }
         
-        [client createUserWithEmail:@"user@example.com" name:@"Test User" externalId:@(50) completionHandler:^(GMUser *user, NSError *error) {
+        [client createUserWithEmail:@"user@example.com" name:@"Test User" externalId:@(50) imageUrl:@"http://" completionHandler:^(GMUser *user, NSError *error) {
             if (error)
             {
                 [client disconnect];
