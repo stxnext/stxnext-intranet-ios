@@ -15,6 +15,7 @@ NSString* const kGMSessionOwner = @"owner";
 NSString* const kGMSessionPlayers = @"players";
 NSString* const kGMSessionStartTime = @"start_time";
 NSString* const kGMSessionName = @"name";
+NSString* const kGMSessionTickets = @"tickets";
 
 @implementation GMSession
 
@@ -26,6 +27,7 @@ NSString* const kGMSessionName = @"name";
 @synthesize players = _players;
 @synthesize startTime = _startTime;
 @synthesize name = _name;
+@synthesize tickets = _tickets;
 
 + (GMSession *)modelObjectWithDictionary:(NSDictionary *)dict
 {
@@ -53,6 +55,20 @@ NSString* const kGMSessionName = @"name";
         else if ([receivedGMPlayers isKindOfClass:[NSDictionary class]])
             [parsedGMPlayers addObject:[GMUser modelObjectWithDictionary:(NSDictionary *)receivedGMPlayers]];
         
+        NSObject *receivedGMTickets = [dict objectForKey:kGMSessionTickets];
+        NSMutableArray *parsedGMTickets = [NSMutableArray array];
+        
+        if ([receivedGMTickets isKindOfClass:[NSArray class]])
+        {
+            for (NSDictionary *item in (NSArray *)receivedGMTickets)
+            {
+                if ([item isKindOfClass:[NSDictionary class]])
+                    [parsedGMTickets addObject:[GMTicket modelObjectWithDictionary:item]];
+            }
+        }
+        else if ([receivedGMTickets isKindOfClass:[NSDictionary class]])
+            [parsedGMTickets addObject:[GMTicket modelObjectWithDictionary:(NSDictionary *)receivedGMTickets]];
+        
         self.expired = [[dict[kGMSessionExpired] validObject] boolValue];
         self.endTime = [dict[kGMSessionEndTime] validNumber];
         self.deckId = [dict[kGMSessionDeckId] validNumber];
@@ -61,6 +77,7 @@ NSString* const kGMSessionName = @"name";
         self.players = parsedGMPlayers;
         self.startTime = [dict[kGMSessionStartTime] validNumber];
         self.name = dict[kGMDeckName];
+        self.tickets = parsedGMTickets;
     }
     
     return self;
@@ -78,6 +95,16 @@ NSString* const kGMSessionName = @"name";
             [tempArrayForPlayers addObject:subArrayObject];
     }
     
+    NSMutableArray *tempArrayForTickets = [NSMutableArray array];
+    
+    for (NSObject *subArrayObject in self.tickets)
+    {
+        if ([subArrayObject respondsToSelector:@selector(dictionaryRepresentation)])
+            [tempArrayForTickets addObject:[subArrayObject performSelector:@selector(dictionaryRepresentation)]];
+        else
+            [tempArrayForTickets addObject:subArrayObject];
+    }
+    
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:@(self.expired) forKey:kGMSessionExpired];
     [mutableDict setValue:self.endTime forKey:kGMSessionEndTime];
@@ -87,6 +114,7 @@ NSString* const kGMSessionName = @"name";
     [mutableDict setValue:tempArrayForPlayers forKey:kGMSessionPlayers];
     [mutableDict setValue:self.startTime forKey:kGMSessionStartTime];
     [mutableDict setValue:self.name forKey:kGMDeckName];
+    [mutableDict setValue:tempArrayForTickets forKey:kGMSessionTickets];
 
     return mutableDict;
 }
@@ -105,6 +133,7 @@ NSString* const kGMSessionName = @"name";
     self.players = [aDecoder decodeObjectForKey:kGMSessionPlayers];
     self.startTime = [aDecoder decodeObjectForKey:kGMSessionStartTime];
     self.name = [aDecoder decodeObjectForKey:kGMDeckName];
+    self.tickets = [aDecoder decodeObjectForKey:kGMSessionTickets];
     
     return self;
 }
@@ -119,6 +148,7 @@ NSString* const kGMSessionName = @"name";
     [aCoder encodeObject:_players forKey:kGMSessionPlayers];
     [aCoder encodeObject:_startTime forKey:kGMSessionStartTime];
     [aCoder encodeObject:_name forKey:kGMDeckName];
+    [aCoder encodeObject:_tickets forKey:kGMSessionTickets];
 }
 
 @end

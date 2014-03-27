@@ -18,6 +18,7 @@ extern NSString* const kGMSessionOwner;
 extern NSString* const kGMSessionPlayers;
 extern NSString* const kGMSessionStartTime;
 extern NSString* const kGMSessionName;
+extern NSString* const kGMSessionTickets;
 
 @property (nonatomic, assign) BOOL expired;
 @property (nonatomic, strong) NSNumber* endTime;
@@ -27,5 +28,6 @@ extern NSString* const kGMSessionName;
 @property (nonatomic, strong) NSArray *players;
 @property (nonatomic, strong) NSNumber* startTime;
 @property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSArray *tickets;
 
 @end
