@@ -65,7 +65,8 @@ typedef void (^MessageCallback)(GameMessage* message, NSError* error);
                    imageUrl:(NSString*)imageUrl
           completionHandler:(void (^)(GMUser* user, NSError* error))completionBlock;
 
-- (void)createSessionWithDeck:(GMDeck*)deck
+- (void)createSessionWithName:(NSString*)name
+                         deck:(GMDeck*)deck
                       players:(NSArray*)players
                         owner:(GMUser*)owner
                     startDate:(NSDate*)startDate

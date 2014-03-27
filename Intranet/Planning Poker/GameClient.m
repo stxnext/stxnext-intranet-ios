@@ -200,13 +200,15 @@ const MessageAction NotificationCloseSession = @"close_session";
     }];
 }
 
-- (void)createSessionWithDeck:(GMDeck*)deck
+- (void)createSessionWithName:(NSString*)name
+                         deck:(GMDeck*)deck
                       players:(NSArray*)players
                         owner:(GMUser*)owner
                     startDate:(NSDate*)startDate
             completionHandler:(void (^)(GMSession* session, NSError* error))completionBlock
 {
     GMSession* session = [GMSession new];
+    session.name = name;
     session.startTime = [startDate mapToTime];
     session.players = players;
     session.owner = owner;

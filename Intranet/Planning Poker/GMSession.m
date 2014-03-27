@@ -14,6 +14,7 @@ NSString* const kGMSessionId = @"id";
 NSString* const kGMSessionOwner = @"owner";
 NSString* const kGMSessionPlayers = @"players";
 NSString* const kGMSessionStartTime = @"start_time";
+NSString* const kGMSessionName = @"name";
 
 @implementation GMSession
 
@@ -24,6 +25,7 @@ NSString* const kGMSessionStartTime = @"start_time";
 @synthesize owner = _owner;
 @synthesize players = _players;
 @synthesize startTime = _startTime;
+@synthesize name = _name;
 
 + (GMSession *)modelObjectWithDictionary:(NSDictionary *)dict
 {
@@ -58,6 +60,7 @@ NSString* const kGMSessionStartTime = @"start_time";
         self.owner = [GMUser modelObjectWithDictionary:dict[kGMSessionOwner]];
         self.players = parsedGMPlayers;
         self.startTime = [dict[kGMSessionStartTime] validNumber];
+        self.name = dict[kGMDeckName];
     }
     
     return self;
@@ -83,6 +86,7 @@ NSString* const kGMSessionStartTime = @"start_time";
     [mutableDict setValue:[self.owner dictionaryRepresentation] forKey:kGMSessionOwner];
     [mutableDict setValue:tempArrayForPlayers forKey:kGMSessionPlayers];
     [mutableDict setValue:self.startTime forKey:kGMSessionStartTime];
+    [mutableDict setValue:self.name forKey:kGMDeckName];
 
     return mutableDict;
 }
@@ -100,6 +104,7 @@ NSString* const kGMSessionStartTime = @"start_time";
     self.owner = [aDecoder decodeObjectForKey:kGMSessionOwner];
     self.players = [aDecoder decodeObjectForKey:kGMSessionPlayers];
     self.startTime = [aDecoder decodeObjectForKey:kGMSessionStartTime];
+    self.name = [aDecoder decodeObjectForKey:kGMDeckName];
     
     return self;
 }
@@ -113,6 +118,7 @@ NSString* const kGMSessionStartTime = @"start_time";
     [aCoder encodeObject:_owner forKey:kGMSessionOwner];
     [aCoder encodeObject:_players forKey:kGMSessionPlayers];
     [aCoder encodeObject:_startTime forKey:kGMSessionStartTime];
+    [aCoder encodeObject:_name forKey:kGMDeckName];
 }
 
 @end

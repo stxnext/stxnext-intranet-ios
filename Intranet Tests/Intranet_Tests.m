@@ -28,7 +28,7 @@
 
 - (void)test_001_gameClient
 {
-    NSString* hostName = @"127.0.0.1";
+    NSString* hostName = @"bolt";
     unsigned int port = 9999;
     
     GameClient* client = [[GameClient alloc] initWithHostName:hostName withPort:port];
@@ -60,7 +60,7 @@
                 NSArray* players = @[ user ];
                 NSDate* date = [NSDate dateWithTimeIntervalSinceNow:60*60*5];
                 
-                [client createSessionWithDeck:deck players:players owner:owner startDate:date completionHandler:^(GMSession *session, NSError *error) {
+                [client createSessionWithName:@"Test Session" deck:deck players:players owner:owner startDate:date completionHandler:^(GMSession *session, NSError *error) {
                     if (error)
                     {
                         [client disconnect];
@@ -104,7 +104,7 @@
                                         }
                                     }];
                                     
-                                    [listener newRoundWithTicketValue:@"sample ticket" session:session user:currentUser completionHandler:^(GMTicket* ticket, NSError *error) {
+                                    [listener newRoundWithTicketValue:@"Test Ticket" session:session user:currentUser completionHandler:^(GMTicket* ticket, NSError *error) {
                                         if (error)
                                         {
                                             [listener disconnect];
