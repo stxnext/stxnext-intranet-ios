@@ -16,6 +16,18 @@
 		0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6118C9F8B4002AA21D /* AppDelegate+Parse.m */; };
 		0C303C6518C9FBAA002AA21D /* PFTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6418C9FBAA002AA21D /* PFTicket.m */; };
 		0C303C6818C9FC49002AA21D /* PFRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6718C9FC49002AA21D /* PFRound.m */; };
+		0C3C6F5418E4312D0023026B /* RMUser+GMUserMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F3C18E4312D0023026B /* RMUser+GMUserMapping.m */; };
+		0C3C6F5518E4312D0023026B /* GameClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F3E18E4312D0023026B /* GameClient.m */; };
+		0C3C6F5618E4312D0023026B /* GMCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4018E4312D0023026B /* GMCard.m */; };
+		0C3C6F5718E4312D0023026B /* GMDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4218E4312D0023026B /* GMDeck.m */; };
+		0C3C6F5818E4312D0023026B /* GMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4518E4312D0023026B /* GMModel.m */; };
+		0C3C6F5918E4312D0023026B /* GMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4718E4312D0023026B /* GMSession.m */; };
+		0C3C6F5A18E4312D0023026B /* GMTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4918E4312D0023026B /* GMTicket.m */; };
+		0C3C6F5B18E4312D0023026B /* GMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4B18E4312D0023026B /* GMUser.m */; };
+		0C3C6F5C18E4312D0023026B /* GMUserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4D18E4312D0023026B /* GMUserSession.m */; };
+		0C3C6F5D18E4312D0023026B /* GMVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4F18E4312D0023026B /* GMVote.m */; };
+		0C3C6F5E18E4312D0023026B /* NSObject+JSONCast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F5118E4312D0023026B /* NSObject+JSONCast.m */; };
+		0C3C6F5F18E4312D0023026B /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F5318E4312D0023026B /* TCPClient.m */; };
 		0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429CEE18C9FD5D00BB9CBA /* PFVote.m */; };
 		0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */; };
 		0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C429D1818CA174C00BB9CBA /* PFPerson.m */; };
@@ -25,8 +37,6 @@
 		0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */; };
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
-		0C86BF4918D334EE00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
-		0C86BF4E18D3487C00988E3D /* TCPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C86BF4718D334EE00988E3D /* TCPClient.m */; };
 		0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
 		0C9D7C8E18D31BA3009E8010 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0C9D7C8F18D31BA3009E8010 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
@@ -161,6 +171,31 @@
 		0C303C6418C9FBAA002AA21D /* PFTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFTicket.m; sourceTree = "<group>"; };
 		0C303C6618C9FC49002AA21D /* PFRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFRound.h; sourceTree = "<group>"; };
 		0C303C6718C9FC49002AA21D /* PFRound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFRound.m; sourceTree = "<group>"; };
+		0C3C6F3B18E4312D0023026B /* RMUser+GMUserMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+GMUserMapping.h"; sourceTree = "<group>"; };
+		0C3C6F3C18E4312D0023026B /* RMUser+GMUserMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+GMUserMapping.m"; sourceTree = "<group>"; };
+		0C3C6F3D18E4312D0023026B /* GameClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameClient.h; sourceTree = "<group>"; };
+		0C3C6F3E18E4312D0023026B /* GameClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameClient.m; sourceTree = "<group>"; };
+		0C3C6F3F18E4312D0023026B /* GMCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMCard.h; sourceTree = "<group>"; };
+		0C3C6F4018E4312D0023026B /* GMCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMCard.m; sourceTree = "<group>"; };
+		0C3C6F4118E4312D0023026B /* GMDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMDeck.h; sourceTree = "<group>"; };
+		0C3C6F4218E4312D0023026B /* GMDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMDeck.m; sourceTree = "<group>"; };
+		0C3C6F4318E4312D0023026B /* GMHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMHeader.h; sourceTree = "<group>"; };
+		0C3C6F4418E4312D0023026B /* GMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMModel.h; sourceTree = "<group>"; };
+		0C3C6F4518E4312D0023026B /* GMModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMModel.m; sourceTree = "<group>"; };
+		0C3C6F4618E4312D0023026B /* GMSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMSession.h; sourceTree = "<group>"; };
+		0C3C6F4718E4312D0023026B /* GMSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMSession.m; sourceTree = "<group>"; };
+		0C3C6F4818E4312D0023026B /* GMTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMTicket.h; sourceTree = "<group>"; };
+		0C3C6F4918E4312D0023026B /* GMTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMTicket.m; sourceTree = "<group>"; };
+		0C3C6F4A18E4312D0023026B /* GMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUser.h; sourceTree = "<group>"; };
+		0C3C6F4B18E4312D0023026B /* GMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUser.m; sourceTree = "<group>"; };
+		0C3C6F4C18E4312D0023026B /* GMUserSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUserSession.h; sourceTree = "<group>"; };
+		0C3C6F4D18E4312D0023026B /* GMUserSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUserSession.m; sourceTree = "<group>"; };
+		0C3C6F4E18E4312D0023026B /* GMVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMVote.h; sourceTree = "<group>"; };
+		0C3C6F4F18E4312D0023026B /* GMVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMVote.m; sourceTree = "<group>"; };
+		0C3C6F5018E4312D0023026B /* NSObject+JSONCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSONCast.h"; sourceTree = "<group>"; };
+		0C3C6F5118E4312D0023026B /* NSObject+JSONCast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSONCast.m"; sourceTree = "<group>"; };
+		0C3C6F5218E4312D0023026B /* TCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPClient.h; sourceTree = "<group>"; };
+		0C3C6F5318E4312D0023026B /* TCPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPClient.m; sourceTree = "<group>"; };
 		0C429CED18C9FD5D00BB9CBA /* PFVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFVote.h; sourceTree = "<group>"; };
 		0C429CEE18C9FD5D00BB9CBA /* PFVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFVote.m; sourceTree = "<group>"; };
 		0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionsViewController.h; sourceTree = "<group>"; };
@@ -178,8 +213,6 @@
 		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
-		0C86BF4718D334EE00988E3D /* TCPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPClient.m; sourceTree = "<group>"; };
-		0C86BF4818D334EE00988E3D /* TCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPClient.h; sourceTree = "<group>"; };
 		0C9D7C8C18D31BA3009E8010 /* Intranet Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Intranet Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9D7C9218D31BA3009E8010 /* Intranet Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Intranet Tests-Info.plist"; sourceTree = "<group>"; };
 		0C9D7C9418D31BA3009E8010 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -425,6 +458,54 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		0C3C6F3A18E431140023026B /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				0C3C6F6018E431480023026B /* Network */,
+				0C3C6F6118E431540023026B /* Models */,
+				0C3C6F3B18E4312D0023026B /* RMUser+GMUserMapping.h */,
+				0C3C6F3C18E4312D0023026B /* RMUser+GMUserMapping.m */,
+				0C3C6F5018E4312D0023026B /* NSObject+JSONCast.h */,
+				0C3C6F5118E4312D0023026B /* NSObject+JSONCast.m */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		0C3C6F6018E431480023026B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0C3C6F3D18E4312D0023026B /* GameClient.h */,
+				0C3C6F3E18E4312D0023026B /* GameClient.m */,
+				0C3C6F5218E4312D0023026B /* TCPClient.h */,
+				0C3C6F5318E4312D0023026B /* TCPClient.m */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		0C3C6F6118E431540023026B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0C3C6F3F18E4312D0023026B /* GMCard.h */,
+				0C3C6F4018E4312D0023026B /* GMCard.m */,
+				0C3C6F4118E4312D0023026B /* GMDeck.h */,
+				0C3C6F4218E4312D0023026B /* GMDeck.m */,
+				0C3C6F4318E4312D0023026B /* GMHeader.h */,
+				0C3C6F4418E4312D0023026B /* GMModel.h */,
+				0C3C6F4518E4312D0023026B /* GMModel.m */,
+				0C3C6F4618E4312D0023026B /* GMSession.h */,
+				0C3C6F4718E4312D0023026B /* GMSession.m */,
+				0C3C6F4818E4312D0023026B /* GMTicket.h */,
+				0C3C6F4918E4312D0023026B /* GMTicket.m */,
+				0C3C6F4A18E4312D0023026B /* GMUser.h */,
+				0C3C6F4B18E4312D0023026B /* GMUser.m */,
+				0C3C6F4C18E4312D0023026B /* GMUserSession.h */,
+				0C3C6F4D18E4312D0023026B /* GMUserSession.m */,
+				0C3C6F4E18E4312D0023026B /* GMVote.h */,
+				0C3C6F4F18E4312D0023026B /* GMVote.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		0C43A79C1822618700FB513D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,8 +575,6 @@
 				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
 				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
 				0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */,
-				0C86BF4818D334EE00988E3D /* TCPClient.h */,
-				0C86BF4718D334EE00988E3D /* TCPClient.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -783,6 +862,7 @@
 		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
 			isa = PBXGroup;
 			children = (
+				0C3C6F3A18E431140023026B /* Client */,
 				0C429D1418CA165A00BB9CBA /* PokerSessionsViewController.h */,
 				0C429D1518CA165A00BB9CBA /* PokerSessionsViewController.m */,
 				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
@@ -1106,7 +1186,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C86BF4E18D3487C00988E3D /* TCPClient.m in Sources */,
 				0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1118,9 +1197,11 @@
 				6671239618D2EA4D00D6E8B5 /* RMTeam.m in Sources */,
 				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
+				0C3C6F5518E4312D0023026B /* GameClient.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */,
 				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
+				0C3C6F5918E4312D0023026B /* GMSession.m in Sources */,
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				6671238C18D2E8AB00D6E8B5 /* RMAbsence+Additions.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
@@ -1131,11 +1212,14 @@
 				0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */,
 				0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
+				0C3C6F5818E4312D0023026B /* GMModel.m in Sources */,
 				66572AD018CF44E100B0951F /* CardsTypeTableViewController.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
+				0C3C6F5718E4312D0023026B /* GMDeck.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
+				0C3C6F5418E4312D0023026B /* RMUser+GMUserMapping.m in Sources */,
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
 				66CCD41318DB0B5E00531622 /* IGObject.m in Sources */,
@@ -1159,9 +1243,9 @@
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
+				0C3C6F5D18E4312D0023026B /* GMVote.m in Sources */,
 				66C5603F18DC4C5A00291952 /* FilterViewController.m in Sources */,
 				66CCD41818DB1B2200531622 /* CurrentUser.m in Sources */,
-				0C86BF4918D334EE00988E3D /* TCPClient.m in Sources */,
 				66C5603418DC100400291952 /* Presences.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				6645EF5F18D1E46F00B84371 /* TeamManager.m in Sources */,
@@ -1171,13 +1255,19 @@
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */,
 				6671239518D2EA0A00D6E8B5 /* RMUser.m in Sources */,
+				0C3C6F5C18E4312D0023026B /* GMUserSession.m in Sources */,
+				0C3C6F5A18E4312D0023026B /* GMTicket.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
+				0C3C6F5E18E4312D0023026B /* NSObject+JSONCast.m in Sources */,
+				0C3C6F5B18E4312D0023026B /* GMUser.m in Sources */,
 				667A2CEB18D84FBB00FCB319 /* PokerVoteViewController.m in Sources */,
+				0C3C6F5F18E4312D0023026B /* TCPClient.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0C429CEF18C9FD5D00BB9CBA /* PFVote.m in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UsersTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
+				0C3C6F5618E4312D0023026B /* GMCard.m in Sources */,
 				6613916518D9D4D70044BAA7 /* PokerSessionManager.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 				0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */,

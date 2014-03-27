@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+static const NSTimeInterval TCPClientNoTimeout = -1;
+static const NSTimeInterval TCPClientDefaultTimeout = 5.0;
+
 typedef long NSCounter;
 typedef void (^ErrorCallback)(NSError* error);
 typedef void (^DataCallback)(NSData* data, NSError* error);
+typedef void (^DisconnectCallback)(NSError* error);
 
 @interface TCPClient : NSObject <AsyncSocketDelegate>
 {
@@ -22,21 +26,20 @@ typedef void (^DataCallback)(NSData* data, NSError* error);
     NSCounter _readCounter;
     NSMutableDictionary* _readCompletionBlocks;
     ErrorCallback _connectionCompletionBlock;
+    DisconnectCallback _disconnectCompletionBlock;
 }
 
 - (id)initWithHostName:(NSString*)hostName withPort:(unsigned int)port;
-- (void)connectWithCompletionHandler:(ErrorCallback)completionBlock;
+- (void)connectWithCompletionHandler:(ErrorCallback)completionBlock withDisconnectHandler:(DisconnectCallback)disconnectBlock;
+- (BOOL)isConnected;
 - (void)disconnect;
 - (void)write:(NSData*)data withComplectionHandler:(ErrorCallback)completionBlock;
 - (void)readWithCompletionHandler:(DataCallback)completionBlock;
 
++ (NSError*)abstractError;
+
+@property (nonatomic, strong) NSData* terminator;
+@property (nonatomic) NSTimeInterval connectingTimeout;
+@property (nonatomic) NSTimeInterval readingTimeout;
+
 @end
-
-/*@interface TCPClientInline : TCPClient
-{
-    void (^_eventBlock)(NSData* inputData, NSError* error);
-}
-
-+ (TCPClientInline*)connectToHostWithName:(NSString*)hostName withPort:(unsigned int)port usingEventHandler:(void (^)(NSData* inputData, NSError* error))eventBlock;
-
-@end*/

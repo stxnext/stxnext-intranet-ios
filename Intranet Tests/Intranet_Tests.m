@@ -26,96 +26,126 @@
     [super tearDown];
 }
 
-- (void)test_001_tcpClientWithHttpbinJson
+- (void)test_001_gameClient
 {
-    __block TCPClient* client = [[TCPClient alloc] initWithHostName:@"httpbin.org" withPort:80];
+    NSString* hostName = @"127.0.0.1";
+    unsigned int port = 9999;
+    
+    GameClient* client = [[GameClient alloc] initWithHostName:hostName withPort:port];
+    GameListener* listener = [[GameListener alloc] initWithHostName:hostName withPort:port];
     
     [client connectWithCompletionHandler:^(NSError *error) {
         if (error)
         {
-            [self notify:XCTAsyncTestCaseStatusFailed];
             return;
         }
         
-        NSString* request = @"GET /get HTTP/1.1\r\nHost: httpbin.org\r\n\r\n";
-        NSData* data = [request dataUsingEncoding:NSUTF8StringEncoding];
-        
-        [client write:data withComplectionHandler:^(NSError *error) {
+        [client createUserWithEmail:@"user@example.com" name:@"Test User" externalId:@(50) completionHandler:^(GMUser *user, NSError *error) {
             if (error)
             {
-                [self notify:XCTAsyncTestCaseStatusFailed];
+                [client disconnect];
                 return;
             }
             
-            [client readWithCompletionHandler:^(NSData *data, NSError *error) {
+            [client getCardDecksWithCompletionHandler:^(NSArray *decks, NSError *error) {
                 if (error)
                 {
-                    [self notify:XCTAsyncTestCaseStatusFailed];
+                    [client disconnect];
                     return;
                 }
                 
-                NSString* response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                __block GMUser* currentUser = user;
+                GMDeck* deck = decks.firstObject;
+                GMUser* owner = user;
+                NSArray* players = @[ user ];
+                NSDate* date = [NSDate dateWithTimeIntervalSinceNow:60*60*5];
                 
-                if (![response hasPrefix:@"HTTP/1.1 200 OK"])
-                {
-                    XCTFail(@"Server response invalid: %@", response);
-                    [self notify:XCTAsyncTestCaseStatusFailed];
+                [client createSessionWithDeck:deck players:players owner:owner startDate:date completionHandler:^(GMSession *session, NSError *error) {
+                    if (error)
+                    {
+                        [client disconnect];
+                        return;
+                    }
                     
-                    return;
-                }
-                
-                NSArray* parts = [response componentsSeparatedByString:@"\r\n\r\n"];
-                NSString* bodyString = parts.count < 2 ? nil : parts[1];
-                NSData* bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-                id json = [NSJSONSerialization JSONObjectWithData:bodyData options:0 error:nil];
-                NSString* hostField = json[@"headers"][@"Host"];
-                
-                XCTAssertEqualObjects(hostField, @"httpbin.org", @"Response json field invalid");
-                [self notify:XCTAsyncTestCaseStatusSucceeded];
+                    [client getSessionsForUser:currentUser completionHandler:^(NSArray *sessions, NSError *error) {
+                        if (error)
+                        {
+                            [client disconnect];
+                            return;
+                        }
+                        
+                        GMSession* session = sessions.lastObject;
+                        
+                        [listener connectWithCompletionHandler:^(NSError *error) {
+                            if (error)
+                            {
+                                return;
+                            }
+                            
+                            [listener joinSession:session user:currentUser completionHandler:^(GMUser* user, NSError *error) {
+                                if (error)
+                                {
+                                    [listener disconnect];
+                                    return;
+                                }
+                                
+                                [client getPlayersForSession:session user:user completionHandler:^(NSArray *players, NSError *error) {
+                                    if (error)
+                                    {
+                                        [listener disconnect];
+                                        return;
+                                    }
+                                    
+                                    [listener startListeningNotificationsWithPriority:ListenerPriorityDefault withCompletionHandler:^(GameMessage *notification, NSError *error) {
+                                        if (error)
+                                        {
+                                            [listener disconnect];
+                                            return;
+                                        }
+                                    }];
+                                    
+                                    [listener newRoundWithTicketValue:@"sample ticket" session:session user:currentUser completionHandler:^(GMTicket* ticket, NSError *error) {
+                                        if (error)
+                                        {
+                                            [listener disconnect];
+                                            return;
+                                        }
+                                        
+                                        GMCard* card = deck.cards.firstObject;
+                                        
+                                        [listener newVoteWithCard:card ticket:ticket session:session user:currentUser completionHandler:^(GMVote *vote, NSError *error) {
+                                            if (error)
+                                            {
+                                                [listener disconnect];
+                                                return;
+                                            }
+                                            
+                                            [listener revealVotesForSession:session user:currentUser completionHandler:^(GMTicket *ticket, NSError *error) {
+                                                if (error)
+                                                {
+                                                    [listener disconnect];
+                                                    return;
+                                                }
+                                                
+                                                [listener finishSession:session user:currentUser completionHandler:^(GMSession *session, NSError *error) {
+                                                    [listener disconnect];
+                                                    
+                                                    [self notify:XCTAsyncTestCaseStatusSucceeded];
+                                                }];
+                                            }];
+                                        }];
+                                    }];
+                                }];
+                            }];
+                        } withDisconnectHandler:^(NSError *error) {
+                            [client disconnect];
+                        }];
+                    }];
+                }];
             }];
         }];
-    }];
-    
-    [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:30.0];
-}
-
-- (void)test_002_tcpClientWithIntranetLocalServer
-{
-    __block TCPClient* client = [[TCPClient alloc] initWithHostName:@"10.93.1.12" withPort:8080];
-    
-    [client connectWithCompletionHandler:^(NSError *error) {
-        if (error)
-        {
-            [self notify:XCTAsyncTestCaseStatusFailed];
-            return;
-        }
-        
-        NSString* request = @"{\"request\":{\"request_name\":\"card_decks\"}}\r\n";
-        NSData* data = [request dataUsingEncoding:NSUTF8StringEncoding];
-        
-        [client write:data withComplectionHandler:^(NSError *error) {
-            if (error)
-            {
-                [self notify:XCTAsyncTestCaseStatusFailed];
-                return;
-            }
-            
-            [client readWithCompletionHandler:^(NSData *data, NSError *error) {
-                if (error)
-                {
-                    [self notify:XCTAsyncTestCaseStatusFailed];
-                    return;
-                }
-                
-                id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                NSArray* decks = json[@"decks"];
-                
-                if (decks.count > 0)
-                    [self notify:XCTAsyncTestCaseStatusSucceeded];
-                else
-                    [self notify:XCTAsyncTestCaseStatusFailed];
-            }];
-        }];
+    } withDisconnectHandler:^(NSError *error) {
+        [self notify:XCTAsyncTestCaseStatusFailed];
     }];
     
     [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:30.0];
