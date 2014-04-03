@@ -64,7 +64,6 @@
 {
     DDLogInfo(@"Loading Teams from: API");
     
-//    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     if ([ReachabilityManager isUnreachable])
     {
         DDLogError(@"Teams - no Internet");
@@ -99,8 +98,7 @@
                                            inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
         }
         
-        // Add to database
-        
+        // Add to database        
         for (id team in responseObject[@"teams"])
         {
             [RMTeam mapFromJSON:team];

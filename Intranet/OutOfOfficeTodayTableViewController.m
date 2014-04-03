@@ -206,7 +206,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && ![[AFNetworkReachabilityManager sharedManager] isReachable])
+    if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && [ReachabilityManager isUnreachable])
     {
         [UIAlertView showErrorWithMessage:@"No Internet connection." handler:nil];
         
