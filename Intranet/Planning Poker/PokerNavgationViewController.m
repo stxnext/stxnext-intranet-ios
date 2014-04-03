@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.viewControllers = @[[[UIStoryboard storyboardWithName:@"PlanningPokerStoryboard" bundle:nil] instantiateInitialViewController]];
+    self.viewControllers = @[[[UIStoryboard storyboardWithName:@"PGPokerStoryboard" bundle:nil] instantiateInitialViewController]];
 }
 
 @end

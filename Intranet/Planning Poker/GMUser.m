@@ -98,4 +98,15 @@ NSString* const kGMUserImageUrl = @"image_url";
     return self.identifier != nil;
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMUser* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end

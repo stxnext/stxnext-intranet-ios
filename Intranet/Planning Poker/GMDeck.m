@@ -90,4 +90,15 @@ NSString* const kGMDeckCards = @"cards";
     [aCoder encodeObject:_cards forKey:kGMDeckCards];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMDeck* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end

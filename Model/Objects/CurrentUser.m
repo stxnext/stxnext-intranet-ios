@@ -100,28 +100,19 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             NSString *html = operation.responseString;
-            NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
-            NSString *userID ;
-            
-            for (NSString *line in htmlArray)
+            NSString* userIdentifier = [html substringWithRegexpPattern:@"\"id\": ([0-9]+)," withAtomPath:[NSIndexPath indexPathForFirstMatchWithRange:1]];
+                                        
+            if (userIdentifier)
             {
-                userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                [self setUserId:userIdentifier];
                 
-                if ([predicate evaluateWithObject:userID])
-                {
-                    userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                    
-                    [self setUserId:userID];
-                    
-                    break;
-                }
+                if (success)
+                    success([self userId]);
             }
-            
-            if (success)
+            else
             {
-                success([self userId]);
+                if (failure)
+                    failure(FailureErrorTypeUserParser);
             }
             
             if (endActions)

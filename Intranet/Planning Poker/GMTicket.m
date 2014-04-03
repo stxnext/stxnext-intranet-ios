@@ -88,4 +88,15 @@ NSString* const kGMTicketSessionIdentifier = @"session_id";
     [aCoder encodeObject:_sessionIdentifier forKey:kGMTicketSessionIdentifier];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMTicket* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end

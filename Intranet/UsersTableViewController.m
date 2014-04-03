@@ -67,7 +67,8 @@ static CGFloat tabBarHeight;
     //update data
     if ([[CurrentUser singleton] userLoginType] != UserLoginTypeNO)
     {
-        [self downloadUsers];
+        //[self downloadUsers];
+        [self loadUsers];
     }
 }
 

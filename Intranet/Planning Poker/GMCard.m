@@ -60,4 +60,15 @@ NSString* const kGMCardDisplayValue = @"display_value";
     [aCoder encodeObject:_displayValue forKey:kGMCardDisplayValue];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMCard* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end

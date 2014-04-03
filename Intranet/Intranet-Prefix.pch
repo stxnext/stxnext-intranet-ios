@@ -44,12 +44,16 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import <AFNetworking/AFNetworking.h>
 #import <Parse/Parse.h>
 #import "AsyncSocket.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "REKit.h"
 
 // Custom categories
 #import "AppDelegate+Modals.h"
 #import "NSError+CustomError.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+NetworkCookies.h"
+#import "NSString+RegExp.h"
 
 // Custom headers
 #import "Database.h"

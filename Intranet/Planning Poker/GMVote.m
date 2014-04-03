@@ -74,4 +74,15 @@ NSString* const kGMVoteTicketIdentifier = @"ticket_id";
     [aCoder encodeObject:_ticketIdentifier forKey:kGMVoteTicketIdentifier];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMVote* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end

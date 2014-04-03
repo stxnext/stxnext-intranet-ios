@@ -24,12 +24,13 @@
     return self;
 }
 
+#pragma mark - Client strategy
+
 - (void)fetchGameInfoForExternalUser:(RMUser*)user withCompletionHandler:(ManagerCallback)completionBlock
 {
     __block ManagerCallback callback = completionBlock;
     
     _client = [[GameClient alloc] initWithHostName:_serverHostName withPort:_serverPort];
-    _listener = [[GameListener alloc] initWithHostName:_serverHostName withPort:_serverPort];
     
     [_client connectWithCompletionHandler:^(NSError *error) {
         if (error)
@@ -90,11 +91,166 @@
     }];
 }
 
+- (void)fetchActiveSessionUsersWithCompletionHandler:(ManagerCallback)completionBlock
+{
+    [[GameManager defaultManager] connectedClientWithCompletionHandler:^(GameClient *client, NSError* error, dispatch_block_t disconnectCallback) {
+        if (error)
+        {
+            completionBlock(self, error);
+            return;
+        }
+        
+        [client getPlayersForSession:_activeSession
+                                user:_user
+                   completionHandler:^(NSArray *players, NSError *error) {
+                       disconnectCallback();
+                       
+                       if (error)
+                       {
+                           completionBlock(self, error);
+                           return;
+                       }
+                       
+                       for (GMUser* person in _activeSession.people)
+                           person.active = [players containsObject:person];
+                       
+                       completionBlock(self, nil);
+                   }];
+    }];
+}
+
+- (void)joinActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock withDisconnectHandler:(ManagerCallback)disconnectBlock
+{
+    if (_listener)
+    {
+        completionBlock(self, nil);
+        return;
+    }
+    
+    _listener = [[GameListener alloc] initWithHostName:_serverHostName withPort:_serverPort];
+    
+    [_listener connectWithCompletionHandler:^(NSError *error) {
+        if (error)
+        {
+            completionBlock(self, error);
+            return;
+        }
+        
+        [_listener joinSession:_activeSession user:_user completionHandler:^(GMUser* user, NSError *error) {
+            if (error)
+            {
+                [_listener disconnect];
+                
+                completionBlock(self, error);
+                return;
+            }
+            
+            [_listener startListeningNotificationsWithPriority:ListenerPriorityDefault withCompletionHandler:^(GameMessage *notification, NSError *error) {
+                if (error)
+                {
+                    [_listener disconnect];
+                    return;
+                }
+            }];
+            
+            completionBlock(self, nil);
+        }];
+    } withDisconnectHandler:^(NSError *error) {
+        _listener = nil;
+        
+        disconnectBlock(self, error);
+    }];
+}
+
+- (void)leaveActiveSession
+{
+    [_listener disconnect];
+    _listener = nil;
+}
+
+#pragma mark Convenience methods
+- (void)connectedClientWithCompletionHandler:(void (^)(GameClient* client, NSError* error, dispatch_block_t disconnectCallback))completionBlock
+{
+    dispatch_block_t disconnectCallback = ^{
+        _clientRetainCount--;
+        
+        if (_clientRetainCount == 0)
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kGameManagerUnusedClientDisconnectTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (_clientRetainCount == 0)
+                    [_client disconnect];
+            });
+        }
+    };
+    
+    if (_client.isConnected)
+    {
+        _clientRetainCount++;
+        
+        completionBlock(_client, nil, disconnectCallback);
+        return;
+    }
+    
+    [_client connectWithCompletionHandler:^(NSError *error) {
+        _clientRetainCount = 0;
+        
+        if (error)
+        {
+            completionBlock(nil, error, disconnectCallback);
+            return;
+        }
+        
+        _clientRetainCount++;
+        
+        completionBlock(_client, nil, disconnectCallback);
+    } withDisconnectHandler:^(NSError *error) {
+        _clientRetainCount = 0;
+    }];
+}
+
+- (NSArray*)ownerSessions
+{
+    return [[[GameManager defaultManager].availableSessions
+             filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"owner.identifier == %@", self.user.identifier]]
+            sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
+}
+
+- (NSArray*)playerSessions
+{
+    return [[[GameManager defaultManager].availableSessions
+            filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ANY players.identifier == %@ AND NOT (owner.identifier == %@)", self.user.identifier, self.user.identifier]]
+sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
+}
+
 #pragma mark Singleton
 + (instancetype)defaultManager
 {
     static id _singleton = nil;
     return _singleton ?: (_singleton = [[GameManager alloc] initWithHostName:kGameManagerDefaultServerHostName withPort:kGameManagerDefaultServerPort]);
+}
+
+@end
+
+@implementation GMSession (LocalFetch)
+
+- (GMDeck*)deck
+{
+    return [[GameManager defaultManager].decks filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", self.deckId]].firstObject;
+}
+
+- (NSArray*)people
+{
+    NSMutableArray* users = self.players.mutableCopy;
+    
+    if (![self.players containsObject:self.owner])
+        [users addObject:self.owner];
+    
+    return users;
+}
+
+- (GMUser*)personFromExternalUser:(RMUser*)user
+{
+    return [self.people filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"externalId = %@", user.id]].firstObject;
 }
 
 @end

@@ -32,14 +32,23 @@ typedef void (^DisconnectCallback)(NSError* error);
 - (id)initWithHostName:(NSString*)hostName withPort:(unsigned int)port;
 - (void)connectWithCompletionHandler:(ErrorCallback)completionBlock withDisconnectHandler:(DisconnectCallback)disconnectBlock;
 - (BOOL)isConnected;
+- (NSString*)localAddress;
 - (void)disconnect;
 - (void)write:(NSData*)data withComplectionHandler:(ErrorCallback)completionBlock;
-- (void)readWithCompletionHandler:(DataCallback)completionBlock;
+- (void)readWithoutTimeoutWithCompletionHandler:(DataCallback)completionBlock;
+- (void)readWithTimeoutWithCompletionHandler:(DataCallback)completionBlock;
 
 + (NSError*)abstractError;
++ (NSError*)timeoutError;
 
 @property (nonatomic, strong) NSData* terminator;
 @property (nonatomic) NSTimeInterval connectingTimeout;
 @property (nonatomic) NSTimeInterval readingTimeout;
+
+@end
+
+@interface NSError (TCPClient)
+
+- (BOOL)compareDomainAndCode:(NSError*)error;
 
 @end

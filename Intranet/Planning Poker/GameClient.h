@@ -72,6 +72,10 @@ typedef void (^MessageCallback)(GameMessage* message, NSError* error);
                     startDate:(NSDate*)startDate
             completionHandler:(void (^)(GMSession* session, NSError* error))completionBlock;
 
+- (void)deleteSession:(GMSession*)session
+                 user:(GMUser*)user
+    completionHandler:(void (^)(NSError* error))completionBlock;
+
 - (void)getSessionsForUser:(GMUser*)user
          completionHandler:(void (^)(NSArray* sessions, NSError* error))completionBlock;
 
@@ -124,6 +128,7 @@ const static ListenerPriority ListenerPriorityHigh    = 100;
       completionHandler:(void (^)(GMVote* vote, NSError* error))completionBlock;
 
 - (void)revealVotesForSession:(GMSession*)session
+                       ticket:(GMTicket*)ticket
                          user:(GMUser*)user
             completionHandler:(void (^)(GMTicket* ticket, NSError* error))completionBlock;
 

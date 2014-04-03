@@ -28,8 +28,8 @@
 
 - (void)test_001_gameClient
 {
-    NSString* hostName = @"bolt";
-    unsigned int port = 9999;
+    NSString* hostName = kGameManagerDefaultServerHostName;
+    unsigned int port = kGameManagerDefaultServerPort;
     
     GameClient* client = [[GameClient alloc] initWithHostName:hostName withPort:port];
     GameListener* listener = [[GameListener alloc] initWithHostName:hostName withPort:port];
@@ -120,7 +120,7 @@
                                                 return;
                                             }
                                             
-                                            [listener revealVotesForSession:session user:currentUser completionHandler:^(GMTicket *ticket, NSError *error) {
+                                            [listener revealVotesForSession:session ticket:ticket user:currentUser completionHandler:^(GMTicket *ticket, NSError *error) {
                                                 if (error)
                                                 {
                                                     [listener disconnect];
@@ -128,9 +128,17 @@
                                                 }
                                                 
                                                 [listener finishSession:session user:currentUser completionHandler:^(GMSession *session, NSError *error) {
-                                                    [listener disconnect];
+                                                    if (error)
+                                                    {
+                                                        [listener disconnect];
+                                                        return;
+                                                    }
                                                     
-                                                    [self notify:XCTAsyncTestCaseStatusSucceeded];
+                                                    [client deleteSession:session user:currentUser completionHandler:^(NSError *error) {
+                                                        [listener disconnect];
+                                                        
+                                                        [self notify:XCTAsyncTestCaseStatusSucceeded];
+                                                    }];
                                                 }];
                                             }];
                                         }];

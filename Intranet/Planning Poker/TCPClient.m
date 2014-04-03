@@ -22,7 +22,7 @@
         _writeCompletionBlocks = [NSMutableDictionary dictionary];
         _readCounter = 0;
         _readCompletionBlocks = [NSMutableDictionary dictionary];
-        _socket = [[AsyncSocket alloc] initWithDelegate:self];
+        _socket = nil;
         _connectingTimeout = TCPClientDefaultTimeout;
         _readingTimeout = TCPClientDefaultTimeout;
     }
@@ -33,8 +33,13 @@
 #pragma mark Connecting
 - (void)connectWithCompletionHandler:(ErrorCallback)completionBlock withDisconnectHandler:(DisconnectCallback)disconnectBlock
 {
+    if (self.isConnected)
+        assert(@"TCP Client is already connected.");
+    
     _connectionCompletionBlock = completionBlock;
     _disconnectCompletionBlock = disconnectBlock;
+    
+    _socket = [[AsyncSocket alloc] initWithDelegate:self];
     
     NSError* error;
     
@@ -65,6 +70,9 @@
 
 - (void)connectionDidEnd:(NSError*)error
 {
+    if (!_socket)
+        return;
+    
     _socket.delegate = nil;
     [_socket disconnect];
     _socket = nil;
@@ -77,10 +85,10 @@
     }
     
     for (NSNumber* tag in _writeCompletionBlocks.allKeys)
-        [self writingDidEnd:tag.longValue withError:[TCPClient abstractError]];
+        [self writingDidEnd:tag.longValue withError:error ?: [TCPClient abstractError]];
     
     for (NSNumber* tag in _readCompletionBlocks.allKeys)
-        [self readingDidEnd:tag.longValue withData:nil withError:[TCPClient abstractError]];
+        [self readingDidEnd:tag.longValue withData:nil withError:error ?: [TCPClient abstractError]];
     
     if (_disconnectCompletionBlock)
     {
@@ -88,6 +96,11 @@
         _disconnectCompletionBlock = nil;
         block(error);
     }
+}
+
+- (NSString*)localAddress
+{
+    return [NSString stringWithFormat:@"%@:%d", _socket.localHost, _socket.localPort];
 }
 
 - (void)disconnect
@@ -139,7 +152,17 @@
 }
 
 #pragma mark Reading
-- (void)readWithCompletionHandler:(DataCallback)completionBlock
+- (void)readWithoutTimeoutWithCompletionHandler:(DataCallback)completionBlock
+{
+    [self readWithTimeout:TCPClientNoTimeout withCompletionHandler:completionBlock];
+}
+
+- (void)readWithTimeoutWithCompletionHandler:(DataCallback)completionBlock
+{
+    [self readWithTimeout:self.readingTimeout withCompletionHandler:completionBlock];
+}
+
+- (void)readWithTimeout:(NSTimeInterval)timeout withCompletionHandler:(DataCallback)completionBlock
 {
     if (![self isConnected])
     {
@@ -154,9 +177,9 @@
         _readCompletionBlocks[@(_readCounter)] = completionBlock;
         
         if (_terminator)
-            [_socket readDataToData:_terminator withTimeout:self.readingTimeout tag:_readCounter];
+            [_socket readDataToData:_terminator withTimeout:timeout tag:_readCounter];
         else
-            [_socket readDataWithTimeout:self.readingTimeout tag:_readCounter];
+            [_socket readDataWithTimeout:timeout tag:_readCounter];
         
         _readCounter ++;
     }
@@ -178,10 +201,28 @@
     return error ?: (error = [NSError errorWithDomain:@"TCPClient" code:-1 userInfo:nil]);
 }
 
++ (NSError*)timeoutError
+{
+    static NSError* error = nil;
+    return error ?: (error = [NSError errorWithDomain:@"TCPClient" code:598 userInfo:nil]);
+}
+
++ (NSError*)mapToCustomErrorFromAsyncSocketError:(NSError*)asyncSocketError
+{
+    if ([asyncSocketError.domain isEqualToString:AsyncSocketErrorDomain])
+    {
+        if (asyncSocketError.code == AsyncSocketReadTimeoutError)
+            return [TCPClient timeoutError];
+    }
+    
+    return [TCPClient abstractError];
+}
+
 #pragma mark AsyncSocket delegate
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
-    [self connectionDidEnd:err];
+    NSError* error = [TCPClient mapToCustomErrorFromAsyncSocketError:err];
+    [self connectionDidEnd:error];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
@@ -203,6 +244,15 @@
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     [self writingDidEnd:tag withError:nil];
+}
+
+@end
+
+@implementation NSError (TCPClient)
+
+- (BOOL)compareDomainAndCode:(NSError*)error
+{
+    return [self.domain isEqualToString:error.domain] && self.code == error.code;
 }
 
 @end

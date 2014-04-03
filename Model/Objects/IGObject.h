@@ -13,7 +13,8 @@ typedef NS_ENUM(NSUInteger, FailureErrorType)
     FailureErrorTypeDefault,
     FailureErrorTypeLoginRequired,
     FailureErrorTypeNoInternetConnection,
-    FailureErrorTypeNet
+    FailureErrorTypeNet,
+    FailureErrorTypeUserParser,
 };
 
 

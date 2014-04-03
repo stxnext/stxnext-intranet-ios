@@ -191,7 +191,7 @@
             <objects>
                 <tableViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="yrR-uV-gXY" customClass="FilterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="q8D-aV-Vj8">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -637,7 +637,7 @@
     </scenes>
     <resources>
         <image name="Pig" width="447" height="341"/>
-        <image name="STXNext" width="250" height="72"/>
+        <image name="STXNext" width="310" height="86"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

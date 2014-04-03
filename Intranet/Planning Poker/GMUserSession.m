@@ -68,4 +68,15 @@ NSString* const kGUserSessionSessionSubject = @"session_subject";
     [aCoder encodeObject:_sessionSubject forKey:kGUserSessionSessionSubject];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMUserSession* other = object;
+    return [self.playerIdentifier isEqualToNumber:other.playerIdentifier] && [self.sessionIdentifier isEqualToNumber:other.sessionIdentifier];
+}
+
 @end

@@ -21,6 +21,7 @@ const MessageType MessageNotification = @"notification";
 
 const MessageAction ActionCardDecks = @"card_decks";
 const MessageAction ActionCreateSession = @"create_session";
+const MessageAction ActionDeleteSession = @"delete_session";
 const MessageAction ActionPlayerHandshake = @"player_handshake";
 const MessageAction ActionPlayerSessions = @"player_sessions";
 const MessageAction ActionLivePlayers = @"player_in_live_session";
@@ -114,7 +115,7 @@ const MessageAction NotificationCloseSession = @"close_session";
             return;
         }
         
-        [self readWithCompletionHandler:^(NSData *data, NSError *error) {
+        [self readWithTimeoutWithCompletionHandler:^(NSData *data, NSError *error) {
             if (error)
             {
                 completionBlock(nil, error);
@@ -233,6 +234,30 @@ const MessageAction NotificationCloseSession = @"close_session";
     }];
 }
 
+- (void)deleteSession:(GMSession*)session
+                 user:(GMUser*)user
+    completionHandler:(void (^)(NSError* error))completionBlock
+{
+    GMUserSession* userSession = [GMUserSession new];
+    userSession.playerIdentifier = user.identifier;
+    userSession.sessionIdentifier = session.identifier;
+    
+    GameMessage* request = [GameMessage new];
+    request.type = MessageRequest;
+    request.action = ActionDeleteSession;
+    request.payload = [userSession dictionaryRepresentation];
+    
+    [self sendRequest:request withCompletionHandler:^(GameMessage *response, NSError *error) {
+        if (error)
+        {
+            completionBlock(error);
+            return;
+        }
+        
+        completionBlock(nil);
+    }];
+}
+
 - (void)getSessionsForUser:(GMUser*)user
          completionHandler:(void (^)(NSArray* sessions, NSError* error))completionBlock
 {
@@ -307,8 +332,6 @@ const MessageAction NotificationCloseSession = @"close_session";
 
 - (void)sendNotification:(GameMessage*)notification withCompletionHandler:(MessageCallback)completionBlock
 {
-    const NSTimeInterval readingTimeout = 5.0;
-    
     NSData* notificationData = [notification serialize];
     
     [self write:notificationData withComplectionHandler:^(NSError *error) {
@@ -343,14 +366,14 @@ const MessageAction NotificationCloseSession = @"close_session";
             message.isDoneExplicityHandling = YES;
         }];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(readingTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.readingTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (done)
                 return;
             
             done = YES;
             
             [self stopListeningNotificationsForTag:listenerTag];
-            completionBlock(nil, [TCPClient abstractError]);
+            completionBlock(nil, [TCPClient timeoutError]);
         });
     }];
 }
@@ -463,12 +486,14 @@ const MessageAction NotificationCloseSession = @"close_session";
 }
 
 - (void)revealVotesForSession:(GMSession*)session
+                       ticket:(GMTicket*)ticket
                          user:(GMUser*)user
             completionHandler:(void (^)(GMTicket* ticket, NSError* error))completionBlock
 {
     GMUserSession* userSession = [GMUserSession new];
     userSession.playerIdentifier = user.identifier;
     userSession.sessionIdentifier = session.identifier;
+    userSession.sessionSubject = ticket.identifier;
     
     GameMessage* request = [GameMessage new];
     request.type = MessageRequest;
@@ -561,7 +586,7 @@ const MessageAction NotificationCloseSession = @"close_session";
             return;
         }
         
-        [self readWithCompletionHandler:weakHandler];
+        [self readWithoutTimeoutWithCompletionHandler:weakHandler];
         
         GameMessage* response = [GameMessage deserialize:data];
         
@@ -577,7 +602,7 @@ const MessageAction NotificationCloseSession = @"close_session";
         }
     };
     
-    [self readWithCompletionHandler:readHandler];
+    [self readWithoutTimeoutWithCompletionHandler:readHandler];
     
     return listenerTag;
 }

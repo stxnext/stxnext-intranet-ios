@@ -151,4 +151,15 @@ NSString* const kGMSessionTickets = @"tickets";
     [aCoder encodeObject:_tickets forKey:kGMSessionTickets];
 }
 
+#pragma mark - NSObject equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]])
+        return [super isEqual:object];
+    
+    GMSession* other = object;
+    return [self.identifier isEqualToNumber:other.identifier];
+}
+
 @end
