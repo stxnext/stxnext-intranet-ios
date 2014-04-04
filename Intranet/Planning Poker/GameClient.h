@@ -28,6 +28,22 @@ extern const MessageType MessageNotification;
 
 typedef NSString* MessageAction;
 extern const MessageAction ActionCardDecks;
+extern const MessageAction ActionCreateSession;
+extern const MessageAction ActionDeleteSession;
+extern const MessageAction ActionPlayerHandshake;
+extern const MessageAction ActionPlayerSessions;
+extern const MessageAction ActionLivePlayers;
+extern const MessageAction ActionJoinSession;
+extern const MessageAction ActionNewTicketRound;
+extern const MessageAction ActionSimpleVote;
+extern const MessageAction ActionRevealVotes;
+extern const MessageAction ActionFinishSession;
+
+extern const MessageAction NotificationUserConnectionState;
+extern const MessageAction NotificationNextTicket;
+extern const MessageAction NotificationUserVote;
+extern const MessageAction NotificationVotesRevealed;
+extern const MessageAction NotificationCloseSession;
 
 @property (nonatomic, strong) MessageType type;
 @property (nonatomic, strong) MessageAction action;

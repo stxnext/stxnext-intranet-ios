@@ -73,12 +73,10 @@ typedef enum SessionListType {
 {
     if ([segue.destinationViewController isKindOfClass:[PGSessionLobbyViewController class]])
     {
-        PGSessionLobbyViewController* lobbyController = segue.destinationViewController;
         UITableViewCell* cell = sender;
         NSIndexPath* cellPath = [self.tableView indexPathForCell:cell];
         GMSession* session = [UITableSection rowAtIndexPath:cellPath inSectionsArray:_tableSections];
-        
-        lobbyController.session = session;
+        [[GameManager defaultManager] setActiveSession:session];
     }
 }
 

@@ -8,12 +8,16 @@
 
 #import "GameClient.h"
 
-#define kGameManagerDefaultServerHostName @"10.93.1.193"
-//#define kGameManagerDefaultServerHostName @"planing-poker.bolt.stxnext.pl"
+#pragma mark Notification keys
+#define kGameManagerNotificationSessionPeopleDidChange @"kGameManagerNotificationSessionPeopleDidChange"
+
+#pragma mark Default server properties
+#define kGameManagerDefaultServerHostName @"planing-poker.bolt.stxnext.pl"
 #define kGameManagerDefaultServerPort 9999
 
 #define kGameManagerUnusedClientDisconnectTimeout 15.0
 
+#pragma mark Interfaces
 @class GameManager;
 
 typedef void (^ManagerCallback)(GameManager* manager, NSError* error);

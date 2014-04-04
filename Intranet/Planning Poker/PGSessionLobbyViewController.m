@@ -32,7 +32,6 @@ typedef enum TableSection {
     
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
     
-    [[GameManager defaultManager] setActiveSession:self.session];
     [self reloadTableSections];
 }
 
@@ -47,24 +46,13 @@ typedef enum TableSection {
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([self.session.startTime.mapToDate timeIntervalSinceNow] > 60 * 15)
+    if ([[GameManager defaultManager].activeSession.startTime.mapToDate timeIntervalSinceNow] > 60 * 15)
     {
         [UIAlertView showWithTitle:@"Session problem" message:@"Session is not ready yet. Please come back up to 15 minutes before planning time." handler:nil];
         return NO;
     }
     
     return YES;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    [super prepareForSegue:segue sender:sender];
-    
-    if ([segue.destinationViewController isKindOfClass:[PGSessionGameplayViewController class]])
-    {
-        PGSessionGameplayViewController* gameplayController = segue.destinationViewController;
-        gameplayController.session = self.session;
-    }
 }
 
 #pragma mark - Table source dynamic accessors
@@ -78,11 +66,8 @@ typedef enum TableSection {
             return;
         }
         
-        NSInteger oldCount = self.session.players.count;
-        self.session = [GameManager defaultManager].activeSession;
-        NSInteger newCount = self.session.players.count;
-        
-        if (oldCount == newCount)
+        #warning Use regular reloadTableSections without animation instead of reloadAllRowsWithRowAnimation if session on game server has MUTABLE players array
+        if ([GameManager defaultManager].activeSession.players > 0)
             [self.tableView reloadAllRowsWithRowAnimation:UITableViewRowAnimationAutomatic];
         else
             [self reloadTableSections];
@@ -92,19 +77,19 @@ typedef enum TableSection {
 - (void)reloadTableSections
 {
     [[Users singleton] usersWithStart:nil end:nil success:^(NSArray *users) {
-        NSArray* players = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id IN %@", [self.session.players valueForKey:@"externalId"]]];
+        NSArray* players = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id IN %@", [[GameManager defaultManager].activeSession.players valueForKey:@"externalId"]]];
         players = [players sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
         
-        RMUser* owner = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id = %@", self.session.owner.externalId]].firstObject;
+        RMUser* owner = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id = %@", [GameManager defaultManager].activeSession.owner.externalId]].firstObject;
         
         NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
         dateFormater.dateFormat = @"dd/MM/YYYY HH:mm";
-        NSString* date = [dateFormater stringFromDate:self.session.startTime.mapToDate];
+        NSString* date = [dateFormater stringFromDate:[GameManager defaultManager].activeSession.startTime.mapToDate];
         
         NSArray* sections = @[ [UITableSection sectionWithName:@"SESSION"
                                                        withTag:TableSectionSession
-                                                      withRows:@[ [UITableTextRow rowWithName:@"Name" withValue:self.session.name],
-                                                                  [UITableTextRow rowWithName:@"Deck" withValue:self.session.deck.name],
+                                                      withRows:@[ [UITableTextRow rowWithName:@"Name" withValue:[GameManager defaultManager].activeSession.name],
+                                                                  [UITableTextRow rowWithName:@"Deck" withValue:[GameManager defaultManager].activeSession.deck.name],
                                                                   [UITableTextRow rowWithName:@"Date" withValue:date ] ]],
                                
                                [UITableSection sectionWithName:@"OWNER"

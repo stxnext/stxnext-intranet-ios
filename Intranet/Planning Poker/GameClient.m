@@ -590,6 +590,9 @@ const MessageAction NotificationCloseSession = @"close_session";
         
         GameMessage* response = [GameMessage deserialize:data];
         
+        if (![response.type isEqualToString:MessageNotification])
+            return;
+        
         NSArray* blocks = [_listeningBlocks.allValues.copy sortedArrayUsingComparator:priorityComparator];
         
         for (NSArray* block in blocks)

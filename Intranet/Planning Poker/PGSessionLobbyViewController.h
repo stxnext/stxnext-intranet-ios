@@ -13,6 +13,4 @@
     NSArray* _tableSections;
 }
 
-@property (nonatomic, strong) GMSession* session;
-
 @end

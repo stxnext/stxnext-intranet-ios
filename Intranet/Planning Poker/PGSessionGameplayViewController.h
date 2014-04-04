@@ -10,6 +10,4 @@
 
 @interface PGSessionGameplayViewController : UIViewController
 
-@property (nonatomic, strong) GMSession* session;
-
 @end

@@ -111,8 +111,21 @@
                            return;
                        }
                        
+                       NSMutableArray* changedPeople = [NSMutableArray array];
+                       
                        for (GMUser* person in _activeSession.people)
-                           person.active = [players containsObject:person];
+                       {
+                           BOOL newActive = [players containsObject:person];
+                           
+                           if (person.active != newActive)
+                           {
+                               person.active = [players containsObject:person];
+                               [changedPeople addObject:person];
+                           }
+                       }
+                       
+                       if (changedPeople.count > 0)
+                           [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionPeopleDidChange object:changedPeople];
                        
                        completionBlock(self, nil);
                    }];
@@ -150,6 +163,21 @@
                 {
                     [_listener disconnect];
                     return;
+                }
+                
+                if ([notification.action isEqualToString:NotificationUserConnectionState])
+                {
+                    id raw = [notification.payload extractJson];
+                    GMUserSession* mapped = [raw mapToModelWithType:[GMUserSession class]];
+                    GMUser* subject = [GMUser modelObjectWithDictionary:mapped.sessionSubject];
+                    
+                    GMUser* sessionUser = [_activeSession.people filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"identifier = %@", subject.identifier]].firstObject;
+                    
+                    if (sessionUser.active != subject.active)
+                    {
+                        sessionUser.active = subject.active;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionPeopleDidChange object:@[ sessionUser ]];
+                    }
                 }
             }];
             
@@ -245,7 +273,7 @@ sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" a
     if (![self.players containsObject:self.owner])
         [users addObject:self.owner];
     
-    return users;
+    return [users sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
 }
 
 - (GMUser*)personFromExternalUser:(RMUser*)user
