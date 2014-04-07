@@ -28,7 +28,9 @@
     menu.contentViewShadowRadius = 8.0;
     menu.contentViewShadowEnabled = YES;
     menu.contentViewInPortraitOffsetCenterX = INTERFACE_IS_PHONE_SMALL_SCREEN ? -104.0 : -102.0;
-    menu.contentViewScaleValue = INTERFACE_IS_PHONE_SMALL_SCREEN ? 0.915 : 0.93;
+    menu.contentViewScaleValue = ([UIScreen mainScreen].bounds.size.height - STATUS_BAR_HEIGHT) / [UIScreen mainScreen].bounds.size.height;
+    menu.contentViewInOffsetCenterDeltaY = STATUS_BAR_HEIGHT / 2.0;
+    menu.panGestureEnabled = NO;
     menu.parallaxEnabled = NO;
     menu.backgroundImage = [UIImage imageNamed:@"SideMenuBackground"];
     
