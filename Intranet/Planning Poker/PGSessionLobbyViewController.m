@@ -67,7 +67,7 @@ typedef enum TableSection {
         }
         
         #warning Use regular reloadTableSections without animation instead of reloadAllRowsWithRowAnimation if session on game server has MUTABLE players array
-        if ([GameManager defaultManager].activeSession.players > 0)
+        if (manager.activeSession.players > 0)
             [self.tableView reloadAllRowsWithRowAnimation:UITableViewRowAnimationAutomatic];
         else
             [self reloadTableSections];

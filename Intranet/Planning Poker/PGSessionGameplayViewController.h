@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PGSessionGameplayViewController : UIViewController
+@interface PGSessionGameplayViewController : UIViewController<iCarouselDataSource, iCarouselDelegate, UIGestureRecognizerDelegate>
+
+@end
+
+#pragma mark - Carousel
+
+#import "CardView.h"
+
+@interface PGSessionGameplayViewController ()
+{
+    int radius;
+    NSInteger selectedIndex;
+    BOOL isAnimating;
+    BOOL isCardShowed;
+    CGPoint startPoint;
+    IBOutlet iCarousel* _carousel;
+}
 
 @end
