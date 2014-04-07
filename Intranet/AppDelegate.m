@@ -33,6 +33,8 @@
     menu.panGestureEnabled = NO;
     menu.parallaxEnabled = NO;
     menu.backgroundImage = [UIImage imageNamed:@"SideMenuBackground"];
+    menu.contentViewController.view.backgroundColor = [UIColor blackColor];
+
     
     // Reachability
     [ReachabilityManager sharedManager];
