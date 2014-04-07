@@ -23,10 +23,15 @@
 {
     [super viewDidLoad];
     
+    _recentlyRefreshedUsers = [NSMutableArray array];
+    
     [self reloadTableSections];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kGameManagerNotificationSessionPeopleDidChange
                                                       object:nil queue:nil usingBlock:^(NSNotification *note) {
+                                                          NSArray* users = note.object;
+                                                          [_recentlyRefreshedUsers addObjectsFromArray:users];
+                                                          
                                                           [self reloadTableSections];
                                                       }];
 }
@@ -38,8 +43,19 @@
     [[Users singleton] usersWithStart:nil end:nil success:^(NSArray *users) {
         NSArray* sessionPeople = [GameManager defaultManager].activeSession.people;
         
+        NSComparator activityComparator = ^NSComparisonResult(id obj1, id obj2) {
+            RMUser* externalUser1 = obj1;
+            RMUser* externalUser2 = obj2;
+            
+            GMUser* user1 = [[GameManager defaultManager].activeSession personFromExternalUser:externalUser1];
+            GMUser* user2 = [[GameManager defaultManager].activeSession personFromExternalUser:externalUser2];
+            
+            return [@(user1.active) compare:@(user2.active)];
+        };
+        
         NSArray* localPeople = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id IN %@", [sessionPeople valueForKey:@"externalId"]]];
-        localPeople = [localPeople sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+        localPeople = [localPeople sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO comparator:activityComparator],
+                                                                  [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
         
         _tableRows = localPeople;
         
@@ -73,6 +89,23 @@
     [cell.photoView setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
     cell.isActive = sessionUser.active;
     
+    // Fade if user activity changed recently
+    [cell.layer removeAllAnimations];
+    cell.backgroundColor = [UIColor clearColor];
+    
+    if ([_recentlyRefreshedUsers containsObject:sessionUser])
+    {
+        [_recentlyRefreshedUsers removeObject:sessionUser];
+        
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            cell.backgroundColor = cell.markerView.backgroundColor;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                cell.backgroundColor = [UIColor clearColor];
+            } completion:nil];
+        }];
+    }
+    
     return cell;
 }
 
@@ -103,13 +136,43 @@
     self.nameLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     self.nameLabel.layer.rasterizationScale = [UIScreen mainScreen].scale;
     self.nameLabel.layer.shouldRasterize = YES;
+    
+    // Trapezoid
+    CGRect rect = self.markerView.bounds;
+    
+    NSArray* points = @[ [NSValue valueWithCGPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect))],
+                         [NSValue valueWithCGPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect) - CGRectGetWidth(rect))],
+                         [NSValue valueWithCGPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))],
+                         [NSValue valueWithCGPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect) + CGRectGetWidth(rect))],
+                         [NSValue valueWithCGPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect))] ];
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    CGPoint firstPoint = ((NSValue*)points.firstObject).CGPointValue;
+    CGPathMoveToPoint(path, NULL, firstPoint.x, firstPoint.y);
+    
+    for (int i = 1; i < points.count; i++)
+    {
+        CGPoint point = ((NSValue*)points[i]).CGPointValue;
+        CGPathAddLineToPoint(path, NULL, point.x, point.y);
+    }
+    
+    CAShapeLayer* layer = [CAShapeLayer new];
+    layer.frame = self.markerView.bounds;
+    layer.path = path;
+    layer.fillRule = kCAFillRuleNonZero;
+    layer.fillColor = [UIColor blackColor].CGColor;
+    
+    self.markerView.layer.mask = layer;
+    
+    CGPathRelease(path);
 }
 
 - (void)setIsActive:(BOOL)isActive
 {
     _isActive = isActive;
     
-    self.markerView.backgroundColor = isActive ? [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.0] : [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.6];
+    self.markerView.backgroundColor = isActive ? [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.7] : [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.7];
 }
 
 @end

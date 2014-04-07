@@ -62,7 +62,6 @@
 		0CEED18218E9467B00288251 /* PGPlayerPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18118E9467B00288251 /* PGPlayerPickerViewController.m */; };
 		0CEED18518E94E2000288251 /* UITableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18418E94E2000288251 /* UITableSection.m */; };
 		0CEED18918E94E6500288251 /* UIListPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18818E94E6500288251 /* UIListPicker.m */; };
-		0CEED18B18E960D900288251 /* UITableSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CEED18A18E960D900288251 /* UITableSectionView.xib */; };
 		0CF7833718E58029002860EF /* PGPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF7833618E58029002860EF /* PGPokerStoryboard.storyboard */; };
 		0CF7833E18E5891F002860EF /* PGSessionCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7833D18E5891F002860EF /* PGSessionCreateViewController.m */; };
 		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
@@ -267,7 +266,6 @@
 		0CEED18418E94E2000288251 /* UITableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableSection.m; sourceTree = "<group>"; };
 		0CEED18718E94E6500288251 /* UIListPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIListPicker.h; sourceTree = "<group>"; };
 		0CEED18818E94E6500288251 /* UIListPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIListPicker.m; sourceTree = "<group>"; };
-		0CEED18A18E960D900288251 /* UITableSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UITableSectionView.xib; sourceTree = "<group>"; };
 		0CF7833618E58029002860EF /* PGPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PGPokerStoryboard.storyboard; sourceTree = "<group>"; };
 		0CF7833C18E5891F002860EF /* PGSessionCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionCreateViewController.h; sourceTree = "<group>"; };
 		0CF7833D18E5891F002860EF /* PGSessionCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionCreateViewController.m; sourceTree = "<group>"; };
@@ -724,7 +722,6 @@
 			children = (
 				0CEED18318E94E2000288251 /* UITableSection.h */,
 				0CEED18418E94E2000288251 /* UITableSection.m */,
-				0CEED18A18E960D900288251 /* UITableSectionView.xib */,
 				0CEED18718E94E6500288251 /* UIListPicker.h */,
 				0CEED18818E94E6500288251 /* UIListPicker.m */,
 			);
@@ -1208,7 +1205,6 @@
 				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
 				0CF7833718E58029002860EF /* PGPokerStoryboard.storyboard in Resources */,
 				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
-				0CEED18B18E960D900288251 /* UITableSectionView.xib in Resources */,
 				661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
