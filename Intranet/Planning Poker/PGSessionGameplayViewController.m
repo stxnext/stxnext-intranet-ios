@@ -7,6 +7,7 @@
 //
 
 #import "PGSessionGameplayViewController.h"
+#import "UIViewController+PGSessionRuntime.h"
 
 @implementation PGSessionGameplayViewController
 
@@ -14,32 +15,30 @@
 {
     [super viewWillAppear:animated];
     
+    [self prepareForGameSession];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self addQuickObserverForNotificationWithKey:kGameManagerNotificationEstimationRoundDidStart
+                                       withBlock:^(NSNotification *note) {
+                                           [weakSelf revalidatePrompt];
+                                       }];
+    
+    [self addQuickObserverForNotificationWithKey:kGameManagerNotificationEstimationRoundDidEnd
+                                       withBlock:^(NSNotification *note) {
+                                           [weakSelf performSegueWithIdentifier:@"FinishEstimationSegue" sender:nil];
+                                       }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     [[GameManager defaultManager] joinActiveSessionWithCompletionHandler:^(GameManager *manager, NSError *error) {
         if (error)
             return;
         
-        self.navigationItem.prompt = manager.listener.localAddress;
-        
-        [manager fetchActiveSessionUsersWithCompletionHandler:^(GameManager *manager, NSError *error) {
-            if (error)
-            {
-                [manager leaveActiveSession];
-                
-                [UIAlertView showWithTitle:@"Server problem" message:@"Could not load poker session from game server." handler:nil];
-                return;
-            }
-            
-            // Done here
-        }];
-    } withDisconnectHandler:^(GameManager *manager, NSError *error) {
-        if (![self isMovingFromParentViewController])
-            [self.navigationController popViewControllerAnimated:YES];
-        
-        if (error)
-        {
-            [UIAlertView showWithTitle:@"Server problem" message:@"Connection to server was lost. Please try again." handler:nil];
-            return;
-        }
+        [self revalidatePrompt];
     }];
 }
 
@@ -47,7 +46,39 @@
 {
     [super viewWillDisappear:animated];
     
-    [[GameManager defaultManager] leaveActiveSession];
+    [self removeQuickObservers];
+    
+    [self setWaitingHudVisible:NO];
+}
+
+#pragma mark - Prompt
+
+- (void)revalidatePrompt
+{
+    GMTicket* ticket = [GameManager defaultManager].activeTicket;
+    self.navigationItem.prompt = ticket ? [NSString stringWithFormat:@"Estimated ticket: %@", ticket.displayValue] : nil;
+    [self setWaitingHudVisible:(ticket == nil)];
+}
+
+#pragma mark - Loading alert
+
+- (void)setWaitingHudVisible:(BOOL)visible
+{
+    if (visible)
+    {
+        [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:247.0 / 255.0 alpha:1.0]];
+        [SVProgressHUD showWithStatus:@"Waiting for tickets..."];
+        
+        _carousel.userInteractionEnabled = NO;
+        _carousel.alpha = 0.25;
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+        
+        _carousel.userInteractionEnabled = YES;
+        _carousel.alpha = 1.0;
+    }
 }
 
 #pragma mark - User action
@@ -59,12 +90,21 @@
     }];
 }
 
-#pragma mark - Carousel
+@end
+
+#pragma mark - Carousel card picker
 
 #define UnSelectedRadius 700
 #define SelectedRadius 1000
 #define ScaleFactor 1.25
 #define MENUSIZE 44
+
+@implementation PGCardPickerViewController
+
+- (void)userDidChooseCard:(GMCard*)card
+{
+    
+}
 
 - (void)setUp
 {

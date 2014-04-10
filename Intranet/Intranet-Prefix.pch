@@ -41,6 +41,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import "LoaderView.h"
 
 // External headers
+#import "SVProgressHUD.h"
 #import "iCarousel.h"
 #import "RESideMenu.h"
 #import <AFNetworking/AFNetworking.h>

@@ -343,10 +343,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" title="Session Lobby" id="2ao-p6-rQr">
                         <barButtonItem key="rightBarButtonItem" title="Join" style="done" id="sfu-4l-sDF">
                             <connections>
-                                <segue destination="i52-mx-fSo" kind="push" id="Xgk-0V-wxf"/>
+                                <action selector="pushViewController:" destination="bkE-hQ-P0r" id="hzf-0I-3S2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="i52-mx-fSo" kind="push" identifier="JoinSessionSegue" id="sSA-DN-gsp"/>
+                        <segue destination="3ko-b7-lvd" kind="push" identifier="BeginSessionSegue" id="DYO-0Z-8Wd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e8B-3N-GZm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -367,7 +371,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fH2-Yg-hQo" customClass="iCarousel">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="i52-mx-fSo" id="Rtr-aw-SOh"/>
                                     <outlet property="delegate" destination="i52-mx-fSo" id="H1q-H8-MS7"/>
@@ -376,20 +380,66 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Planning Session" id="3ar-I6-KI3">
-                        <barButtonItem key="rightBarButtonItem" image="tabbar_icon_users" id="SRJ-sN-jub">
-                            <connections>
-                                <segue destination="8uh-kK-dwL" kind="custom" customClass="PGPlayerListSegue" id="Q9R-rm-irA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Planning Session" id="3ar-I6-KI3"/>
                     <connections>
                         <outlet property="_carousel" destination="fH2-Yg-hQo" id="j7F-IE-Em0"/>
+                        <segue destination="fMR-XS-k0D" kind="push" identifier="FinishEstimationSegue" id="0Po-RT-HWa"/>
+                        <segue destination="8uh-kK-dwL" kind="custom" identifier="ShowSessionPeopleSegue" customClass="PGPlayerListSegue" id="ems-QG-3L7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rDp-Tq-7tl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1034" y="1739"/>
+            <point key="canvasLocation" x="-848" y="1581"/>
+        </scene>
+        <!--Ticket Create View Controller - New Ticket-->
+        <scene sceneID="g0y-g2-CCH">
+            <objects>
+                <tableViewController id="3ko-b7-lvd" customClass="PGTicketCreateViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="g1F-RE-pqC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inputCellIdentifier" id="Fhp-cm-xuN" customClass="PGTicketCreateCell">
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fhp-cm-xuN" id="EqI-Nd-Z78">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter ticket name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4uM-AZ-iZt">
+                                            <rect key="frame" x="20" y="7" width="280" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                        </textField>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="inputTextField" destination="4uM-AZ-iZt" id="eGQ-EU-r1W"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="3ko-b7-lvd" id="05L-CM-kZS"/>
+                            <outlet property="delegate" destination="3ko-b7-lvd" id="nBA-F6-SPj"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="New Ticket" id="NqZ-RV-oWR">
+                        <barButtonItem key="rightBarButtonItem" title="Estimate" id="1lH-tB-MC0">
+                            <connections>
+                                <segue destination="fMR-XS-k0D" kind="push" id="g8B-6d-7Y4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="8uh-kK-dwL" kind="custom" identifier="ShowSessionPeopleSegue" customClass="PGPlayerListSegue" id="HhK-3L-J5d"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yFz-pU-DAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-848" y="2299"/>
         </scene>
         <!--Player List View Controller-->
         <scene sceneID="yBX-eb-Nia">
@@ -469,15 +519,38 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9es-WZ-59j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="1739"/>
+            <point key="canvasLocation" x="241" y="1581"/>
+        </scene>
+        <!--Estimation Results View Controller - Estimation Results-->
+        <scene sceneID="8TP-nQ-k72">
+            <objects>
+                <viewController id="fMR-XS-k0D" customClass="PGEstimationResultsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zQV-B5-5ai"/>
+                        <viewControllerLayoutGuide type="bottom" id="aXR-vr-i2D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jrf-TW-w09">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Estimation Results" id="mXC-j6-TMC"/>
+                    <connections>
+                        <segue destination="8uh-kK-dwL" kind="custom" identifier="ShowSessionPeopleSegue" customClass="PGPlayerListSegue" id="V7o-9a-xhO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7U-wY-Dnd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-307" y="1899"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="tabbar_icon_users" width="25" height="25"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="0Po-RT-HWa"/>
+        <segue reference="ems-QG-3L7"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -33,6 +33,7 @@ typedef void (^DisconnectCallback)(NSError* error);
 - (void)connectWithCompletionHandler:(ErrorCallback)completionBlock withDisconnectHandler:(DisconnectCallback)disconnectBlock;
 - (BOOL)isConnected;
 - (NSString*)localAddress;
+- (void)terminateWithError:(NSError*)error;
 - (void)disconnect;
 - (void)write:(NSData*)data withComplectionHandler:(ErrorCallback)completionBlock;
 - (void)readWithoutTimeoutWithCompletionHandler:(DataCallback)completionBlock;

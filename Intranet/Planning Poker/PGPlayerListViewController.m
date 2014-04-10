@@ -16,6 +16,7 @@
 #import "APIRequest.h"
 #import "UserDetailsTableViewController.h"
 #import "PGSessionGameplayViewController.h"
+#import "UIViewController+QuickObservers.h"
 
 @implementation PGPlayerListViewController
 
@@ -26,14 +27,29 @@
     _recentlyRefreshedUsers = [NSMutableArray array];
     
     [self reloadTableSections];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kGameManagerNotificationSessionPeopleDidChange
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note) {
-                                                          NSArray* users = note.object;
-                                                          [_recentlyRefreshedUsers addObjectsFromArray:users];
-                                                          
-                                                          [self reloadTableSections];
-                                                      }];
+    __weak typeof(_recentlyRefreshedUsers) weakRecentlyRefreshedUsers = _recentlyRefreshedUsers;
+    __weak typeof(self) weakSelf = self;
+    
+    [self addQuickObserverForNotificationWithKey:kGameManagerNotificationSessionPeopleDidChange
+                                       withBlock:^(NSNotification *note) {
+                                           NSArray* users = note.object;
+                                           [weakRecentlyRefreshedUsers addObjectsFromArray:users];
+                                           
+                                           [weakSelf reloadTableSections];
+                                       }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self removeQuickObservers];
 }
 
 #pragma mark - Table source dynamic accessors

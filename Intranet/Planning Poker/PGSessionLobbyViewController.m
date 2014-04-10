@@ -39,7 +39,17 @@ typedef enum TableSection {
 {
     [super viewWillAppear:animated];
     
+    self.navigationItem.rightBarButtonItem.title = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"Begin" : @"Join";
+    
     [self fetchSessionInfo];
+}
+
+#pragma mark - User action
+
+- (IBAction)pushViewController:(id)sender
+{
+    NSString* segueIdentifier = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"BeginSessionSegue" : @"JoinSessionSegue";
+    [self performSegueWithIdentifier:segueIdentifier sender:sender];
 }
 
 #pragma mark - Navigation segue

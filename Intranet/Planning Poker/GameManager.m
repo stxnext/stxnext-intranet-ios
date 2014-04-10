@@ -132,7 +132,7 @@
     }];
 }
 
-- (void)joinActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock withDisconnectHandler:(ManagerCallback)disconnectBlock
+- (void)joinActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock
 {
     if (_listener)
     {
@@ -152,8 +152,6 @@
         [_listener joinSession:_activeSession user:_user completionHandler:^(GMUser* user, NSError *error) {
             if (error)
             {
-                [_listener disconnect];
-                
                 completionBlock(self, error);
                 return;
             }
@@ -161,7 +159,6 @@
             [_listener startListeningNotificationsWithPriority:ListenerPriorityDefault withCompletionHandler:^(GameMessage *notification, NSError *error) {
                 if (error)
                 {
-                    [_listener disconnect];
                     return;
                 }
                 
@@ -179,14 +176,65 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionPeopleDidChange object:@[ sessionUser ]];
                     }
                 }
+                else if ([notification.action isEqualToString:NotificationNextTicket])
+                {
+                    id raw = [notification.payload extractJson];
+                    GMUserSession* mapped = [raw mapToModelWithType:[GMUserSession class]];
+                    GMTicket* subject = [GMTicket modelObjectWithDictionary:mapped.sessionSubject];
+                    
+                    _activeTicket = subject;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationEstimationRoundDidStart object:subject];
+                }
+                else if ([notification.action isEqualToString:NotificationUserVote])
+                {
+                    id raw = [notification.payload extractJson];
+                    GMUserSession* mapped = [raw mapToModelWithType:[GMUserSession class]];
+                    GMVote* subject = [GMVote modelObjectWithDictionary:mapped.sessionSubject];
+                    
+                    @synchronized (_activeTicket)
+                    {
+                        NSMutableArray* votes = _activeTicket.votes.mutableCopy;
+                        
+                        NSArray* existingVotes = [votes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"player = %@", subject.player]];
+                        [votes removeObjectsInArray:existingVotes];
+                        
+                        [votes addObject:subject];
+                        
+                        _activeTicket.votes = votes;
+                    }
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationTicketVoteReceived object:subject];
+                }
+                else if ([notification.action isEqualToString:NotificationVotesRevealed])
+                {
+                    id raw = [notification.payload extractJson];
+                    GMUserSession* mapped = [raw mapToModelWithType:[GMUserSession class]];
+                    GMTicket* subject = [GMTicket modelObjectWithDictionary:mapped.sessionSubject];
+                    
+                    _activeTicket = subject;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationEstimationRoundDidEnd object:subject];
+                }
             }];
             
-            completionBlock(self, nil);
+            [self fetchActiveSessionUsersWithCompletionHandler:^(GameManager *manager, NSError *error) {
+                if (error)
+                {
+                    [_listener terminateWithError:error];
+                    
+                    completionBlock(self, error);
+                    return;
+                }
+                
+                completionBlock(self, nil);
+            }];
         }];
     } withDisconnectHandler:^(NSError *error) {
         _listener = nil;
+        _activeTicket = nil;
         
-        disconnectBlock(self, error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionDidDisconnect object:error];
     }];
 }
 
@@ -198,12 +246,77 @@
         return;
     }
     
-    [_listener newVoteWithCard:card ticket:_activeSession.tickets.firstObject session:_activeSession user:_user completionHandler:^(GMVote *vote, NSError *error) {
+    [_listener newVoteWithCard:card ticket:_activeTicket session:_activeSession user:_user completionHandler:^(GMVote *vote, NSError *error) {
         if (error)
         {
-            completionBlock(self, [TCPClient abstractError]);
+            completionBlock(self, error);
             return;
         }
+        
+        completionBlock(self, nil);
+    }];
+}
+
+- (void)startRoundWithTicket:(GMTicket*)ticket inActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock
+{
+    if (!_listener)
+    {
+        completionBlock(self, [TCPClient abstractError]);
+        return;
+    }
+    
+    _activeTicket = ticket;
+    
+    [_listener newRoundWithTicketValue:ticket.displayValue session:_activeSession user:_user completionHandler:^(GMTicket *ticket, NSError *error) {
+        if (error)
+        {
+            completionBlock(self, error);
+            return;
+        }
+        
+        _activeTicket = ticket;
+        
+        completionBlock(self, nil);
+    }];
+}
+
+- (void)stopRoundWithCompletionHandler:(ManagerCallback)completionBlock
+{
+    if (!_listener)
+    {
+        completionBlock(self, [TCPClient abstractError]);
+        return;
+    }
+    
+    [_listener revealVotesForSession:_activeSession ticket:_activeTicket user:_user completionHandler:^(GMTicket *ticket, NSError *error) {
+        if (error)
+        {
+            completionBlock(self, error);
+            return;
+        }
+        
+        _activeTicket = ticket;
+        
+        completionBlock(self, nil);
+    }];
+}
+
+- (void)finishActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock
+{
+    if (!_listener)
+    {
+        completionBlock(self, [TCPClient abstractError]);
+        return;
+    }
+    
+    [_listener finishSession:_activeSession user:_user completionHandler:^(GMSession *session, NSError *error) {
+        if (error)
+        {
+            completionBlock(self, error);
+            return;
+        }
+        
+        [self leaveActiveSession];
         
         completionBlock(self, nil);
     }];
@@ -298,6 +411,34 @@ sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" a
 - (GMUser*)personFromExternalUser:(RMUser*)user
 {
     return [self.people filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"externalId = %@", user.id]].firstObject;
+}
+
+- (BOOL)isOwnedByCurrentUser
+{
+    return [self.owner isEqual:[GameManager defaultManager].user];
+}
+
+@end
+
+@implementation GMTicket (LocalFetch)
+
+- (NSDictionary*)votesDistribution
+{
+    NSMutableDictionary* distribution = [NSMutableDictionary dictionary];
+    
+    NSArray* cards = [GameManager defaultManager].activeSession.deck.cards;
+    NSArray* votes = self.votes;
+    
+    for (GMCard* card in cards)
+        distribution[card] = [NSMutableArray array];
+    
+    for (GMVote* vote in votes)
+    {
+        distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
+        [distribution[vote.card] addObject:vote.player];
+    }
+    
+    return distribution;
 }
 
 @end

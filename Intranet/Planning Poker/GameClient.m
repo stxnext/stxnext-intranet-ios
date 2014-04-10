@@ -373,7 +373,11 @@ const MessageAction NotificationCloseSession = @"close_session";
             done = YES;
             
             [self stopListeningNotificationsForTag:listenerTag];
-            completionBlock(nil, [TCPClient timeoutError]);
+            
+            NSError* timeout = [TCPClient timeoutError];
+            
+            completionBlock(nil, timeout);
+            [self terminateWithError:timeout];
         });
     }];
 }
@@ -558,7 +562,11 @@ const MessageAction NotificationCloseSession = @"close_session";
         listenerTag = _listeningCounter++;
     }
     
-    _listeningBlocks[@(listenerTag)] = @[ @( priority ), completionBlock ];
+    _listeningBlocks[@(listenerTag)] = @[ @( priority ), ^(GameMessage* message, NSError* error){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(message, error);
+        });
+    } ];
     
     NSComparator priorityComparator = ^NSComparisonResult(id obj1, id obj2) {
         if (![obj1 isKindOfClass:[NSArray class]] || ![obj2 isKindOfClass:[NSArray class]])

@@ -10,6 +10,7 @@
 #import "AppDelegate+SplitControllerDelegate.h"
 #import "AppDelegate+Parse.h"
 #import "AppDelegate+RESideMenu.h"
+#import "AppDelegate+TabBar.h"
 
 #import "TeamManager.h"
 
@@ -17,6 +18,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Disable hiding split controller children on iPad
+    if ([self.window.rootViewController isKindOfClass:[UISplitViewController class]])
+    {
+        // Were on iPad and application base is split view controller
+        UISplitViewController* splitController = (UISplitViewController*)self.window.rootViewController;
+        splitController.delegate = self;
+    }
+    
+    // Tab bar
+    if ([self.window.rootViewController isKindOfClass:[UITabBarController class]])
+    {
+        UITabBarController* tabBar = (UITabBarController*)self.window.rootViewController;
+        tabBar.delegate = self;
+    }
+    
     // Assign RESide menu
     #warning Removing below line makes right side menu to load its table view contents only after 2nd try
     UIViewController* rightMenu = [[UIStoryboard storyboardWithName:@"PGPokerStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"PGPlayerListViewController"]; // THIS IS HACK
@@ -34,7 +50,7 @@
     menu.parallaxEnabled = NO;
     menu.backgroundImage = [UIImage imageNamed:@"SideMenuBackground"];
     menu.contentViewController.view.backgroundColor = [UIColor blackColor];
-
+    menu.delegate = self;
     
     // Reachability
     [ReachabilityManager sharedManager];
@@ -45,14 +61,6 @@
     
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-    
-    // Disable hiding split controller children on iPad
-    if ([self.window.rootViewController isKindOfClass:[UISplitViewController class]])
-    {
-        // Were on iPad and application base is split view controller
-        UISplitViewController* splitController = (UISplitViewController*)self.window.rootViewController;
-        splitController.delegate = self;
-    }
         
     return YES;
 }

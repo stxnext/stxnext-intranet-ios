@@ -21,4 +21,14 @@
     return menu;
 }
 
+- (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAppDelegateNotificationRESideMenuWillShow object:menuViewController];
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu willHideMenuViewController:(UIViewController *)menuViewController
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAppDelegateNotificationRESideMenuWillHide object:menuViewController];
+}
+
 @end

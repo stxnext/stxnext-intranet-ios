@@ -45,8 +45,12 @@ typedef enum SessionListType {
 
 - (void)fetchGameInfo
 {
+    [self updateBarButtonStateDuringRefresh:YES];
+    
     [[CurrentUser singleton] userWithStart:nil end:nil success:^(RMUser *user) {
         [[GameManager defaultManager] fetchGameInfoForExternalUser:user withCompletionHandler:^(GameManager *manager, NSError *error) {
+            [self updateBarButtonStateDuringRefresh:NO];
+            
             if (error)
             {
                 [UIAlertView showWithTitle:@"Server problem" message:@"Could not load poker sessions from game server." handler:nil];
@@ -56,8 +60,18 @@ typedef enum SessionListType {
             [self reloadTableSections];
         }];
     } failure:^(RMUser *cachedUser, FailureErrorType error) {
+        [self updateBarButtonStateDuringRefresh:NO];
+        
         [UIAlertView showWithTitle:@"Server problem" message:@"Could not load current user from users server." handler:nil];
     }];
+}
+
+#pragma mark - Bar button state
+
+- (void)updateBarButtonStateDuringRefresh:(BOOL)isRefreshing
+{
+    self.navigationItem.leftBarButtonItem.enabled = !isRefreshing;
+    self.navigationItem.rightBarButtonItem.enabled = ([GameManager defaultManager].decks.count > 0);
 }
 
 #pragma mark - User actions

@@ -103,6 +103,11 @@
     return [NSString stringWithFormat:@"%@:%d", _socket.localHost, _socket.localPort];
 }
 
+- (void)terminateWithError:(NSError*)error
+{
+    [self connectionDidEnd:error];
+}
+
 - (void)disconnect
 {
     [self connectionDidEnd:nil];

@@ -180,6 +180,12 @@
     
     RMUser* selectedUser = [UITableSection rowAtIndexPath:indexPath inSectionsArray:_tableSections];
     
+    if ([[GameManager defaultManager].user.externalId isEqualToNumber:selectedUser.id])
+    {
+        [UIAlertView showWithTitle:@"Validation failed" message:@"Adding session owner as a player is not currently supported." handler:nil];
+        return;
+    }
+    
     NSMutableSet* selectedSet = _selectedPlayers.mutableCopy;
     
     if ([selectedSet containsObject:selectedUser])

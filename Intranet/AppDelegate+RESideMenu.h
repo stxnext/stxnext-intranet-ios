@@ -8,7 +8,11 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate (RESideMenu)
+#pragma mark Notification keys
+#define kAppDelegateNotificationRESideMenuWillShow @"kAppDelegateNotificationRESideMenuWillShow"
+#define kAppDelegateNotificationRESideMenuWillHide @"kAppDelegateNotificationRESideMenuWillHide"
+
+@interface AppDelegate (RESideMenu) <RESideMenuDelegate>
 
 - (RESideMenu*)assignRESideMenuWithLeftMenuViewController:(UIViewController*)leftMenuViewController rightMenuViewController:(UIViewController*)rightMenuViewController;
 

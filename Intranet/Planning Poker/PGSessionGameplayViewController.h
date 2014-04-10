@@ -7,16 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PGSessionGameplayViewController : UIViewController<iCarouselDataSource, iCarouselDelegate, UIGestureRecognizerDelegate>
-
-@end
-
-#pragma mark - Carousel
-
 #import "CardView.h"
 
-@interface PGSessionGameplayViewController ()
+@interface PGCardPickerViewController : UIViewController<iCarouselDataSource, iCarouselDelegate, UIGestureRecognizerDelegate>
 {
     int radius;
     NSInteger selectedIndex;
@@ -25,5 +18,11 @@
     CGPoint startPoint;
     IBOutlet iCarousel* _carousel;
 }
+
+- (void)userDidChooseCard:(GMCard*)card;
+
+@end
+
+@interface PGSessionGameplayViewController : PGCardPickerViewController
 
 @end
