@@ -101,4 +101,9 @@ NSString* const kGMDeckCards = @"cards";
     return [self.identifier isEqualToNumber:other.identifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.identifier.unsignedIntegerValue;
+}
+
 @end

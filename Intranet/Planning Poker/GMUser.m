@@ -109,4 +109,9 @@ NSString* const kGMUserImageUrl = @"image_url";
     return [self.identifier isEqualToNumber:other.identifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.identifier.unsignedIntegerValue;
+}
+
 @end

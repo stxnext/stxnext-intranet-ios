@@ -162,4 +162,9 @@ NSString* const kGMSessionTickets = @"tickets";
     return [self.identifier isEqualToNumber:other.identifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.identifier.unsignedIntegerValue;
+}
+
 @end

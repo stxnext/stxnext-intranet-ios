@@ -85,4 +85,9 @@ NSString* const kGMVoteTicketIdentifier = @"ticket_id";
     return [self.identifier isEqualToNumber:other.identifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.identifier.unsignedIntegerValue;
+}
+
 @end

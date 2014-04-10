@@ -15,6 +15,11 @@
     return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [self.class modelObjectWithDictionary:self.dictionaryRepresentation];
+}
+
 @end
 
 @implementation NSObject (ArrayMapping)
