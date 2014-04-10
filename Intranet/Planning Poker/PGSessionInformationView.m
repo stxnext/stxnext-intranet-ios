@@ -8,6 +8,7 @@
 
 #import "PGSessionInformationView.h"
 
+
 @interface PGSessionInformationView ()
 {
     NSMutableArray *subViews;
@@ -28,28 +29,27 @@
         self.indicatorStyle = UIScrollViewIndicatorStyleBlack;
         self.pagingEnabled = YES;
         self.contentOffset = CGPointZero;
+        self.clipsToBounds = YES;
         
         subViews = [NSMutableArray new];
     }
     
     return self;
 }
-
+#define padding 2
 - (void)setPlayers:(NSArray *)players
 {
     [subViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [subViews removeAllObjects];
     
-    self.clipsToBounds = NO;
-    
     int i = 0;
-
-    for (NSNumber *player in players)
+    
+    for (GMUser *player in players)
     {
-        UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(i * 80,
-                                                                               0,
-                                                                               80,
-                                                                               80)];
+        UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(i * 80 + padding,
+                                                                               0 + padding,
+                                                                               80 - 2 * padding,
+                                                                               80 - 2 * padding)];
         
         photoView.layer.cornerRadius =  MIN(photoView.frame.size.width, photoView.frame.size.height) / 2.0;
         photoView.layer.masksToBounds = YES;
@@ -57,7 +57,8 @@
         photoView.layer.borderWidth = 0.25;
         photoView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         photoView.layer.shouldRasterize = YES;
-        photoView.image = [UIImage imageNamed:@"CheckMark"];
+
+        [photoView setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:player.imageURL]];
 
         photoView.layer.shadowOpacity = 0.8;
         photoView.layer.shadowRadius = 2.0;
@@ -65,9 +66,9 @@
         photoView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         photoView.layer.shouldRasterize = YES;
         
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * 80,
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * 80 + padding,
                                                                        80,
-                                                                       80,
+                                                                       80 - 2 * padding,
                                                                        20)];
         
         nameLabel.layer.shadowOpacity = 1.0;
@@ -80,7 +81,7 @@
         nameLabel.textAlignment = NSTextAlignmentCenter;
         nameLabel.font = [UIFont systemFontOfSize:9];
         nameLabel.textColor = [UIColor blackColor];
-        nameLabel.text = [player stringValue];
+        nameLabel.text = [player name];
         
         [self addSubview:photoView];
         [self addSubview:nameLabel];

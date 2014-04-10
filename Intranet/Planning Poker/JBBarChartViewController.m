@@ -22,7 +22,6 @@ CGFloat const kJBBarChartViewControllerChartHeaderPadding = 10.0f;
 CGFloat const kJBBarChartViewControllerChartFooterHeight = 25.0f;
 CGFloat const kJBBarChartViewControllerChartFooterPadding = 5.0f;
 CGFloat const kJBBarChartViewControllerBarPadding = 1;
-NSInteger const kJBBarChartViewControllerNumBars = 12;
 NSInteger const kJBBarChartViewControllerMaxBarHeight = 10;
 NSInteger const kJBBarChartViewControllerMinBarHeight = 5;
 
@@ -32,78 +31,19 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 @interface JBBarChartViewController () <JBBarChartViewDelegate, JBBarChartViewDataSource>
 {
     int currentIndex;
+    NSMutableDictionary* distribution;
 }
 
 @property (nonatomic, strong) JBBarChartView *barChartView;
 @property (nonatomic, strong) PGSessionInformationView *informationView;
-@property (nonatomic, strong) NSArray *chartData;
-@property (nonatomic, strong) NSArray *monthlySymbols;
 
 // Buttons
 - (void)chartToggleButtonPressed:(id)sender;
 
-// Data
-- (void)initFakeData;
 
 @end
 
 @implementation JBBarChartViewController
-
-#pragma mark - Alloc/Init
-
-- (id)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        [self initFakeData];
-    }
-    
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
- 
-    if (self)
-    {
-        [self initFakeData];
-    }
-    
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
- 
-    if (self)
-    {
-        [self initFakeData];
-    }
-    
-    return self;
-}
-
-#pragma mark - Date
-
-- (void)initFakeData
-{
-    NSMutableArray *mutableChartData = [NSMutableArray array];
-    currentIndex = -1;
-    
-    for (int i = 0; i < kJBBarChartViewControllerNumBars-1; i++)
-    {
-        NSInteger delta = (kJBBarChartViewControllerNumBars - abs((kJBBarChartViewControllerNumBars - i) - i)) + 2;
-        [mutableChartData addObject:[NSNumber numberWithInt:0.1 * MAX((delta * kJBBarChartViewControllerMinBarHeight), arc4random() % (delta * kJBBarChartViewControllerMaxBarHeight))]];
-    }
-
-    [mutableChartData addObject:[NSNumber numberWithInt:0]];
-    _chartData = [NSArray arrayWithArray:mutableChartData];
-    _monthlySymbols = [[[NSDateFormatter alloc] init] shortMonthSymbols];
-}
 
 #pragma mark - View Lifecycle
 
@@ -141,17 +81,18 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     PGSessionFooterView *footerView = [[PGSessionFooterView alloc] initWithFrame:CGRectMake(kJBBarChartViewControllerChartPadding,
                                                                                               ceil(self.view.bounds.size.height * 0.5) - ceil(kJBBarChartViewControllerChartFooterHeight * 0.5),
                                                                                               self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
-                                                                                              kJBBarChartViewControllerChartFooterHeight)];
-
-    footerView.values = self.chartData;
+                                                                                            kJBBarChartViewControllerChartFooterHeight)];
+    
+    footerView.values = [self cardTitles];
     footerView.backgroundColor = MAIN_APP_COLOR;
     self.barChartView.footerView = footerView;
     
     [self.view addSubview:self.barChartView];
 
-    [self.barChartView reloadData];
+    [self reloadView];
     
-    NSLog(@"%@", [self deckCards]);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadView)];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -165,16 +106,14 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtAtIndex:(NSUInteger)index
 {
-    CGFloat height = [[self.chartData objectAtIndex:index] floatValue];
-    
-    return height;
+    return [[self playersForIndex:index] count];
 }
 
 #pragma mark - JBBarChartViewDataSource
 
 - (NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
 {
-    return kJBBarChartViewControllerNumBars;
+    return [[self deckCards] count];
 }
 
 - (NSUInteger)barPaddingForBarChartView:(JBBarChartView *)barChartView
@@ -197,29 +136,23 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index touchPoint:(CGPoint)touchPoint
 {
-    NSNumber *valueNumber = [self.chartData objectAtIndex:index];
- 
+    int votesCount = [[self playersForIndex:index] count];
+    
     if (currentIndex != index)
     {
         currentIndex = index;
         
-        NSMutableArray *array = [NSMutableArray new];
-        
-        for (int i = 0; i < valueNumber.intValue; i++)
-        {
-            [array addObject:[NSNumber numberWithInt:i+1]];
-        }
-        
-        [self.informationView setPlayers:array];
+        [self.informationView setPlayers:[self playersForIndex:index]];
+
+        [self.tooltipView setText: [NSString stringWithFormat:@"%i votes", votesCount]];
     }
-    
+
     [self setTooltipVisible:YES animated:YES atTouchPoint:touchPoint];
-    [self.tooltipView setText:[[self.monthlySymbols objectAtIndex:index] uppercaseString]];
 }
 
 - (void)didUnselectBarChartView:(JBBarChartView *)barChartView
 {
-    [self setTooltipVisible:NO animated:YES];
+//    [self setTooltipVisible:NO animated:YES];
 }
 
 #pragma mark - Overrides
@@ -228,7 +161,6 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 {
     return self.barChartView;
 }
-
 
 #pragma mark - data
 
@@ -248,7 +180,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     // Mock here
     NSMutableArray* votes = [NSMutableArray array];
     
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 40; i++)
     {
         GMVote* vote = [GMVote new];
         vote.card = self.deckCards[arc4random() % self.deckCards.count];
@@ -263,19 +195,64 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 // Returns dictionary:
 // key: GMCard object
 // value: array of GMPlayer objects
-- (NSDictionary*)votesDistribution
+- (NSDictionary *)votesDistribution
 {
-    NSMutableDictionary* distribution = [NSMutableDictionary dictionary];
-    
-    for (GMCard* card in self.deckCards)
-        distribution[card] = [NSMutableArray array];
-    
-    for (GMVote* vote in self.roundVotes)
+    if (!distribution)
     {
-        distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
-        [distribution[vote.card] addObject:vote.player];
+        distribution = [NSMutableDictionary dictionary];
+        
+        for (GMCard* card in self.deckCards)
+            distribution[card] = [NSMutableArray array];
+        
+        for (GMVote* vote in self.roundVotes)
+        {
+            //        distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
+            [distribution[vote.card] addObject:vote.player];
+        }
     }
     
     return distribution;
 }
+
+- (NSArray *)cardTitles
+{
+    NSMutableArray *cards = [NSMutableArray new];
+    
+    for (GMCard *card in [self deckCards])
+    {
+        [cards addObject:card.displayValue];
+    }
+    
+    return cards;
+}
+
+- (NSArray *)playersForIndex:(NSInteger)index
+{
+    GMCard *card = (GMCard *)[self deckCards][index];
+    
+    return [self votesDistribution][card];
+}
+
+- (void)reloadView
+{
+    distribution = nil;
+    currentIndex = -1;
+
+    [self setTooltipVisible:NO animated:YES];
+    [self.informationView setPlayers:nil];
+    
+    self.barChartView.mininumValue = 1;
+    self.barChartView.mininumValue = 0;
+    
+    self.barChartView.state = JBChartViewStateCollapsed;
+    
+    [UIView animateWithDuration:0.1 delay:0 options:1 animations:^{
+        
+        [self.barChartView reloadData];
+        
+    } completion:^(BOOL finished) {
+    self.barChartView.state = JBChartViewStateExpanded;
+    }];
+}
+
 @end
