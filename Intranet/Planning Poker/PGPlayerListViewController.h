@@ -12,6 +12,7 @@
 {
     IBOutlet UITableView* _tableView;
     NSArray* _tableRows;
+    NSMutableArray* _recentlyRefreshedUsers;
 }
 
 @end

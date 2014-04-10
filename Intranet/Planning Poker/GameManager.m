@@ -93,7 +93,7 @@
 
 - (void)fetchActiveSessionUsersWithCompletionHandler:(ManagerCallback)completionBlock
 {
-    [[GameManager defaultManager] connectedClientWithCompletionHandler:^(GameClient *client, NSError* error, dispatch_block_t disconnectCallback) {
+    [self connectedClientWithCompletionHandler:^(GameClient *client, NSError* error, dispatch_block_t disconnectCallback) {
         if (error)
         {
             completionBlock(self, error);
@@ -190,6 +190,25 @@
     }];
 }
 
+- (void)voteWithCard:(GMCard*)card inCurrentTicketWithCompletionHandler:(ManagerCallback)completionBlock
+{
+    if (!_listener)
+    {
+        completionBlock(self, [TCPClient abstractError]);
+        return;
+    }
+    
+    [_listener newVoteWithCard:card ticket:_activeSession.tickets.firstObject session:_activeSession user:_user completionHandler:^(GMVote *vote, NSError *error) {
+        if (error)
+        {
+            completionBlock(self, [TCPClient abstractError]);
+            return;
+        }
+        
+        completionBlock(self, nil);
+    }];
+}
+
 - (void)leaveActiveSession
 {
     [_listener disconnect];
@@ -238,14 +257,14 @@
 
 - (NSArray*)ownerSessions
 {
-    return [[[GameManager defaultManager].availableSessions
+    return [[_availableSessions
              filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"owner.identifier == %@", self.user.identifier]]
             sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
 }
 
 - (NSArray*)playerSessions
 {
-    return [[[GameManager defaultManager].availableSessions
+    return [[_availableSessions
             filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ANY players.identifier == %@ AND NOT (owner.identifier == %@)", self.user.identifier, self.user.identifier]]
 sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ]];
 }

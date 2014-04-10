@@ -42,6 +42,7 @@ typedef void (^ManagerCallback)(GameManager* manager, NSError* error);
 - (void)fetchGameInfoForExternalUser:(RMUser*)user withCompletionHandler:(ManagerCallback)completionBlock;
 - (void)fetchActiveSessionUsersWithCompletionHandler:(ManagerCallback)completionBlock;
 - (void)joinActiveSessionWithCompletionHandler:(ManagerCallback)completionBlock withDisconnectHandler:(ManagerCallback)disconnectBlock;
+- (void)voteWithCard:(GMCard*)card inCurrentTicketWithCompletionHandler:(ManagerCallback)completionBlock;
 - (void)leaveActiveSession;
 
 - (void)connectedClientWithCompletionHandler:(void (^)(GameClient* client, NSError* error, dispatch_block_t disconnectCallback))completionBlock;
