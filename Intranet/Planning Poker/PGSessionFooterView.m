@@ -42,7 +42,7 @@
  
     int i = 0;
     
-    for (NSNumber *value in values)
+    for (NSString *displayValue in values)
     {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i++ * (CGRectGetWidth(self.frame) / values.count),
                                                                    0,
@@ -52,7 +52,7 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:9];
         label.textColor = [UIColor whiteColor];
-        label.text = [value stringValue];
+        label.text = displayValue;
         
         [self addSubview:label];
     }
