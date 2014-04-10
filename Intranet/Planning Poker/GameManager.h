@@ -73,6 +73,6 @@ typedef void (^ManagerCallback)(GameManager* manager, NSError* error);
 
 @interface GMTicket (LocalFetch)
 
-- (NSDictionary*)votesDistribution
+- (NSDictionary*)votesDistribution;
 
 @end
