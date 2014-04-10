@@ -55,6 +55,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+NetworkCookies.h"
 #import "NSString+RegExp.h"
+#import "JBConstants.h"
 
 // Custom headers
 #import "Database.h"

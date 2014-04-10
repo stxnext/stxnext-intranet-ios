@@ -7,6 +7,7 @@
 //
 
 #import "PokerNavgationViewController.h"
+#import "JBBarChartViewController.h"
 
 @interface PokerNavgationViewController ()
 
@@ -19,6 +20,7 @@
     [super viewDidLoad];
     
     self.viewControllers = @[[[UIStoryboard storyboardWithName:@"PGPokerStoryboard" bundle:nil] instantiateInitialViewController]];
+//    self.viewControllers = @[[JBBarChartViewController new]];
 }
 
 @end

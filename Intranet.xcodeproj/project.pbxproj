@@ -87,6 +87,8 @@
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
+		660D961C18F4044B00F71437 /* PGSessionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 660D961B18F4044B00F71437 /* PGSessionFooterView.m */; };
+		660D961F18F41FA200F71437 /* PGSessionInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 660D961E18F41FA200F71437 /* PGSessionInformationView.m */; };
 		6613916518D9D4D70044BAA7 /* PokerSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6613916418D9D4D70044BAA7 /* PokerSessionManager.m */; };
 		661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */; };
 		661AE45318C48CF400B7A4F5 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */; };
@@ -146,6 +148,14 @@
 		66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54D18CF293200C14F5D /* TextInputViewController.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 		66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F35BF018E03A8900F43D30 /* LoaderView.m */; };
+		66FD095418F2C85D009B0DF4 /* JBBarChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */; };
+		66FD095718F2C8AC009B0DF4 /* JBBaseChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */; };
+		66FD095A18F2C8D5009B0DF4 /* JBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095918F2C8D5009B0DF4 /* JBBaseViewController.m */; };
+		66FD095D18F2C8E5009B0DF4 /* JBChartTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095C18F2C8E5009B0DF4 /* JBChartTooltipView.m */; };
+		66FD096018F2C90A009B0DF4 /* JBChartTooltipTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095F18F2C90A009B0DF4 /* JBChartTooltipTipView.m */; };
+		66FD096318F2C91F009B0DF4 /* JBChartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD096218F2C91F009B0DF4 /* JBChartHeaderView.m */; };
+		66FD096618F2C934009B0DF4 /* JBBarChartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD096518F2C934009B0DF4 /* JBBarChartFooterView.m */; };
+		66FD096918F2C942009B0DF4 /* JBChartInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD096818F2C942009B0DF4 /* JBChartInformationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -314,6 +324,10 @@
 		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
 		66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewController.h; sourceTree = "<group>"; };
 		66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewController.m; sourceTree = "<group>"; };
+		660D961A18F4044B00F71437 /* PGSessionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionFooterView.h; sourceTree = "<group>"; };
+		660D961B18F4044B00F71437 /* PGSessionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionFooterView.m; sourceTree = "<group>"; };
+		660D961D18F41FA200F71437 /* PGSessionInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionInformationView.h; sourceTree = "<group>"; };
+		660D961E18F41FA200F71437 /* PGSessionInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionInformationView.m; sourceTree = "<group>"; };
 		6613916318D9D4D70044BAA7 /* PokerSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerSessionManager.h; sourceTree = "<group>"; };
 		6613916418D9D4D70044BAA7 /* PokerSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerSessionManager.m; sourceTree = "<group>"; };
 		661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -435,6 +449,27 @@
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		66F35BEF18E03A8900F43D30 /* LoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderView.h; sourceTree = "<group>"; };
 		66F35BF018E03A8900F43D30 /* LoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderView.m; sourceTree = "<group>"; };
+		66FD095218F2C85D009B0DF4 /* JBBarChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartViewController.h; sourceTree = "<group>"; };
+		66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartViewController.m; sourceTree = "<group>"; };
+		66FD095518F2C8AC009B0DF4 /* JBBaseChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBaseChartViewController.h; sourceTree = "<group>"; };
+		66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBaseChartViewController.m; sourceTree = "<group>"; };
+		66FD095818F2C8D5009B0DF4 /* JBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBaseViewController.h; sourceTree = "<group>"; };
+		66FD095918F2C8D5009B0DF4 /* JBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBaseViewController.m; sourceTree = "<group>"; };
+		66FD095B18F2C8E5009B0DF4 /* JBChartTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartTooltipView.h; sourceTree = "<group>"; };
+		66FD095C18F2C8E5009B0DF4 /* JBChartTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartTooltipView.m; sourceTree = "<group>"; };
+		66FD095E18F2C90A009B0DF4 /* JBChartTooltipTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartTooltipTipView.h; sourceTree = "<group>"; };
+		66FD095F18F2C90A009B0DF4 /* JBChartTooltipTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartTooltipTipView.m; sourceTree = "<group>"; };
+		66FD096118F2C91F009B0DF4 /* JBChartHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartHeaderView.h; sourceTree = "<group>"; };
+		66FD096218F2C91F009B0DF4 /* JBChartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartHeaderView.m; sourceTree = "<group>"; };
+		66FD096418F2C934009B0DF4 /* JBBarChartFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartFooterView.h; sourceTree = "<group>"; };
+		66FD096518F2C934009B0DF4 /* JBBarChartFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartFooterView.m; sourceTree = "<group>"; };
+		66FD096718F2C942009B0DF4 /* JBChartInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartInformationView.h; sourceTree = "<group>"; };
+		66FD096818F2C942009B0DF4 /* JBChartInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartInformationView.m; sourceTree = "<group>"; };
+		66FD096A18F2CA19009B0DF4 /* JBFontConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBFontConstants.h; sourceTree = "<group>"; };
+		66FD096B18F2CB3A009B0DF4 /* JBColorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBColorConstants.h; sourceTree = "<group>"; };
+		66FD096C18F2CB3A009B0DF4 /* JBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBConstants.h; sourceTree = "<group>"; };
+		66FD096D18F2CB3A009B0DF4 /* JBStringConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBStringConstants.h; sourceTree = "<group>"; };
+		66FD096E18F2CB3A009B0DF4 /* JBUIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBUIConstants.h; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -953,6 +988,7 @@
 				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
 				0C303C5818C9F46A002AA21D /* Models */,
 				66D0F54318CF183800C14F5D /* New */,
+				66FD094A18F2C692009B0DF4 /* Session */,
 			);
 			path = "Planning Poker";
 			sourceTree = "<group>";
@@ -1065,6 +1101,38 @@
 				66572AC918CF3D4200B0951F /* Data */,
 			);
 			name = New;
+			sourceTree = "<group>";
+		};
+		66FD094A18F2C692009B0DF4 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				66FD096418F2C934009B0DF4 /* JBBarChartFooterView.h */,
+				66FD095218F2C85D009B0DF4 /* JBBarChartViewController.h */,
+				66FD095518F2C8AC009B0DF4 /* JBBaseChartViewController.h */,
+				66FD095818F2C8D5009B0DF4 /* JBBaseViewController.h */,
+				66FD096118F2C91F009B0DF4 /* JBChartHeaderView.h */,
+				66FD096718F2C942009B0DF4 /* JBChartInformationView.h */,
+				66FD095E18F2C90A009B0DF4 /* JBChartTooltipTipView.h */,
+				66FD095B18F2C8E5009B0DF4 /* JBChartTooltipView.h */,
+				66FD096B18F2CB3A009B0DF4 /* JBColorConstants.h */,
+				66FD096C18F2CB3A009B0DF4 /* JBConstants.h */,
+				66FD096A18F2CA19009B0DF4 /* JBFontConstants.h */,
+				66FD096D18F2CB3A009B0DF4 /* JBStringConstants.h */,
+				66FD096E18F2CB3A009B0DF4 /* JBUIConstants.h */,
+				660D961A18F4044B00F71437 /* PGSessionFooterView.h */,
+				660D961D18F41FA200F71437 /* PGSessionInformationView.h */,
+				66FD096518F2C934009B0DF4 /* JBBarChartFooterView.m */,
+				66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */,
+				66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */,
+				66FD095918F2C8D5009B0DF4 /* JBBaseViewController.m */,
+				66FD096218F2C91F009B0DF4 /* JBChartHeaderView.m */,
+				66FD096818F2C942009B0DF4 /* JBChartInformationView.m */,
+				66FD095F18F2C90A009B0DF4 /* JBChartTooltipTipView.m */,
+				66FD095C18F2C8E5009B0DF4 /* JBChartTooltipView.m */,
+				660D961B18F4044B00F71437 /* PGSessionFooterView.m */,
+				660D961E18F41FA200F71437 /* PGSessionInformationView.m */,
+			);
+			name = Session;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1285,6 +1353,7 @@
 				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				0C3C6F5518E4312D0023026B /* GameClient.m in Sources */,
+				66FD095D18F2C8E5009B0DF4 /* JBChartTooltipView.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */,
 				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
@@ -1298,6 +1367,7 @@
 				0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				666C108E18E1AD360070E784 /* OutOfOfficeManager.m in Sources */,
+				66FD096318F2C91F009B0DF4 /* JBChartHeaderView.m in Sources */,
 				0C429D1918CA174C00BB9CBA /* PFPerson.m in Sources */,
 				0C303C6218C9F8B4002AA21D /* AppDelegate+Parse.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
@@ -1313,6 +1383,8 @@
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
 				66CCD41318DB0B5E00531622 /* IGObject.m in Sources */,
+				66FD095718F2C8AC009B0DF4 /* JBBaseChartViewController.m in Sources */,
+				660D961C18F4044B00F71437 /* PGSessionFooterView.m in Sources */,
 				0CED9C8E18EBED1000575E04 /* PGSessionLobbyViewController.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				66C5603918DC38D000291952 /* Model.m in Sources */,
@@ -1322,18 +1394,23 @@
 				0C303C6518C9FBAA002AA21D /* PFTicket.m in Sources */,
 				66C5603118DC0FE900291952 /* Teams.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
+				66FD096918F2C942009B0DF4 /* JBChartInformationView.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
+				660D961F18F41FA200F71437 /* PGSessionInformationView.m in Sources */,
 				0CA0553418EAA45C00A1C43F /* NSString+RegExp.m in Sources */,
 				663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
 				0C303C6818C9FC49002AA21D /* PFRound.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
+				66FD095A18F2C8D5009B0DF4 /* JBBaseViewController.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
+				66FD095418F2C85D009B0DF4 /* JBBarChartViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0CEAC3CE18EEAD8000FB9094 /* AppDelegate+RESideMenu.m in Sources */,
+				66FD096018F2C90A009B0DF4 /* JBChartTooltipTipView.m in Sources */,
 				66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0C3C6F5D18E4312D0023026B /* GMVote.m in Sources */,
@@ -1353,6 +1430,7 @@
 				0C3C6F5C18E4312D0023026B /* GMUserSession.m in Sources */,
 				0C3C6F5A18E4312D0023026B /* GMTicket.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
+				66FD096618F2C934009B0DF4 /* JBBarChartFooterView.m in Sources */,
 				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
 				0C3C6F5E18E4312D0023026B /* NSObject+JSONCast.m in Sources */,
 				0C3C6F5B18E4312D0023026B /* GMUser.m in Sources */,
@@ -1577,8 +1655,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
@@ -1588,7 +1666,7 @@
 					"$(PROJECT_DIR)/IGHelperLibrary",
 				);
 				PRODUCT_NAME = "STX Intranet";
-				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1599,8 +1677,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
@@ -1610,7 +1688,7 @@
 					"$(PROJECT_DIR)/IGHelperLibrary",
 				);
 				PRODUCT_NAME = "STX Intranet";
-				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
