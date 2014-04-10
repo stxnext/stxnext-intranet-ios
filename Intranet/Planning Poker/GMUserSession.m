@@ -79,4 +79,9 @@ NSString* const kGUserSessionSessionSubject = @"session_subject";
     return [self.playerIdentifier isEqualToNumber:other.playerIdentifier] && [self.sessionIdentifier isEqualToNumber:other.sessionIdentifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.playerIdentifier.unsignedIntegerValue * self.sessionIdentifier.unsignedIntegerValue;
+}
+
 @end

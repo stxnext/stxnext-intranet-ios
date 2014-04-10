@@ -17,7 +17,7 @@
 
 @end
 
-@interface GMModel : NSObject <GMModelProtocol, NSCoding>
+@interface GMModel : NSObject <GMModelProtocol, NSCoding, NSCopying>
 
 @end
 

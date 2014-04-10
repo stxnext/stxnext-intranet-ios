@@ -71,4 +71,9 @@ NSString* const kGMCardDisplayValue = @"display_value";
     return [self.identifier isEqualToNumber:other.identifier];
 }
 
+- (NSUInteger)hash
+{
+    return self.identifier.unsignedIntegerValue;
+}
+
 @end
