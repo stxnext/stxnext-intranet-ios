@@ -11,8 +11,6 @@
 // Views
 #import "JBBarChartView.h"
 #import "JBChartHeaderView.h"
-//#import "JBBarChartFooterView.h"
-//#import "JBChartInformationView.h"
 #import "PGSessionFooterView.h"
 #import "PGSessionInformationView.h"
 
@@ -123,12 +121,6 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     self.informationView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.informationView];
 
-    
-    
-    ////////////////////////////////////////////////////
-    
-    
-    
     self.barChartView = [[JBBarChartView alloc] init];
     self.barChartView.frame = CGRectMake(kJBBarChartViewControllerChartPadding,
                                          CGRectGetMaxY(self.informationView.frame),
@@ -137,30 +129,14 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
     self.barChartView.delegate = self;
     self.barChartView.dataSource = self;
-//    self.barChartView.backgroundColor = [UIColor redColor];
-    
-    
-    
-    ////////////////////////////////////////////////////
-    
-    
-    
+
     JBChartHeaderView *headerView = [[JBChartHeaderView alloc] initWithFrame:CGRectMake(kJBBarChartViewControllerChartPadding,
-                                                                                        0,//ceil(self.view.bounds.size.height * 0.5) - ceil(kJBBarChartViewControllerChartHeaderHeight * 0.5),
+                                                                                        0,
                                                                                         self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
                                                                                         kJBBarChartViewControllerChartHeaderHeight)];
 
     headerView.separatorColor = [UIColor clearColor];
-//    headerView.backgroundColor = [UIColor blueColor];
-    
-    
     self.barChartView.headerView = headerView;
-    
-    
-
-    ////////////////////////////////////////////////////
-    
-    
     
     PGSessionFooterView *footerView = [[PGSessionFooterView alloc] initWithFrame:CGRectMake(kJBBarChartViewControllerChartPadding,
                                                                                               ceil(self.view.bounds.size.height * 0.5) - ceil(kJBBarChartViewControllerChartFooterHeight * 0.5),
@@ -168,12 +144,14 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
                                                                                               kJBBarChartViewControllerChartFooterHeight)];
 
     footerView.values = self.chartData;
-    footerView.backgroundColor = MAIN_APP_COLOR;//[UIColor yellowColor];
+    footerView.backgroundColor = MAIN_APP_COLOR;
     self.barChartView.footerView = footerView;
     
     [self.view addSubview:self.barChartView];
-    
+
     [self.barChartView reloadData];
+    
+    NSLog(@"%@", [self deckCards]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -235,18 +213,12 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
         [self.informationView setPlayers:array];
     }
     
-    
-//    [self.informationView setValueText:[NSString stringWithFormat:kJBStringLabelDegreesFahrenheit, [valueNumber intValue], kJBStringLabelDegreeSymbol] unitText:nil];
-//    [self.informationView setTitleText:kJBStringLabelWorldwideAverage];
-//    [self.informationView setHidden:NO animated:YES];
     [self setTooltipVisible:YES animated:YES atTouchPoint:touchPoint];
     [self.tooltipView setText:[[self.monthlySymbols objectAtIndex:index] uppercaseString]];
 }
 
 - (void)didUnselectBarChartView:(JBBarChartView *)barChartView
 {
-//    [self.informationView setPlayers:nil];
-//    [self.informationView setHidden:YES animated:YES];
     [self setTooltipVisible:NO animated:YES];
 }
 
@@ -257,4 +229,53 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     return self.barChartView;
 }
 
+
+#pragma mark - data
+
+// Returns array of GMCard objects.
+// Example usage:
+// NSArray* cardNames = [[self deckCards] valueForKey:@"displayValue"]; // returns array of NSString with card names
+- (NSArray*)deckCards
+{
+    return [GameManager defaultManager].activeSession.deck.cards;
+}
+
+// Returns array of GMVote objects.
+- (NSArray*)roundVotes
+{
+    //return [GameManager defaultManager].activeTicket.votes;
+    
+    // Mock here
+    NSMutableArray* votes = [NSMutableArray array];
+    
+    for (int i = 0; i < 10; i++)
+    {
+        GMVote* vote = [GMVote new];
+        vote.card = self.deckCards[arc4random() % self.deckCards.count];
+        vote.player = [GameManager defaultManager].activeSession.players[arc4random() % [GameManager defaultManager].activeSession.players.count];
+        
+        [votes addObject:vote];
+    }
+    
+    return votes;
+}
+
+// Returns dictionary:
+// key: GMCard object
+// value: array of GMPlayer objects
+- (NSDictionary*)votesDistribution
+{
+    NSMutableDictionary* distribution = [NSMutableDictionary dictionary];
+    
+    for (GMCard* card in self.deckCards)
+        distribution[card] = [NSMutableArray array];
+    
+    for (GMVote* vote in self.roundVotes)
+    {
+        distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
+        [distribution[vote.card] addObject:vote.player];
+    }
+    
+    return distribution;
+}
 @end

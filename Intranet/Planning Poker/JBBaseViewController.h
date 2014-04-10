@@ -10,6 +10,6 @@
 
 @interface JBBaseViewController : UIViewController
 
-- (UIBarButtonItem *)chartToggleButtonWithTarget:(id)target action:(SEL)action;
+//- (UIBarButtonItem *)chartToggleButtonWithTarget:(id)target action:(SEL)action;
 
 @end
