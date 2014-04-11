@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JBBaseChartViewController.h"
 
-@interface PGEstimationResultsViewController : UIViewController
+@interface PGEstimationResultsViewController : JBBaseChartViewController
 {
     BOOL _isEstimationFinished;
 }

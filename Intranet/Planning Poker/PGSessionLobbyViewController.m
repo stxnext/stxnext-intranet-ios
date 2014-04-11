@@ -17,8 +17,6 @@
 #import "UserDetailsTableViewController.h"
 #import "PGSessionGameplayViewController.h"
 
-#import "JBBarChartViewController.h"
-
 typedef enum TableSection {
     TableSectionSession = 0,
     TableSectionOwner,
