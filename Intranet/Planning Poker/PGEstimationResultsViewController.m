@@ -98,10 +98,12 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 {
     [super loadView];
     
+    currentIndex = -1;
+    
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     self.informationView = [[PGSessionInformationView alloc] initWithFrame:CGRectMake(0,
-                                                                                      self.navigationController.navigationBar.frame.size.height + 20,
+                                                                                      CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + 30,
                                                                                       self.view.bounds.size.width,
                                                                                       100)];
     
@@ -112,7 +114,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     self.barChartView.frame = CGRectMake(kJBBarChartViewControllerChartPadding,
                                          CGRectGetMaxY(self.informationView.frame),
                                          self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
-                                         self.view.bounds.size.height - CGRectGetMaxY(self.informationView.frame) - CGRectGetMaxY(self.navigationController.navigationBar.frame) + 20);
+                                         self.view.bounds.size.height - CGRectGetMaxY(self.informationView.frame) - CGRectGetHeight(self.tabBarController.tabBar.frame));
     
     self.barChartView.delegate = self;
     self.barChartView.dataSource = self;
@@ -178,19 +180,10 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (void)revalidateVotes
 {
-    
     [self reloadView];
     // TODO
     NSLog(@"%@", [GameManager defaultManager].activeTicket.votesDistribution);
 }
-
-
-
-
-
-
-
-
 
 #pragma mark - JBBarChartViewDelegate
 
@@ -226,18 +219,12 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index touchPoint:(CGPoint)touchPoint
 {
-    int votesCount = [[self playersForIndex:index] count];
-    
     if (currentIndex != index)
     {
         currentIndex = index;
         
-        [self.informationView setPlayers:[self playersForIndex:index]];
-        
-        [self.tooltipView setText: [NSString stringWithFormat:@"%i votes", votesCount]];
+        [self selectCurrentIndex];
     }
-    
-    [self setTooltipVisible:YES animated:YES atTouchPoint:touchPoint];
 }
 
 - (void)didUnselectBarChartView:(JBBarChartView *)barChartView
@@ -287,6 +274,8 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 // value: array of GMPlayer objects
 - (NSDictionary *)votesDistribution
 {
+    return [NSDictionary dictionaryWithDictionary:[GameManager defaultManager].activeTicket.votesDistribution];
+    
     if (!distribution)
     {
         distribution = [NSMutableDictionary dictionary];
@@ -326,23 +315,36 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 - (void)reloadView
 {
     distribution = nil;
-    currentIndex = -1;
-    
-    [self setTooltipVisible:NO animated:YES];
-    [self.informationView setPlayers:nil];
     
     self.barChartView.mininumValue = 1;
     self.barChartView.mininumValue = 0;
     
-    self.barChartView.state = JBChartViewStateCollapsed;
+    [self.barChartView reloadData];
     
-//    [UIView animateWithDuration:0.1 delay:0 options:1 animations:^{
-    
-        [self.barChartView reloadData];
+    [self selectCurrentIndex];
+}
+
+- (void)selectCurrentIndex
+{
+    if (currentIndex != -1)
+    {
+        NSArray *players = [self playersForIndex:currentIndex];
         
-//    } completion:^(BOOL finished) {
-        self.barChartView.state = JBChartViewStateExpanded;
-//    }];
+        if ([players count])
+        {
+            [self.informationView setPlayers:players];
+            self.barChartView.showsVerticalSelection = YES;
+            [self.tooltipView setText: [NSString stringWithFormat:@"%i votes", players.count]];
+            [self setTooltipVisible:YES animated:YES atTouchPoint:CGPointMake(self.view.frame.size.width / [self deckCards].count * (currentIndex + 0.5), 0)];
+        }
+        else
+        {
+            self.barChartView.showsVerticalSelection = NO;
+            currentIndex = -1;
+            [self.informationView setPlayers:nil];
+            [self setTooltipVisible:NO animated:NO];
+        }
+    }
 }
 
 @end
