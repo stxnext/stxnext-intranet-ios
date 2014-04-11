@@ -41,6 +41,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #import "LoaderView.h"
 
 // External headers
+#import "SKBounceAnimation.h"
 #import "SVProgressHUD.h"
 #import "iCarousel.h"
 #import "RESideMenu.h"

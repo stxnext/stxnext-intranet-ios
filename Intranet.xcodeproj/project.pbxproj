@@ -49,6 +49,7 @@
 		0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */; };
 		0CA0553418EAA45C00A1C43F /* NSString+RegExp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA0553318EAA45C00A1C43F /* NSString+RegExp.m */; };
 		0CC2111518EC2F9F002C083A /* PGSessionGameplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2111418EC2F9F002C083A /* PGSessionGameplayViewController.m */; };
+		0CCEA37818F82DA6003B306F /* UIView+SKBounceAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCEA37718F82DA6003B306F /* UIView+SKBounceAnimation.m */; };
 		0CD199E818F3E59D00353EAD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0CD199E518F3E59D00353EAD /* SVProgressHUD.bundle */; };
 		0CD199E918F3E59D00353EAD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD199E718F3E59D00353EAD /* SVProgressHUD.m */; };
 		0CD199EF18F3FFFA00353EAD /* PGTicketCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD199EE18F3FFFA00353EAD /* PGTicketCreateViewController.m */; };
@@ -260,6 +261,8 @@
 		0CA0553318EAA45C00A1C43F /* NSString+RegExp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegExp.m"; sourceTree = "<group>"; };
 		0CC2111318EC2F9F002C083A /* PGSessionGameplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionGameplayViewController.h; sourceTree = "<group>"; };
 		0CC2111418EC2F9F002C083A /* PGSessionGameplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionGameplayViewController.m; sourceTree = "<group>"; };
+		0CCEA37618F82DA6003B306F /* UIView+SKBounceAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SKBounceAnimation.h"; sourceTree = "<group>"; };
+		0CCEA37718F82DA6003B306F /* UIView+SKBounceAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SKBounceAnimation.m"; sourceTree = "<group>"; };
 		0CD199E518F3E59D00353EAD /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		0CD199E618F3E59D00353EAD /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		0CD199E718F3E59D00353EAD /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -795,6 +798,8 @@
 				0C45BBBA18F55B0F0065470E /* UIViewController+QuickObservers.m */,
 				0C45BBBC18F56D6F0065470E /* UIViewController+PGSessionRuntime.h */,
 				0C45BBBD18F56D6F0065470E /* UIViewController+PGSessionRuntime.m */,
+				0CCEA37618F82DA6003B306F /* UIView+SKBounceAnimation.h */,
+				0CCEA37718F82DA6003B306F /* UIView+SKBounceAnimation.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1382,6 +1387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CCEA37818F82DA6003B306F /* UIView+SKBounceAnimation.m in Sources */,
 				6671239618D2EA4D00D6E8B5 /* RMTeam.m in Sources */,
 				66572ACC18CF3D5400B0951F /* PokerSession.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,

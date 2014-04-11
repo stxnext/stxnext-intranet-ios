@@ -10,7 +10,7 @@
 #import "PGTicketCreateViewController.h"
 #import "UIViewController+PGSessionRuntime.h"
 #import "PGSessionGameplayViewController.h"
-
+#import "UIView+SKBounceAnimation.h"
 
 // Views
 #import "JBBarChartView.h"
@@ -32,7 +32,6 @@ NSInteger const kJBBarChartViewControllerMinBarHeight = 5;
 // Strings
 NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
-
 @interface PGEstimationResultsViewController () <JBBarChartViewDelegate, JBBarChartViewDataSource>
 {
     int currentIndex;
@@ -42,15 +41,16 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 @property (nonatomic, strong) JBBarChartView *barChartView;
 @property (nonatomic, strong) PGSessionInformationView *informationView;
 
-// Buttons
-- (void)chartToggleButtonPressed:(id)sender;
-
-
 @end
 
-
-
 @implementation PGEstimationResultsViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    _barsCache = [NSMutableDictionary dictionary];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -92,7 +92,6 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     
     [self removeQuickObservers];
 }
-
 
 - (void)loadView
 {
@@ -137,9 +136,6 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     [self.view addSubview:self.barChartView];
     
     [self reloadView];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadView)];
-    
 }
 
 #pragma mark - Bar button
@@ -178,19 +174,8 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (void)revalidateVotes
 {
-    
     [self reloadView];
-    // TODO
-    NSLog(@"%@", [GameManager defaultManager].activeTicket.votesDistribution);
 }
-
-
-
-
-
-
-
-
 
 #pragma mark - JBBarChartViewDelegate
 
@@ -213,7 +198,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (UIView *)barChartView:(JBBarChartView *)barChartView barViewAtIndex:(NSUInteger)index
 {
-    UIView *barView = [[UIView alloc] init];
+    PGEstimationResultsChartBar* barView = _barsCache[@(index)] = _barsCache[@(index)] ?: [PGEstimationResultsChartBar new];
     barView.backgroundColor = MAIN_APP_COLOR;
     
     return barView;
@@ -296,7 +281,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
         
         for (GMVote* vote in self.roundVotes)
         {
-            //        distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
+            distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
             [distribution[vote.card] addObject:vote.player];
         }
     }
@@ -334,15 +319,48 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     self.barChartView.mininumValue = 1;
     self.barChartView.mininumValue = 0;
     
-    self.barChartView.state = JBChartViewStateCollapsed;
     
 //    [UIView animateWithDuration:0.1 delay:0 options:1 animations:^{
     
         [self.barChartView reloadData];
         
 //    } completion:^(BOOL finished) {
-        self.barChartView.state = JBChartViewStateExpanded;
 //    }];
+}
+
+@end
+
+@implementation PGEstimationResultsChartBar
+
+- (void)setFrame:(CGRect)frame
+{
+    if (self.layer.animationKeys.count > 0)
+    {
+        [super setFrame:frame];
+        return;
+    }
+    
+    _newFrame = frame;
+    
+    [self animateFrameChangeWithSuperview:self.superview];
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    
+    [self animateFrameChangeWithSuperview:newSuperview];
+}
+
+- (void)animateFrameChangeWithSuperview:(UIView*)superview
+{
+    if (!superview)
+        return;
+    
+    [self setFrame:_newFrame withAnimationDecorator:^(SKBounceAnimation *baseAnimation) {
+        baseAnimation.duration = 0.9;
+        baseAnimation.numberOfBounces = 4;
+    }];
 }
 
 @end

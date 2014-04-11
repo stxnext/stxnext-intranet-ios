@@ -12,6 +12,15 @@
 @interface PGEstimationResultsViewController : JBBaseChartViewController
 {
     BOOL _isEstimationFinished;
+    NSMutableDictionary* _barsCache;
+}
+
+@end
+
+@interface PGEstimationResultsChartBar : UIView
+{
+    CGRect _newFrame;
+    BOOL _isAnimating;
 }
 
 @end
