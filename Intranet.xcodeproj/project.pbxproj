@@ -154,7 +154,6 @@
 		66D0F54F18CF293200C14F5D /* TextInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D0F54D18CF293200C14F5D /* TextInputViewController.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
 		66F35BF118E03A8900F43D30 /* LoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F35BF018E03A8900F43D30 /* LoaderView.m */; };
-		66FD095418F2C85D009B0DF4 /* JBBarChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */; };
 		66FD095718F2C8AC009B0DF4 /* JBBaseChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */; };
 		66FD095A18F2C8D5009B0DF4 /* JBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095918F2C8D5009B0DF4 /* JBBaseViewController.m */; };
 		66FD095D18F2C8E5009B0DF4 /* JBChartTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD095C18F2C8E5009B0DF4 /* JBChartTooltipView.m */; };
@@ -467,8 +466,6 @@
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		66F35BEF18E03A8900F43D30 /* LoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderView.h; sourceTree = "<group>"; };
 		66F35BF018E03A8900F43D30 /* LoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderView.m; sourceTree = "<group>"; };
-		66FD095218F2C85D009B0DF4 /* JBBarChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartViewController.h; sourceTree = "<group>"; };
-		66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartViewController.m; sourceTree = "<group>"; };
 		66FD095518F2C8AC009B0DF4 /* JBBaseChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBaseChartViewController.h; sourceTree = "<group>"; };
 		66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBaseChartViewController.m; sourceTree = "<group>"; };
 		66FD095818F2C8D5009B0DF4 /* JBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBaseViewController.h; sourceTree = "<group>"; };
@@ -1145,7 +1142,6 @@
 			isa = PBXGroup;
 			children = (
 				66FD096418F2C934009B0DF4 /* JBBarChartFooterView.h */,
-				66FD095218F2C85D009B0DF4 /* JBBarChartViewController.h */,
 				66FD095518F2C8AC009B0DF4 /* JBBaseChartViewController.h */,
 				66FD095818F2C8D5009B0DF4 /* JBBaseViewController.h */,
 				66FD096118F2C91F009B0DF4 /* JBChartHeaderView.h */,
@@ -1160,7 +1156,6 @@
 				660D961A18F4044B00F71437 /* PGSessionFooterView.h */,
 				660D961D18F41FA200F71437 /* PGSessionInformationView.h */,
 				66FD096518F2C934009B0DF4 /* JBBarChartFooterView.m */,
-				66FD095318F2C85D009B0DF4 /* JBBarChartViewController.m */,
 				66FD095618F2C8AC009B0DF4 /* JBBaseChartViewController.m */,
 				66FD095918F2C8D5009B0DF4 /* JBBaseViewController.m */,
 				66FD096218F2C91F009B0DF4 /* JBChartHeaderView.m */,
@@ -1448,7 +1443,6 @@
 				66FD095A18F2C8D5009B0DF4 /* JBBaseViewController.m in Sources */,
 				0CD199F218F4064100353EAD /* PGEstimationResultsViewController.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
-				66FD095418F2C85D009B0DF4 /* JBBarChartViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0CEAC3CE18EEAD8000FB9094 /* AppDelegate+RESideMenu.m in Sources */,
 				66FD096018F2C90A009B0DF4 /* JBChartTooltipTipView.m in Sources */,

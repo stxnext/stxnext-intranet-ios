@@ -17,8 +17,6 @@
 #import "UserDetailsTableViewController.h"
 #import "PGSessionGameplayViewController.h"
 
-#import "JBBarChartViewController.h"
-
 typedef enum TableSection {
     TableSectionSession = 0,
     TableSectionOwner,
@@ -50,9 +48,9 @@ typedef enum TableSection {
 
 - (IBAction)pushViewController:(id)sender
 {
-    #warning mockup
-    [self.navigationController pushViewController:[JBBarChartViewController new] animated:YES];
-    return;
+//    #warning mockup
+//    [self.navigationController pushViewController:[JBBarChartViewController new] animated:YES];
+//    return;
     
     if ([[GameManager defaultManager].activeSession.startTime.mapToDate timeIntervalSinceNow] > 60 * 15)
     {
