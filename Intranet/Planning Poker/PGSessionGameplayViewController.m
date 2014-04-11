@@ -137,8 +137,13 @@
     
     _carousel.type = iCarouselTypeInvertedCylinder;
     _carousel.decelerationRate = 0.8;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    selectedIndex = -1;
+    [self resetCardsSelection];
 }
 
 - (NSArray*)cards
@@ -413,6 +418,31 @@
             }];
         }];
     }
+}
+
+- (void)resetCardsSelection
+{
+    // If card is moved up
+    if (_carousel.viewpointOffset.height > 0)
+    {
+        CardView *view = (CardView *)[_carousel itemViewAtIndex:selectedIndex];
+        
+        // Unscale its view
+        [self scaleView:view withFactor:-ScaleFactor];
+        
+        // Reset radius and viewport
+        radius = UnSelectedRadius;
+        _carousel.viewpointOffset = CGSizeZero;
+    }
+    
+    // Reset state to defaults
+    selectedIndex = -1;
+    isAnimating = NO;
+    isCardShowed = NO;
+    
+    // Scroll to beginning and revalidate items
+    [_carousel scrollToItemAtIndex:0 animated:NO];
+    [_carousel reloadData];
 }
 
 - (void)flipCard

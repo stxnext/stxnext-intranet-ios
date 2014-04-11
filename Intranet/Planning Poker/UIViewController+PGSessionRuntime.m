@@ -28,6 +28,13 @@
     // Notifications handler
     __weak typeof(self) weakSelf = self;
     
+    [self addQuickObserverForNotificationWithKey:kGameManagerNotificationSessionDidClose
+                                       withBlock:^(NSNotification *note) {
+                                           [weakSelf popToViewControllerOfClass:[PGSessionListViewController class]];
+                                           
+                                           [UIAlertView showWithTitle:@"Session closed" message:@"Session owner has closed the poker session." handler:nil];
+                                       }];
+    
     [self addQuickObserverForNotificationWithKey:kGameManagerNotificationSessionDidDisconnect
                                        withBlock:^(NSNotification *note) {
                                            NSError* error = note.object;

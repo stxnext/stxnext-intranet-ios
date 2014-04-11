@@ -12,7 +12,7 @@
 
 - (void)goToTabAtIndex:(NSUInteger)index
 {
-    UITabBarController *controller = (UITabBarController *)self.window.rootViewController;
+    UITabBarController *controller = (UITabBarController*)ROOT_VIEW_CONTROLLER;
     if (index < controller.viewControllers.count)
     {
         controller.selectedIndex = index;
@@ -25,9 +25,9 @@
 
 - (void)showLoginScreenForiPad
 {
-    UISplitViewController *controller = (UISplitViewController *)self.window.rootViewController;
+    UISplitViewController *controller = (UISplitViewController *)ROOT_VIEW_CONTROLLER;
 
-    [self.window.rootViewController.view logViewHierarchy];
+    [ROOT_VIEW_CONTROLLER.view logViewHierarchy];
     
     if ([((UINavigationController *)controller.viewControllers[0]).viewControllers[0] respondsToSelector:@selector(showLoginScreen)])
     {

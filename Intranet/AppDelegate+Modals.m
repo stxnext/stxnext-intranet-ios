@@ -12,7 +12,7 @@
 
 + (UIViewController*)viewController
 {
-    return [UIApplication sharedApplication].delegate.window.rootViewController;
+    return ROOT_VIEW_CONTROLLER;
 }
 
 + (void)presentViewController:(UIViewController*)viewController

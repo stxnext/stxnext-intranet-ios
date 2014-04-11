@@ -14,6 +14,8 @@
 #define kGameManagerNotificationTicketVoteReceived @"kGameManagerNotificationTicketVoteReceived"
 #define kGameManagerNotificationEstimationRoundDidEnd @"kGameManagerNotificationEstimationRoundDidEnd"
 #define kGameManagerNotificationSessionDidDisconnect @"kGameManagerNotificationSessionDidDisconnect"
+#define kGameManagerNotificationSessionDidClose @"kGameManagerNotificationSessionDidClose"
+
 
 #pragma mark Default server properties
 #define kGameManagerDefaultServerHostName @"planing-poker.bolt.stxnext.pl"

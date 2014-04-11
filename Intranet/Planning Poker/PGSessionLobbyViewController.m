@@ -50,10 +50,6 @@ typedef enum TableSection {
 
 - (IBAction)pushViewController:(id)sender
 {
-    #warning mockup
-    [self.navigationController pushViewController:[JBBarChartViewController new] animated:YES];
-    return;
-    
     if ([[GameManager defaultManager].activeSession.startTime.mapToDate timeIntervalSinceNow] > 60 * 15)
     {
         [UIAlertView showWithTitle:@"Session problem" message:@"Session is not ready yet. Please come back up to 15 minutes before planning time." handler:nil];

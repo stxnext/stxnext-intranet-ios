@@ -216,6 +216,16 @@
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationEstimationRoundDidEnd object:subject];
                 }
+                else if ([notification.action isEqualToString:NotificationCloseSession])
+                {
+                    id raw = [notification.payload extractJson];
+                    GMUserSession* mapped = [raw mapToModelWithType:[GMUserSession class]];
+                    GMSession* subject = [GMSession modelObjectWithDictionary:mapped.sessionSubject];
+                    
+                    _activeSession = subject;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionDidClose object:subject];
+                }
             }];
             
             [self fetchActiveSessionUsersWithCompletionHandler:^(GameManager *manager, NSError *error) {

@@ -98,6 +98,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define MAIN_GREEN_COLOR                    [UIColor colorWithRed:76 / 255.0 green:217 / 255.0 blue:100 / 255.0 alpha:1.]
 
 #define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#define ROOT_VIEW_CONTROLLER (((RESideMenu*)APP_DELEGATE.window.rootViewController).contentViewController)
 
 // Constants
 
