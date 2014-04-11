@@ -269,22 +269,6 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 - (NSDictionary *)votesDistribution
 {
     return [NSDictionary dictionaryWithDictionary:[GameManager defaultManager].activeTicket.votesDistribution];
-    
-    if (!distribution)
-    {
-        distribution = [NSMutableDictionary dictionary];
-        
-        for (GMCard* card in self.deckCards)
-            distribution[card] = [NSMutableArray array];
-        
-        for (GMVote* vote in self.roundVotes)
-        {
-            distribution[vote.card] = distribution[vote.card] ?: [NSMutableArray array];
-            [distribution[vote.card] addObject:vote.player];
-        }
-    }
-    
-    return distribution;
 }
 
 - (NSArray *)cardTitles
@@ -313,8 +297,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     self.barChartView.mininumValue = 1;
     self.barChartView.mininumValue = 0;
     
-    
-//    [UIView animateWithDuration:0.1 delay:0 options:1 animations:^{
+    [self.barChartView reloadData];
     
     [self selectCurrentIndex];
 }
@@ -325,8 +308,21 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     {
         NSArray *players = [self playersForIndex:currentIndex];
         
-//    } completion:^(BOOL finished) {
-//    }];
+        if ([players count])
+        {
+            [self.informationView setPlayers:players];
+            self.barChartView.showsVerticalSelection = YES;
+            [self setTooltipVisible:YES animated:YES atTouchPoint:CGPointMake(self.view.frame.size.width / [self deckCards].count * (currentIndex + 0.5), 0)];
+            [self.tooltipView setText: [NSString stringWithFormat:@"%i votes", players.count]];
+        }
+        else
+        {
+            self.barChartView.showsVerticalSelection = NO;
+            currentIndex = -1;
+            [self.informationView setPlayers:nil];
+            [self setTooltipVisible:NO animated:NO];
+        }
+    }
 }
 
 @end
