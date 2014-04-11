@@ -50,26 +50,18 @@ typedef enum TableSection {
 
 - (IBAction)pushViewController:(id)sender
 {
-    NSString* segueIdentifier = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"BeginSessionSegue" : @"JoinSessionSegue";
-    [self performSegueWithIdentifier:segueIdentifier sender:sender];
-}
-
-#pragma mark - Navigation segue
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-#warning mockup
+    #warning mockup
     [self.navigationController pushViewController:[JBBarChartViewController new] animated:YES];
-    
-    return NO;
+    return;
     
     if ([[GameManager defaultManager].activeSession.startTime.mapToDate timeIntervalSinceNow] > 60 * 15)
     {
         [UIAlertView showWithTitle:@"Session problem" message:@"Session is not ready yet. Please come back up to 15 minutes before planning time." handler:nil];
-        return NO;
+        return;
     }
     
-    return YES;
+    NSString* segueIdentifier = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"BeginSessionSegue" : @"JoinSessionSegue";
+    [self performSegueWithIdentifier:segueIdentifier sender:sender];
 }
 
 #pragma mark - Table source dynamic accessors
