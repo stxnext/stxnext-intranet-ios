@@ -33,6 +33,17 @@ typedef enum TableSection {
     [self.tableView registerNib:[UINib nibWithNibName:@"UserListCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[UserListCell cellId]];
     
     [self reloadTableSections];
+    
+    // Pull to refresh
+    UIRefreshControl* refreshControl = [UIRefreshControl new];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh session info"];
+    [refreshControl bk_addEventHandler:^(id sender) {
+        [self fetchSessionInfoWithCompletionHandler:^{
+            [refreshControl endRefreshing];
+        }];
+    } forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refreshControl;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,7 +52,7 @@ typedef enum TableSection {
     
     self.navigationItem.rightBarButtonItem.title = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"Begin" : @"Join";
     
-    [self fetchSessionInfo];
+    [self fetchSessionInfoWithCompletionHandler:nil];
 }
 
 #pragma mark - User action
@@ -60,11 +71,14 @@ typedef enum TableSection {
 
 #pragma mark - Table source dynamic accessors
 
-- (void)fetchSessionInfo
+- (void)fetchSessionInfoWithCompletionHandler:(dispatch_block_t)completionBlock
 {
     [[GameManager defaultManager] fetchActiveSessionUsersWithCompletionHandler:^(GameManager *manager, NSError *error) {
         if (error)
         {
+            if (completionBlock)
+                completionBlock();
+            
             [UIAlertView showWithTitle:@"Server problem" message:@"Could not load poker session from game server." handler:nil];
             return;
         }
@@ -74,6 +88,9 @@ typedef enum TableSection {
             [self.tableView reloadAllRowsWithRowAnimation:UITableViewRowAnimationAutomatic];
         else
             [self reloadTableSections];
+        
+        if (completionBlock)
+            completionBlock();
     }];
 }
 
@@ -129,17 +146,6 @@ typedef enum TableSection {
 {
     UITableSection* tableSection = _tableSections[section];
     return tableSection.name;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    if (section != TableSectionSession)
-        return;
-    
-    [tableView rebuildSectionHeaderButtonWithTitle:@"REFRESH"
-                                     forHeaderView:view inSection:section withTouchHandler:^{
-                                         [self fetchSessionInfo];
-                                     }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

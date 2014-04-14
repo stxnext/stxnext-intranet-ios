@@ -26,13 +26,24 @@ typedef enum SessionListType {
     [self reloadTableSections];
     
     [self.tableView hideEmptySeparators];
+    
+    // Pull to refresh
+    UIRefreshControl* refreshControl = [UIRefreshControl new];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh session list"];
+    [refreshControl bk_addEventHandler:^(id sender) {
+        [self fetchGameInfoWithCompletionHandler:^{
+            [refreshControl endRefreshing];
+        }];
+    } forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refreshControl;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self fetchGameInfo];
+    [self fetchGameInfoWithCompletionHandler:nil];
 }
 
 #pragma mark - Game client
@@ -40,10 +51,10 @@ typedef enum SessionListType {
 - (void)fetchGameInfoIfNeeded
 {
     if (![GameManager defaultManager].isGameInfoFetched)
-        [self fetchGameInfo];
+        [self fetchGameInfoWithCompletionHandler:nil];
 }
 
-- (void)fetchGameInfo
+- (void)fetchGameInfoWithCompletionHandler:(dispatch_block_t)completionBlock
 {
     [self updateBarButtonStateDuringRefresh:YES];
     
@@ -53,14 +64,23 @@ typedef enum SessionListType {
             
             if (error)
             {
+                if (completionBlock)
+                    completionBlock();
+                
                 [UIAlertView showWithTitle:@"Server problem" message:@"Could not load poker sessions from game server." handler:nil];
                 return;
             }
             
             [self reloadTableSections];
+            
+            if (completionBlock)
+                completionBlock();
         }];
     } failure:^(RMUser *cachedUser, FailureErrorType error) {
         [self updateBarButtonStateDuringRefresh:NO];
+        
+        if (completionBlock)
+            completionBlock();
         
         [UIAlertView showWithTitle:@"Server problem" message:@"Could not load current user from users server." handler:nil];
     }];
@@ -72,13 +92,6 @@ typedef enum SessionListType {
 {
     self.navigationItem.leftBarButtonItem.enabled = !isRefreshing;
     self.navigationItem.rightBarButtonItem.enabled = ([GameManager defaultManager].decks.count > 0);
-}
-
-#pragma mark - User actions
-
-- (IBAction)refreshContent
-{
-    [self fetchGameInfo];
 }
 
 #pragma mark - Segues
@@ -202,7 +215,7 @@ typedef enum SessionListType {
                 
                 [CATransaction setCompletionBlock:^{
                     // Reload source from server after animation ends
-                    [self fetchGameInfo];
+                    [self fetchGameInfoWithCompletionHandler:nil];
                 }];
                 
                 // Remove row from table

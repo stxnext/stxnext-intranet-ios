@@ -127,11 +127,6 @@ Cg
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Session List" id="9g6-93-Abi">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Eet-rq-xRZ">
-                            <connections>
-                                <action selector="refreshContent" destination="4Sf-O7-xiF" id="A3B-2F-zkl"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Tj-4L-lSR">
                             <connections>
                                 <segue destination="OId-rD-ear" kind="push" id="nHc-sK-pgR"/>
