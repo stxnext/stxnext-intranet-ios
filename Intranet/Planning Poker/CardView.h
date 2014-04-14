@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface CardView : UIView
+{
+    IBOutlet UIView* _mainContainerView;
+    IBOutlet UIView* _backgroundContainerView;
+    IBOutlet UIImageView* _backgroundView;
+    IBOutlet UILabel* _largeValueLabel;
+    IBOutlet UILabel* _smallBottomValueLabel;
+}
 
 @property (nonatomic, strong) IBOutlet UIView *view;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *cardNumbersCollection;

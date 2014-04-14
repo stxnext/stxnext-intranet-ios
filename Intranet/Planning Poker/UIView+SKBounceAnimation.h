@@ -10,15 +10,18 @@
 
 @interface UIView (SKBounceAnimation)
 
-- (void)setFrame:(CGRect)frame withAnimationDecorator:(void (^)(SKBounceAnimation* baseAnimation))animationDecorator;
+- (void)setFrame:(CGRect)frame withAnimationDecorator:(void (^)(SKBounceAnimation* baseAnimation))animationDecorator withCompletionHandler:(dispatch_block_t)completionBlock;
 
 @end
 
 @interface UIViewInternalAnimationDelegate : NSObject
 {
     UIView* _view;
+    dispatch_block_t _animationDidFinish;
 }
 
-- (id)initWithView:(UIView*)view;
+@property (nonatomic, strong, readonly) NSString* key;
+
+- (id)initWithView:(UIView *)view withKey:(NSString*)key withCompletionHandler:(dispatch_block_t)completionBlock;
 
 @end

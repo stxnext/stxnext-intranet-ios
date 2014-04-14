@@ -97,7 +97,8 @@ typedef enum
     iCarouselOptionSpacing,
     iCarouselOptionFadeMin,
     iCarouselOptionFadeMax,
-    iCarouselOptionFadeRange
+    iCarouselOptionFadeRange,
+    iCarouselOptionTimeFunction
 }
 iCarouselOption;
 

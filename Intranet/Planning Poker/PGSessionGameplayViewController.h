@@ -16,7 +16,9 @@
     BOOL isAnimating;
     BOOL isCardShowed;
     CGPoint startPoint;
+    IBOutlet UIView* _containerView;
     IBOutlet iCarousel* _carousel;
+    IBOutlet UIImageView* _dimView;
 }
 
 - (void)userDidChooseCard:(GMCard*)card;

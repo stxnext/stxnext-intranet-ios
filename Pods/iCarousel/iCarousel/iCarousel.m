@@ -1813,6 +1813,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     else if (_decelerating)
     {
         CGFloat time = fminf(_scrollDuration, currentTime - _startTime);
+        time = [self valueForOption:iCarouselOptionTimeFunction withDefault:(time / _scrollDuration)] * _scrollDuration;
         CGFloat acceleration = -_startVelocity/_scrollDuration;
         CGFloat distance = _startVelocity * time + 0.5f * acceleration * powf(time, 2.0f);
         _scrollOffset = _startOffset + distance;

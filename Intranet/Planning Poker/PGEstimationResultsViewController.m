@@ -329,9 +329,14 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 @implementation PGEstimationResultsChartBar
 
+BOOL CGRectEqualOrBothInvisible(CGRect a, CGRect b)
+{
+    return CGRectEqualToRect(a, b) || (a.size.width * a.size.height == 0 && b.size.width * b.size.height == 0);
+}
+
 - (void)setFrame:(CGRect)frame
 {
-    if (self.layer.animationKeys.count > 0)
+    if (self.layer.animationKeys.count > 0 || CGRectEqualOrBothInvisible(self.frame, frame))
     {
         [super setFrame:frame];
         return;
@@ -351,13 +356,13 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (void)animateFrameChangeWithSuperview:(UIView*)superview
 {
-    if (!superview)
+    if (!superview || CGRectEqualOrBothInvisible(self.frame, _newFrame))
         return;
     
     [self setFrame:_newFrame withAnimationDecorator:^(SKBounceAnimation *baseAnimation) {
         baseAnimation.duration = 0.9;
         baseAnimation.numberOfBounces = 4;
-    }];
+    } withCompletionHandler:nil];
 }
 
 @end

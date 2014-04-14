@@ -10,6 +10,8 @@
 		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
+		0C1E298C18FBCA9300C038A3 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E298B18FBCA9300C038A3 /* UIImage+ImageEffects.m */; };
+		0C1E299B18FC347F00C038A3 /* RSTimingFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E299A18FC347F00C038A3 /* RSTimingFunction.m */; };
 		0C303C3618C9EF20002AA21D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C5A18C9F54D002AA21D /* PFGame.m */; };
 		0C303C5F18C9F5D5002AA21D /* PFModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C5E18C9F5D5002AA21D /* PFModels.m */; };
@@ -189,6 +191,10 @@
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0C1E298A18FBCA9300C038A3 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		0C1E298B18FBCA9300C038A3 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		0C1E299918FC347F00C038A3 /* RSTimingFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSTimingFunction.h; sourceTree = "<group>"; };
+		0C1E299A18FC347F00C038A3 /* RSTimingFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTimingFunction.m; sourceTree = "<group>"; };
 		0C303C3518C9EF20002AA21D /* libPods-install.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-install.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C303C5918C9F54D002AA21D /* PFGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFGame.h; sourceTree = "<group>"; };
 		0C303C5A18C9F54D002AA21D /* PFGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFGame.m; sourceTree = "<group>"; };
@@ -790,6 +796,10 @@
 		0CEED18618E94E2600288251 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0C1E299918FC347F00C038A3 /* RSTimingFunction.h */,
+				0C1E299A18FC347F00C038A3 /* RSTimingFunction.m */,
+				0C1E298A18FBCA9300C038A3 /* UIImage+ImageEffects.h */,
+				0C1E298B18FBCA9300C038A3 /* UIImage+ImageEffects.m */,
 				0CEED18318E94E2000288251 /* UITableSection.h */,
 				0CEED18418E94E2000288251 /* UITableSection.m */,
 				0CEED18718E94E6500288251 /* UIListPicker.h */,
@@ -1395,6 +1405,7 @@
 				66FD095D18F2C8E5009B0DF4 /* JBChartTooltipView.m in Sources */,
 				0C45BBBB18F55B0F0065470E /* UIViewController+QuickObservers.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
+				0C1E298C18FBCA9300C038A3 /* UIImage+ImageEffects.m in Sources */,
 				66D0F54618CF185100C14F5D /* PokerSessionsListTableViewController.m in Sources */,
 				0C303C5B18C9F54D002AA21D /* PFGame.m in Sources */,
 				0C3C6F5918E4312D0023026B /* GMSession.m in Sources */,
@@ -1425,6 +1436,7 @@
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
 				66CCD41318DB0B5E00531622 /* IGObject.m in Sources */,
 				66FD095718F2C8AC009B0DF4 /* JBBaseChartViewController.m in Sources */,
+				0C1E299B18FC347F00C038A3 /* RSTimingFunction.m in Sources */,
 				660D961C18F4044B00F71437 /* PGSessionFooterView.m in Sources */,
 				0CED9C8E18EBED1000575E04 /* PGSessionLobbyViewController.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,

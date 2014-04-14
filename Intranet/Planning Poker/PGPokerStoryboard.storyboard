@@ -363,21 +363,50 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fH2-Yg-hQo" customClass="iCarousel">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3kn-PG-AfE" userLabel="Container">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="i52-mx-fSo" id="Rtr-aw-SOh"/>
-                                    <outlet property="delegate" destination="i52-mx-fSo" id="H1q-H8-MS7"/>
-                                </connections>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="poker_background" translatesAutoresizingMaskIntoConstraints="NO" id="3ym-sk-4DO">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fH2-Yg-hQo" customClass="iCarousel">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="i52-mx-fSo" id="Rtr-aw-SOh"/>
+                                            <outlet property="delegate" destination="i52-mx-fSo" id="H1q-H8-MS7"/>
+                                        </connections>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDU-sP-G1p">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="fH2-Yg-hQo" secondAttribute="bottom" id="IlV-p0-JSv"/>
+                                    <constraint firstItem="3ym-sk-4DO" firstAttribute="top" secondItem="3kn-PG-AfE" secondAttribute="top" id="Kbp-uy-nMr"/>
+                                    <constraint firstItem="sDU-sP-G1p" firstAttribute="top" secondItem="3kn-PG-AfE" secondAttribute="top" id="abq-xF-bhj"/>
+                                    <constraint firstItem="fH2-Yg-hQo" firstAttribute="top" secondItem="3kn-PG-AfE" secondAttribute="top" id="cbO-4l-fp6"/>
+                                    <constraint firstAttribute="bottom" secondItem="3ym-sk-4DO" secondAttribute="bottom" id="o5B-MC-uRU"/>
+                                    <constraint firstAttribute="bottom" secondItem="sDU-sP-G1p" secondAttribute="bottom" id="zth-Dh-5vr"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3kn-PG-AfE" firstAttribute="top" secondItem="5KE-CV-4t5" secondAttribute="bottom" id="ciL-vY-Byf"/>
+                            <constraint firstItem="6Zl-aN-43a" firstAttribute="top" secondItem="3kn-PG-AfE" secondAttribute="bottom" id="zAO-Cb-xUO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Planning Session" id="3ar-I6-KI3"/>
                     <connections>
                         <outlet property="_carousel" destination="fH2-Yg-hQo" id="j7F-IE-Em0"/>
+                        <outlet property="_containerView" destination="3kn-PG-AfE" id="qdF-yj-gAt"/>
+                        <outlet property="_dimView" destination="sDU-sP-G1p" id="EhL-2o-2cR"/>
                         <segue destination="fMR-XS-k0D" kind="push" identifier="FinishEstimationSegue" id="0Po-RT-HWa"/>
                         <segue destination="8uh-kK-dwL" kind="custom" identifier="ShowSessionPeopleSegue" customClass="PGPlayerListSegue" id="ems-QG-3L7"/>
                     </connections>
@@ -539,13 +568,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <point key="canvasLocation" x="-307" y="1899"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="poker_background" width="320" height="568"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="g8B-6d-7Y4"/>
-        <segue reference="V7o-9a-xhO"/>
+        <segue reference="0Po-RT-HWa"/>
+        <segue reference="ems-QG-3L7"/>
     </inferredMetricsTieBreakers>
 </document>

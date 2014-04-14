@@ -8,6 +8,8 @@
 
 #import "PGSessionGameplayViewController.h"
 #import "UIViewController+PGSessionRuntime.h"
+#import "UIImage+ImageEffects.h"
+#import "RSTimingFunction.h"
 
 @implementation PGSessionGameplayViewController
 
@@ -66,18 +68,28 @@
 {
     if (visible)
     {
+        UIGraphicsBeginImageContextWithOptions(_containerView.bounds.size, _containerView.opaque, 0.0f);
+        [_containerView drawViewHierarchyInRect:_containerView.bounds afterScreenUpdates:NO];
+        UIImage* snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        UIImage* blurredSnapshot = [snapshotImage applyBlurWithRadius:7.5 tintColor:[UIColor colorWithWhite:0.0 alpha:0.2] saturationDeltaFactor:0.5 maskImage:nil];
+        _dimView.image = blurredSnapshot;
+        
+        [UIView animateWithDuration:0.33 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _dimView.alpha = 1.0;
+        } completion:nil];
+        
         [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:247.0 / 255.0 alpha:1.0]];
         [SVProgressHUD showWithStatus:@"Waiting for tickets..."];
-        
-        _carousel.userInteractionEnabled = NO;
-        _carousel.alpha = 0.25;
     }
     else
     {
-        [SVProgressHUD dismiss];
+        [UIView animateWithDuration:0.33 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _dimView.alpha = 0.0;
+        } completion:nil];
         
-        _carousel.userInteractionEnabled = YES;
-        _carousel.alpha = 1.0;
+        [SVProgressHUD dismiss];
     }
 }
 
@@ -85,8 +97,10 @@
 
 - (void)userDidChooseCard:(GMCard*)card
 {
+    [super userDidChooseCard:card];
+    
     [[GameManager defaultManager] voteWithCard:card inCurrentTicketWithCompletionHandler:^(GameManager *manager, NSError *error) {
-        // TODO
+        
     }];
 }
 
@@ -95,9 +109,9 @@
 #pragma mark - Carousel card picker
 
 #define UnSelectedRadius 700
-#define SelectedRadius 1000
-#define ScaleFactor 1.25
-#define MENUSIZE 44
+#define SelectedRadius (INTERFACE_IS_PHONE_SMALL_SCREEN ? 800 : 1000)
+#define ScaleFactor (INTERFACE_IS_PHONE_SMALL_SCREEN ? 1.05 : 1.25)
+#define YShift (INTERFACE_IS_PHONE_SMALL_SCREEN ? 4 : 12)
 
 @implementation PGCardPickerViewController
 
@@ -136,7 +150,7 @@
     [super viewDidLoad];
     
     _carousel.type = iCarouselTypeInvertedCylinder;
-    _carousel.decelerationRate = 0.8;
+    _carousel.decelerationRate = 0.8875;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -184,19 +198,19 @@
             return YES;
         }
             
+        case iCarouselOptionFadeMin:
+        {
+            return -0.25;
+        }
+            
         case iCarouselOptionFadeMax:
         {
-            if (carousel.type == iCarouselTypeCustom)
-            {
-                return 0.0f;
-            }
-            
-            return value;
+            return 0.25;
         }
             
         case iCarouselOptionArc:
         {
-            return 3.44;
+            return 3.0;
         }
             
         case iCarouselOptionRadius:
@@ -207,6 +221,13 @@
         case iCarouselOptionSpacing:
         {
             return 1;
+        }
+        
+        case iCarouselOptionTimeFunction:
+        {
+            static RSTimingFunction* function = nil;
+            function = function ?: [RSTimingFunction timingFunctionWithName:kRSTimingFunctionEaseOut];
+            return [function valueForX:value];
         }
             
         default:
@@ -353,7 +374,7 @@
 
 - (void)moveCardUp
 {
-    __block CGFloat vShift = fabs(_carousel.center.y - self.view.center.y - 22);
+    __block CGFloat vShift = YShift;
     
     if (!isAnimating)
     {
