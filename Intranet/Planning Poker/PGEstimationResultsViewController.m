@@ -45,6 +45,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 @implementation PGEstimationResultsViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -93,50 +94,66 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     [self removeQuickObservers];
 }
 
-- (void)loadView
+- (void)viewDidLayoutSubviews
 {
-    [super loadView];
-    
     currentIndex = -1;
     
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
-    self.informationView = [[PGSessionInformationView alloc] initWithFrame:CGRectMake(0,
-                                                                                      CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + 30,
-                                                                                      self.view.bounds.size.width,
-                                                                                      100)];
+    if (!self.informationView)
+    {
+        self.informationView = [PGSessionInformationView new];
+        self.informationView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:self.informationView];
+    }
+
+    self.informationView.frame = CGRectMake(0,
+                                            CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + 0,
+                                            self.view.bounds.size.width,
+                                            100);
     
-    self.informationView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.informationView];
+    if (!self.chartView)
+    {
+        self.barChartView = [[JBBarChartView alloc] init];
+        
+        self.barChartView.delegate = self;
+        self.barChartView.dataSource = self;
+        [self.view addSubview:self.barChartView];
+    }
     
-    self.barChartView = [[JBBarChartView alloc] init];
     self.barChartView.frame = CGRectMake(kJBBarChartViewControllerChartPadding,
                                          CGRectGetMaxY(self.informationView.frame),
                                          self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
                                          self.view.bounds.size.height - CGRectGetMaxY(self.informationView.frame) - CGRectGetHeight(self.tabBarController.tabBar.frame));
     
-    self.barChartView.delegate = self;
-    self.barChartView.dataSource = self;
+    if (!self.barChartView.headerView)
+    {
+        JBChartHeaderView *headerView = [JBChartHeaderView new];
+        
+        headerView.separatorColor = [UIColor clearColor];
+        self.barChartView.headerView = headerView;
+    }
     
-    JBChartHeaderView *headerView = [[JBChartHeaderView alloc] initWithFrame:CGRectMake(kJBBarChartViewControllerChartPadding,
-                                                                                        0,
-                                                                                        self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
-                                                                                        kJBBarChartViewControllerChartHeaderHeight)];
+    self.barChartView.headerView.frame = CGRectMake(kJBBarChartViewControllerChartPadding,
+                                                    0,
+                                                    self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
+                                                    kJBBarChartViewControllerChartHeaderHeight);
     
-    headerView.separatorColor = [UIColor clearColor];
-    self.barChartView.headerView = headerView;
+    if (!self.barChartView.footerView)
+    {
+        PGSessionFooterView *footerView = [PGSessionFooterView new];
+        
+        footerView.backgroundColor = MAIN_APP_COLOR;
+        self.barChartView.footerView = footerView;
+    }
     
-    PGSessionFooterView *footerView = [[PGSessionFooterView alloc] initWithFrame:CGRectMake(kJBBarChartViewControllerChartPadding,
-                                                                                            ceil(self.view.bounds.size.height * 0.5) - ceil(kJBBarChartViewControllerChartFooterHeight * 0.5),
-                                                                                            self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
-                                                                                            kJBBarChartViewControllerChartFooterHeight)];
-    
-    footerView.values = [self cardTitles];
-    footerView.backgroundColor = MAIN_APP_COLOR;
-    self.barChartView.footerView = footerView;
-    
-    [self.view addSubview:self.barChartView];
-    
+    self.barChartView.footerView.frame = CGRectMake(kJBBarChartViewControllerChartPadding,
+                                                    ceil(self.view.bounds.size.height * 0.5) - ceil(kJBBarChartViewControllerChartFooterHeight * 0.5),
+                                                    self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2),
+                                                    kJBBarChartViewControllerChartFooterHeight);
+
+    ((PGSessionFooterView *) self.barChartView.footerView).values = [self cardTitles];
+
     [self reloadView];
 }
 
