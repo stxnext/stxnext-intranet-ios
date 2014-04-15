@@ -23,7 +23,7 @@
     
     [self addQuickObserverForNotificationWithKey:kGameManagerNotificationEstimationRoundDidStart
                                        withBlock:^(NSNotification *note) {
-                                           [weakSelf revalidatePrompt];
+                                           [weakSelf revalidateActiveTicket];
                                        }];
     
     [self addQuickObserverForNotificationWithKey:kGameManagerNotificationEstimationRoundDidEnd
@@ -36,11 +36,13 @@
 {
     [super viewDidAppear:animated];
     
+    [self revalidateActiveTicket];
+    
     [[GameManager defaultManager] joinActiveSessionWithCompletionHandler:^(GameManager *manager, NSError *error) {
         if (error)
             return;
         
-        [self revalidatePrompt];
+        [self revalidateActiveTicket];
     }];
 }
 
@@ -49,24 +51,22 @@
     [super viewWillDisappear:animated];
     
     [self removeQuickObservers];
-    
-    [self setWaitingHudVisible:NO];
 }
 
 #pragma mark - Prompt
 
-- (void)revalidatePrompt
+- (void)revalidateActiveTicket
 {
     GMTicket* ticket = [GameManager defaultManager].activeTicket;
     self.navigationItem.prompt = ticket ? [NSString stringWithFormat:@"Estimated ticket: %@", ticket.displayValue] : nil;
-    [self setWaitingHudVisible:(ticket == nil)];
+    [self showWaitingHud:(ticket == nil) withMessage:@"Waiting for tickets..."];
 }
 
 #pragma mark - Loading alert
 
-- (void)setWaitingHudVisible:(BOOL)visible
+- (void)showWaitingHud:(BOOL)visible withMessage:(NSString*)message
 {
-    if (visible)
+    if (visible && !self.progressHud.isVisible)
     {
         UIGraphicsBeginImageContextWithOptions(_containerView.bounds.size, _containerView.opaque, 0.0f);
         [_containerView drawViewHierarchyInRect:_containerView.bounds afterScreenUpdates:NO];
@@ -80,16 +80,15 @@
             _dimView.alpha = 1.0;
         } completion:nil];
         
-        [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:247.0 / 255.0 alpha:1.0]];
-        [SVProgressHUD showWithStatus:@"Waiting for tickets..."];
+        [self.progressHud showWithStatus:message];
     }
-    else
+    else if (!visible && self.progressHud.isVisible)
     {
         [UIView animateWithDuration:0.33 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             _dimView.alpha = 0.0;
         } completion:nil];
         
-        [SVProgressHUD dismiss];
+        [self.progressHud dismiss];
     }
 }
 

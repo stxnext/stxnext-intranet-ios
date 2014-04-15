@@ -62,7 +62,7 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
            status:(NSString*)status
          duration:(NSTimeInterval)duration;
 
-- (void)dismiss;
+- (void)dismissInternal;
 
 - (void)setStatus:(NSString*)string;
 - (void)registerNotifications;
@@ -76,119 +76,96 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
 
 @implementation SVProgressHUD
 
-+ (SVProgressHUD*)sharedView {
-    static dispatch_once_t once;
-    static SVProgressHUD *sharedView;
-    dispatch_once(&once, ^ { sharedView = [[self alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; });
-    return sharedView;
-}
-
 #pragma mark - Setters
 
-+ (void)setStatus:(NSString *)string {
-	[[self sharedView] setStatus:string];
-}
-
 + (void)setBackgroundColor:(UIColor *)color {
-    [self sharedView].hudView.backgroundColor = color;
     SVProgressHUDBackgroundColor = color;
 }
 
 + (void)setForegroundColor:(UIColor *)color {
-    [self sharedView];
     SVProgressHUDForegroundColor = color;
 }
 
 + (void)setFont:(UIFont *)font {
-    [self sharedView];
     SVProgressHUDFont = font;
 }
 
 + (void)setRingThickness:(CGFloat)width {
-    [self sharedView];
     SVProgressHUDRingThickness = width;
 }
 
 + (void)setSuccessImage:(UIImage *)image {
-    [self sharedView];
     SVProgressHUDSuccessImage = image;
 }
 
 + (void)setErrorImage:(UIImage *)image {
-    [self sharedView];
     SVProgressHUDErrorImage = image;
 }
 
 #pragma mark - Show Methods
 
-+ (void)show {
-    [[self sharedView] showProgress:-1 status:nil maskType:SVProgressHUDMaskTypeNone];
+- (void)show {
+    [self showProgress:-1 status:nil maskType:SVProgressHUDMaskTypeNone];
 }
 
-+ (void)showWithStatus:(NSString *)status {
-    [[self sharedView] showProgress:-1 status:status maskType:SVProgressHUDMaskTypeNone];
+- (void)showWithStatus:(NSString *)status {
+    [self showProgress:-1 status:status maskType:SVProgressHUDMaskTypeNone];
 }
 
-+ (void)showWithMaskType:(SVProgressHUDMaskType)maskType {
-    [[self sharedView] showProgress:-1 status:nil maskType:maskType];
+- (void)showWithMaskType:(SVProgressHUDMaskType)maskType {
+    [self showProgress:-1 status:nil maskType:maskType];
 }
 
-+ (void)showWithStatus:(NSString*)status maskType:(SVProgressHUDMaskType)maskType {
-    [[self sharedView] showProgress:-1 status:status maskType:maskType];
+- (void)showWithStatus:(NSString*)status maskType:(SVProgressHUDMaskType)maskType {
+    [self showProgress:-1 status:status maskType:maskType];
 }
 
-+ (void)showProgress:(float)progress {
-    [[self sharedView] showProgress:progress status:nil maskType:SVProgressHUDMaskTypeNone];
+- (void)showProgress:(float)progress {
+    [self showProgress:progress status:nil maskType:SVProgressHUDMaskTypeNone];
 }
 
-+ (void)showProgress:(float)progress status:(NSString *)status {
-    [[self sharedView] showProgress:progress status:status maskType:SVProgressHUDMaskTypeNone];
-}
-
-+ (void)showProgress:(float)progress status:(NSString *)status maskType:(SVProgressHUDMaskType)maskType {
-    [[self sharedView] showProgress:progress status:status maskType:maskType];
+- (void)showProgress:(float)progress status:(NSString *)status {
+    [self showProgress:progress status:status maskType:SVProgressHUDMaskTypeNone];
 }
 
 #pragma mark - Show then dismiss methods
 
-+ (void)showSuccessWithStatus:(NSString *)string {
-    [self sharedView];
+- (void)showSuccessWithStatus:(NSString *)string {
     [self showImage:SVProgressHUDSuccessImage status:string];
 }
 
-+ (void)showErrorWithStatus:(NSString *)string {
-    [self sharedView];
+- (void)showErrorWithStatus:(NSString *)string {
     [self showImage:SVProgressHUDErrorImage status:string];
 }
 
-+ (void)showImage:(UIImage *)image status:(NSString *)string {
-    NSTimeInterval displayInterval = [[SVProgressHUD sharedView] displayDurationForString:string];
-    [[self sharedView] showImage:image status:string duration:displayInterval];
+- (void)showImage:(UIImage *)image status:(NSString *)string {
+    NSTimeInterval displayInterval = [self displayDurationForString:string];
+    [self showImage:image status:string duration:displayInterval];
 }
 
 
 #pragma mark - Dismiss Methods
 
-+ (void)popActivity {
-    [self sharedView].activityCount--;
-    if([self sharedView].activityCount == 0)
-        [[self sharedView] dismiss];
+- (void)popActivity {
+    self.activityCount--;
+    if(self.activityCount == 0)
+        [self dismiss];
 }
 
-+ (void)dismiss {
+- (void)dismiss {
     if ([self isVisible]) {
-        [[self sharedView] dismiss];
+        [self dismissInternal];
     }
 }
 
 
 #pragma mark - Offset
 
-+ (void)setOffsetFromCenter:(UIOffset)offset {
-    [self sharedView].offsetFromCenter = offset;
+- (void)setOffsetFromCenter:(UIOffset)offset {
+    self.offsetFromCenter = offset;
 }
 
-+ (void)resetOffsetFromCenter {
+- (void)resetOffsetFromCenter {
     [self setOffsetFromCenter:UIOffsetZero];
 }
 
@@ -583,11 +560,11 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, string);
     
-    self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
+    self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismissInternal) userInfo:nil repeats:NO];
     [[NSRunLoop mainRunLoop] addTimer:self.fadeOutTimer forMode:NSRunLoopCommonModes];
 }
 
-- (void)dismiss {
+- (void)dismissInternal {
     NSDictionary *userInfo = [self notificationUserInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:SVProgressHUDWillDisappearNotification
                                                         object:nil
@@ -766,8 +743,8 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
 
 #pragma mark - Utilities
 
-+ (BOOL)isVisible {
-    return ([self sharedView].alpha == 1);
+- (BOOL)isVisible {
+    return (self.alpha == 1);
 }
 
 
@@ -862,6 +839,23 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     }
     
     return 0;
+}
+
+@end
+
+@implementation UIViewController (SVProgressHUD)
+
+- (SVProgressHUD*)progressHud
+{
+    if (!objc_getAssociatedObject(self, @selector(progressHud)))
+    {
+        SVProgressHUD* progressHud = [[SVProgressHUD alloc] initWithFrame:self.view.bounds];
+        [self.navigationController.navigationBar insertSubview:progressHud.overlayView atIndex:0];
+        
+        objc_setAssociatedObject(self, @selector(progressHud), progressHud, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    return objc_getAssociatedObject(self, @selector(progressHud));
 }
 
 @end

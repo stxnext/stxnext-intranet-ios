@@ -16,6 +16,8 @@
 #import "APIRequest.h"
 #import "UserDetailsTableViewController.h"
 #import "PGSessionGameplayViewController.h"
+#import "UIRefreshControl+Bugfix.h"
+#import "NSObject+SingleDispatch.h"
 
 typedef enum TableSection {
     TableSectionSession = 0,
@@ -42,6 +44,7 @@ typedef enum TableSection {
             [refreshControl endRefreshing];
         }];
     } forControlEvents:UIControlEventValueChanged];
+    [refreshControl fixLabelOffset];
     
     self.refreshControl = refreshControl;
 }
@@ -52,7 +55,9 @@ typedef enum TableSection {
     
     self.navigationItem.rightBarButtonItem.title = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"Begin" : @"Join";
     
-    [self fetchSessionInfoWithCompletionHandler:nil];
+    [self dispatchSingleUsingTag:@"refresh" withBlock:^(dispatch_block_t callback) {
+        [self fetchSessionInfoWithCompletionHandler:callback];
+    }];
 }
 
 #pragma mark - User action

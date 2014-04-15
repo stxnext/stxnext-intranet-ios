@@ -50,6 +50,7 @@
 		0C9D7C9518D31BA3009E8010 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9318D31BA3009E8010 /* InfoPlist.strings */; };
 		0C9D7C9718D31BA3009E8010 /* Intranet_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D7C9618D31BA3009E8010 /* Intranet_Tests.m */; };
 		0CA0553418EAA45C00A1C43F /* NSString+RegExp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA0553318EAA45C00A1C43F /* NSString+RegExp.m */; };
+		0CC1FE8018FD14840012F2E7 /* UIRefreshControl+Bugfix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1FE7F18FD14840012F2E7 /* UIRefreshControl+Bugfix.m */; };
 		0CC2111518EC2F9F002C083A /* PGSessionGameplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2111418EC2F9F002C083A /* PGSessionGameplayViewController.m */; };
 		0CCEA37818F82DA6003B306F /* UIView+SKBounceAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCEA37718F82DA6003B306F /* UIView+SKBounceAnimation.m */; };
 		0CD199E818F3E59D00353EAD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0CD199E518F3E59D00353EAD /* SVProgressHUD.bundle */; };
@@ -72,6 +73,7 @@
 		0CEED18218E9467B00288251 /* PGPlayerPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18118E9467B00288251 /* PGPlayerPickerViewController.m */; };
 		0CEED18518E94E2000288251 /* UITableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18418E94E2000288251 /* UITableSection.m */; };
 		0CEED18918E94E6500288251 /* UIListPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEED18818E94E6500288251 /* UIListPicker.m */; };
+		0CF6AD7618FD402500BD0794 /* NSObject+SingleDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF6AD7518FD402500BD0794 /* NSObject+SingleDispatch.m */; };
 		0CF7833718E58029002860EF /* PGPokerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF7833618E58029002860EF /* PGPokerStoryboard.storyboard */; };
 		0CF7833E18E5891F002860EF /* PGSessionCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7833D18E5891F002860EF /* PGSessionCreateViewController.m */; };
 		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
@@ -265,6 +267,8 @@
 		0C9D7C9818D31BA3009E8010 /* Intranet Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Intranet Tests-Prefix.pch"; sourceTree = "<group>"; };
 		0CA0553218EAA45C00A1C43F /* NSString+RegExp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegExp.h"; sourceTree = "<group>"; };
 		0CA0553318EAA45C00A1C43F /* NSString+RegExp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegExp.m"; sourceTree = "<group>"; };
+		0CC1FE7E18FD14840012F2E7 /* UIRefreshControl+Bugfix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+Bugfix.h"; sourceTree = "<group>"; };
+		0CC1FE7F18FD14840012F2E7 /* UIRefreshControl+Bugfix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+Bugfix.m"; sourceTree = "<group>"; };
 		0CC2111318EC2F9F002C083A /* PGSessionGameplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionGameplayViewController.h; sourceTree = "<group>"; };
 		0CC2111418EC2F9F002C083A /* PGSessionGameplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionGameplayViewController.m; sourceTree = "<group>"; };
 		0CCEA37618F82DA6003B306F /* UIView+SKBounceAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SKBounceAnimation.h"; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 		0CEED18418E94E2000288251 /* UITableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableSection.m; sourceTree = "<group>"; };
 		0CEED18718E94E6500288251 /* UIListPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIListPicker.h; sourceTree = "<group>"; };
 		0CEED18818E94E6500288251 /* UIListPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIListPicker.m; sourceTree = "<group>"; };
+		0CF6AD7418FD402500BD0794 /* NSObject+SingleDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SingleDispatch.h"; sourceTree = "<group>"; };
+		0CF6AD7518FD402500BD0794 /* NSObject+SingleDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SingleDispatch.m"; sourceTree = "<group>"; };
 		0CF7833618E58029002860EF /* PGPokerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PGPokerStoryboard.storyboard; sourceTree = "<group>"; };
 		0CF7833C18E5891F002860EF /* PGSessionCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionCreateViewController.h; sourceTree = "<group>"; };
 		0CF7833D18E5891F002860EF /* PGSessionCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSessionCreateViewController.m; sourceTree = "<group>"; };
@@ -810,6 +816,10 @@
 				0C45BBBD18F56D6F0065470E /* UIViewController+PGSessionRuntime.m */,
 				0CCEA37618F82DA6003B306F /* UIView+SKBounceAnimation.h */,
 				0CCEA37718F82DA6003B306F /* UIView+SKBounceAnimation.m */,
+				0CC1FE7E18FD14840012F2E7 /* UIRefreshControl+Bugfix.h */,
+				0CC1FE7F18FD14840012F2E7 /* UIRefreshControl+Bugfix.m */,
+				0CF6AD7418FD402500BD0794 /* NSObject+SingleDispatch.h */,
+				0CF6AD7518FD402500BD0794 /* NSObject+SingleDispatch.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1416,6 +1426,7 @@
 				0CEED18218E9467B00288251 /* PGPlayerPickerViewController.m in Sources */,
 				0C935AE718E47495008A7825 /* PGSessionListViewController.m in Sources */,
 				0C429D1618CA165A00BB9CBA /* PokerSessionsViewController.m in Sources */,
+				0CF6AD7618FD402500BD0794 /* NSObject+SingleDispatch.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				666C108E18E1AD360070E784 /* OutOfOfficeManager.m in Sources */,
 				66FD096318F2C91F009B0DF4 /* JBChartHeaderView.m in Sources */,
@@ -1483,6 +1494,7 @@
 				0C3C6F5C18E4312D0023026B /* GMUserSession.m in Sources */,
 				0C3C6F5A18E4312D0023026B /* GMTicket.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
+				0CC1FE8018FD14840012F2E7 /* UIRefreshControl+Bugfix.m in Sources */,
 				66FD096618F2C934009B0DF4 /* JBBarChartFooterView.m in Sources */,
 				663AF0C818CEF53600CD1865 /* PokerNavgationViewController.m in Sources */,
 				0C3C6F5E18E4312D0023026B /* NSObject+JSONCast.m in Sources */,

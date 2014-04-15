@@ -10,6 +10,8 @@
 #import "CurrentUser.h"
 #import "UITableSection.h"
 #import "PGSessionLobbyViewController.h"
+#import "UIRefreshControl+Bugfix.h"
+#import "NSObject+SingleDispatch.h"
 
 typedef enum SessionListType {
     SessionListTypeOwned = 0,
@@ -23,6 +25,8 @@ typedef enum SessionListType {
 {
     [super viewDidLoad];
     
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:247.0 / 255.0]];
+    
     [self reloadTableSections];
     
     [self.tableView hideEmptySeparators];
@@ -35,6 +39,7 @@ typedef enum SessionListType {
             [refreshControl endRefreshing];
         }];
     } forControlEvents:UIControlEventValueChanged];
+    [refreshControl fixLabelOffset];
     
     self.refreshControl = refreshControl;
 }
@@ -43,29 +48,36 @@ typedef enum SessionListType {
 {
     [super viewWillAppear:animated];
     
-    [self fetchGameInfoWithCompletionHandler:nil];
+    [self dispatchSingleUsingTag:@"refresh" withBlock:^(dispatch_block_t callback) {
+        if (_tableSections.count == 0)
+            [self.progressHud showWithStatus:@"Loading session list..."];
+        
+        [self fetchGameInfoWithCompletionHandler:^{
+            [self.progressHud dismiss];
+            
+            callback();
+        }];
+    }];
 }
 
 #pragma mark - Game client
 
-- (void)fetchGameInfoIfNeeded
-{
-    if (![GameManager defaultManager].isGameInfoFetched)
-        [self fetchGameInfoWithCompletionHandler:nil];
-}
-
 - (void)fetchGameInfoWithCompletionHandler:(dispatch_block_t)completionBlock
 {
-    [self updateBarButtonStateDuringRefresh:YES];
+    [self setIsRefreshing:YES];
+    
+    dispatch_block_t endBlock = ^{
+        [self setIsRefreshing:NO];
+        
+        if (completionBlock)
+            completionBlock();
+    };
     
     [[CurrentUser singleton] userWithStart:nil end:nil success:^(RMUser *user) {
         [[GameManager defaultManager] fetchGameInfoForExternalUser:user withCompletionHandler:^(GameManager *manager, NSError *error) {
-            [self updateBarButtonStateDuringRefresh:NO];
-            
             if (error)
             {
-                if (completionBlock)
-                    completionBlock();
+                endBlock();
                 
                 [UIAlertView showWithTitle:@"Server problem" message:@"Could not load poker sessions from game server." handler:nil];
                 return;
@@ -73,23 +85,18 @@ typedef enum SessionListType {
             
             [self reloadTableSections];
             
-            if (completionBlock)
-                completionBlock();
+            endBlock();
         }];
     } failure:^(RMUser *cachedUser, FailureErrorType error) {
-        [self updateBarButtonStateDuringRefresh:NO];
-        
-        if (completionBlock)
-            completionBlock();
+        endBlock();
         
         [UIAlertView showWithTitle:@"Server problem" message:@"Could not load current user from users server." handler:nil];
     }];
 }
 
-#pragma mark - Bar button state
-
-- (void)updateBarButtonStateDuringRefresh:(BOOL)isRefreshing
+- (void)setIsRefreshing:(BOOL)isRefreshing
 {
+    // Update bar button state
     self.navigationItem.leftBarButtonItem.enabled = !isRefreshing;
     self.navigationItem.rightBarButtonItem.enabled = ([GameManager defaultManager].decks.count > 0);
 }

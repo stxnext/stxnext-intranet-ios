@@ -40,28 +40,34 @@ typedef NSUInteger SVProgressHUDMaskType;
 
 #pragma mark - Show Methods
 
-+ (void)show;
-+ (void)showWithMaskType:(SVProgressHUDMaskType)maskType;
-+ (void)showWithStatus:(NSString*)status;
-+ (void)showWithStatus:(NSString*)status maskType:(SVProgressHUDMaskType)maskType;
+- (void)show;
+- (void)showWithMaskType:(SVProgressHUDMaskType)maskType;
+- (void)showWithStatus:(NSString*)status;
+- (void)showWithStatus:(NSString*)status maskType:(SVProgressHUDMaskType)maskType;
 
-+ (void)showProgress:(float)progress;
-+ (void)showProgress:(float)progress status:(NSString*)status;
-+ (void)showProgress:(float)progress status:(NSString*)status maskType:(SVProgressHUDMaskType)maskType;
+- (void)showProgress:(float)progress;
+- (void)showProgress:(float)progress status:(NSString*)status;
+- (void)showProgress:(float)progress status:(NSString*)status maskType:(SVProgressHUDMaskType)maskType;
 
-+ (void)setStatus:(NSString*)string; // change the HUD loading status while it's showing
+- (void)setStatus:(NSString*)string; // change the HUD loading status while it's showing
 
 // stops the activity indicator, shows a glyph + status, and dismisses HUD 1s later
-+ (void)showSuccessWithStatus:(NSString*)string;
-+ (void)showErrorWithStatus:(NSString *)string;
-+ (void)showImage:(UIImage*)image status:(NSString*)status; // use 28x28 white pngs
+- (void)showSuccessWithStatus:(NSString*)string;
+- (void)showErrorWithStatus:(NSString *)string;
+- (void)showImage:(UIImage*)image status:(NSString*)status; // use 28x28 white pngs
 
-+ (void)setOffsetFromCenter:(UIOffset)offset;
-+ (void)resetOffsetFromCenter;
+- (void)setOffsetFromCenter:(UIOffset)offset;
+- (void)resetOffsetFromCenter;
 
-+ (void)popActivity;
-+ (void)dismiss;
+- (void)popActivity;
+- (void)dismiss;
 
-+ (BOOL)isVisible;
+- (BOOL)isVisible;
+
+@end
+
+@interface UIViewController (SVProgressHUD)
+
+- (SVProgressHUD*)progressHud;
 
 @end
