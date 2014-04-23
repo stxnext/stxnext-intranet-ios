@@ -14,5 +14,6 @@
 - (BOOL)popToViewControllerOfClass:(Class)class;
 - (void)prepareForGameSession;
 - (IBAction)showParticipants:(id)sender;
+- (void)dismissParticipants;
 
 @end

@@ -17,7 +17,7 @@
 #import "UserDetailsTableViewController.h"
 #import "PGSessionGameplayViewController.h"
 #import "UIRefreshControl+Bugfix.h"
-#import "NSObject+SingleDispatch.h"
+#import "NSObject+Reachability.h"
 
 typedef enum TableSection {
     TableSectionSession = 0,
@@ -55,9 +55,18 @@ typedef enum TableSection {
     
     self.navigationItem.rightBarButtonItem.title = [GameManager defaultManager].activeSession.isOwnedByCurrentUser ? @"Begin" : @"Join";
     
-    [self dispatchSingleUsingTag:@"refresh" withBlock:^(dispatch_block_t callback) {
-        [self fetchSessionInfoWithCompletionHandler:callback];
+    [self dispatchSingleAsyncWhenReachableUsingTag:@"refresh" withBlock:^(void (^callback)(BOOL stop)) {
+        [self fetchSessionInfoWithCompletionHandler:^{
+            callback(YES);
+        }];
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self clearReachabilityDispatches];
 }
 
 #pragma mark - User action

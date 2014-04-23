@@ -7,6 +7,7 @@
 //
 
 #import "GameClient.h"
+#import "InternetReachability.h"
 
 #pragma mark Notification keys
 #define kGameManagerNotificationSessionPeopleDidChange @"kGameManagerNotificationSessionPeopleDidChange"
@@ -43,8 +44,10 @@ typedef void (^ManagerCallback)(GameManager* manager, NSError* error);
 @property (nonatomic, strong, readonly) NSArray* decks;
 @property (nonatomic, strong, readonly) GameClient* client;
 @property (nonatomic, strong, readonly) GameListener* listener;
+@property (nonatomic, strong, readonly) InternetReachability* reachability;
 
 - (id)initWithHostName:(NSString*)hostName withPort:(NSInteger)port;
+- (void)setNotificationsSuspended:(BOOL)suspend;
 
 - (void)fetchGameInfoForExternalUser:(RMUser*)user withCompletionHandler:(ManagerCallback)completionBlock;
 - (void)fetchActiveSessionUsersWithCompletionHandler:(ManagerCallback)completionBlock;

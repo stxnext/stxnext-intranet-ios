@@ -43,7 +43,7 @@
                                            
                                            if (error)
                                            {
-                                               [UIAlertView showWithTitle:@"Server problem" message:@"Connection to server was lost. Please try again." handler:nil];
+                                               [UIAlertView showWithTitle:@"Server problem" message:@"Connection to game server was lost. Please try again." handler:nil];
                                                return;
                                            }
                                        }];
@@ -114,6 +114,11 @@
 - (IBAction)showParticipants:(id)sender
 {
     [self performSegueWithIdentifier:@"ShowSessionPeopleSegue" sender:sender];
+}
+
+- (void)dismissParticipants
+{
+    [self.sideMenuViewController hideMenuViewController];
 }
 
 @end

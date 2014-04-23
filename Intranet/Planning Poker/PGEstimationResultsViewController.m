@@ -45,12 +45,11 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 @implementation PGEstimationResultsViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _barsCache = [NSMutableDictionary dictionary];
+    [self resetBarsCache];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,10 +59,10 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     self.navigationItem.prompt = [NSString stringWithFormat:@"Estimated ticket: %@", [GameManager defaultManager].activeTicket.displayValue];
     
     _isEstimationFinished = NO;
+    
     [self revalidateBarItems];
-    
     [self prepareForGameSession];
-    
+    [self resetBarsCache];
     [self revalidateVotes];
     
     __weak typeof(self) weakSelf = self;
@@ -76,13 +75,14 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
         [weakSelf revalidateVotes];
     }];
     
-    
     [self.barChartView setState:JBChartViewStateExpanded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self animateBarsInRange:NSMakeRange(0, [self numberOfBarsInBarChartView:self.barChartView]) withAnimationDelays:0.2];
     
     [[GameManager defaultManager] joinActiveSessionWithCompletionHandler:^(GameManager *manager, NSError *error) { }];
 }
@@ -92,6 +92,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     [super viewWillDisappear:animated];
     
     [self removeQuickObservers];
+    [self dismissParticipants];
 }
 
 - (void)viewDidLayoutSubviews
@@ -157,6 +158,36 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
     [self reloadView];
 }
 
+#pragma mark - Bars cache
+
+- (void)resetBarsCache
+{
+    _barsCache = [NSMutableDictionary dictionary];
+    _renderedBarThreshold = -1;
+}
+
+- (void)animateBarsInRange:(NSRange)barsRange withAnimationDelays:(NSTimeInterval)animationDelays
+{
+    _renderedBarThreshold = barsRange.location;
+    
+    [self animateBarsToThreshold:barsRange.location + barsRange.length withAnimationDelays:animationDelays];
+}
+
+- (void)animateBarsToThreshold:(NSInteger)threshold withAnimationDelays:(NSTimeInterval)animationDelays
+{
+    for (; _renderedBarThreshold < threshold && [self playersForIndex:_renderedBarThreshold].count == 0; _renderedBarThreshold++);
+    
+    if (_renderedBarThreshold < threshold)
+    {
+        [self revalidateVotes];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDelays * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _renderedBarThreshold++;
+            [self animateBarsToThreshold:threshold withAnimationDelays:animationDelays];
+        });
+    }
+}
+
 #pragma mark - Bar button
 
 - (void)revalidateBarItems
@@ -200,7 +231,10 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 
 - (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtAtIndex:(NSUInteger)index
 {
-    return [[self playersForIndex:index] count];
+    CGFloat multiplier = (NSInteger)index <= _renderedBarThreshold ? 1.0 : 0.0;
+    CGFloat height = multiplier * [[self playersForIndex:index] count];
+    
+    return height;
 }
 
 #pragma mark - JBBarChartViewDataSource

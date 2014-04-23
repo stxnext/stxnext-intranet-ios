@@ -11,6 +11,7 @@
 
 @interface PGEstimationResultsViewController : JBBaseChartViewController
 {
+    NSInteger _renderedBarThreshold;
     BOOL _isEstimationFinished;
     NSMutableDictionary* _barsCache;
 }

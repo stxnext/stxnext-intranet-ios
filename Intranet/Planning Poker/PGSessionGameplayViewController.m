@@ -51,6 +51,7 @@
     [super viewWillDisappear:animated];
     
     [self removeQuickObservers];
+    [self dismissParticipants];
 }
 
 #pragma mark - Prompt

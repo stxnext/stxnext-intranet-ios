@@ -7,6 +7,8 @@
 //
 
 #import "GameManager.h"
+#import "Reachability.h"
+#import "NSNotificationCenter+NSOperationQueue.h"
 
 @implementation GameManager
 
@@ -19,9 +21,20 @@
         _serverHostName = hostName;
         _serverPort = port;
         _gameInfoFetched = NO;
+        
+        // Reachability
+        _reachability = [InternetReachability reachabilityWithHostName:hostName];
+        [_reachability startNotifier];
     }
     
     return self;
+}
+
+#pragma mark - Notifications
+
+- (void)setNotificationsSuspended:(BOOL)suspend
+{
+    [[NSNotificationCenter defaultCenter].notificationQueue setSuspended:suspend];
 }
 
 #pragma mark - Client strategy
@@ -125,7 +138,7 @@
                        }
                        
                        if (changedPeople.count > 0)
-                           [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionPeopleDidChange object:changedPeople];
+                           [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationSessionPeopleDidChange object:changedPeople];
                        
                        completionBlock(self, nil);
                    }];
@@ -173,7 +186,7 @@
                     if (sessionUser.active != subject.active)
                     {
                         sessionUser.active = subject.active;
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionPeopleDidChange object:@[ sessionUser ]];
+                        [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationSessionPeopleDidChange object:@[ sessionUser ]];
                     }
                 }
                 else if ([notification.action isEqualToString:NotificationNextTicket])
@@ -184,7 +197,7 @@
                     
                     _activeTicket = subject;
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationEstimationRoundDidStart object:subject];
+                    [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationEstimationRoundDidStart object:subject];
                 }
                 else if ([notification.action isEqualToString:NotificationUserVote])
                 {
@@ -204,7 +217,7 @@
                         _activeTicket.votes = votes;
                     }
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationTicketVoteReceived object:subject];
+                    [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationTicketVoteReceived object:subject];
                 }
                 else if ([notification.action isEqualToString:NotificationVotesRevealed])
                 {
@@ -214,7 +227,7 @@
                     
                     _activeTicket = subject;
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationEstimationRoundDidEnd object:subject];
+                    [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationEstimationRoundDidEnd object:subject];
                 }
                 else if ([notification.action isEqualToString:NotificationCloseSession])
                 {
@@ -224,7 +237,7 @@
                     
                     _activeSession = subject;
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionDidClose object:subject];
+                    [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationSessionDidClose object:subject];
                 }
             }];
             
@@ -244,7 +257,7 @@
         _listener = nil;
         _activeTicket = nil;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGameManagerNotificationSessionDidDisconnect object:error];
+        [[NSNotificationCenter defaultCenter] enqueueNotificationName:kGameManagerNotificationSessionDidDisconnect object:error];
     }];
 }
 

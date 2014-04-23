@@ -49,6 +49,7 @@
     [self markTextFieldAsFirstResponder:NO];
     
     [self removeQuickObservers];
+    [self dismissParticipants];
 }
 
 #pragma mark - Navigation segue

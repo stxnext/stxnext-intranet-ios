@@ -11,7 +11,7 @@
 #import "UITableSection.h"
 #import "PGSessionLobbyViewController.h"
 #import "UIRefreshControl+Bugfix.h"
-#import "NSObject+SingleDispatch.h"
+#import "NSObject+Reachability.h"
 
 typedef enum SessionListType {
     SessionListTypeOwned = 0,
@@ -48,16 +48,23 @@ typedef enum SessionListType {
 {
     [super viewWillAppear:animated];
     
-    [self dispatchSingleUsingTag:@"refresh" withBlock:^(dispatch_block_t callback) {
+    [self dispatchSingleAsyncWhenReachableUsingTag:@"refresh" withBlock:^(void (^callback)(BOOL stop)) {
         if (_tableSections.count == 0)
             [self.progressHud showWithStatus:@"Loading session list..."];
         
         [self fetchGameInfoWithCompletionHandler:^{
             [self.progressHud dismiss];
             
-            callback();
+            callback(YES);
         }];
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self clearReachabilityDispatches];
 }
 
 #pragma mark - Game client

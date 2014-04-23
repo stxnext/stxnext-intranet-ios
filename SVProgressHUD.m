@@ -850,7 +850,7 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     if (!objc_getAssociatedObject(self, @selector(progressHud)))
     {
         SVProgressHUD* progressHud = [[SVProgressHUD alloc] initWithFrame:self.view.bounds];
-        [self.navigationController.navigationBar insertSubview:progressHud.overlayView atIndex:0];
+        [self.view.superview insertSubview:progressHud.overlayView aboveSubview:self.view];
         
         objc_setAssociatedObject(self, @selector(progressHud), progressHud, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }

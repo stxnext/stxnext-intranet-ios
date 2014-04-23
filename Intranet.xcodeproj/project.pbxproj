@@ -19,6 +19,8 @@
 		0C303C6518C9FBAA002AA21D /* PFTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6418C9FBAA002AA21D /* PFTicket.m */; };
 		0C303C6818C9FC49002AA21D /* PFRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C303C6718C9FC49002AA21D /* PFRound.m */; };
 		0C34C66118F6A99700646E80 /* AppDelegate+TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C34C66018F6A99700646E80 /* AppDelegate+TabBar.m */; };
+		0C362CEB19068C27005B9C54 /* InternetReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C362CEA19068C27005B9C54 /* InternetReachability.m */; };
+		0C362CFA1906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C362CF91906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.m */; };
 		0C3C6F5418E4312D0023026B /* RMUser+GMUserMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F3C18E4312D0023026B /* RMUser+GMUserMapping.m */; };
 		0C3C6F5518E4312D0023026B /* GameClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F3E18E4312D0023026B /* GameClient.m */; };
 		0C3C6F5618E4312D0023026B /* GMCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6F4018E4312D0023026B /* GMCard.m */; };
@@ -42,6 +44,7 @@
 		0C7E16EF1833AB4400BD2AB4 /* Modals_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7E16EE1833AB4400BD2AB4 /* Modals_iPad.storyboard */; };
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
+		0C8F5E2719000AD5000C7942 /* NSObject+Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F5E2619000AD5000C7942 /* NSObject+Reachability.m */; };
 		0C935ADC18E45552008A7825 /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C935ADB18E45552008A7825 /* GameManager.m */; };
 		0C935AE718E47495008A7825 /* PGSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C935AE618E47495008A7825 /* PGSessionListViewController.m */; };
 		0C9D7C8D18D31BA3009E8010 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C71181E8ED10087C96E /* XCTest.framework */; };
@@ -210,6 +213,10 @@
 		0C303C6718C9FC49002AA21D /* PFRound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFRound.m; sourceTree = "<group>"; };
 		0C34C65F18F6A99700646E80 /* AppDelegate+TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+TabBar.h"; sourceTree = "<group>"; };
 		0C34C66018F6A99700646E80 /* AppDelegate+TabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+TabBar.m"; sourceTree = "<group>"; };
+		0C362CE919068C27005B9C54 /* InternetReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternetReachability.h; sourceTree = "<group>"; };
+		0C362CEA19068C27005B9C54 /* InternetReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InternetReachability.m; sourceTree = "<group>"; };
+		0C362CF81906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+NSOperationQueue.h"; sourceTree = "<group>"; };
+		0C362CF91906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+NSOperationQueue.m"; sourceTree = "<group>"; };
 		0C3C6F3B18E4312D0023026B /* RMUser+GMUserMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+GMUserMapping.h"; sourceTree = "<group>"; };
 		0C3C6F3C18E4312D0023026B /* RMUser+GMUserMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+GMUserMapping.m"; sourceTree = "<group>"; };
 		0C3C6F3D18E4312D0023026B /* GameClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameClient.h; sourceTree = "<group>"; };
@@ -256,6 +263,8 @@
 		0C853D7E182109DE008D0516 /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
 		0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperation+Redirect.h"; sourceTree = "<group>"; };
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
+		0C8F5E2519000AD5000C7942 /* NSObject+Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Reachability.h"; sourceTree = "<group>"; };
+		0C8F5E2619000AD5000C7942 /* NSObject+Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Reachability.m"; sourceTree = "<group>"; };
 		0C935ADA18E45552008A7825 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		0C935ADB18E45552008A7825 /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
 		0C935AE518E47495008A7825 /* PGSessionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSessionListViewController.h; sourceTree = "<group>"; };
@@ -578,8 +587,7 @@
 		0C3C6F6018E431480023026B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0C3C6F5018E4312D0023026B /* NSObject+JSONCast.h */,
-				0C3C6F5118E4312D0023026B /* NSObject+JSONCast.m */,
+				0C8F5E1A190004F7000C7942 /* Helpers */,
 				0C3C6F3D18E4312D0023026B /* GameClient.h */,
 				0C3C6F3E18E4312D0023026B /* GameClient.m */,
 				0C3C6F5218E4312D0023026B /* TCPClient.h */,
@@ -647,6 +655,17 @@
 				6671A3F118D1A54700F60190 /* UserListCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		0C8F5E1A190004F7000C7942 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0C362CE919068C27005B9C54 /* InternetReachability.h */,
+				0C362CEA19068C27005B9C54 /* InternetReachability.m */,
+				0C3C6F5018E4312D0023026B /* NSObject+JSONCast.h */,
+				0C3C6F5118E4312D0023026B /* NSObject+JSONCast.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		0C935AE118E4742D008A7825 /* GUI */ = {
@@ -820,6 +839,10 @@
 				0CC1FE7F18FD14840012F2E7 /* UIRefreshControl+Bugfix.m */,
 				0CF6AD7418FD402500BD0794 /* NSObject+SingleDispatch.h */,
 				0CF6AD7518FD402500BD0794 /* NSObject+SingleDispatch.m */,
+				0C8F5E2519000AD5000C7942 /* NSObject+Reachability.h */,
+				0C8F5E2619000AD5000C7942 /* NSObject+Reachability.m */,
+				0C362CF81906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.h */,
+				0C362CF91906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1440,6 +1463,7 @@
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
 				0C3C6F5718E4312D0023026B /* GMDeck.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
+				0C8F5E2719000AD5000C7942 /* NSObject+Reachability.m in Sources */,
 				0CD199EF18F3FFFA00353EAD /* PGTicketCreateViewController.m in Sources */,
 				272DF890183229460014FBCA /* AppDelegate+Navigation.m in Sources */,
 				0C3C6F5418E4312D0023026B /* RMUser+GMUserMapping.m in Sources */,
@@ -1449,6 +1473,7 @@
 				66FD095718F2C8AC009B0DF4 /* JBBaseChartViewController.m in Sources */,
 				0C1E299B18FC347F00C038A3 /* RSTimingFunction.m in Sources */,
 				660D961C18F4044B00F71437 /* PGSessionFooterView.m in Sources */,
+				0C362CEB19068C27005B9C54 /* InternetReachability.m in Sources */,
 				0CED9C8E18EBED1000575E04 /* PGSessionLobbyViewController.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				66C5603918DC38D000291952 /* Model.m in Sources */,
@@ -1466,6 +1491,7 @@
 				0CA0553418EAA45C00A1C43F /* NSString+RegExp.m in Sources */,
 				663AF0CE18CEFE6800CD1865 /* PokerSessionTableViewController.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
+				0C362CFA1906A3A4005B9C54 /* NSNotificationCenter+NSOperationQueue.m in Sources */,
 				0C303C6818C9FC49002AA21D /* PFRound.m in Sources */,
 				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,

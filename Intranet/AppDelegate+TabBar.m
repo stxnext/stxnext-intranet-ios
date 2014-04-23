@@ -15,4 +15,10 @@
     return viewController != tabBarController.selectedViewController;
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    BOOL willDisplayPokerStack = tabBarController.selectedIndex == 3;
+    [[GameManager defaultManager] setNotificationsSuspended:!willDisplayPokerStack];
+}
+
 @end
