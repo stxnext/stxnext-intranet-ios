@@ -212,7 +212,8 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
                         return;
                     
                     _isEstimationFinished = YES;
-                    
+
+                    [self revalidateVotes];
                     [self revalidateBarItems];
                 }];
             }];
@@ -337,7 +338,7 @@ NSString * const kJBBarChartViewControllerNavButtonViewKey = @"view";
 - (NSArray *)playersForIndex:(NSInteger)index
 {
     GMCard *card = (GMCard *)[self deckCards][index];
-    
+   
     return [self votesDistribution][card];
 }
 
@@ -411,7 +412,7 @@ BOOL CGRectEqualOrBothInvisible(CGRect a, CGRect b)
         return;
     
     [self setFrame:_newFrame withAnimationDecorator:^(SKBounceAnimation *baseAnimation) {
-        baseAnimation.duration = 0.9;
+        baseAnimation.duration = 0.5;
         baseAnimation.numberOfBounces = 4;
     } withCompletionHandler:nil];
 }
