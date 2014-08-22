@@ -10,13 +10,14 @@
 
 @implementation NSString (MyRegex)
 
-- (NSString *)firstMatchWithRegex:(NSString *)regex error:(NSError **)e {
+- (NSString *)firstMatchWithRegex:(NSString *)regex error:(NSError **)e
+{
     NSError *error = nil;
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:regex options:1024 error:&error];
     
-    if(re == nil)
+    if (re == nil)
     {
-        if(e)
+        if (e)
             *e = error;
         
         return nil;
@@ -24,10 +25,14 @@
     
     NSArray *matches = [re matchesInString:self options:0 range:NSMakeRange(0, [self length])];
     
-    if([matches count] == 0) {
+    if ([matches count] == 0)
+    {
         NSString *errorDescription = [NSString stringWithFormat:@"Can't find a match for regex: %@", regex];
         NSError *error = [NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
-        if(e) *e = error;
+        
+        if (e)
+            *e = error;
+        
         return nil;
     }
     

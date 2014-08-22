@@ -32,7 +32,7 @@ typedef enum
     
     [super viewDidLoad];
 
-    self.currentType = 0;
+//    self.currentType = 0;
     self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
@@ -44,8 +44,11 @@ typedef enum
     self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
     self.OOOPickerFrom.date = [tomorrow dateWithHour:9 minute:0 second:0];
     self.OOOPickerTo.date = [tomorrow dateWithHour:17 minute:0 second:0];
-    
-    [self getFreeDays];
+
+    if (self.currentRequest == RequestTypeAbsenceHoliday)
+    {
+        [self getFreeDays];
+    }
     
     [self dateTimeValueChanged:self.absenceHolidayPickerStart];
     [self dateTimeValueChanged:self.absenceHolidayPickerEnd];
@@ -54,7 +57,7 @@ typedef enum
     [self dateTimeValueChanged:self.OOOPickerTo];
     
     currentUnCollapsedPickerIndex = -1;
-    currentRequest = RequestTypeAbsenceHoliday;
+//    currentRequest = RequestTypeAbsenceHoliday;
     [self updateTableView];
 }
 
@@ -67,7 +70,7 @@ typedef enum
 {
     if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
     {
-        switch (currentRequest)
+        switch (self.currentRequest)
         {
             case RequestTypeAbsenceHoliday:
             {
@@ -210,9 +213,14 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+        if (indexPath.section == 0)
+        {
+            return 0;
+        }
+    
     if (indexPath.section == 1)
     {
-        if (currentRequest == RequestTypeOutOfOffice)
+        if (self.currentRequest == RequestTypeOutOfOffice)
         {
             return 0;
         }
@@ -228,7 +236,7 @@ typedef enum
     
     if (indexPath.section == 2)
     {
-        if (currentRequest == RequestTypeAbsenceHoliday)
+        if (self.currentRequest == RequestTypeAbsenceHoliday)
         {
             return 0;
         }
@@ -249,18 +257,18 @@ typedef enum
 {
     if (indexPath.section == 0)
     {
-        if (indexPath.row == 0 && currentRequest != RequestTypeAbsenceHoliday)
+        if (indexPath.row == 0 && self.currentRequest != RequestTypeAbsenceHoliday)
         {
             currentUnCollapsedPickerIndex = -1;
-            currentRequest = RequestTypeAbsenceHoliday;
+            self.currentRequest = RequestTypeAbsenceHoliday;
             
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self updateTableView];
         }
-        else if (indexPath.row == 1 && currentRequest != RequestTypeOutOfOffice)
+        else if (indexPath.row == 1 && self.currentRequest != RequestTypeOutOfOffice)
         {
             currentUnCollapsedPickerIndex = -1;
-            currentRequest = RequestTypeOutOfOffice;
+            self.currentRequest = RequestTypeOutOfOffice;
             
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self updateTableView];
@@ -321,10 +329,13 @@ typedef enum
 
 - (void)updateTableView
 {
+    self.absenceHolidayCell.hidden = YES;
+    self.OOOCell.hidden = YES;
+    
     self.absenceHolidayCell.accessoryType = UITableViewCellAccessoryNone;
     self.OOOCell.accessoryType = UITableViewCellAccessoryNone;
     
-    switch (currentRequest)
+    switch (self.currentRequest)
     {
         case RequestTypeAbsenceHoliday:
         {
@@ -382,13 +393,14 @@ typedef enum
     {
         case 0:
         {
+            return 0.01;
             return 44;
         }
             break;
             
         case 1:
         {
-            if (currentRequest == RequestTypeAbsenceHoliday)
+            if (self.currentRequest == RequestTypeAbsenceHoliday)
             {
                 return 22;
             }
@@ -397,7 +409,7 @@ typedef enum
             
         case 2:
         {
-            if (currentRequest == RequestTypeOutOfOffice)
+            if (self.currentRequest == RequestTypeOutOfOffice)
             {
                 return 22;
             }
@@ -414,13 +426,14 @@ typedef enum
     {
         case 0:
         {
+//            return 0.01;
             return 22;
         }
             break;
             
         case 1:
         {
-            if (currentRequest == RequestTypeAbsenceHoliday)
+            if (self.currentRequest == RequestTypeAbsenceHoliday)
             {
                 return 22;
             }
@@ -429,7 +442,7 @@ typedef enum
             
         case 2:
         {
-            if (currentRequest == RequestTypeOutOfOffice)
+            if (self.currentRequest == RequestTypeOutOfOffice)
             {
                 return 22;
             }
@@ -446,22 +459,23 @@ typedef enum
     {
         case 0:
         {
+            return nil;
             return @"REQUEST FOR";
         }
             break;
             
         case 1:
         {
-            if (currentRequest == RequestTypeAbsenceHoliday)
+            if (self.currentRequest == RequestTypeAbsenceHoliday)
             {
-                return @"ABSENCE / HOLIDAY";
+                return [NSString stringWithFormat:@"ABSENCE / HOLIDAY - %@ days left", freedays?: @" "];
             }
         }
             break;
             
         case 2:
         {
-            if (currentRequest == RequestTypeOutOfOffice)
+            if (self.currentRequest == RequestTypeOutOfOffice)
             {
                 return @"OUT OF OFFICE";
             }
@@ -595,13 +609,19 @@ typedef enum
 - (void)getFreeDays
 {
     [[HTTPClient sharedClient] startOperation:[APIRequest getFreeDays] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", [responseObject objectForKey:@"left"]];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
-        
+        freedays = [responseObject objectForKey:@"left"];
+//        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", [responseObject objectForKey:@"left"]];
+//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
     }];
+}
+
+- (void)setCurrentRequest:(RequestType)currentRequest
+{
+    _currentRequest = currentRequest;
+    self.currentType = currentRequest;
 }
 
 @end

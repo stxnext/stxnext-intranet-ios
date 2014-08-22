@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OutOfOfficeTodayTableViewController : UITableViewController
+@interface OutOfOfficeTodayTableViewController : UITableViewController <UIActionSheetDelegate>
 {
     NSMutableArray *_userList;
 }

@@ -30,7 +30,7 @@
             <objects>
                 <tableViewController id="eBK-zg-izl" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zBt-hv-5ub">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -709,7 +709,7 @@
                     <navigationItem key="navigationItem" id="LVp-eE-K9x">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kFI-xb-R5m">
                             <connections>
-                                <segue destination="5BH-pb-TmP" kind="modal" identifier="AddOOOFormTableViewControllerId" id="KlV-yG-Rfc"/>
+                                <action selector="showNewRequest:" destination="qlc-xU-5my" id="pfJ-fo-g37"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1512,7 +1512,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8yv-kA-sUN"/>
         <segue reference="UDv-nT-GSA"/>
+        <segue reference="set-Zf-g71"/>
     </inferredMetricsTieBreakers>
 </document>

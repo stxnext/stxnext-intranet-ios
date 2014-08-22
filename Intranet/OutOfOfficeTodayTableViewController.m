@@ -259,4 +259,39 @@
     return YES;
 }
 
+- (IBAction)showNewRequest:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+    
+    AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
+    form.currentRequest = buttonIndex;
+    
+    switch (buttonIndex)
+    {
+        case 0:
+        {
+         
+        }
+            break;
+            
+        case 1:
+        {
+            
+        }
+            break;
+
+        default:
+            break;
+    }
+}
+
 @end
