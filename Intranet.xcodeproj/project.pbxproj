@@ -54,6 +54,7 @@
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
 		660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 660DE6B0189A32E700E1905D /* FilterViewController.m */; };
+		6612D00419A71A3100A5FD23 /* NSString+MyRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 6612D00319A71A3100A5FD23 /* NSString+MyRegex.m */; };
 		661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */; };
 		661AE45318C48CF400B7A4F5 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */; };
 		661AE45418C48CF400B7A4F5 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE44218C48CF400B7A4F5 /* Lato-Bold.ttf */; };
@@ -175,6 +176,8 @@
 		66063DCD182149C700C30C93 /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		660DE6AF189A32E700E1905D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		660DE6B0189A32E700E1905D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		6612D00219A71A3100A5FD23 /* NSString+MyRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MyRegex.h"; sourceTree = "<group>"; };
+		6612D00319A71A3100A5FD23 /* NSString+MyRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MyRegex.m"; sourceTree = "<group>"; };
 		661AE44018C48CF400B7A4F5 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		661AE44118C48CF400B7A4F5 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		661AE44218C48CF400B7A4F5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -422,6 +425,7 @@
 				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
+				6612D00219A71A3100A5FD23 /* NSString+MyRegex.h */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
 				661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */,
 				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
@@ -431,6 +435,7 @@
 				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
+				6612D00319A71A3100A5FD23 /* NSString+MyRegex.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
 				661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */,
 				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
@@ -657,6 +662,7 @@
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
+				6612D00419A71A3100A5FD23 /* NSString+MyRegex.m in Sources */,
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,

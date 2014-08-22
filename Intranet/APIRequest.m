@@ -103,6 +103,11 @@
                                                                                      action:@"api/lateness"
                                                                                  parameters:parameters];
     
+    DDLogInfo(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
+    DDLogInfo(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
+    DDLogInfo(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
+    DDLogInfo(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
+
     [request blockRedirections];
     
     return request;

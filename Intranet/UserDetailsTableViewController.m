@@ -12,6 +12,7 @@
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "AppDelegate+Settings.h"
+#import "NSString+MyRegex.h"
 
 @interface UserDetailsTableViewController ()
 {
@@ -322,16 +323,20 @@
                                                       NSString *html = operation.responseString;
                                                       NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
                                                       
-                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
+                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".*\"id\": [0-9]+,.*"];
                                                       NSString *userID ;
                                                       
                                                       for (NSString *line in htmlArray)
                                                       {
                                                           userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                                          
+
                                                           if ([predicate evaluateWithObject:userID])
                                                           {
-                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                              
+                                                              userID = [userID firstMatchWithRegex:@"(\"id\": [0-9]+,)" error:nil];
+                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"\"id\": " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                              
+                                                              NSLog(@"%@", userID);
                                                               
                                                               [APP_DELEGATE setMyUserId:userID];
                                                               
