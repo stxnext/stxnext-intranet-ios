@@ -54,12 +54,12 @@
                                     <constraint firstAttribute="width" constant="240" id="R0b-vT-MbB"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pig" translatesAutoresizingMaskIntoConstraints="NO" id="I52-E6-fw2">
-                                <rect key="frame" x="161" y="310" width="447" height="341"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hero" translatesAutoresizingMaskIntoConstraints="NO" id="I52-E6-fw2">
+                                <rect key="frame" x="161" y="155" width="447" height="650"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="447" id="hVK-mt-UXC"/>
-                                    <constraint firstAttribute="height" constant="341" id="vVd-HV-MzV"/>
+                                    <constraint firstAttribute="height" constant="650" id="vVd-HV-MzV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -636,7 +636,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Pig" width="447" height="341"/>
+        <image name="Hero" width="290" height="615"/>
         <image name="STXNext" width="250" height="72"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

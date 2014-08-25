@@ -10,6 +10,7 @@
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "AppDelegate+Settings.h"
+#define NEW_MENU YES
 
 typedef enum
 {
@@ -31,8 +32,12 @@ typedef enum
     self.title = @"New Request";
     
     [super viewDidLoad];
-
-//    self.currentType = 0;
+    
+    if (!NEW_MENU)
+    {
+        self.currentType = 0;
+    }
+    
     self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
@@ -44,7 +49,7 @@ typedef enum
     self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
     self.OOOPickerFrom.date = [tomorrow dateWithHour:9 minute:0 second:0];
     self.OOOPickerTo.date = [tomorrow dateWithHour:17 minute:0 second:0];
-
+    
     if (self.currentRequest == RequestTypeAbsenceHoliday)
     {
         [self getFreeDays];
@@ -57,7 +62,12 @@ typedef enum
     [self dateTimeValueChanged:self.OOOPickerTo];
     
     currentUnCollapsedPickerIndex = -1;
-//    currentRequest = RequestTypeAbsenceHoliday;
+    
+    if (!NEW_MENU)
+    {
+        self.currentRequest = RequestTypeAbsenceHoliday;
+    }
+    
     [self updateTableView];
 }
 
@@ -213,10 +223,13 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(NEW_MENU)
+    {
         if (indexPath.section == 0)
         {
             return 0;
         }
+    }
     
     if (indexPath.section == 1)
     {
@@ -329,8 +342,11 @@ typedef enum
 
 - (void)updateTableView
 {
-    self.absenceHolidayCell.hidden = YES;
-    self.OOOCell.hidden = YES;
+    if (NEW_MENU)
+    {
+        self.absenceHolidayCell.hidden = YES;
+        self.OOOCell.hidden = YES;
+    }
     
     self.absenceHolidayCell.accessoryType = UITableViewCellAccessoryNone;
     self.OOOCell.accessoryType = UITableViewCellAccessoryNone;
@@ -393,7 +409,11 @@ typedef enum
     {
         case 0:
         {
-            return 0.01;
+            if (NEW_MENU)
+            {
+                return 0.01;
+            }
+            
             return 44;
         }
             break;
@@ -426,7 +446,11 @@ typedef enum
     {
         case 0:
         {
-//            return 0.01;
+            if (!NEW_MENU)
+            {
+                return 0.01;
+            }
+            
             return 22;
         }
             break;
@@ -459,7 +483,11 @@ typedef enum
     {
         case 0:
         {
-            return nil;
+            if (NEW_MENU)
+            {
+                return nil;
+            }
+            
             return @"REQUEST FOR";
         }
             break;
@@ -567,7 +595,7 @@ typedef enum
             self.absenceHolidayCellEnd.detailTextLabel.text = [dateFormater stringFromDate:self.absenceHolidayPickerEnd.date];
         }
             break;
-                        
+            
         case DateTimeTypeOOODate:
         {
             if ([self.OOOPickerDate.date compare:[NSDate date]] == NSOrderedAscending)
@@ -610,11 +638,16 @@ typedef enum
 {
     [[HTTPClient sharedClient] startOperation:[APIRequest getFreeDays] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         freedays = [responseObject objectForKey:@"left"];
-//        self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", [responseObject objectForKey:@"left"]];
-//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
+        
+        if (!NEW_MENU)
+        {
+            self.absenceHolidayCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ days left", freedays];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        
     }];
 }
 
