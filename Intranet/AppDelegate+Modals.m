@@ -19,8 +19,8 @@
 {
     if (INTERFACE_IS_PAD)
     {
-        viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+//        viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
     else
     {

@@ -283,7 +283,7 @@
 
 - (void)loadUser
 {
-    if (self.navigationController.viewControllers.count > 1)
+    if (self.navigationController.viewControllers.count > 1 || INTERFACE_IS_PAD)
     {
         self.title = @"Info";
         

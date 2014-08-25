@@ -38,7 +38,34 @@
     NSURL* url = [NSURL URLWithString:kGoogleAuthSignInURL];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
+    
 }
+
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+//{
+//    if (INTERFACE_IS_PAD)
+//    {
+//        self.view.bounds = CGRectMake(0, 0, 700, 650);
+//    }
+//}
+//
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+//{
+//    if (INTERFACE_IS_PAD)
+//    {
+//        self.view.bounds = CGRectMake(0, 0, 700, 650);
+//    }
+//}
+//
+//- (void)viewWillLayoutSubviews
+//{
+//    [super viewWillLayoutSubviews];
+//    
+//    if (INTERFACE_IS_PAD)
+//    {
+//        self.view.bounds = CGRectMake(0, 0, 700, 650);
+//    }
+//}
 
 #pragma mark Utilities
 
