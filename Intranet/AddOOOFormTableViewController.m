@@ -73,7 +73,14 @@ typedef enum
 
 - (IBAction)cancel:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (INTERFACE_IS_PHONE)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        [self.popover dismissPopoverAnimated:YES];
+    }
 }
 
 - (IBAction)done:(id)sender
@@ -139,7 +146,14 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
-                        [self dismissViewControllerAnimated:YES completion:nil];
+                        if (INTERFACE_IS_PHONE)
+                        {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }
+                        else
+                        {
+                            [self.popover dismissPopoverAnimated:YES];
+                        }
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -188,7 +202,14 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
-                        [self dismissViewControllerAnimated:YES completion:nil];
+                        if (INTERFACE_IS_PHONE)
+                        {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }
+                        else
+                        {
+                            [self.popover dismissPopoverAnimated:YES];
+                        }
                         
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         

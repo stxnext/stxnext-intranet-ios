@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "FilterViewController.h"
 
-@interface UserTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface UserTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
@@ -24,6 +24,9 @@
 
 @property (strong, nonatomic) NSMutableArray *filterStructure;
 @property (strong, nonatomic) NSMutableArray *filterSelections;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
+@property (strong, nonatomic) UIPopoverController *popover;
+@property (strong, nonatomic) UIActionSheet *requestActionSheet;
 
 - (IBAction)showPlaningPoker:(id)sender;
 

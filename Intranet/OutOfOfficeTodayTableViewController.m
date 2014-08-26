@@ -274,24 +274,6 @@
     
     AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
     form.currentRequest = buttonIndex;
-    
-    switch (buttonIndex)
-    {
-        case 0:
-        {
-         
-        }
-            break;
-            
-        case 1:
-        {
-            
-        }
-            break;
-
-        default:
-            break;
-    }
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "PlaningPokerViewController.h"
 #import "UIView+Screenshot.h"
 #import "AppDelegate+Settings.h"
+#import "AddOOOFormTableViewController.h"
 
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
@@ -732,6 +733,52 @@ static CGFloat tabBarHeight;
     }
     
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+
+#pragma mark - Add OOO
+
+
+- (IBAction)showNewRequest:(id)sender
+{
+    [self.requestActionSheet dismissWithClickedButtonIndex:20 animated:NO];
+    [self.popover dismissPopoverAnimated:NO];
+    
+    self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+    
+    if (INTERFACE_IS_PHONE)
+    {
+        [self.requestActionSheet showInView:self.view];
+    }
+    else
+    {
+        [self.requestActionSheet showFromBarButtonItem:self.addRequestButton animated:YES];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex < 2)
+    {
+        UINavigationController *nvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+        
+        AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
+        outOfOfficeForm.currentRequest = buttonIndex;
+        
+        if (INTERFACE_IS_PAD)
+        {
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
+            self.popover.delegate = self;
+            [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+                                 permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                 animated:NO];
+            outOfOfficeForm.popover = self.popover;
+        }
+        else
+        {
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }
 }
 
 @end

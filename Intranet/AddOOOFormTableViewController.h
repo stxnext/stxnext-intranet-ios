@@ -22,6 +22,7 @@ typedef enum
     NSInteger currentUnCollapsedPickerIndex;
     NSNumber *freedays;
 }
+@property (strong, nonatomic) UIPopoverController *popover;
 
 @property (copy, nonatomic) NSString *explanation;
 @property (nonatomic, assign) NSInteger currentType;

@@ -159,10 +159,17 @@
                             <outlet property="delegate" destination="JVO-4w-KUi" id="v1M-DV-niW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5dH-Qt-orl"/>
+                    <navigationItem key="navigationItem" id="5dH-Qt-orl">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oNQ-VK-UX0">
+                            <connections>
+                                <action selector="showNewRequest:" destination="JVO-4w-KUi" id="fcQ-Zc-bdO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="_showActionButton" destination="oTC-B2-bXf" id="OaD-Jp-pZQ"/>
                         <outlet property="_tableView" destination="Jc2-ow-AJA" id="tYy-kS-jjn"/>
+                        <outlet property="addRequestButton" destination="oNQ-VK-UX0" id="WMt-wL-9Xo"/>
                         <outlet property="searchDisplayController" destination="ejg-3B-6c3" id="vlo-u8-toG"/>
                     </connections>
                 </tableViewController>
@@ -191,7 +198,7 @@
             <objects>
                 <tableViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="yrR-uV-gXY" customClass="FilterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="q8D-aV-Vj8">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
