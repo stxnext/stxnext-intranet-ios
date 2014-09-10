@@ -42,7 +42,7 @@ const NSString* MapKeyUserGroups = @"groups";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    DDLogVerbose(@"%@", json);
+    NSLog(@"%@", json);
     
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]

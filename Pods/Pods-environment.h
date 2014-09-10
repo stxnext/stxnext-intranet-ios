@@ -48,29 +48,11 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 0
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
-// CocoaLumberjack
-#define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack 8
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack 1
-
-// CocoaLumberjack/Core
-#define COCOAPODS_POD_AVAILABLE_CocoaLumberjack_Core
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Core 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Core 8
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Core 1
-
-// CocoaLumberjack/Extensions
-#define COCOAPODS_POD_AVAILABLE_CocoaLumberjack_Extensions
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Extensions 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 8
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 1
-
 // GPUImage
 #define COCOAPODS_POD_AVAILABLE_GPUImage
 #define COCOAPODS_VERSION_MAJOR_GPUImage 0
 #define COCOAPODS_VERSION_MINOR_GPUImage 1
-#define COCOAPODS_VERSION_PATCH_GPUImage 2
+#define COCOAPODS_VERSION_PATCH_GPUImage 5
 
 // LBBlurredImage
 #define COCOAPODS_POD_AVAILABLE_LBBlurredImage
@@ -78,27 +60,15 @@
 #define COCOAPODS_VERSION_MINOR_LBBlurredImage 2
 #define COCOAPODS_VERSION_PATCH_LBBlurredImage 0
 
-// NSObject+AutoDescription
-#define COCOAPODS_POD_AVAILABLE_NSObject_AutoDescription
-#define COCOAPODS_VERSION_MAJOR_NSObject_AutoDescription 0
-#define COCOAPODS_VERSION_MINOR_NSObject_AutoDescription 1
-#define COCOAPODS_VERSION_PATCH_NSObject_AutoDescription 0
-
 // UIAlertView+Blocks
 #define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
 #define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
 #define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
-#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 0
-
-// google-plus-ios-sdk
-#define COCOAPODS_POD_AVAILABLE_google_plus_ios_sdk
-#define COCOAPODS_VERSION_MAJOR_google_plus_ios_sdk 1
-#define COCOAPODS_VERSION_MINOR_google_plus_ios_sdk 4
-#define COCOAPODS_VERSION_PATCH_google_plus_ios_sdk 1
+#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
 
 // iCarousel
 #define COCOAPODS_POD_AVAILABLE_iCarousel
 #define COCOAPODS_VERSION_MAJOR_iCarousel 1
-#define COCOAPODS_VERSION_MINOR_iCarousel 7
-#define COCOAPODS_VERSION_PATCH_iCarousel 6
+#define COCOAPODS_VERSION_MINOR_iCarousel 8
+#define COCOAPODS_VERSION_PATCH_iCarousel 0
 

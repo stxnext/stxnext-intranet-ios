@@ -42,13 +42,13 @@ typedef enum
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
-    NSDateComponents *deltaComps = [[NSDateComponents alloc] init];
-    [deltaComps setDay:1];
-    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
-    
-    self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = tomorrow;
-    self.OOOPickerFrom.date = [tomorrow dateWithHour:9 minute:0 second:0];
-    self.OOOPickerTo.date = [tomorrow dateWithHour:17 minute:0 second:0];
+//    NSDateComponents *deltaComps = [[NSDateComponents alloc] init];
+//    [deltaComps setDay:1];
+//    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
+    NSDate *today = [NSDate date];
+    self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = today;
+    self.OOOPickerFrom.date = [today dateWithHour:9 minute:0 second:0];
+    self.OOOPickerTo.date = [today dateWithHour:17 minute:0 second:0];
     
     if (self.currentRequest == RequestTypeAbsenceHoliday)
     {

@@ -17,36 +17,23 @@ PODS:
   - AFNetworking/Serialization (2.0.3)
   - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
-  - CocoaLumberjack (1.8.1):
-    - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (1.8.1)
-  - CocoaLumberjack/Extensions (1.8.1):
-    - CocoaLumberjack/Core
-  - google-plus-ios-sdk (1.4.1)
-  - GPUImage (0.1.2)
-  - iCarousel (1.7.6)
+  - GPUImage (0.1.5)
+  - iCarousel (1.8)
   - LBBlurredImage (0.2.0)
-  - NSObject+AutoDescription (0.1)
-  - UIAlertView+Blocks (0.8)
+  - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0.2)
-  - CocoaLumberjack
-  - google-plus-ios-sdk (~> 1.4.1)
   - GPUImage
   - iCarousel
   - LBBlurredImage
-  - NSObject+AutoDescription
   - UIAlertView+Blocks
 
 SPEC CHECKSUMS:
-  AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
-  CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
-  google-plus-ios-sdk: d04d1f5791e3a304144995a2af7b10629d21da4c
-  GPUImage: 007145faa0e27f1ddbcab93e07f026c9776e2fa2
-  iCarousel: e23a26d7ba722215a42144e80adb0dcb59bebc41
-  LBBlurredImage: 26bacd10063a6e886de6a374f4727c3cefb22fc2
-  NSObject+AutoDescription: 95a585c85920551aed4ab18a5b96f62a572e0ef0
-  UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
+  AFNetworking: a4d0e9a64de9242986620dafd1b3cee3b413ac5c
+  GPUImage: 5114a47f5fc33eb312f3731550a3cea379416d04
+  iCarousel: cf77aea48dfcde9a0cd85569a1d8a9b6dd543bd7
+  LBBlurredImage: 30cc42be977bbcece286d26d2d9c08b8be7f05e8
+  UIAlertView+Blocks: 0b749f1f7bd5131ff2233b30a406c1585a7171b2
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1

@@ -25,19 +25,17 @@
 #endif
 
 // logger
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-#import "DDFileLogger.h"
+//#import <CocoaLumberjack.h>
 
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_ERROR;
-#endif
+//#ifdef DEBUG
+//static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+//#else
+//static const int ddLogLevel = LOG_LEVEL_ERROR;
+//#endif
 
 // External headers
-#import <GooglePlus/GooglePlus.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
+//#import <GooglePlus/GooglePlus.h>
+//#import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
 
 // Custom categories
@@ -51,14 +49,14 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 // Custom headers
 #import "Database.h"
-#import "GooglePlusConfig.h"
+//#import "GooglePlusConfig.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
 #import "UIAlertView+CustomAlert.h"
 #import "UIAlertView+Blocks.h"
 #import "NSObject+DelayedBlocks.h"
-#import "NSObject+AutoDescription.h"
-#import "NSObject+CleanDescription.h"
+//#import "NSObject+AutoDescription.h"
+//#import "NSObject+CleanDescription.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT             (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))

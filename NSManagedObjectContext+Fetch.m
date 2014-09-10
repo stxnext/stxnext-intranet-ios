@@ -31,7 +31,7 @@
     
     if (error)
     {
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     return fetchedObjects;
 }

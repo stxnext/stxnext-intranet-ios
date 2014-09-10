@@ -17,7 +17,6 @@
 		0C853D7F182109DE008D0516 /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D7E182109DE008D0516 /* APIRequest.m */; };
 		0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */; };
 		0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */; };
-		0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8725181EA39800E90F5E /* GooglePlusClient.m */; };
 		0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4C181E8ED10087C96E /* Foundation.framework */; };
 		0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */; };
 		0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE37C50181E8ED10087C96E /* UIKit.framework */; };
@@ -107,9 +106,6 @@
 		0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+Redirect.m"; sourceTree = "<group>"; };
 		0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+CustomAlert.h"; sourceTree = "<group>"; };
 		0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+CustomAlert.m"; sourceTree = "<group>"; };
-		0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlusConfig.h; sourceTree = "<group>"; };
-		0C9E8724181EA39800E90F5E /* GooglePlusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooglePlusClient.h; sourceTree = "<group>"; };
-		0C9E8725181EA39800E90F5E /* GooglePlusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooglePlusClient.m; sourceTree = "<group>"; };
 		0CE37C49181E8ED10087C96E /* STX Intranet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STX Intranet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE37C4C181E8ED10087C96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -279,16 +275,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		0C9E8722181EA27200E90F5E /* GooglePlus */ = {
-			isa = PBXGroup;
-			children = (
-				0C9E8723181EA28500E90F5E /* GooglePlusConfig.h */,
-				0C9E8724181EA39800E90F5E /* GooglePlusClient.h */,
-				0C9E8725181EA39800E90F5E /* GooglePlusClient.m */,
-			);
-			name = GooglePlus;
-			sourceTree = "<group>";
-		};
 		0C9E8727181EA9C900E90F5E /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,7 +333,6 @@
 				0CF7CACC181FF2F400AAB9D4 /* Categories */,
 				0CF44E89181FE4BB005CC12B /* Controllers */,
 				0CF7FA471821449D0056F907 /* Database */,
-				0CF7CACD181FF30000AAB9D4 /* Externals */,
 				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* Network */,
 				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
@@ -443,14 +428,6 @@
 				66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */,
 			);
 			name = Categories;
-			sourceTree = "<group>";
-		};
-		0CF7CACD181FF30000AAB9D4 /* Externals */ = {
-			isa = PBXGroup;
-			children = (
-				0C9E8722181EA27200E90F5E /* GooglePlus */,
-			);
-			name = Externals;
 			sourceTree = "<group>";
 		};
 		0CF7FA471821449D0056F907 /* Database */ = {
@@ -673,7 +650,6 @@
 				66063DC8182149A300C30C93 /* UserListCell.m in Sources */,
 				0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */,
 				0CF7FA6218214B200056F907 /* RMUser.m in Sources */,
-				0C9E8726181EA39800E90F5E /* GooglePlusClient.m in Sources */,
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
@@ -804,7 +780,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-all_load";
-				PROVISIONING_PROFILE = "D96C2468-5522-4BE8-A18B-35DF90B5D41F";
+				PROVISIONING_PROFILE = "6E808FC7-677A-4EAB-8F14-48FBEC8162A5";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -842,7 +818,7 @@
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "STX Intranet";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6E808FC7-677A-4EAB-8F14-48FBEC8162A5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
