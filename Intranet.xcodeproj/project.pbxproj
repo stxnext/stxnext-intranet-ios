@@ -80,6 +80,7 @@
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
+		6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6675937D19E6BAD9004603C5 /* CoreTelephony.framework */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
 		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
@@ -154,7 +155,6 @@
 		0CF7FA7B1821590C0056F907 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		0CF7FA7D182163800056F907 /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
 		0CF7FA7E182163800056F907 /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
-		0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		272DF88E183229460014FBCA /* AppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Navigation.h"; sourceTree = "<group>"; };
 		272DF88F183229460014FBCA /* AppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		272DF89518324D320014FBCA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -208,6 +208,7 @@
 		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
+		6675937D19E6BAD9004603C5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
@@ -222,6 +223,8 @@
 		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */,
 				272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */,
 				0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */,
 				0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */,
@@ -295,10 +299,10 @@
 		0CE37C40181E8ED10087C96E = {
 			isa = PBXGroup;
 			children = (
-				0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */,
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
 				0CE37C4A181E8ED10087C96E /* Products */,
+				F2BF403691DD390509BE4A42 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -313,6 +317,7 @@
 		0CE37C4B181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6675937D19E6BAD9004603C5 /* CoreTelephony.framework */,
 				6D90568253FE42FDAA87331E /* libPods.a */,
 				272DF89518324D320014FBCA /* AddressBook.framework */,
 				0CF7FA7418214FB50056F907 /* CoreData.framework */,
@@ -501,6 +506,15 @@
 			path = "Planning Poker";
 			sourceTree = "<group>";
 		};
+		F2BF403691DD390509BE4A42 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */,
+				EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -605,7 +619,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FC655F2C038B40C59BD09BE0 /* Check Pods Manifest.lock */ = {
@@ -789,7 +803,7 @@
 		};
 		0CE37C82181E8ED10087C96E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
+			baseConfigurationReference = 8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -807,7 +821,7 @@
 		};
 		0CE37C83181E8ED10087C96E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4FD2F22D14407E9449FF19 /* Pods.xcconfig */;
+			baseConfigurationReference = EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

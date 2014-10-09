@@ -1,0 +1,6 @@
+CLANG_MODULES_AUTOLINK = YES
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/GPUImage" "${PODS_ROOT}/Headers/Public/LBBlurredImage" "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks" "${PODS_ROOT}/Headers/Public/iCarousel"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/GPUImage" -isystem "${PODS_ROOT}/Headers/Public/LBBlurredImage" -isystem "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks" -isystem "${PODS_ROOT}/Headers/Public/iCarousel"
+OTHER_LDFLAGS = -ObjC -l"Pods-AFNetworking" -l"Pods-GPUImage" -l"Pods-LBBlurredImage" -l"Pods-UIAlertView+Blocks" -l"Pods-iCarousel" -framework "AVFoundation" -framework "Accelerate" -framework "CoreGraphics" -framework "CoreMedia" -framework "MobileCoreServices" -framework "OpenGLES" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+PODS_ROOT = ${SRCROOT}/Pods

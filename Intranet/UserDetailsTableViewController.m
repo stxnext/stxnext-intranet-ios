@@ -132,13 +132,25 @@
 
 - (void)phoneCall
 {
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phone]]
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890-()+"];
+    s = [s invertedSet];
+    
+    NSString *number = self.user.phone;
+    number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
+    
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]]
   orAlertWithText:@"Call app not found."];
 }
 
 - (void)phoneDeskCall
 {
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phoneDesk]]
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890-()+"];
+    s = [s invertedSet];
+    
+    NSString *number = self.user.phoneDesk;
+    number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
+    
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]]
   orAlertWithText:@"Call app not found."];
 }
 
