@@ -132,7 +132,7 @@
 
 - (void)phoneCall
 {
-    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890-()+"];
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
     NSString *number = self.user.phone;
@@ -144,7 +144,7 @@
 
 - (void)phoneDeskCall
 {
-    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890-()+"];
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
     NSString *number = self.user.phoneDesk;
@@ -332,29 +332,29 @@
                                                           // We expect 302
                                                       }
                                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                      NSString *html = operation.responseString;
-                                                      NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                                      
-                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".*\"id\": [0-9]+,.*"];
-                                                      NSString *userID ;
-                                                      
-                                                      for (NSString *line in htmlArray)
-                                                      {
-                                                          userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-                                                          if ([predicate evaluateWithObject:userID])
+                                                          NSString *html = operation.responseString;
+                                                          NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
+                                                          
+                                                          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".*\"id\": [0-9]+,.*"];
+                                                          NSString *userID ;
+                                                          
+                                                          for (NSString *line in htmlArray)
                                                           {
+                                                              userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                                                               
-                                                              userID = [userID firstMatchWithRegex:@"(\"id\": [0-9]+,)" error:nil];
-                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"\"id\": " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                                                              
-                                                              NSLog(@"%@", userID);
-                                                              
-                                                              [APP_DELEGATE setMyUserId:userID];
-                                                              
-                                                              break;
+                                                              if ([predicate evaluateWithObject:userID])
+                                                              {
+                                                                  
+                                                                  userID = [userID firstMatchWithRegex:@"(\"id\": [0-9]+,)" error:nil];
+                                                                  userID = [[userID stringByReplacingOccurrencesOfString:@"\"id\": " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                                  
+                                                                  NSLog(@"%@", userID);
+                                                                  
+                                                                  [APP_DELEGATE setMyUserId:userID];
+                                                                  
+                                                                  break;
+                                                              }
                                                           }
-                                                      }
                                                           [self loadMe];
                                                       }];
                 }

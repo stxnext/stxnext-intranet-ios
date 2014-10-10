@@ -71,6 +71,15 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)currentUser
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/current_user"
+                                                                                 parameters:nil];
+    
+    return request;
+}
+
 + (AFHTTPRequestOperation *)user
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
