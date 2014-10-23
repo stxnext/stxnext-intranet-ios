@@ -30,7 +30,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if (coordinator != nil)
     {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     

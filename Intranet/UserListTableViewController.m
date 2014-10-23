@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 STXNext. All rights reserved.
 //
 
-#import "UserTableViewController.h"
+#import "UserListTableViewController.h"
 #import "APIRequest.h"
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "UserListCell.h"
@@ -20,13 +20,14 @@ static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
 static CGFloat tabBarHeight;
 
-@implementation UserTableViewController
+@implementation UserListTableViewController
 {
     __weak UIPopoverController *myPopover;
     BOOL canShowNoResultsMessage;
     
     NSString *searchedString;
     NSIndexPath *currentIndexPath;
+    NSMutableArray *avatarsToRefresh;
 }
 
 - (void)viewDidLoad
@@ -41,11 +42,11 @@ static CGFloat tabBarHeight;
     _actionSheet = nil;
     _userList = [NSArray array];
     
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
-    [refresh addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    _refreshControl = refresh;
-    self.refreshControl = refresh;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+    [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+    _refreshControl = refreshControl;
+    self.refreshControl = refreshControl;
     
     [_tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
@@ -55,7 +56,11 @@ static CGFloat tabBarHeight;
     //update data
     if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
     {
-        [self loadUsersFromAPIWithNotification];
+        [self loadUsersFromDatabase];
+
+        [self performBlockInCurrentThread:^{
+            [self loadUsersFromAPI];
+        } afterDelay:1];
     }
     
     if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse || [APP_DELEGATE userLoggedType] == UserLoginTypeError)
@@ -155,6 +160,23 @@ static CGFloat tabBarHeight;
     _showPlanningPokerButton.enabled = NO;
     
     [self loadUsersFromAPI];
+    
+    if (avatarsToRefresh == nil)
+    {
+        avatarsToRefresh = [NSMutableArray new];
+        
+        NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                ascending:YES
+                                                                                                 selector:@selector(localizedCompare:)]
+                                                    withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        for (RMUser *user in temp)
+        {
+            [avatarsToRefresh addObject:user.id];
+        }
+    }
 }
 
 - (void)stopRefreshData
@@ -165,32 +187,18 @@ static CGFloat tabBarHeight;
     _showPlanningPokerButton.enabled = YES;
 }
 
-- (void)loadUsers
-{
-    // First try to load from CoreData
-    [self loadUsersFromDatabase];
-    
-    // If there are no users in CoreData, load from API
-    if (!_userList || _userList.count == 0)
-    {
-        [self loadUsersFromAPI];
-    }
-    
-    // Refresh GUI
-    [_tableView reloadData];
-    [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
-}
+#pragma mark - LoadUsers
 
 - (void)loadUsersFromDatabase
 {
-    NSLog(@"Loading from: Database");
-    
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                              ascending:YES
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    
+    NSLog(@"Loading from: Database: %lu", (unsigned long)users.count);
     
     self.filterStructure = [[NSMutableArray alloc] init];
     
@@ -369,29 +377,17 @@ static CGFloat tabBarHeight;
     [_tableView reloadData];
 }
 
-- (void)loadUsersFromAPIWithNotification
-{
-    [self.refreshControl beginRefreshing];
-    
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
-        self.tableView.contentOffset = CGPointMake(0, -_refreshControl.frame.size.height);
-    } completion:^(BOOL finished){
-        [self startRefreshData];
-    }];
-}
-
 - (void)loadUsersFromAPI
 {
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        [self stopRefreshData];
-        [self loadUsers];
-        
+        NSLog(@"No internet");
         return;
     }
     
     __block NSInteger operations = 2;
-    __block BOOL deletedUsers = NO;
+    __block id users;
+    __block id absencesAndLates;
     
     NSLog(@"Loading from: API");
     
@@ -401,35 +397,58 @@ static CGFloat tabBarHeight;
     self.filterSelections = nil;
     self.filterStructure = nil;
     
+    void(^load)(void) = ^(void) {
+        [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
+                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
+                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        NSLog(@"%@", [NSThread currentThread]);
+
+        [self performBlockInBackground:^{
+            @synchronized(self){
+                NSLog(@"%@", [NSThread currentThread]);
+                
+                for (id user in users[@"users"])
+                {
+                    [RMUser mapFromJSON:user];
+                }
+                
+                for (id absence in absencesAndLates[@"absences"])
+                {
+                    [RMAbsence mapFromJSON:absence];
+                }
+                
+                for (id late in absencesAndLates[@"lates"])
+                {
+                    [RMLate mapFromJSON:late];
+                }
+                
+                [[DatabaseManager sharedManager] saveContext];
+                
+                [self performBlockOnMainThread:^{
+                    [self loadUsersFromDatabase];
+                } afterDelay:0.1];
+            }
+        } afterDelay:0.1];
+    };
+        
+    
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          // Delete from database
-                                          @synchronized (self)
-                                          {
-                                              if (!deletedUsers)
-                                              {
-                                                  [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
-                                                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                                  deletedUsers = YES;
-                                              }
-                                          }
                                           
-                                          // Add to database
-                                          for (id user in responseObject[@"users"])
-                                          {
-                                              [RMUser mapFromJSON:user];
-                                          }
+                                          NSLog(@"Loaded: users");
                                           
-                                          NSLog(@"Loaded From API: %lu users", (unsigned long)[responseObject[@"users"] count]);
-                                          
-                                          // Save database
-                                          [[DatabaseManager sharedManager] saveContext];
-                                          
-                                          // Load from database
-                                          [self loadUsersFromDatabase];
+                                          users = responseObject;
                                           
                                           if (--operations == 0)
                                           {
+                                              load();
+                                              
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           }
                                       }
@@ -444,54 +463,34 @@ static CGFloat tabBarHeight;
                                           }
                                           
                                           [self.tableView reloadData];
+                                          
+                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
+                                          
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                       }];
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          // Delete from database'
 
-                                          @synchronized (self)
-                                          {
-                                              if (!deletedUsers)
-                                              {
-                                                  [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
-                                                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                                  deletedUsers = YES;
-                                              }
-                                              
-                                              [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
-                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                              
-                                              [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
-                                                                             inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                                          }
-                                          
-                                          // Add to database
-                                          for (id absence in responseObject[@"absences"])
-                                          {
-                                              [RMAbsence mapFromJSON:absence];
-                                          }
-                                          
-                                          for (id late in responseObject[@"lates"])
-                                          {
-                                              [RMLate mapFromJSON:late];
-                                          }
-                                          
-                                          // Save database
-                                          [[DatabaseManager sharedManager] saveContext];
+                                          absencesAndLates = responseObject;
                                           
                                           NSLog(@"Loaded: absences and lates");
-                                          
-                                          // Load from database
-                                          [self loadUsersFromDatabase];
-                                          
+
                                           if (--operations == 0)
                                           {
+                                              load();
+                                              
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
                                           NSLog(@"Presence API Loading Error");
+
+                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
+                                          
+                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          
                                       }];
 }
 
@@ -633,8 +632,7 @@ static CGFloat tabBarHeight;
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
+                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...", stop.length ? stop : @"..."];
             }
         }];
     }
@@ -645,7 +643,14 @@ static CGFloat tabBarHeight;
     
     if (user.avatarURL)
     {
-        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]];
+        BOOL refresh = [avatarsToRefresh containsObject:user.id];
+        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL] forceRefresh:refresh];
+        
+        if (refresh)
+        {
+            NSLog(@"force Refresh");
+            [avatarsToRefresh removeObject:user.id];
+        }
     }
     
     return cell;
@@ -735,9 +740,7 @@ static CGFloat tabBarHeight;
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
-
 #pragma mark - Add OOO
-
 
 - (IBAction)showNewRequest:(id)sender
 {

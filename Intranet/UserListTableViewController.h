@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "FilterViewController.h"
 
-@interface UserTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+@interface UserListTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;

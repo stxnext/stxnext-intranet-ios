@@ -28,8 +28,6 @@ const NSString* MapKeyAbsenceUserName = @"name";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    NSLog(@"%@", json);
-    
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
@@ -43,8 +41,6 @@ const NSString* MapKeyAbsenceUserName = @"name";
                                                                                                     withId:[json[MapKeyAbsenceUserId] validObject]
                                                                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                                                                              withDecorator:^(NSManagedObject<JSONMapping> *object) {
-//                                                                                                 RMUser* user = (RMUser*)object;
-//                                                                                                 user.name = [json[MapKeyAbsenceUserName] validObject];
                                                                                              }];
                                           [absence.user addAbsencesObject:absence];
                                       }];

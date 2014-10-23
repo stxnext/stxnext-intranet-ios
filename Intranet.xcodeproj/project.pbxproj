@@ -30,7 +30,7 @@
 		0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */; };
 		0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */; };
 		0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */; };
-		0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */; };
+		0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADA181FFA5900AAB9D4 /* UserListTableViewController.m */; };
 		0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */; };
 		0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */; };
 		0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA48182144E20056F907 /* Database.xcdatamodeld */; };
@@ -128,8 +128,8 @@
 		0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModalViewController.h; sourceTree = "<group>"; };
 		0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIModalViewController.m; sourceTree = "<group>"; };
 		0CF7CAD7181FF96A00AAB9D4 /* Modals_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Modals_iPhone.storyboard; sourceTree = "<group>"; };
-		0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewController.h; sourceTree = "<group>"; };
-		0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewController.m; sourceTree = "<group>"; };
+		0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListTableViewController.h; sourceTree = "<group>"; };
+		0CF7CADA181FFA5900AAB9D4 /* UserListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListTableViewController.m; sourceTree = "<group>"; };
 		0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
 		0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+CustomError.h"; path = "../NSError+CustomError.h"; sourceTree = "<group>"; };
@@ -374,14 +374,14 @@
 		0CF44E88181FE4AE005CC12B /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
 				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
-				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
+				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
 				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
-				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -395,14 +395,14 @@
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
-				0CF7CAD9181FFA5900AAB9D4 /* UserTableViewController.h */,
+				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
 				660DE6B0189A32E700E1905D /* FilterViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
 				66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
-				0CF7CADA181FFA5900AAB9D4 /* UserTableViewController.m */,
+				0CF7CADA181FFA5900AAB9D4 /* UserListTableViewController.m */,
 				6627C82618BC6FE6003893EB /* New Request */,
 			);
 			name = Controllers;
@@ -686,7 +686,7 @@
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
-				0CF7CADB181FFA5900AAB9D4 /* UserTableViewController.m in Sources */,
+				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				660DE6B1189A32E700E1905D /* FilterViewController.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
@@ -731,6 +731,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -773,6 +774,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -825,6 +827,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

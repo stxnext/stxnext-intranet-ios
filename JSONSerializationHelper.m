@@ -15,8 +15,8 @@
 
 + (NSManagedObject<JSONMapping> *)objectWithClass:(Class<JSONMapping>)class
                                            withId:(NSNumber *)id
-inManagedContext:(NSManagedObjectContext *)context
-withDecorator:(void (^)(NSManagedObject<JSONMapping> *object))decorator;
+                                 inManagedContext:(NSManagedObjectContext *)context
+                                    withDecorator:(void (^)(NSManagedObject<JSONMapping> *object))decorator;
 {
     NSManagedObject<JSONMapping> *object = (NSManagedObject<JSONMapping>*)[context fetchObjectForEntityName:[class coreDataEntityName]
                                                                                          withSortDescriptor:nil

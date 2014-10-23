@@ -408,7 +408,7 @@
     
     if (self.user.avatarURL)
     {
-        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
+        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     }
     
     self.userImage.layer.cornerRadius = 5;
