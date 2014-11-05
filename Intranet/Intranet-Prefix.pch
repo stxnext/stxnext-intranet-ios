@@ -88,3 +88,7 @@
 #define PRESENT         @"Present"
 #define ABSENT          @"Absent"
 #define LATE            @"Late"
+
+#define DID_START_REFRESH_PEOPLE @"didStartRefreshPeople"
+#define DID_END_REFRESH_PEOPLE @"didEndRefreshPeople"
+#define IS_REFRESH_PEOPLE @"isRefreshPeople"

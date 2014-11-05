@@ -32,7 +32,7 @@ typedef enum
     self.title = @"New Request";
     
     [super viewDidLoad];
-    
+
     if (!NEW_MENU)
     {
         self.currentType = 0;
@@ -42,9 +42,6 @@ typedef enum
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
-//    NSDateComponents *deltaComps = [[NSDateComponents alloc] init];
-//    [deltaComps setDay:1];
-//    NSDate *tomorrow = [[NSCalendar currentCalendar] dateByAddingComponents:deltaComps toDate:[NSDate date] options:0];
     NSDate *today = [NSDate date];
     self.OOOPickerDate.date = self.absenceHolidayPickerStart.date = self.absenceHolidayPickerEnd.date = today;
     self.OOOPickerFrom.date = [today dateWithHour:9 minute:0 second:0];
@@ -264,7 +261,7 @@ typedef enum
         }
         else if (indexPath.row == 1 || indexPath.row == 3)
         {
-            return 0;
+            return 0 ;
         }
     }
     
@@ -317,6 +314,10 @@ typedef enum
         if (indexPath.row == currentUnCollapsedPickerIndex - 1)
         {
             currentUnCollapsedPickerIndex = -1;
+            
+            self.absenceHolidayCellStartPicker.hidden = YES;
+            self.absenceHolidayCellEndPicker.hidden = YES;
+            
             [self.tableView reloadDataAnimated:YES];
         }
         else if (indexPath.row == 0 || indexPath.row == 2)
@@ -336,6 +337,11 @@ typedef enum
         if (indexPath.row == currentUnCollapsedPickerIndex - 1)
         {
             currentUnCollapsedPickerIndex = -1;
+            
+            self.OOOCellDatePicker.hidden = YES;
+            self.OOOCellFromPicker.hidden = YES;
+            self.OOOCellToPicker.hidden = YES;
+            
             [self.tableView reloadDataAnimated:YES];
         }
         else if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4)

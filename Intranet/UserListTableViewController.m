@@ -28,11 +28,14 @@ static CGFloat tabBarHeight;
     NSString *searchedString;
     NSIndexPath *currentIndexPath;
     NSMutableArray *avatarsToRefresh;
+    BOOL shouldReloadAvatars;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self informStopDownloading];
     
     statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     navBarHeight = self.navigationController.navigationBar.frame.size.height;
@@ -161,22 +164,7 @@ static CGFloat tabBarHeight;
     
     [self loadUsersFromAPI];
     
-    if (avatarsToRefresh == nil)
-    {
-        avatarsToRefresh = [NSMutableArray new];
-        
-        NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                                ascending:YES
-                                                                                                 selector:@selector(localizedCompare:)]
-                                                    withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        for (RMUser *user in temp)
-        {
-            [avatarsToRefresh addObject:user.id];
-        }
-    }
+    shouldReloadAvatars = YES;
 }
 
 - (void)stopRefreshData
@@ -200,179 +188,12 @@ static CGFloat tabBarHeight;
     
     NSLog(@"Loading from: Database: %lu", (unsigned long)users.count);
     
-    self.filterStructure = [[NSMutableArray alloc] init];
-    
-    NSArray *types = @[WORKERS, CLIENTS, FREELANCERS];
-    NSArray *people = @[ALL, PRESENT, ABSENT, LATE];
-    NSMutableArray *locations = [[NSMutableArray alloc] init];
-    NSMutableArray *roles = [[NSMutableArray alloc] init];
-    NSMutableArray *groups = [[NSMutableArray alloc] init];
-    
-    for (RMUser *user in users)
-    {
-        if (user.location && ![user.isClient boolValue])
-        {
-            if (![locations containsObject:user.location])
-            {
-                [locations addObject:user.location];
-            }
-        }
-        
-        if (user.roles && ![user.isClient boolValue])
-        {
-            for (NSString *role in user.roles)
-            {
-                if (![roles containsObject:role])
-                {
-                    [roles addObject:role];
-                }
-            }
-        }
-        
-        if (user.groups && ![user.isClient boolValue])
-        {
-            for (NSString *group in user.groups)
-            {
-                if (![groups containsObject:group])
-                {
-                    [groups addObject:group];
-                }
-            }
-        }
-    }
-    
-    [self.filterStructure addObject:types];
-    [self.filterStructure addObject:people];
-    
-    [self.filterStructure addObject:[locations sortedArrayUsingSelector:@selector(localizedCompare:)]];
-    [self.filterStructure addObject:[roles sortedArrayUsingSelector:@selector(localizedCompare:)]];
-    [self.filterStructure addObject:[groups sortedArrayUsingSelector:@selector(localizedCompare:)]];
-    
-    if (self.filterSelections == nil)
-    {
-        self.filterSelections = [NSMutableArray arrayWithArray:@[
-                                                                 [NSMutableArray arrayWithArray:@[WORKERS]],
-                                                                 [NSMutableArray arrayWithArray:@[ALL]],
-                                                                 [[NSMutableArray alloc] init],
-                                                                 [[NSMutableArray alloc] init],
-                                                                 [[NSMutableArray alloc] init]
-                                                                 ]];
-    }
-    
     if (searchedString.length > 0)
     {
         users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
     }
-    
-    if ([self.filterSelections[0][0] isEqualToString:WORKERS])
-    {
-        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
-        
-        if ([self.filterSelections[1][0] isEqualToString:ALL])
-        {
-            
-        }
-        else if ([self.filterSelections[1][0] isEqualToString:PRESENT])
-        {
-            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count = 0 && lates.@count = 0"]];
-        }
-        else if ([self.filterSelections[1][0] isEqualToString:ABSENT])
-        {
-            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"absences.@count > 0"]];
-        }
-        else if ([self.filterSelections[1][0] isEqualToString:LATE])
-        {
-            _userList = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lates.@count > 0"]];
-        }
-        
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        
-        if ([self.filterSelections[2] count])
-        {
-            [tempArray removeAllObjects];
-            
-            for (NSString *location in self.filterSelections[2])
-            {
-                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    if ([((RMUser *)evaluatedObject).location isEqualToString:location])
-                    {
-                        return YES;
-                    }
-                    
-                    return NO;
-                }]];
-                
-                if ([filteredArray count])
-                {
-                    [tempArray addObjectsFromArray:filteredArray];
-                }
-            }
-            
-            _userList = [NSArray arrayWithArray:tempArray];
-        }
-        
-        if ([self.filterSelections[3] count])
-        {
-            [tempArray removeAllObjects];
-            
-            for (NSString *role in self.filterSelections[3])
-            {
-                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    for (NSString *str in ((RMUser *)evaluatedObject).roles)
-                    {
-                        if ([str isEqualToString:role])
-                        {
-                            return YES;
-                        }
-                    }
-                    
-                    return NO;
-                }]];
-                
-                if ([filteredArray count])
-                {
-                    [tempArray addObjectsFromArray:filteredArray];
-                }
-            }
-            
-            _userList = [NSArray arrayWithArray:tempArray];
-        }
-        
-        if ([self.filterSelections[4] count])
-        {
-            [tempArray removeAllObjects];
-            
-            for (NSString *group in self.filterSelections[4])
-            {
-                NSArray *filteredArray = [_userList filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                    for (NSString *str in ((RMUser *)evaluatedObject).groups)
-                    {
-                        if ([str isEqualToString:group])
-                        {
-                            return YES;
-                        }
-                    }
-                    
-                    return NO;
-                }]];
-                
-                if ([filteredArray count])
-                {
-                    [tempArray addObjectsFromArray:filteredArray];
-                }
-            }
-            
-            _userList = [NSArray arrayWithArray:tempArray];
-        }
-    }
-    else if ([self.filterSelections[0][0] isEqualToString:CLIENTS])
-    {
-        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = YES"]];
-    }
-    else if ([self.filterSelections[0][0] isEqualToString:FREELANCERS])
-    {
-        _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isFreelancer = YES"]];
-    }
+    // nie szukamy
+    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
     
     [_tableView reloadData];
 }
@@ -382,37 +203,51 @@ static CGFloat tabBarHeight;
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
+        [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+
         return;
     }
+    
+    [self informStartDownloading];
     
     __block NSInteger operations = 2;
     __block id users;
     __block id absencesAndLates;
     
     NSLog(@"Loading from: API");
-    
-    [self.filterSelections removeAllObjects];
-    [self.filterStructure removeAllObjects];
-    
-    self.filterSelections = nil;
-    self.filterStructure = nil;
-    
-    void(^load)(void) = ^(void) {
-        [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
-                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
-                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
-                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
-        NSLog(@"%@", [NSThread currentThread]);
 
-        [self performBlockInBackground:^{
-            @synchronized(self){
-                NSLog(@"%@", [NSThread currentThread]);
+    void(^load)(void) = ^(void) {
+        [[NSOperationQueue new] addOperationWithBlock:^{
+            
+            if (shouldReloadAvatars)
+            {
+                avatarsToRefresh = [NSMutableArray new];
                 
+                NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                       withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                        ascending:YES
+                                                                                                         selector:@selector(localizedCompare:)]
+                                                            withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                
+                for (RMUser *user in temp)
+                {
+                    [avatarsToRefresh addObject:user.id];
+                }
+                
+                shouldReloadAvatars = NO;
+            }
+
+            @synchronized(self){
+                [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                
+                [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
+                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+                
+                [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
+                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
                 for (id user in users[@"users"])
                 {
                     [RMUser mapFromJSON:user];
@@ -430,11 +265,16 @@ static CGFloat tabBarHeight;
                 
                 [[DatabaseManager sharedManager] saveContext];
                 
-                [self performBlockOnMainThread:^{
-                    [self loadUsersFromDatabase];
-                } afterDelay:0.1];
+               
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    @synchronized(self){
+                        [self loadUsersFromDatabase];
+                        
+                        [self informStopDownloading];
+                    }
+                }];
             }
-        } afterDelay:0.1];
+        }];
     };
         
     
@@ -467,6 +307,8 @@ static CGFloat tabBarHeight;
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+                                          
+                                          [self informStopDownloading];
                                       }];
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
@@ -491,6 +333,7 @@ static CGFloat tabBarHeight;
                                           
                                           [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           
+                                          [self informStopDownloading];
                                       }];
 }
 
@@ -499,12 +342,6 @@ static CGFloat tabBarHeight;
 - (void)changeFilterSelections:(NSArray *)filterSelection
 {
     canShowNoResultsMessage = YES;
-    self.filterSelections = [[NSMutableArray alloc] init];
-    
-    for (id obj in filterSelection)
-    {
-        [self.filterSelections addObject:[NSMutableArray arrayWithArray:obj]];
-    }
     
     [self showNoSelectionUserDetails];
     
@@ -559,7 +396,6 @@ static CGFloat tabBarHeight;
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                      canShowNoResultsMessage = NO;
                      [self performBlockOnMainThread:^{
-                         self.filterSelections = nil;
                          [self loadUsersFromDatabase];
                      } afterDelay:0.75];
                  }];
@@ -679,23 +515,6 @@ static CGFloat tabBarHeight;
         
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
     }
-    else if ([segue.identifier isEqualToString:@"FilterSegue"])
-    {
-        if (self.filterSelections)
-        {
-            ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
-            [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
-            ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
-        }
-    }
-    else if ([segue.identifier isEqualToString:@"FilterPopoverSegue"])
-    {
-        myPopover = [(UIStoryboardPopoverSegue *)segue popoverController];
-        
-        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).filterStructure = self.filterStructure;
-        [((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)) setFilterSelection:self.filterSelections];
-        ((FilterViewController *)(((UINavigationController *)segue.destinationViewController).visibleViewController)).delegate = self;
-    }
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -782,6 +601,20 @@ static CGFloat tabBarHeight;
             [self presentViewController:nvc animated:YES completion:nil];
         }
     }
+}
+
+- (void)informStartDownloading
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DID_START_REFRESH_PEOPLE object:self];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:IS_REFRESH_PEOPLE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)informStopDownloading
+{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:IS_REFRESH_PEOPLE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DID_END_REFRESH_PEOPLE object:self];
 }
 
 @end

@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) UILabel *loadingLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -34,14 +34,12 @@
 {
     [super viewDidLoad];
     
-    //code here
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
     
-    //code here
+    [self updateGUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,20 +50,6 @@
     [self updateAddToContactsButton];
     
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    //code here
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    //code here
-    
-    [super viewWillDisappear:animated];
 }
 
 #pragma mark - UITableViewDelegate
@@ -113,7 +97,9 @@
         return size > cell.frame.size.height ? size : cell.frame.size.height;
     }
     
-    return cell.isHidden ? 0 : cell.frame.size.height;
+    CGFloat r = cell.isHidden ? 0 : 56;
+    
+    return r;
 }
 
 #pragma mark - Actions
@@ -138,8 +124,7 @@
     NSString *number = self.user.phone;
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]]
-  orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
 }
 
 - (void)phoneDeskCall
@@ -311,6 +296,16 @@
     }
     else
     {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+        {
+            if (!self.user)
+            {
+                [self addActivityIndicator];
+            }
+            
+            return;
+        }
+        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
@@ -319,7 +314,16 @@
         {
             if (!self.user)
             {
-                [self addEmptyView];
+                if (![[AFNetworkReachabilityManager sharedManager] isReachable] && ![APP_DELEGATE myUserId])
+                {
+                    NSLog(@"No internet");
+                    [self addActivityIndicator];
+                    
+                    return;
+                }
+                
+                [self addActivityIndicator];
+                //                [self addEmptyView];
                 [self.webView removeFromSuperview];
                 
                 self.title = @"Me";
@@ -363,6 +367,8 @@
                     [self loadMe];
                 }
             }
+            
+            //            [self loadMe];
         }
         else
         {
@@ -375,13 +381,14 @@
                 self.webView.scalesPageToFit = YES;
                 self.webView.delegate = self;
             }
-
+            
             if (!isPageLoaded)
             {
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
                 
                 [self.view addSubview:self.webView];
-                [self addEmptyView];
+                //                [self addEmptyView];
+                [self addActivityIndicator];
             }
         }
     }
@@ -395,11 +402,11 @@
                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
                                            inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
     
-    [self removeEmptyView];
+//    [self removeEmptyView];
+    [self removeActivityIndicator];
     self.tableView.scrollEnabled = YES;
     
     [self updateGUI];
-    [self.tableView reloadData];
 }
 
 - (void)updateGUI
@@ -416,11 +423,20 @@
     self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
     self.userImage.layer.borderWidth = 1;
     
-    self.userName.text = self.user.name;
+    if (self.user.name)
+    {
+        self.userName.text = self.user.name;
+        self.mainCell.hidden = NO;
+    }
+    else
+    {
+        self.mainCell.hidden = YES;
+    }
     
     if (self.user.phone)
     {
         self.phoneLabel.text = self.user.phone;
+        self.phoneCell.hidden = NO;
     }
     else
     {
@@ -430,6 +446,7 @@
     if (self.user.phoneDesk)
     {
         self.phoneDeskLabel.text = self.user.phoneDesk;
+        self.phoneDeskCell.hidden = NO;
     }
     else
     {
@@ -439,6 +456,7 @@
     if (self.user.email)
     {
         self.emailLabel.text = self.user.email;
+        self.emailCell.hidden = NO;
     }
     else
     {
@@ -448,6 +466,7 @@
     if (self.user.skype)
     {
         self.skypeLabel.text = self.user.skype;
+        self.skypeCell.hidden = NO;
     }
     else
     {
@@ -457,6 +476,7 @@
     if (self.user.irc)
     {
         self.ircLabel.text = self.user.irc;
+        self.ircCell.hidden = NO;
     }
     else
     {
@@ -466,6 +486,7 @@
     if (self.user.location)
     {
         self.locationLabel.text = self.user.location;
+        self.locationCell.hidden = NO;
     }
     else
     {
@@ -484,6 +505,7 @@
         [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
         self.groupsLabel.text = string;
+        self.groupsCell.hidden = NO;
     }
     else
     {
@@ -502,6 +524,7 @@
         [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
         self.rolesLabel.text = string;
+        self.rolesCell.hidden = NO;
     }
     else
     {
@@ -593,7 +616,8 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     isPageLoaded = YES;
-    [self removeEmptyView];
+    //    [self removeEmptyView];
+    [self removeActivityIndicator];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -649,40 +673,77 @@
     
     return YES;
 }
+/*
+ - (void)addEmptyView
+ {
+ CGRect frame = [[UIScreen mainScreen] bounds];
+ 
+ [self.emptyView removeFromSuperview];
+ 
+ self.emptyView = [[UIView alloc] initWithFrame:frame];
+ self.emptyView.backgroundColor = [UIColor whiteColor];
+ 
+ self.loadingLabel = [[UILabel alloc] init];
+ self.loadingLabel.text = @"Loading...";
+ [self.loadingLabel sizeToFit];
+ self.loadingLabel.center = self.emptyView.center;
+ [self.emptyView addSubview:self.loadingLabel];
+ 
+ if (self.activityIndicator == nil)
+ {
+ self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+ [self.activityIndicator startAnimating];
+ }
+ 
+ CGPoint center = self.emptyView.center;
+ center.y -= self.loadingLabel.frame.size.height/2 + self.activityIndicator.frame.size.height/2;
+ self.activityIndicator.center = center;
+ [self.emptyView addSubview:self.activityIndicator];
+ 
+ self.tableView.scrollEnabled = NO;
+ [self.view addSubview:self.emptyView];
+ }
+ 
+ - (void)removeEmptyView
+ {
+ [self.emptyView removeFromSuperview];
+ }
+ */
+#pragma mark - Notyfications
 
-- (void)addEmptyView
+- (void)didStartRefreshPeople
 {
-    CGRect frame = [[UIScreen mainScreen] bounds];
-
-    [self.emptyView removeFromSuperview];
+    NSLog(@"START LOAD NOTIFICATION");
     
-    self.emptyView = [[UIView alloc] initWithFrame:frame];
-    self.emptyView.backgroundColor = [UIColor whiteColor];
-    
-    self.loadingLabel = [[UILabel alloc] init];
-    self.loadingLabel.text = @"Loading...";
-    [self.loadingLabel sizeToFit];
-    self.loadingLabel.center = self.emptyView.center;
-    [self.emptyView addSubview:self.loadingLabel];
-
-    if (self.activityView == nil)
+    if (!self.user)
     {
-        self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [self.activityView startAnimating];
+        [self addActivityIndicator];
     }
-
-    CGPoint center = self.emptyView.center;
-    center.y -= self.loadingLabel.frame.size.height/2 + self.activityView.frame.size.height/2;
-    self.activityView.center = center;
-    [self.emptyView addSubview:self.activityView];
-    
-    self.tableView.scrollEnabled = NO;
-    [self.view addSubview:self.emptyView];
 }
 
-- (void)removeEmptyView
+- (void)didEndRefreshPeople
 {
-    [self.emptyView removeFromSuperview];
+    NSLog(@"END LOAD NOTIFICATION");
+    
+    [self loadUser];
+    [self removeActivityIndicator];
+}
+
+- (void)addActivityIndicator
+{
+    [self.activityIndicator removeFromSuperview];
+    self.tableView.userInteractionEnabled = NO;
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator startAnimating];
+    
+    self.activityIndicator.center = self.tableView.center;
+    [self.tableView addSubview:self.activityIndicator];
+}
+
+- (void)removeActivityIndicator
+{
+    self.tableView.userInteractionEnabled = YES;
+    [self.activityIndicator removeFromSuperview];
 }
 
 @end

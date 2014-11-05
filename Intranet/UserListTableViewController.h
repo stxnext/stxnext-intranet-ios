@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
-#import "FilterViewController.h"
 
-@interface UserListTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, FilterViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+@interface UserListTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 {
     IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
@@ -22,8 +21,6 @@
     UIActionSheet *actionSheet;
 }
 
-@property (strong, nonatomic) NSMutableArray *filterStructure;
-@property (strong, nonatomic) NSMutableArray *filterSelections;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) UIActionSheet *requestActionSheet;

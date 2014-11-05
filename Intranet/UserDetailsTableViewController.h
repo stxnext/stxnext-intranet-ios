@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rolesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *groupsLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 
 

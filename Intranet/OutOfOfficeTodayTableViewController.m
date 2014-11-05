@@ -10,10 +10,13 @@
 #import "AddOOOFormTableViewController.h"
 #import "UserDetailsTableViewController.h"
 #import "UserListCell.h"
+
 @interface OutOfOfficeTodayTableViewController ()
 {
     NSIndexPath *currentIndexPath;
 }
+
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -23,6 +26,9 @@
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
+
     self.title = @"Out";
     
     [self.tableView hideEmptySeparators];
@@ -33,10 +39,21 @@
     [super viewDidAppear:animated];
 
     [self loadUsersFromDatabase];
+    NSLog(@"View did appear");
 }
 
 - (void)loadUsersFromDatabase
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+    {
+        if (_userList.count == 0)
+        {
+            [self addActivityIndicator];
+        }
+        
+        return;
+    }
+    
     NSLog(@"Loading from: Database");
     
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -110,7 +127,7 @@
     NSInteger number = [_userList[section] count];
     NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
     
-    if (count == 0)
+    if (count == 0 && section == 0)//show once
     {
         [UIAlertView showWithTitle:@"Info"
                            message:@"Nothing to show."
@@ -261,19 +278,66 @@
 
 - (IBAction)showNewRequest:(id)sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
-    
-    [actionSheet showInView:self.view];
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    else
+    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+        
+        [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+    if (buttonIndex != 2)
+    {
+        UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+        
+        [self presentViewController:nvc animated:YES completion:nil];
+        
+        AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
+        form.currentRequest = buttonIndex;
+    }
+}
+
+#pragma mark - Notyfications
+
+- (void)didStartRefreshPeople
+{
+    NSLog(@"START LOAD NOTIFICATION");
     
-    [self presentViewController:nvc animated:YES completion:nil];
+    if (_userList.count == 0)
+    {
+        [self addActivityIndicator];
+    }
+}
+
+- (void)didEndRefreshPeople
+{
+    NSLog(@"END LOAD NOTIFICATION");
+    [self loadUsersFromDatabase];
+    [self removeActivityIndicator];
+}
+
+- (void)addActivityIndicator
+{
+    [self.activityIndicator removeFromSuperview];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator startAnimating];
     
-    AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
-    form.currentRequest = buttonIndex;
+    self.activityIndicator.center = self.tableView.center;
+    [self.tableView addSubview:self.activityIndicator];
+    self.tableView.userInteractionEnabled = NO;
+}
+
+- (void)removeActivityIndicator
+{
+    self.tableView.userInteractionEnabled = YES;
+    [self.activityIndicator removeFromSuperview];
 }
 
 @end

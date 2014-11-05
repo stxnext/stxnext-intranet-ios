@@ -426,55 +426,6 @@
             </objects>
             <point key="canvasLocation" x="653" y="-209"/>
         </scene>
-        <!--Filter View Controller-->
-        <scene sceneID="obG-xb-dHN">
-            <objects>
-                <tableViewController id="Rco-mA-x7X" customClass="FilterViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Glg-cm-4fX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellId" textLabel="VTi-h6-fiT" style="IBUITableViewCellStyleDefault" id="j83-fc-zbJ">
-                                <rect key="frame" x="0.0" y="55" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j83-fc-zbJ" id="K6K-Xf-dId">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VTi-h6-fiT">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Rco-mA-x7X" id="rYb-go-woE"/>
-                            <outlet property="delegate" destination="Rco-mA-x7X" id="yiO-WC-sns"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="hf3-GX-R4a">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EwK-Mt-p0H">
-                            <connections>
-                                <action selector="cancelAction:" destination="Rco-mA-x7X" id="ZZy-pF-FDQ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VAT-0U-BHi">
-                            <connections>
-                                <action selector="saveAction:" destination="Rco-mA-x7X" id="Hfr-6r-Ylq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h3m-zj-dGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2171" y="-1016"/>
-        </scene>
         <!--User List Table View Controller-->
         <scene sceneID="FWN-1j-gJw">
             <objects>
@@ -557,7 +508,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="UDE-8V-cSN"/>
                     <connections>
-                        <outlet property="_showActionButton" destination="NsU-V0-plF" id="V7A-Hz-M3i"/>
                         <outlet property="_showPlanningPokerButton" destination="6oE-Mg-r8f" id="5Gx-5H-511"/>
                         <outlet property="_tableView" destination="DqE-ng-1VX" id="PMC-cu-wkf"/>
                         <outlet property="searchDisplayController" destination="o92-rd-xLi" id="XYs-Hp-hGo"/>
@@ -573,11 +523,6 @@
                         <outlet property="searchResultsDelegate" destination="LJs-xu-3pC" id="Brg-Hr-p8V"/>
                     </connections>
                 </searchDisplayController>
-                <barButtonItem title="Filter" id="NsU-V0-plF">
-                    <connections>
-                        <segue destination="hD1-L2-qAH" kind="modal" identifier="FilterSegue" id="zZN-kP-OX8"/>
-                    </connections>
-                </barButtonItem>
                 <barButtonItem image="Planing Poker" id="6oE-Mg-r8f">
                     <connections>
                         <action selector="showPlaningPoker:" destination="LJs-xu-3pC" id="bj4-g9-x2d"/>
@@ -1303,24 +1248,6 @@
             </objects>
             <point key="canvasLocation" x="2568" y="1193"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="LvZ-2p-3zU">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hD1-L2-qAH" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oW5-ma-hj2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Rco-mA-x7X" kind="relationship" relationship="rootViewController" id="H3X-o7-kKo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lif-9d-Add" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1699" y="-1016"/>
-        </scene>
         <!--Out-->
         <scene sceneID="eoU-qG-hpL">
             <objects>
@@ -1371,8 +1298,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8yv-kA-sUN"/>
-        <segue reference="UDv-nT-GSA"/>
+        <segue reference="set-Zf-g71"/>
+        <segue reference="X62-zH-gKD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>
