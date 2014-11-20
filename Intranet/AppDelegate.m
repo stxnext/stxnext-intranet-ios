@@ -24,6 +24,7 @@
         splitController.delegate = self;
     }
     
+    
     return YES;
 }
 

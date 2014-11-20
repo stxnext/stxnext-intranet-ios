@@ -192,14 +192,16 @@ static CGFloat tabBarHeight;
     {
         users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
     }
-    // nie szukamy
     _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
     
     [_tableView reloadData];
 }
 
+BOOL isDatabaseBusy;
+
 - (void)loadUsersFromAPI
 {
+    isDatabaseBusy = NO;
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
@@ -217,8 +219,9 @@ static CGFloat tabBarHeight;
     NSLog(@"Loading from: API");
 
     void(^load)(void) = ^(void) {
+        NSLog(@"^LOAD");
         [[NSOperationQueue new] addOperationWithBlock:^{
-            
+            isDatabaseBusy = YES;
             if (shouldReloadAvatars)
             {
                 avatarsToRefresh = [NSMutableArray new];
@@ -265,18 +268,17 @@ static CGFloat tabBarHeight;
                 
                 [[DatabaseManager sharedManager] saveContext];
                 
-               
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     @synchronized(self){
                         [self loadUsersFromDatabase];
-                        
                         [self informStopDownloading];
+                        
+                        isDatabaseBusy = NO;
                     }
                 }];
             }
         }];
     };
-        
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -284,9 +286,10 @@ static CGFloat tabBarHeight;
                                           NSLog(@"Loaded: users");
                                           
                                           users = responseObject;
-                                          
+
                                           if (--operations == 0)
                                           {
+                                              NSLog(@"LOAD");
                                               load();
                                               
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -320,6 +323,7 @@ static CGFloat tabBarHeight;
 
                                           if (--operations == 0)
                                           {
+                                              NSLog(@"LOAD");
                                               load();
                                               
                                               [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
@@ -411,8 +415,6 @@ static CGFloat tabBarHeight;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMUser *user = _userList[indexPath.row];
-    
     static NSString *CellIdentifier = @"UserCell";
     
     UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -422,60 +424,65 @@ static CGFloat tabBarHeight;
         cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    RMUser *user = _userList[indexPath.row];
+    
     cell.userName.text = user.name;
+    
     cell.userImage.layer.cornerRadius = 5;
     cell.userImage.clipsToBounds = YES;
-    
     cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
     cell.userImage.layer.borderWidth = 1;
     
-    cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    
-    if (user.lates.count)
+    if (!isDatabaseBusy)
     {
-        cell.clockView.color = MAIN_YELLOW_COLOR;
+        cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
         
-        [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-        }];
-    }
-    else if (user.absences.count)
-    {
-        cell.clockView.color = MAIN_RED_COLOR;
+        NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+        absenceDateFormater.dateFormat = @"YYYY-MM-dd";
         
-        [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
+        NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+        latesDateFormater.dateFormat = @"HH:mm";
+        
+        NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+        
+        if (user.lates.count)
+        {
+            cell.clockView.color = MAIN_YELLOW_COLOR;
             
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+            [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+                RMLate *late = (RMLate *)obj;
+                
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+            }];
+        }
+        else if (user.absences.count)
+        {
+            cell.clockView.color = MAIN_RED_COLOR;
             
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...", stop.length ? stop : @"..."];
-            }
-        }];
+            [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+                RMAbsence *absence = (RMAbsence *)obj;
+                
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@" %@  -  %@", start.length ? start : @"...", stop.length ? stop : @"..."];
+                }
+            }];
+        }
+        
+        [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+
+        cell.warningDateLabel.text = hours;
     }
-    
-    [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    
-    cell.warningDateLabel.text = hours;
     
     if (user.avatarURL)
     {
@@ -484,11 +491,10 @@ static CGFloat tabBarHeight;
         
         if (refresh)
         {
-            NSLog(@"force Refresh");
             [avatarsToRefresh removeObject:user.id];
         }
     }
-    
+        
     return cell;
 }
 
@@ -591,10 +597,23 @@ static CGFloat tabBarHeight;
         {
             self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
             self.popover.delegate = self;
-            [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
-                                 permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                 animated:NO];
-            outOfOfficeForm.popover = self.popover;
+
+            if (iOS8_PLUS)
+            {
+                [self performBlockOnMainThread:^{ //hack, popover don't show on ios 8
+                    [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+                                         permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                         animated:NO];
+                    outOfOfficeForm.popover = self.popover;
+                } afterDelay:0];
+            }
+            else
+            {
+                [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+                                     permittedArrowDirections:UIPopoverArrowDirectionUp
+                                                     animated:NO];
+                outOfOfficeForm.popover = self.popover;
+            }
         }
         else
         {

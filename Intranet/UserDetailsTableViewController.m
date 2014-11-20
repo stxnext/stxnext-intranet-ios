@@ -367,8 +367,6 @@
                     [self loadMe];
                 }
             }
-            
-            //            [self loadMe];
         }
         else
         {
@@ -673,42 +671,7 @@
     
     return YES;
 }
-/*
- - (void)addEmptyView
- {
- CGRect frame = [[UIScreen mainScreen] bounds];
- 
- [self.emptyView removeFromSuperview];
- 
- self.emptyView = [[UIView alloc] initWithFrame:frame];
- self.emptyView.backgroundColor = [UIColor whiteColor];
- 
- self.loadingLabel = [[UILabel alloc] init];
- self.loadingLabel.text = @"Loading...";
- [self.loadingLabel sizeToFit];
- self.loadingLabel.center = self.emptyView.center;
- [self.emptyView addSubview:self.loadingLabel];
- 
- if (self.activityIndicator == nil)
- {
- self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
- [self.activityIndicator startAnimating];
- }
- 
- CGPoint center = self.emptyView.center;
- center.y -= self.loadingLabel.frame.size.height/2 + self.activityIndicator.frame.size.height/2;
- self.activityIndicator.center = center;
- [self.emptyView addSubview:self.activityIndicator];
- 
- self.tableView.scrollEnabled = NO;
- [self.view addSubview:self.emptyView];
- }
- 
- - (void)removeEmptyView
- {
- [self.emptyView removeFromSuperview];
- }
- */
+
 #pragma mark - Notyfications
 
 - (void)didStartRefreshPeople

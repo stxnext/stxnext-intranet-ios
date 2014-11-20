@@ -26,13 +26,19 @@
     if (predicate)
         [request setPredicate:predicate];
     
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self executeFetchRequest:request error:&error];
-    
+    __block NSError *error = nil;
+    __block NSArray *fetchedObjects = nil;
+
+    [self performBlockAndWait:^{
+        fetchedObjects = [self executeFetchRequest:request error:&error];
+    }];
+
+
     if (error)
     {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
+    
     return fetchedObjects;
 }
 

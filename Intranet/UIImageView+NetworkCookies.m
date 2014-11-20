@@ -8,15 +8,28 @@
 #include <sys/xattr.h>
 #import "UIImageView+NetworkCookies.h"
 
+static NSString *documentDirectoryPath;
 @implementation UIImageView (NetworkCookies)
+
++ (NSString *)documentDirectoryPath
+{
+    if (!documentDirectoryPath)
+    {
+        documentDirectoryPath = [NSString stringWithString:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+    }
+
+    return documentDirectoryPath;
+}
 
 - (void)setImageUsingCookiesWithURL:(NSURL*)url forceRefresh:(BOOL)refresh
 {
-    NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.png", [url lastPathComponent]]];
+    NSString *pathComponent = [NSString stringWithFormat:@"/%@.png", [url lastPathComponent]];
+    NSString *imagePath = [[self.class documentDirectoryPath] stringByAppendingPathComponent:pathComponent];
     
     NSURL *imageURL = [NSURL fileURLWithPath:imagePath];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
-    
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    UIImage *image = imageData ? [UIImage imageWithData:imageData] : nil;
+
     if (image)
     {
         self.image = image;

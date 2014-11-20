@@ -54,6 +54,7 @@
 
 #define DEVICE_IOS_VERSION                  ([[[UIDevice currentDevice] systemVersion] floatValue])
 #define iOS7_PLUS                           (DEVICE_IOS_VERSION >= 7.0)
+#define iOS8_PLUS                           (DEVICE_IOS_VERSION >= 8.0)
 #define BLURED_BACKGROUND NO
 
 #define STATUS_BAR_HEIGHT ((UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) ? \

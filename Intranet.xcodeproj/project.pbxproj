@@ -829,7 +829,7 @@
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "STX Intranet";
-				PROVISIONING_PROFILE = "6E808FC7-677A-4EAB-8F14-48FBEC8162A5";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
