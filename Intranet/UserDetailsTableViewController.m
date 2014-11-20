@@ -552,13 +552,13 @@
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
             
             if (late.explanation)
             {
-                [explanation appendFormat:@" %@", late.explanation];
+                [hours appendFormat:@" %@\n", late.explanation];
             }
         }];
     }
@@ -574,23 +574,25 @@
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
+                [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
             
             if (absence.remarks)
             {
-                [explanation appendFormat:@" %@", absence.remarks];
+                [hours appendFormat:@" %@\n", absence.remarks];
             }
         }];
     }
     
     [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
-    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
+    if (hours.length > 1)
+    {
+        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
+    }
     
-    self.explanationLabel.text = text;
+    self.explanationLabel.text = hours;
     
     if (self.navigationController.viewControllers.count <= 1 || [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
     {

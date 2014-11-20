@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -473,7 +474,7 @@
                                                 <constraint firstAttribute="width" constant="50" id="RLE-Kn-ik8"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="bqG-A8-TQN">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="bqG-A8-TQN">
                                             <rect key="frame" x="98" y="73" width="174" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -484,6 +485,7 @@
                                         <constraint firstItem="iHe-4S-18l" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bOk-TH-mhO" secondAttribute="bottom" priority="50" constant="10" id="2J1-Ns-0ar"/>
                                         <constraint firstItem="bOk-TH-mhO" firstAttribute="leading" secondItem="Og0-ME-hwv" secondAttribute="leading" constant="98" id="2J3-Ez-LdZ"/>
                                         <constraint firstItem="bqG-A8-TQN" firstAttribute="leading" secondItem="Tkb-jW-dR4" secondAttribute="trailing" constant="8" id="8Dd-kP-7bJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bqG-A8-TQN" secondAttribute="bottom" constant="-8" id="FQ4-bZ-ing"/>
                                         <constraint firstItem="Tkb-jW-dR4" firstAttribute="leading" secondItem="Og0-ME-hwv" secondAttribute="leading" constant="15" id="InX-Xk-bdR"/>
                                         <constraint firstItem="iHe-4S-18l" firstAttribute="leading" secondItem="bqG-A8-TQN" secondAttribute="trailing" constant="8" id="M9u-xA-T4M"/>
                                         <constraint firstAttribute="trailing" secondItem="iHe-4S-18l" secondAttribute="trailing" constant="-10" id="PG5-2G-mKB"/>
@@ -589,7 +591,7 @@
                                                 <constraint firstAttribute="height" constant="50" id="AcO-Cq-Gp4"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="c7n-gM-f03">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="c7n-gM-f03">
                                             <rect key="frame" x="98" y="73" width="174" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -601,6 +603,7 @@
                                         <constraint firstItem="c7n-gM-f03" firstAttribute="leading" secondItem="AJG-Ey-ln0" secondAttribute="trailing" constant="8" id="80v-4R-myq"/>
                                         <constraint firstAttribute="trailing" secondItem="l6S-jP-pRk" secondAttribute="trailing" id="9DC-pi-AuS"/>
                                         <constraint firstItem="l6S-jP-pRk" firstAttribute="leading" secondItem="slD-sW-fPC" secondAttribute="leading" constant="98" id="FdV-Oy-Rgh"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="c7n-gM-f03" secondAttribute="bottom" constant="-8" id="RNf-bQ-BrL"/>
                                         <constraint firstItem="AJG-Ey-ln0" firstAttribute="leading" secondItem="slD-sW-fPC" secondAttribute="leading" constant="15" id="TAI-h8-hbH"/>
                                         <constraint firstAttribute="trailing" secondItem="TNi-Hv-JxX" secondAttribute="trailing" constant="-10" id="W7d-NI-d54"/>
                                         <constraint firstItem="l6S-jP-pRk" firstAttribute="top" secondItem="slD-sW-fPC" secondAttribute="top" constant="10" id="cIa-3K-BZE"/>

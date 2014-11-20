@@ -182,7 +182,7 @@
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
+                [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
         }];
@@ -199,7 +199,7 @@
             
             if (start.length || stop.length)
             {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
+                [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
                  stop.length ? stop : @"..."];
             }
         }];
