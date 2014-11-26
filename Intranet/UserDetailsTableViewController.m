@@ -540,29 +540,8 @@
     NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
     latesDateFormater.dateFormat = @"HH:mm";
     
-    if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (late.explanation)
-            {
-                [hours appendFormat:@" %@\n", late.explanation];
-            }
-        }];
-    }
-    else if (self.user.absences.count)
+//    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
+    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
     {
         self.clockView.color = MAIN_RED_COLOR;
         
@@ -581,6 +560,28 @@
             if (absence.remarks)
             {
                 [hours appendFormat:@" %@\n", absence.remarks];
+            }
+        }];
+    }
+    else  if (self.user.lates.count)
+    {
+        self.clockView.color = MAIN_YELLOW_COLOR;
+        
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMLate *late = (RMLate *)obj;
+            
+            NSString *start = [latesDateFormater stringFromDate:late.start];
+            NSString *stop = [latesDateFormater stringFromDate:late.stop];
+            
+            if (start.length || stop.length)
+            {
+                [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
+                 stop.length ? stop : @"..."];
+            }
+            
+            if (late.explanation)
+            {
+                [hours appendFormat:@" %@\n", late.explanation];
             }
         }];
     }

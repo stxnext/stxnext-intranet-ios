@@ -156,6 +156,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5dH-Qt-orl">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="BRh-qy-z8A">
+                            <connections>
+                                <action selector="changeView:" destination="JVO-4w-KUi" id="SEN-v0-Uf1"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oNQ-VK-UX0">
                             <connections>
                                 <action selector="showNewRequest:" destination="JVO-4w-KUi" id="fcQ-Zc-bdO"/>
@@ -166,6 +171,7 @@
                         <outlet property="_tableView" destination="Jc2-ow-AJA" id="tYy-kS-jjn"/>
                         <outlet property="addRequestButton" destination="oNQ-VK-UX0" id="WMt-wL-9Xo"/>
                         <outlet property="searchDisplayController" destination="ejg-3B-6c3" id="vlo-u8-toG"/>
+                        <outlet property="viewSwitchButton" destination="BRh-qy-z8A" id="12O-nK-yrF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SO8-3K-Zyy" userLabel="First Responder" sceneMemberID="firstResponder"/>

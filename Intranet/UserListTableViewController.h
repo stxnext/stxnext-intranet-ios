@@ -17,14 +17,16 @@
     
     UIRefreshControl *_refreshControl;
     UIActionSheet  *_actionSheet;
-    NSArray *_userList;
+    NSMutableArray *_userList;
     UIActionSheet *actionSheet;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) UIActionSheet *requestActionSheet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
 
 - (IBAction)showPlaningPoker:(id)sender;
+- (IBAction)changeView:(id)sender;
 
 @end

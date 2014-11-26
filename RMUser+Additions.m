@@ -144,12 +144,72 @@ const NSString* MapKeyUserGroups = @"groups";
     return group;
 }
 
-
 - (id)mapToJSON
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"Method %@ not implemented", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
+}
+
++ (NSMutableArray *)loadOutOffOfficePeople
+{
+    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                             ascending:YES
+                                                                                              selector:@selector(localizedCompare:)]
+                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+
+    
+   NSMutableArray *_userList = [[NSMutableArray alloc] init];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 1)
+                {
+                    return YES;
+                }
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 0)
+                {
+                    return YES;
+                }
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
+
+    return [NSMutableArray arrayWithArray:_userList];
 }
 
 @end

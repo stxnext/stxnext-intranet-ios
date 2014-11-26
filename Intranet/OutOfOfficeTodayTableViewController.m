@@ -55,7 +55,7 @@
     }
     
     NSLog(@"Loading from: Database");
-    
+    /*
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                              ascending:YES
@@ -109,8 +109,9 @@
         }
         
         return NO;
-    }]]?:[[NSArray alloc] init]];
+    }]]?:[[NSArray alloc] init]];*/
 
+    _userList = [RMUser loadOutOffOfficePeople];
     
     [self.tableView reloadData];
 }
@@ -254,6 +255,11 @@
         }
         
         currentIndexPath = indexPath;
+        
+        if (indexPath.section == 0)
+        {
+            ((UserDetailsTableViewController *)segue.destinationViewController).isComeFromAbsences = YES;
+        }
         
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
     }

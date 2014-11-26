@@ -29,6 +29,7 @@ static CGFloat tabBarHeight;
     NSIndexPath *currentIndexPath;
     NSMutableArray *avatarsToRefresh;
     BOOL shouldReloadAvatars;
+    BOOL isOutView;
 }
 
 - (void)viewDidLoad
@@ -43,7 +44,7 @@ static CGFloat tabBarHeight;
     
     searchedString = @"";
     _actionSheet = nil;
-    _userList = [NSArray array];
+    _userList = [NSMutableArray array];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
@@ -54,6 +55,8 @@ static CGFloat tabBarHeight;
     [_tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
+    isOutView = NO;
+    [self.viewSwitchButton setTitle:@"Out"];
     self.title = @"All";
     
     //update data
@@ -105,6 +108,24 @@ static CGFloat tabBarHeight;
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     navBarHeight = UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 44.0f : 32.0f;
+}
+
+- (IBAction)changeView:(id)sender
+{
+    isOutView = !isOutView;
+    
+    if (isOutView)
+    {
+        [self.viewSwitchButton setTitle:@"All"];
+        self.title = @"Out";
+    }
+    else
+    {
+        [self.viewSwitchButton setTitle:@"Out"];
+        self.title = @"All";
+    }
+    
+    [self loadUsersFromDatabase];
 }
 
 #pragma mark Login delegate
@@ -179,20 +200,35 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromDatabase
 {
-    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                             ascending:YES
-                                                                                              selector:@selector(localizedCompare:)]
-                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-    
-    NSLog(@"Loading from: Database: %lu", (unsigned long)users.count);
-    
-    if (searchedString.length > 0)
+    if (isOutView)
     {
-        users = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]];
+        _userList = [RMUser loadOutOffOfficePeople];
+        
+        if (searchedString.length > 0)
+        {
+            [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+            [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+            [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+        }
     }
-    _userList = [users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]];
+    else
+    {
+        NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                 ascending:YES
+                                                                                                  selector:@selector(localizedCompare:)]
+                                                     withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+
+        _userList = [NSMutableArray arrayWithArray:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]]];
+    
+        if (searchedString.length > 0)
+        {
+            _userList = [NSMutableArray arrayWithArray:[_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+        }
+    }
+    
+    NSLog(@"Loading from: Database: %lu", (unsigned long)_userList.count);
     
     [_tableView reloadData];
 }
@@ -202,6 +238,8 @@ BOOL isDatabaseBusy;
 - (void)loadUsersFromAPI
 {
     isDatabaseBusy = NO;
+    self.viewSwitchButton.enabled = YES;
+    
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
@@ -222,6 +260,8 @@ BOOL isDatabaseBusy;
         NSLog(@"^LOAD");
         [[NSOperationQueue new] addOperationWithBlock:^{
             isDatabaseBusy = YES;
+            self.viewSwitchButton.enabled = NO;
+            
             if (shouldReloadAvatars)
             {
                 avatarsToRefresh = [NSMutableArray new];
@@ -274,6 +314,7 @@ BOOL isDatabaseBusy;
                         [self informStopDownloading];
                         
                         isDatabaseBusy = NO;
+                        self.viewSwitchButton.enabled = YES;
                     }
                 }];
             }
@@ -387,30 +428,63 @@ BOOL isDatabaseBusy;
 
 #pragma mark - Table view data source
 
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (isOutView)
+    {
+        return [_userList count];
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger number = _userList.count;
-    
-    if (number == 0 && canShowNoResultsMessage)
+    if (isOutView)
     {
-        [UIAlertView showWithTitle:@"Info"
-                           message:@"Nothing to show."
-                             style:UIAlertViewStyleDefault
-                 cancelButtonTitle:nil
-                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                     canShowNoResultsMessage = NO;
-                     [self performBlockOnMainThread:^{
-                         [self loadUsersFromDatabase];
-                     } afterDelay:0.75];
-                 }];
+        NSInteger number = [_userList[section] count];
+        NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
+        
+        if (count == 0 && section == 0)//show once
+        {
+            [UIAlertView showWithTitle:@"Info"
+                               message:@"Nothing to show."
+                                 style:UIAlertViewStyleDefault
+                     cancelButtonTitle:nil
+                     otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                     }];
+        }
+        
+        return number;
     }
-    
-    if (number)
+    else
     {
-        canShowNoResultsMessage = NO;
+        NSInteger number = _userList.count;
+        
+        if (number == 0 && canShowNoResultsMessage)
+        {
+            [UIAlertView showWithTitle:@"Info"
+                               message:@"Nothing to show."
+                                 style:UIAlertViewStyleDefault
+                     cancelButtonTitle:nil
+                     otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                         canShowNoResultsMessage = NO;
+                         [self performBlockOnMainThread:^{
+                             [self loadUsersFromDatabase];
+                         } afterDelay:0.75];
+                     }];
+        }
+        
+        if (number)
+        {
+            canShowNoResultsMessage = NO;
+        }
+        
+        return number;
     }
-    
-    return number;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -424,7 +498,17 @@ BOOL isDatabaseBusy;
         cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    RMUser *user = _userList[indexPath.row];
+    RMUser *user;
+    
+    if (isOutView)
+    {
+        user = _userList[indexPath.section][indexPath.row];
+    }
+    else
+    {
+        user = _userList[indexPath.row];
+    }
+
     
     cell.userName.text = user.name;
     
@@ -445,8 +529,25 @@ BOOL isDatabaseBusy;
         
         NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
         
-        if (user.lates.count)
-        {
+        void(^setAbsences)(void) = ^(void) {
+            cell.clockView.color = MAIN_RED_COLOR;
+            
+            [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+                RMAbsence *absence = (RMAbsence *)obj;
+                
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+            }];
+            
+        };
+        
+        void(^setLates)(void) = ^(void) {
             cell.clockView.color = MAIN_YELLOW_COLOR;
             
             [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
@@ -461,24 +562,31 @@ BOOL isDatabaseBusy;
                      stop.length ? stop : @"..."];
                 }
             }];
-        }
-        else if (user.absences.count)
-        {
-            cell.clockView.color = MAIN_RED_COLOR;
-            
-            [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-                RMAbsence *absence = (RMAbsence *)obj;
-                
-                NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...", stop.length ? stop : @"..."];
-                }
-            }];
-        }
+        };
         
+        if (isOutView)
+        {
+            if (indexPath.section == 1 || indexPath.section == 2)
+            {
+                setLates();
+            }
+            else if (indexPath.section == 0)
+            {
+                setAbsences();
+            }
+        }
+        else
+        {
+            if (user.lates.count)
+            {
+                setLates();
+            }
+            else if (user.absences.count)
+            {
+                setAbsences();
+            }
+        }
+
         [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 
         cell.warningDateLabel.text = hours;
@@ -503,6 +611,27 @@ BOOL isDatabaseBusy;
     return _tableView.rowHeight;
 }
 
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (isOutView)
+    {
+        switch (section)
+        {
+            case 0:
+                return @"ABSENCE / HOLIDAY";
+                
+            case 1:
+                return @"WORK FROM HOME";
+                
+            case 2:
+                return @"OUT OF OFFICE";
+        }
+    }
+    
+    return @"";
+}
+
 #pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -510,6 +639,7 @@ BOOL isDatabaseBusy;
     if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
     {
         UserListCell *cell = (UserListCell *)sender;
+        
         NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
         
         if (indexPath == nil)
@@ -519,7 +649,19 @@ BOOL isDatabaseBusy;
         
         currentIndexPath = indexPath;
         
-        ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+        if (isOutView)
+        {
+            if (indexPath.section == 0)
+            {
+                ((UserDetailsTableViewController *)segue.destinationViewController).isComeFromAbsences = YES;
+            }
+            
+            ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
+        }
+        else
+        {
+            ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+        }
     }
 }
 

@@ -40,5 +40,7 @@
 @property (weak, nonatomic) IBOutlet ClockView *clockView;
 
 @property (strong, nonatomic) RMUser *user;
+@property (nonatomic, assign) BOOL isComeFromAbsences;
+
 
 @end

@@ -33,4 +33,6 @@ extern const NSString* MapKeyUserAvailabilityLink;
 extern const NSString* MapKeyUserRoles;
 extern const NSString* MapKeyUserGroups;
 
++ (NSMutableArray *)loadOutOffOfficePeople;
+
 @end
