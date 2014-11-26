@@ -32,7 +32,7 @@ typedef enum
     self.title = @"New Request";
     
     [super viewDidLoad];
-
+    
     if (!NEW_MENU)
     {
         self.currentType = 0;
@@ -84,6 +84,9 @@ typedef enum
 {
     if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
     {
+        
+        ((UIButton *)sender).enabled = NO;
+        
         switch (self.currentRequest)
         {
             case RequestTypeAbsenceHoliday:
@@ -160,6 +163,8 @@ typedef enum
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                  }];
+                        
+                        ((UIButton *)sender).enabled = YES;
                     }];
                 }
                 else
@@ -170,6 +175,8 @@ typedef enum
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                              }];
+                    
+                    ((UIButton *)sender).enabled = YES;
                 }
             }
                 break;
@@ -216,6 +223,8 @@ typedef enum
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                  }];
+                        
+                        ((UIButton *)sender).enabled = YES;
                     }];
                 }
                 else
@@ -226,6 +235,8 @@ typedef enum
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                              }];
+                    
+                    ((UIButton *)sender).enabled = YES;
                 }
             }
                 break;
