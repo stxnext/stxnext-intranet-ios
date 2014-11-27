@@ -2,8 +2,8 @@
 //  RMLate.m
 //  Intranet
 //
-//  Created by Dawid Żakowski on 30/10/2013.
-//  Copyright (c) 2013 STXNext. All rights reserved.
+//  Created by Adam on 27.11.2014.
+//  Copyright (c) 2014 STXNext. All rights reserved.
 //
 
 #import "RMLate.h"
@@ -12,11 +12,12 @@
 
 @implementation RMLate
 
+@dynamic explanation;
 @dynamic id;
+@dynamic isWorkingFromHome;
 @dynamic start;
 @dynamic stop;
-@dynamic explanation;
-@dynamic isWorkingFromHome;
+@dynamic isTomorrow;
 @dynamic user;
 
 @end

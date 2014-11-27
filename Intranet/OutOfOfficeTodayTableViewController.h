@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OutOfOfficeTodayTableViewController : UITableViewController <UIActionSheetDelegate, UISearchBarDelegate>
+@interface OutOfOfficeTodayTableViewController : UITableViewController <UIActionSheetDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *_userList;
 }
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
+
+- (IBAction)changeView:(id)sender;
 
 @end

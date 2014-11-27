@@ -634,6 +634,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="LVp-eE-K9x">
+                        <barButtonItem key="leftBarButtonItem" title="Tomorrow" id="QOd-Cy-2bM">
+                            <connections>
+                                <action selector="changeView:" destination="qlc-xU-5my" id="Jpd-iH-EWW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kFI-xb-R5m">
                             <connections>
                                 <action selector="showNewRequest:" destination="qlc-xU-5my" id="pfJ-fo-g37"/>
@@ -642,6 +647,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="OJh-wR-n8b" id="OCx-Tz-rux"/>
+                        <outlet property="viewSwitchButton" destination="QOd-Cy-2bM" id="Y4S-dI-KE8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gGo-2U-Xxz" userLabel="First Responder" sceneMemberID="firstResponder"/>

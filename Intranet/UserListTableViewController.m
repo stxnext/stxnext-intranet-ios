@@ -20,6 +20,12 @@ static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
 static CGFloat tabBarHeight;
 
+typedef NS_ENUM(NSUInteger, ListState) {
+    ListStateAll,
+    ListStateOutToday,
+    ListStateOutTomorrow,
+};
+
 @implementation UserListTableViewController
 {
     __weak UIPopoverController *myPopover;
@@ -29,8 +35,10 @@ static CGFloat tabBarHeight;
     NSIndexPath *currentIndexPath;
     NSMutableArray *avatarsToRefresh;
     BOOL shouldReloadAvatars;
-    BOOL isOutView;
+//    BOOL isOutView;
+    ListState currentListState;
 }
+
 
 - (void)viewDidLoad
 {
@@ -46,18 +54,13 @@ static CGFloat tabBarHeight;
     _actionSheet = nil;
     _userList = [NSMutableArray array];
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
-    [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    _refreshControl = refreshControl;
-    self.refreshControl = refreshControl;
+    [self addRefreshControl];
     
     [_tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
-    isOutView = NO;
-    [self.viewSwitchButton setTitle:@"Out"];
-    self.title = @"All";
+    currentListState = ListStateAll;
+    [self showOutViewButton];
     
     //update data
     if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
@@ -112,21 +115,21 @@ static CGFloat tabBarHeight;
 
 - (IBAction)changeView:(id)sender
 {
-    isOutView = !isOutView;
-    
-    if (isOutView)
-    {
-        [self.viewSwitchButton setTitle:@"All"];
-        self.title = @"Out";
-    }
-    else
-    {
-        [self.viewSwitchButton setTitle:@"Out"];
-        self.title = @"All";
-    }
+    currentListState = [self nextListState];
+    [self showOutViewButton];
     
     [self loadUsersFromDatabase];
 }
+
+- (void)addRefreshControl
+{
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+    [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+    _refreshControl = refreshControl;
+    self.refreshControl = refreshControl;
+}
+
 
 #pragma mark Login delegate
 
@@ -200,32 +203,53 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromDatabase
 {
-    if (isOutView)
-    {
-        _userList = [RMUser loadOutOffOfficePeople];
-        
-        if (searchedString.length > 0)
+    switch (currentListState) {
+        case ListStateAll:
         {
-            [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-            [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-            [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+            NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                                    withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                     ascending:YES
+                                                                                                      selector:@selector(localizedCompare:)]
+                                                         withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                      inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+            
+            _userList = [NSMutableArray arrayWithArray:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]]];
+            
+            if (searchedString.length > 0)
+            {
+                _userList = [NSMutableArray arrayWithArray:[_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+            }
         }
-    }
-    else
-    {
-        NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                                 ascending:YES
-                                                                                                  selector:@selector(localizedCompare:)]
-                                                     withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                                  inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-
-        _userList = [NSMutableArray arrayWithArray:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]]];
+            break;
+        case ListStateOutToday:
+        {
+            _userList = [RMUser loadTodayOutOffOfficePeople];
+            
+            if (searchedString.length > 0)
+            {
+                [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+            }
+        }
+            break;
+            
+        case ListStateOutTomorrow:
+        {
+            _userList = [RMUser loadTomorrowOutOffOfficePeople];
+            
+            if (searchedString.length > 0)
+            {
+                [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+            }
     
-        if (searchedString.length > 0)
-        {
-            _userList = [NSMutableArray arrayWithArray:[_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
         }
+            break;
+            
+        default:
+            break;
     }
     
     NSLog(@"Loading from: Database: %lu", (unsigned long)_userList.count);
@@ -245,7 +269,7 @@ BOOL isDatabaseBusy;
 - (void)loadUsersFromAPI
 {
     isDatabaseBusy = NO;
-    self.viewSwitchButton.enabled = YES;
+    [self showOutViewButton];
     
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
@@ -267,7 +291,7 @@ BOOL isDatabaseBusy;
         NSLog(@"^LOAD");
         [[NSOperationQueue new] addOperationWithBlock:^{
             isDatabaseBusy = YES;
-            self.viewSwitchButton.enabled = NO;
+            [self hideOutViewButton];
             
             if (shouldReloadAvatars)
             {
@@ -305,24 +329,27 @@ BOOL isDatabaseBusy;
                 
                 for (id absence in absencesAndLates[@"absences"])
                 {
-                    [RMAbsence mapFromJSON:absence];
+                    RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
+                    rm.isTomorrow = [NSNumber numberWithBool:NO];
                 }
                 
                 for (id late in absencesAndLates[@"lates"])
                 {
-                    [RMLate mapFromJSON:late];
+                    RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
+                    rm.isTomorrow = [NSNumber numberWithBool:NO];
                 }
                 
+                for (id absence in absencesAndLates[@"absences_tomorrow"])
+                {
+                    RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
+                    rm.isTomorrow = [NSNumber numberWithBool:YES];
+                }
                 
-//                for (id absence in absencesAndLates[@"absences_tomorrow"])
-//                {
-//                    [RMAbsence mapFromJSON:absence];
-//                }
-//                
-//                for (id late in absencesAndLates[@"lates_tomorrow"])
-//                {
-//                    [RMLate mapFromJSON:late];
-//                }
+                for (id late in absencesAndLates[@"lates_tomorrow"])
+                {
+                    RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
+                    rm.isTomorrow = [NSNumber numberWithBool:YES];
+                }
 
                 [[DatabaseManager sharedManager] saveContext];
                 
@@ -332,7 +359,7 @@ BOOL isDatabaseBusy;
                         [self informStopDownloading];
                         
                         isDatabaseBusy = NO;
-                        self.viewSwitchButton.enabled = YES;
+                        [self showOutViewButton];
                     }
                 }];
             }
@@ -448,13 +475,13 @@ BOOL isDatabaseBusy;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (isOutView)
+    if (currentListState == ListStateAll)
     {
-        return [_userList count];
+        return 1;
     }
     else
     {
-        return 1;
+        return [_userList count];
     }
 }
 
@@ -462,13 +489,13 @@ BOOL isDatabaseBusy;
 {
     NSInteger number;
     
-    if (isOutView)
+    if (currentListState == ListStateAll)
     {
-        number = [_userList[section] count];
+        number = _userList.count;
     }
     else
     {
-        number = _userList.count;
+        number = [_userList[section] count];
     }
     
     if (number == 0 && canShowNoResultsMessage)
@@ -497,8 +524,6 @@ BOOL isDatabaseBusy;
 {
     static NSString *CellIdentifier = @"UserCell";
     
-    NSLog(@"%@", tableView);
-    
     UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (!cell)
@@ -508,13 +533,13 @@ BOOL isDatabaseBusy;
     
     RMUser *user;
     
-    if (isOutView)
+    if (currentListState == ListStateAll)
     {
-        user = _userList[indexPath.section][indexPath.row];
+        user = _userList[indexPath.row];
     }
     else
     {
-        user = _userList[indexPath.row];
+        user = _userList[indexPath.section][indexPath.row];
     }
     
     cell.userName.text = user.name;
@@ -571,24 +596,24 @@ BOOL isDatabaseBusy;
             }];
         };
         
-        if (isOutView)
-        {
-            if (indexPath.section == 1 || indexPath.section == 2)
-            {
-                setLates();
-            }
-            else if (indexPath.section == 0)
-            {
-                setAbsences();
-            }
-        }
-        else
+        if (currentListState == ListStateAll)
         {
             if (user.lates.count)
             {
                 setLates();
             }
             else if (user.absences.count)
+            {
+                setAbsences();
+            }
+        }
+        else
+        {
+            if (indexPath.section == 1 || indexPath.section == 2)
+            {
+                setLates();
+            }
+            else if (indexPath.section == 0)
             {
                 setAbsences();
             }
@@ -620,7 +645,7 @@ BOOL isDatabaseBusy;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (isOutView)
+    if (currentListState != ListStateAll)
     {
         switch (section)
         {
@@ -655,7 +680,11 @@ BOOL isDatabaseBusy;
         
         currentIndexPath = indexPath;
         
-        if (isOutView)
+        if (currentListState == ListStateAll)
+        {
+            ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
+        }
+        else
         {
             if (indexPath.section == 0)
             {
@@ -663,10 +692,6 @@ BOOL isDatabaseBusy;
             }
             
             ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
-        }
-        else
-        {
-            ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.row];
         }
     }
 }
@@ -782,6 +807,62 @@ BOOL isDatabaseBusy;
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:IS_REFRESH_PEOPLE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:DID_END_REFRESH_PEOPLE object:self];
+}
+
+- (void)showOutViewButton
+{
+    [self performBlockOnMainThread:^{
+        switch (currentListState)
+        {
+            case ListStateAll:
+                [self.viewSwitchButton setTitle:@"Out"];
+                self.title = @"All";
+                [self addRefreshControl];
+                
+                break;
+                
+            case ListStateOutToday:
+                [self.viewSwitchButton setTitle:@"Tomorrow"];
+                self.title = @"Out";
+                self.refreshControl = nil;
+                
+                break;
+                
+            case ListStateOutTomorrow:
+                [self.viewSwitchButton setTitle:@"All"];
+                self.title = @"Tomorrow";
+
+                break;
+        }
+        
+        self.viewSwitchButton.enabled = YES;
+        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
+    } afterDelay:0];
+}
+
+- (void)hideOutViewButton
+{
+    [self performBlockOnMainThread:^{
+        self.viewSwitchButton.enabled = NO;
+        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
+    } afterDelay:0];
+}
+
+- (ListState)nextListState
+{
+    switch (currentListState)
+    {
+        case ListStateAll:
+            return ListStateOutToday;
+            
+        case ListStateOutToday:
+            return ListStateOutTomorrow;
+            
+        case ListStateOutTomorrow:
+            return ListStateAll;
+    }
+    
+    return ListStateAll;
 }
 
 @end

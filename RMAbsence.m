@@ -2,8 +2,8 @@
 //  RMAbsence.m
 //  Intranet
 //
-//  Created by Dawid Żakowski on 30/10/2013.
-//  Copyright (c) 2013 STXNext. All rights reserved.
+//  Created by Adam on 27.11.2014.
+//  Copyright (c) 2014 STXNext. All rights reserved.
 //
 
 #import "RMAbsence.h"
@@ -12,10 +12,11 @@
 
 @implementation RMAbsence
 
+@dynamic id;
+@dynamic remarks;
 @dynamic start;
 @dynamic stop;
-@dynamic remarks;
-@dynamic id;
+@dynamic isTomorrow;
 @dynamic user;
 
 @end

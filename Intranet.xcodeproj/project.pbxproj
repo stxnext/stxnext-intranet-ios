@@ -36,8 +36,6 @@
 		0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA48182144E20056F907 /* Database.xcdatamodeld */; };
 		0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */; };
 		0CF7FA6218214B200056F907 /* RMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6118214B200056F907 /* RMUser.m */; };
-		0CF7FA6518214B300056F907 /* RMLate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6418214B300056F907 /* RMLate.m */; };
-		0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6718214B370056F907 /* RMAbsence.m */; };
 		0CF7FA6B18214CDF0056F907 /* RMUser+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */; };
 		0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA6D18214D060056F907 /* RMLate+Additions.m */; };
 		0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */; };
@@ -76,6 +74,8 @@
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
 		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
+		66360E451A2757CB00417B75 /* RMLate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E441A2757CB00417B75 /* RMLate.m */; };
+		66360E481A2757CC00417B75 /* RMAbsence.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E471A2757CC00417B75 /* RMAbsence.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
@@ -138,10 +138,6 @@
 		0CF7FA5B18214AAF0056F907 /* JSONSerializationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSerializationHelper.m; sourceTree = "<group>"; };
 		0CF7FA6018214B200056F907 /* RMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMUser.h; sourceTree = "<group>"; };
 		0CF7FA6118214B200056F907 /* RMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMUser.m; sourceTree = "<group>"; };
-		0CF7FA6318214B300056F907 /* RMLate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLate.h; sourceTree = "<group>"; };
-		0CF7FA6418214B300056F907 /* RMLate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLate.m; sourceTree = "<group>"; };
-		0CF7FA6618214B370056F907 /* RMAbsence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbsence.h; sourceTree = "<group>"; };
-		0CF7FA6718214B370056F907 /* RMAbsence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbsence.m; sourceTree = "<group>"; };
 		0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+Additions.h"; sourceTree = "<group>"; };
 		0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+Additions.m"; sourceTree = "<group>"; };
 		0CF7FA6C18214D060056F907 /* RMLate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMLate+Additions.h"; sourceTree = "<group>"; };
@@ -199,10 +195,15 @@
 		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
 		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
+		66360E431A2757CB00417B75 /* RMLate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLate.h; sourceTree = "<group>"; };
+		66360E441A2757CB00417B75 /* RMLate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLate.m; sourceTree = "<group>"; };
+		66360E461A2757CC00417B75 /* RMAbsence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbsence.h; sourceTree = "<group>"; };
+		66360E471A2757CC00417B75 /* RMAbsence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbsence.m; sourceTree = "<group>"; };
 		663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlocks.h"; sourceTree = "<group>"; };
 		663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlocks.m"; sourceTree = "<group>"; };
 		66515F1818B38A7700092BB2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		66515F1918B38A7700092BB2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		6659A1DD1A275B27008ED851 /* Database 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Database 2.xcdatamodel"; sourceTree = "<group>"; };
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		6675937D19E6BAD9004603C5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -247,20 +248,20 @@
 		0C43A79C1822618700FB513D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				66360E461A2757CC00417B75 /* RMAbsence.h */,
 				0CF7FA6F18214D2B0056F907 /* RMAbsence+Additions.h */,
-				0CF7FA6618214B370056F907 /* RMAbsence.h */,
+				66360E431A2757CB00417B75 /* RMLate.h */,
 				0CF7FA6C18214D060056F907 /* RMLate+Additions.h */,
-				0CF7FA6318214B300056F907 /* RMLate.h */,
+				0CF7FA6018214B200056F907 /* RMUser.h */,
 				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
 				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
-				0CF7FA6018214B200056F907 /* RMUser.h */,
+				66360E471A2757CC00417B75 /* RMAbsence.m */,
 				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
-				0CF7FA6718214B370056F907 /* RMAbsence.m */,
+				66360E441A2757CB00417B75 /* RMLate.m */,
 				0CF7FA6D18214D060056F907 /* RMLate+Additions.m */,
-				0CF7FA6418214B300056F907 /* RMLate.m */,
+				0CF7FA6118214B200056F907 /* RMUser.m */,
 				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
-				0CF7FA6118214B200056F907 /* RMUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -651,6 +652,7 @@
 				6612D00419A71A3100A5FD23 /* NSString+MyRegex.m in Sources */,
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
+				66360E451A2757CB00417B75 /* RMLate.m in Sources */,
 				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
@@ -666,11 +668,10 @@
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
+				66360E481A2757CC00417B75 /* RMAbsence.m in Sources */,
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
-				0CF7FA6518214B300056F907 /* RMLate.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
-				0CF7FA6818214B370056F907 /* RMAbsence.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
@@ -861,9 +862,10 @@
 		0CF7FA48182144E20056F907 /* Database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6659A1DD1A275B27008ED851 /* Database 2.xcdatamodel */,
 				0CF7FA49182144E20056F907 /* Database.xcdatamodel */,
 			);
-			currentVersion = 0CF7FA49182144E20056F907 /* Database.xcdatamodel */;
+			currentVersion = 6659A1DD1A275B27008ED851 /* Database 2.xcdatamodel */;
 			path = Database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

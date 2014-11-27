@@ -11,11 +11,17 @@
 #import "UserDetailsTableViewController.h"
 #import "UserListCell.h"
 
+typedef NS_ENUM(NSUInteger, ListState) {
+    ListStateOutToday,
+    ListStateOutTomorrow,
+};
+
 @interface OutOfOfficeTodayTableViewController ()
 {
     NSIndexPath *currentIndexPath;
     BOOL canShowNoResultsMessage;
     NSString *searchedString;
+    ListState currentListState;
 }
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
@@ -31,7 +37,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
 
-    self.title = @"Out";
+    currentListState = ListStateOutToday;
+    [self showOutViewButton];
     
     [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
@@ -59,7 +66,16 @@
     
     NSLog(@"Loading from: Database");
 
-    _userList = [RMUser loadOutOffOfficePeople];
+    switch (currentListState)
+    {
+        case ListStateOutToday:
+            _userList = [RMUser loadTodayOutOffOfficePeople];
+            break;
+            
+        case ListStateOutTomorrow:
+            _userList = [RMUser loadTomorrowOutOffOfficePeople];
+            break;
+    }
     
     if (searchedString.length > 0)
     {
@@ -342,4 +358,60 @@
     [self.activityIndicator removeFromSuperview];
 }
 
+- (IBAction)changeView:(id)sender
+{
+    currentListState = [self nextListState];
+    [self showOutViewButton];
+    
+    [self loadUsersFromDatabase];
+}
+
+- (void)showOutViewButton
+{
+    [self performBlockOnMainThread:^{
+        switch (currentListState)
+        {
+            case ListStateOutToday:
+                [self.viewSwitchButton setTitle:@"Tomorrow"];
+                self.title = @"Today";
+                self.refreshControl = nil;
+                
+                break;
+                
+            case ListStateOutTomorrow:
+                [self.viewSwitchButton setTitle:@"Today"];
+                self.title = @"Tomorrow";
+                
+                break;
+        }
+        
+        self.viewSwitchButton.enabled = YES;
+        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
+    } afterDelay:0];
+}
+
+- (void)hideOutViewButton
+{
+    [self performBlockOnMainThread:^{
+        self.viewSwitchButton.enabled = NO;
+        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
+    } afterDelay:0];
+}
+
+- (ListState)nextListState
+{
+    switch (currentListState)
+    {
+            
+        case ListStateOutToday:
+            return ListStateOutTomorrow;
+            
+        case ListStateOutTomorrow:
+            return ListStateOutToday;
+    }
+    
+    return ListStateOutToday;
+}
+
 @end
+
