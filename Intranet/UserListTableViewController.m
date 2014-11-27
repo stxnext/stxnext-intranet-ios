@@ -229,8 +229,15 @@ static CGFloat tabBarHeight;
     }
     
     NSLog(@"Loading from: Database: %lu", (unsigned long)_userList.count);
-    
-    [_tableView reloadData];
+
+    if (searchedString.length > 0)
+    {
+        [self.searchDisplayController.searchResultsTableView reloadData];
+    }
+    else
+    {
+        [_tableView reloadData];
+    }
 }
 
 BOOL isDatabaseBusy;
@@ -290,7 +297,7 @@ BOOL isDatabaseBusy;
                 
                 [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
                                                inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-        
+                
                 for (id user in users[@"users"])
                 {
                     [RMUser mapFromJSON:user];
@@ -306,6 +313,18 @@ BOOL isDatabaseBusy;
                     [RMLate mapFromJSON:late];
                 }
                 
+                
+                for (id absence in absencesAndLates[@"absences_tomorrow"])
+                {
+                    [RMAbsence mapFromJSON:absence];
+                }
+                
+                for (id late in absencesAndLates[@"lates_tomorrow"])
+                {
+                    [RMLate mapFromJSON:late];
+                }
+                
+
                 [[DatabaseManager sharedManager] saveContext];
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -428,7 +447,6 @@ BOOL isDatabaseBusy;
 
 #pragma mark - Table view data source
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (isOutView)
@@ -443,53 +461,44 @@ BOOL isDatabaseBusy;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger number;
+    
     if (isOutView)
     {
-        NSInteger number = [_userList[section] count];
-        NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
-        
-        if (count == 0 && section == 0)//show once
-        {
-            [UIAlertView showWithTitle:@"Info"
-                               message:@"Nothing to show."
-                                 style:UIAlertViewStyleDefault
-                     cancelButtonTitle:nil
-                     otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                     }];
-        }
-        
-        return number;
+        number = [_userList[section] count];
     }
     else
     {
-        NSInteger number = _userList.count;
-        
-        if (number == 0 && canShowNoResultsMessage)
-        {
-            [UIAlertView showWithTitle:@"Info"
-                               message:@"Nothing to show."
-                                 style:UIAlertViewStyleDefault
-                     cancelButtonTitle:nil
-                     otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                         canShowNoResultsMessage = NO;
-                         [self performBlockOnMainThread:^{
-                             [self loadUsersFromDatabase];
-                         } afterDelay:0.75];
-                     }];
-        }
-        
-        if (number)
-        {
-            canShowNoResultsMessage = NO;
-        }
-        
-        return number;
+        number = _userList.count;
     }
+    
+    if (number == 0 && canShowNoResultsMessage)
+    {
+        [UIAlertView showWithTitle:@"Info"
+                           message:@"Nothing to show."
+                             style:UIAlertViewStyleDefault
+                 cancelButtonTitle:nil
+                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                     canShowNoResultsMessage = NO;
+                     [self performBlockOnMainThread:^{
+                         [self loadUsersFromDatabase];
+                     } afterDelay:0.75];
+                 }];
+    }
+    
+    if (number)
+    {
+        canShowNoResultsMessage = NO;
+    }
+    
+    return number;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"UserCell";
+    
+    NSLog(@"%@", tableView);
     
     UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -610,7 +619,6 @@ BOOL isDatabaseBusy;
 {
     return _tableView.rowHeight;
 }
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {

@@ -17,6 +17,7 @@
 
 + (DatabaseManager*)sharedManager;
 - (NSManagedObjectContext*)managedObjectContext;
+- (NSManagedObjectModel *)managedObjectModel;
 - (void)saveContext;
 
 @end
