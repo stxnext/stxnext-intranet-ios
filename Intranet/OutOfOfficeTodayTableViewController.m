@@ -14,6 +14,8 @@
 @interface OutOfOfficeTodayTableViewController ()
 {
     NSIndexPath *currentIndexPath;
+    BOOL canShowNoResultsMessage;
+    NSString *searchedString;
 }
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
@@ -32,6 +34,7 @@
     self.title = @"Out";
     
     [self.tableView hideEmptySeparators];
+    [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -55,65 +58,21 @@
     }
     
     NSLog(@"Loading from: Database");
-    /*
-    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                             ascending:YES
-                                                                                              selector:@selector(localizedCompare:)]
-                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-
-    _userList = [[NSMutableArray alloc] init];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
-
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
-        
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 1)
-                {
-                    return YES;
-                }
-            }
-        }
-        
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
-        
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
-        
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 0)
-                {
-                    return YES;
-                }
-            }
-        }
-        
-        return NO;
-    }]]?:[[NSArray alloc] init]];*/
 
     _userList = [RMUser loadOutOffOfficePeople];
     
-    [self.tableView reloadData];
+    if (searchedString.length > 0)
+    {
+        [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+        [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+        [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+
+            [self.searchDisplayController.searchResultsTableView reloadData];
+    }
+    else
+    {
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Table view data source
@@ -128,7 +87,7 @@
     NSInteger number = [_userList[section] count];
     NSInteger count = [_userList[0] count] + [_userList[1] count] + [_userList[2] count];
     
-    if (count == 0 && section == 0)//show once
+    if (count == 0 && section == 0 && canShowNoResultsMessage)//show once
     {
         [UIAlertView showWithTitle:@"Info"
                            message:@"Nothing to show."
@@ -136,6 +95,11 @@
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                  }];
+    }
+    
+    if (number)
+    {
+        canShowNoResultsMessage = NO;
     }
     
     return number;
@@ -238,6 +202,29 @@
     }
     
     return @"";
+}
+
+
+#pragma mark - Search management
+
+- (void)reloadSearchWithText:(NSString *)text
+{
+    canShowNoResultsMessage = NO;
+    searchedString = text;
+    
+    [self loadUsersFromDatabase];
+}
+
+#pragma mark - Search bar delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self reloadSearchWithText:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [self reloadSearchWithText:@""];
 }
 
 #pragma mark - Storyboard

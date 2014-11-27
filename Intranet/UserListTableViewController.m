@@ -314,16 +314,15 @@ BOOL isDatabaseBusy;
                 }
                 
                 
-                for (id absence in absencesAndLates[@"absences_tomorrow"])
-                {
-                    [RMAbsence mapFromJSON:absence];
-                }
-                
-                for (id late in absencesAndLates[@"lates_tomorrow"])
-                {
-                    [RMLate mapFromJSON:late];
-                }
-                
+//                for (id absence in absencesAndLates[@"absences_tomorrow"])
+//                {
+//                    [RMAbsence mapFromJSON:absence];
+//                }
+//                
+//                for (id late in absencesAndLates[@"lates_tomorrow"])
+//                {
+//                    [RMLate mapFromJSON:late];
+//                }
 
                 [[DatabaseManager sharedManager] saveContext];
                 
@@ -517,7 +516,6 @@ BOOL isDatabaseBusy;
     {
         user = _userList[indexPath.row];
     }
-
     
     cell.userName.text = user.name;
     
