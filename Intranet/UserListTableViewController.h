@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListTableViewController.h"
 #import "LoginViewController.h"
 
-@interface UserListTableViewController : UITableViewController <LoginViewControllerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+@interface UserListTableViewController : ListTableViewController <LoginViewControllerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 {
-    IBOutlet UITableView *_tableView;
     IBOutlet UIBarButtonItem *_showActionButton;
     __weak IBOutlet UIBarButtonItem *_showPlanningPokerButton;
     
@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) UIActionSheet *requestActionSheet;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
 
 - (IBAction)showPlaningPoker:(id)sender;
 - (IBAction)changeView:(id)sender;

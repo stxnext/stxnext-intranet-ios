@@ -81,6 +81,7 @@
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 		6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6675937D19E6BAD9004603C5 /* CoreTelephony.framework */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
+		66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A83E271A28945D00B53A65 /* ListTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
 		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
 		66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D318A4D0ED00049C37 /* Images.xcassets */; };
@@ -209,6 +210,8 @@
 		6675937D19E6BAD9004603C5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
+		66A83E261A28945D00B53A65 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
+		66A83E271A28945D00B53A65 /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
 		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
 		66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerViewController.m; sourceTree = "<group>"; };
 		66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaningPokerViewController.xib; sourceTree = "<group>"; };
@@ -387,12 +390,14 @@
 		0CF44E89181FE4BB005CC12B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				66A83E261A28945D00B53A65 /* ListTableViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
 				66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
+				66A83E271A28945D00B53A65 /* ListTableViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
 				66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
@@ -643,6 +648,7 @@
 				6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */,
 				66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */,
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
+				66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,

@@ -7,14 +7,6 @@
 //
 
 #import "OutOfOfficeTodayTableViewController.h"
-#import "AddOOOFormTableViewController.h"
-#import "UserDetailsTableViewController.h"
-#import "UserListCell.h"
-
-typedef NS_ENUM(NSUInteger, ListState) {
-    ListStateOutToday,
-    ListStateOutTomorrow,
-};
 
 @interface OutOfOfficeTodayTableViewController ()
 {
@@ -304,15 +296,6 @@ typedef NS_ENUM(NSUInteger, ListState) {
 {
     if (buttonIndex != 2)
     {
-        /*
-        UIViewController *_vc = [[UIViewController alloc] init];
-        UINavigationController *_nvc = [[UINavigationController alloc] initWithRootViewController:_vc];
-        
-        [self presentViewController:_nvc animated:YES completion:nil];
-        
-        return;
-        */
-        
         UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
         
         [self presentViewController:nvc animated:YES completion:nil];
@@ -326,8 +309,6 @@ typedef NS_ENUM(NSUInteger, ListState) {
 
 - (void)didStartRefreshPeople
 {
-    NSLog(@"START LOAD NOTIFICATION");
-    
     if (_userList.count == 0)
     {
         [self addActivityIndicator];
@@ -336,7 +317,6 @@ typedef NS_ENUM(NSUInteger, ListState) {
 
 - (void)didEndRefreshPeople
 {
-    NSLog(@"END LOAD NOTIFICATION");
     [self loadUsersFromDatabase];
     [self removeActivityIndicator];
 }
@@ -386,14 +366,6 @@ typedef NS_ENUM(NSUInteger, ListState) {
         }
         
         self.viewSwitchButton.enabled = YES;
-        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
-    } afterDelay:0];
-}
-
-- (void)hideOutViewButton
-{
-    [self performBlockOnMainThread:^{
-        self.viewSwitchButton.enabled = NO;
         [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
     } afterDelay:0];
 }

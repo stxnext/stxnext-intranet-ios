@@ -168,7 +168,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="_tableView" destination="Jc2-ow-AJA" id="tYy-kS-jjn"/>
                         <outlet property="addRequestButton" destination="oNQ-VK-UX0" id="WMt-wL-9Xo"/>
                         <outlet property="searchDisplayController" destination="ejg-3B-6c3" id="vlo-u8-toG"/>
                         <outlet property="viewSwitchButton" destination="BRh-qy-z8A" id="12O-nK-yrF"/>

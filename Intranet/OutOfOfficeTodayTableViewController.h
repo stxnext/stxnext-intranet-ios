@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListTableViewController.h"
 
-@interface OutOfOfficeTodayTableViewController : UITableViewController <UIActionSheetDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface OutOfOfficeTodayTableViewController : ListTableViewController <UIActionSheetDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *_userList;
 }
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
+
 
 - (IBAction)changeView:(id)sender;
 

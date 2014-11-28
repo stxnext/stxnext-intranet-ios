@@ -92,9 +92,6 @@ const NSString* MapKeyUserGroups = @"groups";
                                           }
                                           
                                           user.groups = _tempGroupArray;
-
-//                                          user.roles = [json[MapKeyUserRoles] validObject];
-//                                          user.groups = [json[MapKeyUserGroups] validObject];
                                       }];
 }
 
@@ -151,107 +148,16 @@ const NSString* MapKeyUserGroups = @"groups";
                                  userInfo:nil];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 + (NSMutableArray *)loadTodayOutOffOfficePeople
 {
-    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                             ascending:YES
-                                                                                              selector:@selector(localizedCompare:)]
-                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-
-    
-   NSMutableArray *_userList = [[NSMutableArray alloc] init];
-    
-//    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO && absences.@count > 0"]] ?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
-        
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES || user.absences.count == 0)
-        {
-            return NO;
-        }
-        
-        
-        for (RMAbsence *absence in user.absences)
-        {
-            if ([absence.isTomorrow boolValue] == NO)
-            {
-                return YES;
-            }
-        }
-        
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-    
-    
-    
-    
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
-        
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
-        
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 1 && [late.isTomorrow boolValue] == NO)
-                {
-                    return YES;
-                }
-            }
-        }
-        
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-    
-    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RMUser *user = (RMUser *)evaluatedObject;
-        
-        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
-        {
-            return NO;
-        }
-        
-        if (user.lates.count)
-        {
-            for (RMLate *late in user.lates)
-            {
-                if ([late.isWorkingFromHome intValue] == 0 && [late.isTomorrow boolValue] == NO)
-                {
-                    return YES;
-                }
-            }
-        }
-        
-        return NO;
-    }]]?:[[NSArray alloc] init]];
-
-    return [NSMutableArray arrayWithArray:_userList];
+    return [RMUser loadOutOffOfficePeopleWithTommorow:NO];
+}
++ (NSMutableArray *)loadTomorrowOutOffOfficePeople
+{
+    return [RMUser loadOutOffOfficePeopleWithTommorow:YES];
 }
 
-+ (NSMutableArray *)loadTomorrowOutOffOfficePeople
++ (NSMutableArray *)loadOutOffOfficePeopleWithTommorow:(BOOL)tomorow
 {
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -259,7 +165,6 @@ const NSString* MapKeyUserGroups = @"groups";
                                                                                               selector:@selector(localizedCompare:)]
                                                  withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-    
     
     NSMutableArray *_userList = [[NSMutableArray alloc] init];
     
@@ -273,7 +178,7 @@ const NSString* MapKeyUserGroups = @"groups";
         
         for (RMAbsence *absence in user.absences)
         {
-            if ([absence.isTomorrow boolValue] == YES)
+            if ([absence.isTomorrow boolValue] == tomorow)
             {
                 return YES;
             }
@@ -281,10 +186,6 @@ const NSString* MapKeyUserGroups = @"groups";
         
         return NO;
     }]]?:[[NSArray alloc] init]];
-    
-    
-    
-    
     
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         RMUser *user = (RMUser *)evaluatedObject;
@@ -298,7 +199,7 @@ const NSString* MapKeyUserGroups = @"groups";
         {
             for (RMLate *late in user.lates)
             {
-                if ([late.isWorkingFromHome intValue] == 1 && [late.isTomorrow boolValue] == YES)
+                if ([late.isWorkingFromHome intValue] == 1 && [late.isTomorrow boolValue] == tomorow)
                 {
                     return YES;
                 }
@@ -320,7 +221,7 @@ const NSString* MapKeyUserGroups = @"groups";
         {
             for (RMLate *late in user.lates)
             {
-                if ([late.isWorkingFromHome intValue] == 0 && [late.isTomorrow boolValue] == YES)
+                if ([late.isWorkingFromHome intValue] == 0 && [late.isTomorrow boolValue] == tomorow)
                 {
                     return YES;
                 }

@@ -7,24 +7,17 @@
 //
 
 #import "UserListTableViewController.h"
+
 #import "APIRequest.h"
 #import "AFHTTPRequestOperation+Redirect.h"
-#import "UserListCell.h"
-#import "UserDetailsTableViewController.h"
 #import "PlaningPokerViewController.h"
 #import "UIView+Screenshot.h"
 #import "AppDelegate+Settings.h"
-#import "AddOOOFormTableViewController.h"
 
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
 static CGFloat tabBarHeight;
 
-typedef NS_ENUM(NSUInteger, ListState) {
-    ListStateAll,
-    ListStateOutToday,
-    ListStateOutTomorrow,
-};
 
 @implementation UserListTableViewController
 {
@@ -35,10 +28,9 @@ typedef NS_ENUM(NSUInteger, ListState) {
     NSIndexPath *currentIndexPath;
     NSMutableArray *avatarsToRefresh;
     BOOL shouldReloadAvatars;
-//    BOOL isOutView;
     ListState currentListState;
+    BOOL isDatabaseBusy;
 }
-
 
 - (void)viewDidLoad
 {
@@ -56,7 +48,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
     
     [self addRefreshControl];
     
-    [_tableView hideEmptySeparators];
+    [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
     currentListState = ListStateAll;
@@ -84,7 +76,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
     
     if (currentIndexPath)
     {
-        [_tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
+        [self.tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
         currentIndexPath = nil;
     }
 }
@@ -260,11 +252,9 @@ typedef NS_ENUM(NSUInteger, ListState) {
     }
     else
     {
-        [_tableView reloadData];
+        [self.tableView reloadData];
     }
 }
-
-BOOL isDatabaseBusy;
 
 - (void)loadUsersFromAPI
 {
@@ -437,7 +427,7 @@ BOOL isDatabaseBusy;
     
     [self loadUsersFromDatabase];
     
-    [_tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 - (void)closePopover
@@ -524,7 +514,7 @@ BOOL isDatabaseBusy;
 {
     static NSString *CellIdentifier = @"UserCell";
     
-    UserListCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UserListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (!cell)
     {
@@ -640,7 +630,7 @@ BOOL isDatabaseBusy;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return _tableView.rowHeight;
+    return self.tableView.rowHeight;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -671,7 +661,7 @@ BOOL isDatabaseBusy;
     {
         UserListCell *cell = (UserListCell *)sender;
         
-        NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
         if (indexPath == nil)
         {
@@ -836,14 +826,6 @@ BOOL isDatabaseBusy;
         }
         
         self.viewSwitchButton.enabled = YES;
-        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
-    } afterDelay:0];
-}
-
-- (void)hideOutViewButton
-{
-    [self performBlockOnMainThread:^{
-        self.viewSwitchButton.enabled = NO;
         [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
     } afterDelay:0];
 }
