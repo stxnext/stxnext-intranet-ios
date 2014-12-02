@@ -14,6 +14,7 @@
 #import "UIView+Screenshot.h"
 #import "AppDelegate+Settings.h"
 
+
 static CGFloat statusBarHeight;
 static CGFloat navBarHeight;
 static CGFloat tabBarHeight;
@@ -60,7 +61,9 @@ static CGFloat tabBarHeight;
         [self loadUsersFromDatabase];
 
         [self performBlockInCurrentThread:^{
-            [self loadUsersFromAPI];
+            [self loadUsersFromAPI:^{
+                [self stopRefreshData];
+            }];
         } afterDelay:1];
     }
     
@@ -112,16 +115,17 @@ static CGFloat tabBarHeight;
     
     [self loadUsersFromDatabase];
 }
-
 - (void)addRefreshControl
 {
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
-    [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-    _refreshControl = refreshControl;
-    self.refreshControl = refreshControl;
+    if (self.refreshControl == nil)
+    {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+        [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+        _refreshControl = refreshControl;
+        self.refreshControl = refreshControl;
+    }
 }
-
 
 #pragma mark Login delegate
 
@@ -157,7 +161,9 @@ static CGFloat tabBarHeight;
                                               
                                               [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
                                               
-                                              [self loadUsersFromAPI];
+                                              [self loadUsersFromAPI:^{
+                                                  [self stopRefreshData];
+                                              }];
                                           }
                                           else
                                           {
@@ -166,7 +172,9 @@ static CGFloat tabBarHeight;
                                               
                                               [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
                                               
-                                              [self loadUsersFromAPI];
+                                              [self loadUsersFromAPI:^{
+                                                  [self stopRefreshData];
+                                              }];
                                           }
                                       }];
 }
@@ -178,17 +186,21 @@ static CGFloat tabBarHeight;
     _showActionButton.enabled = NO;
     _showPlanningPokerButton.enabled = NO;
     
-    [self loadUsersFromAPI];
+    [self loadUsersFromAPI:^{
+        [self stopRefreshData];
+    }];
     
     shouldReloadAvatars = YES;
 }
 
 - (void)stopRefreshData
 {
-    [_refreshControl endRefreshing];
-    
-    _showActionButton.enabled = YES;
-    _showPlanningPokerButton.enabled = YES;
+//    [self performBlockOnMainThread:^{
+        [_refreshControl endRefreshing];
+        
+        _showActionButton.enabled = YES;
+        _showPlanningPokerButton.enabled = YES;
+//    } afterDelay:1];
 }
 
 #pragma mark - LoadUsers
@@ -256,7 +268,7 @@ static CGFloat tabBarHeight;
     }
 }
 
-- (void)loadUsersFromAPI
+- (void)loadUsersFromAPI:(void (^)(void))endAction
 {
     isDatabaseBusy = NO;
     [self showOutViewButton];
@@ -264,8 +276,9 @@ static CGFloat tabBarHeight;
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
-        [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
-
+//        [self stopRefreshData];
+        endAction();
+        
         return;
     }
     
@@ -286,6 +299,7 @@ static CGFloat tabBarHeight;
             if (shouldReloadAvatars)
             {
                 avatarsToRefresh = [NSMutableArray new];
+                [[UIImageView sharedCookies] removeAllObjects];
                 
                 NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                                        withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -350,6 +364,8 @@ static CGFloat tabBarHeight;
                         
                         isDatabaseBusy = NO;
                         [self showOutViewButton];
+//                        [self stopRefreshData]; ////////////
+                        endAction();
                     }
                 }];
             }
@@ -362,19 +378,18 @@ static CGFloat tabBarHeight;
                                           NSLog(@"Loaded: users");
                                           
                                           users = responseObject;
-
+                                          
                                           if (--operations == 0)
                                           {
                                               NSLog(@"LOAD");
                                               load();
                                               
-                                              [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+//                                              [self stopRefreshData];
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
                                           NSLog(@"Users API Loading Error");
-                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
                                           
                                           if ([operation redirectToLoginView])
                                           {
@@ -385,33 +400,36 @@ static CGFloat tabBarHeight;
                                           
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           
-                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+//                                          [self stopRefreshData];
+                                                  endAction();
                                           
                                           [self informStopDownloading];
                                       }];
     
     [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+                                          
                                           absencesAndLates = responseObject;
                                           
                                           NSLog(@"Loaded: absences and lates");
-
+                                          
                                           if (--operations == 0)
                                           {
                                               NSLog(@"LOAD");
                                               load();
                                               
-                                              [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+//                                              [self stopRefreshData];
+                                              
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
                                           NSLog(@"Presence API Loading Error");
-
+                                          
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           
-                                          [self performSelector:@selector(stopRefreshData) withObject:nil afterDelay:0.5];
+//                                          [self stopRefreshData];
+                                                  endAction();
                                           
                                           [self informStopDownloading];
                                       }];
@@ -516,11 +534,6 @@ static CGFloat tabBarHeight;
     
     UserListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (!cell)
-    {
-        cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
     RMUser *user;
     
     if (currentListState == ListStateAll)
@@ -531,13 +544,10 @@ static CGFloat tabBarHeight;
     {
         user = _userList[indexPath.section][indexPath.row];
     }
-    
+
     cell.userName.text = user.name;
     
-    cell.userImage.layer.cornerRadius = 5;
-    cell.userImage.clipsToBounds = YES;
-    cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    cell.userImage.layer.borderWidth = 1;
+    [cell.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
     
     if (!isDatabaseBusy)
     {
@@ -557,13 +567,19 @@ static CGFloat tabBarHeight;
             [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMAbsence *absence = (RMAbsence *)obj;
                 
-                NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-                
-                if (start.length || stop.length)
+                if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO)
+                    ||
+                    (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES)
+                    )
                 {
-                    [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
+                    NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                    NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                    
+                    if (start.length || stop.length)
+                    {
+                        [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
+                         stop.length ? stop : @"..."];
+                    }
                 }
             }];
             
@@ -575,13 +591,19 @@ static CGFloat tabBarHeight;
             [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMLate *late = (RMLate *)obj;
                 
-                NSString *start = [latesDateFormater stringFromDate:late.start];
-                NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                
-                if (start.length || stop.length)
+                if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO)
+                    ||
+                    (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES)
+                    )
                 {
-                    [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
+                    NSString *start = [latesDateFormater stringFromDate:late.start];
+                    NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                    
+                    if (start.length || stop.length)
+                    {
+                        [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
+                         stop.length ? stop : @"..."];
+                    }
                 }
             }];
         };
@@ -613,18 +635,19 @@ static CGFloat tabBarHeight;
 
         cell.warningDateLabel.text = hours;
     }
-    
+
     if (user.avatarURL)
     {
         BOOL refresh = [avatarsToRefresh containsObject:user.id];
-        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL] forceRefresh:refresh];
+        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]
+                                       forceRefresh:refresh];
         
         if (refresh)
         {
             [avatarsToRefresh removeObject:user.id];
         }
     }
-        
+    
     return cell;
 }
 
@@ -683,6 +706,8 @@ static CGFloat tabBarHeight;
             
             ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
         }
+        
+        ((UserDetailsTableViewController *)segue.destinationViewController).isListStateTommorow = currentListState == ListStateOutTomorrow;
     }
 }
 

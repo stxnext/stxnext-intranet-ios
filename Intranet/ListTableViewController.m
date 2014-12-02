@@ -14,8 +14,6 @@
 
 @implementation ListTableViewController
 
-
-
 - (void)hideOutViewButton
 {
     [self performBlockOnMainThread:^{

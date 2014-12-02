@@ -7,6 +7,7 @@
 //
 #include <sys/xattr.h>
 #import "UIImageView+NetworkCookies.h"
+#import "UIImageView+WebCache.h"
 
 static NSString *documentDirectoryPath;
 @implementation UIImageView (NetworkCookies)
@@ -21,18 +22,54 @@ static NSString *documentDirectoryPath;
     return documentDirectoryPath;
 }
 
++ (NSMutableDictionary *)sharedCookies
+{
+    static NSMutableDictionary *_sharedCookies = nil;
+    static dispatch_once_t oncePredicate;
+
+    dispatch_once(&oncePredicate, ^{
+        _sharedCookies = [[NSMutableDictionary alloc] init];
+    });
+    
+    return _sharedCookies;
+}
+
 - (void)setImageUsingCookiesWithURL:(NSURL*)url forceRefresh:(BOOL)refresh
 {
+//    [self sd_setImageWithURL:[NSURL URLWithString:@"http://img1.wikia.nocookie.net/__cb20130611173955/4-fun/pl/images/8/8c/Kot_gladiator.jpg"]
+//            placeholderImage:[UIImage imageNamed:@"tabbar_icon_me_big"]
+//                     options:refresh ? SDWebImageRefreshCached : 0];
+//    
+//    return;
+    
+    
     NSString *pathComponent = [NSString stringWithFormat:@"/%@.png", [url lastPathComponent]];
     NSString *imagePath = [[self.class documentDirectoryPath] stringByAppendingPathComponent:pathComponent];
     
-    NSURL *imageURL = [NSURL fileURLWithPath:imagePath];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    UIImage *image = imageData ? [UIImage imageWithData:imageData] : nil;
+    NSURL *imageURL;
+    UIImage *image = [[UIImageView sharedCookies] objectForKey:url];
 
     if (image)
     {
-        self.image = image;
+        [self performBlockOnMainThread:^{
+            self.image = image;
+        } afterDelay:0];
+        return;
+    }
+
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath] )
+    {
+        imageURL = [NSURL fileURLWithPath:imagePath];
+        image = [UIImage imageWithContentsOfFile:imagePath];
+        [[UIImageView sharedCookies] setObject:image forKey:url];
+    }
+    
+    if (image)
+    {
+        [self performBlockOnMainThread:^{
+            self.image = image;
+        } afterDelay:0];
     }
     
     if (!image || refresh)
@@ -46,9 +83,12 @@ static NSString *documentDirectoryPath;
             NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
 
             [imageData writeToFile:imagePath atomically:YES];
+
             [weakSelf.class addSkipBackupAttributeToItemAtURL:imageURL];
 
             weakSelf.image = image;
+            
+            [[UIImageView sharedCookies] setObject:image forKey:url];
         } failure:nil];
     }
 }

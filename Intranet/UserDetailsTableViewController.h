@@ -41,6 +41,6 @@
 
 @property (strong, nonatomic) RMUser *user;
 @property (nonatomic, assign) BOOL isComeFromAbsences;
-
+@property (nonatomic, assign) BOOL isListStateTommorow;
 
 @end

@@ -6,4 +6,5 @@ pod 'UIAlertView+Blocks'
 pod 'iCarousel'
 pod 'GPUImage'
 pod 'LBBlurredImage'
+pod 'SDWebImage'
 

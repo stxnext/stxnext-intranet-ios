@@ -13,6 +13,7 @@
 #import "AppDelegate+Navigation.h"
 #import "AppDelegate+Settings.h"
 #import "NSString+MyRegex.h"
+#import "UIImageView+Additions.h"
 
 @interface UserDetailsTableViewController ()
 {
@@ -416,10 +417,7 @@
         [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     }
     
-    self.userImage.layer.cornerRadius = 5;
-    self.userImage.clipsToBounds = YES;
-    self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.userImage.layer.borderWidth = 1;
+    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
     
     if (self.user.name)
     {
@@ -548,18 +546,21 @@
         [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
             
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-            
-            if (start.length || stop.length)
+            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
             {
-                [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (absence.remarks)
-            {
-                [hours appendFormat:@" %@\n", absence.remarks];
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (absence.remarks)
+                {
+                    [hours appendFormat:@" %@\n", absence.remarks];
+                }
             }
         }];
     }
@@ -570,18 +571,21 @@
         [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
             
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
+            if (self.isListStateTommorow == [late.isTomorrow boolValue])
             {
-                [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (late.explanation)
-            {
-                [hours appendFormat:@" %@\n", late.explanation];
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (late.explanation)
+                {
+                    [hours appendFormat:@" %@\n", late.explanation];
+                }
             }
         }];
     }
@@ -595,7 +599,12 @@
     
     self.explanationLabel.text = hours;
     
-    if (self.navigationController.viewControllers.count <= 1 || [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    if ( [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    {
+        self.addToContactsCell.hidden = YES;
+    }
+    
+    if (self.navigationController.viewControllers.count <= 1 && INTERFACE_IS_PHONE)
     {
         self.addToContactsCell.hidden = YES;
     }

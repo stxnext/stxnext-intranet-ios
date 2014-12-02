@@ -121,17 +121,8 @@
     
     UserListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (!cell)
-    {
-        cell = [[UserListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
     cell.userName.text = user.name;
-    cell.userImage.layer.cornerRadius = 5;
-    cell.userImage.clipsToBounds = YES;
-    
-    cell.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    cell.userImage.layer.borderWidth = 1;
+    [cell.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
     
     cell.clockView.hidden = NO;
     
@@ -150,13 +141,19 @@
         [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMLate *late = (RMLate *)obj;
             
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
+            if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO)
+                ||
+                (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES)
+                )
             {
-                [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
             }
         }];
     }
@@ -167,13 +164,19 @@
         [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
             
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-            
-            if (start.length || stop.length)
+            if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO)
+                ||
+                (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES)
+                )
             {
-                [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
             }
         }];
     }
@@ -184,7 +187,8 @@
     
     if (user.avatarURL)
     {
-        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL] forceRefresh:NO];
+        [cell.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:user.avatarURL]
+                                       forceRefresh:NO];
     }
     
     return cell;
@@ -256,6 +260,7 @@
             ((UserDetailsTableViewController *)segue.destinationViewController).isComeFromAbsences = YES;
         }
         
+        ((UserDetailsTableViewController *)segue.destinationViewController).isListStateTommorow = currentListState == ListStateOutTomorrow;
         ((UserDetailsTableViewController *)segue.destinationViewController).user = _userList[indexPath.section][indexPath.row];
     }
 }

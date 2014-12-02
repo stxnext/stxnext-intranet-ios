@@ -11,5 +11,6 @@
 @interface UIImageView (NetworkCookies)
 
 - (void)setImageUsingCookiesWithURL:(NSURL*)url forceRefresh:(BOOL)refresh;
++ (NSMutableDictionary *)sharedCookies;
 
 @end

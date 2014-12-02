@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-UIAlertView+Blocks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3F7AEF0A260AC1C5534DCBD3</key>
+		<key>15D7C6CEFB7A70F05726A28A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59F93B3C4F1EBD8B8B04D1F1</key>
+		<key>1EB1FB4258386C19EF2E76DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8156A447E1862611581B12E2</key>
+		<key>4E9F90B905903D5A1F286EE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD10D5FBA02ACA96CEE64B88</key>
+		<key>6E5F7A3887F7801ABB6CF536</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA593C7CD76B98ACEF562359</key>
+		<key>7602676D5D0C325482F54AFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F701E51BE1C07458487F6424</key>
+		<key>997891EA64C0B1FFF2C6EB22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF51E2F6B6AB7B4BB6DF62BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

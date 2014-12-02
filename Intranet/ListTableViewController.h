@@ -10,6 +10,7 @@
 #import "UserListCell.h"
 #import "UserDetailsTableViewController.h"
 #import "AddOOOFormTableViewController.h"
+#import "UIImageView+Additions.h"
 
 typedef NS_ENUM(NSUInteger, ListState) {
     ListStateAll,
