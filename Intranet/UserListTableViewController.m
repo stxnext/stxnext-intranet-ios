@@ -211,43 +211,64 @@ static CGFloat tabBarHeight;
     {
         case ListStateAll:
         {
-            NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+            if (self.allUsers.count == 0)
+            {
+                self.allUsers = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                                     withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                                      ascending:YES
                                                                                                       selector:@selector(localizedCompare:)]
-                                                         withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                         withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES AND isClient = NO AND isFreelancer = NO"]
                                                       inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-            
-            _userList = [NSMutableArray arrayWithArray:[users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isClient = NO AND isFreelancer = NO"]]];
+            }
             
             if (searchedString.length > 0)
             {
-                _userList = [NSMutableArray arrayWithArray:[_userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                _userList = [NSMutableArray arrayWithArray:[self.allUsers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+            }
+            else
+            {
+                _userList = [NSMutableArray arrayWithArray:self.allUsers];
             }
         }
             break;
         case ListStateOutToday:
         {
-            _userList = [RMUser loadTodayOutOffOfficePeople];
+            if (self.todayOutOffOfficePeople.count == 0)
+            {
+                self.todayOutOffOfficePeople = [RMUser loadTodayOutOffOfficePeople];
+            }
             
             if (searchedString.length > 0)
             {
-                [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-                [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-                [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                _userList = [NSMutableArray arrayWithCapacity:3];
+                _userList[0] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                _userList[1] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                _userList[2] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+            }
+            else
+            {
+                _userList = [NSMutableArray arrayWithArray:self.todayOutOffOfficePeople];
             }
         }
             break;
             
         case ListStateOutTomorrow:
         {
-            _userList = [RMUser loadTomorrowOutOffOfficePeople];
+            if (self.tomorrowOutOffOfficePeople.count == 0)
+            {
+                self.tomorrowOutOffOfficePeople = [RMUser loadTomorrowOutOffOfficePeople];
+            }
             
             if (searchedString.length > 0)
             {
-                [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-                [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-                [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
+                _userList = [NSMutableArray arrayWithCapacity:3];
+                _userList[0] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                _userList[1] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                _userList[2] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+            }
+            else
+            {
+                _userList = [NSMutableArray arrayWithArray:self.tomorrowOutOffOfficePeople];
             }
     
         }
@@ -257,15 +278,13 @@ static CGFloat tabBarHeight;
             break;
     }
     
-    NSLog(@"Loading from: Database: %lu", (unsigned long)_userList.count);
-
     if (searchedString.length > 0)
     {
-        [self.searchDisplayController.searchResultsTableView reloadData];
+        [self.searchDisplayController.searchResultsTableView reloadDataAnimated:YES];
     }
     else
     {
-        [self.tableView reloadData];
+        [self.tableView reloadDataAnimated:YES];
     }
 }
 
@@ -367,6 +386,10 @@ static CGFloat tabBarHeight;
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     @synchronized(self){
+                        self.allUsers = nil;
+                        self.tomorrowOutOffOfficePeople = nil;
+                        self.todayOutOffOfficePeople = nil;
+                        
                         [self loadUsersFromDatabase];
                         [self informStopDownloading];
                         
@@ -401,7 +424,7 @@ static CGFloat tabBarHeight;
                                               [self showLoginScreen];
                                           }
                                           
-                                          [self.tableView reloadData];
+                                          [self.tableView reloadDataAnimated:YES];
                                           
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           
@@ -435,18 +458,18 @@ static CGFloat tabBarHeight;
                                       }];
 }
 
-#pragma mark - Filter delegate
-
-- (void)changeFilterSelections:(NSArray *)filterSelection
-{
-    canShowNoResultsMessage = YES;
-    
-    [self showNoSelectionUserDetails];
-    
-    [self loadUsersFromDatabase];
-    
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-}
+//#pragma mark - Filter delegate
+//
+//- (void)changeFilterSelections:(NSArray *)filterSelection
+//{
+//    canShowNoResultsMessage = YES;
+//    
+//    [self showNoSelectionUserDetails];
+//    
+//    [self loadUsersFromDatabase];
+//    
+//    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+//}
 
 - (void)closePopover
 {

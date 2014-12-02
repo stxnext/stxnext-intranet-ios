@@ -61,25 +61,40 @@
     switch (currentListState)
     {
         case ListStateOutToday:
-            _userList = [RMUser loadTodayOutOffOfficePeople];
+            if (self.todayOutOffOfficePeople.count == 0)
+            {
+                self.todayOutOffOfficePeople = [RMUser loadTodayOutOffOfficePeople];
+            }
+            
+            _userList = [NSMutableArray arrayWithArray:self.todayOutOffOfficePeople];
+            
             break;
             
         case ListStateOutTomorrow:
-            _userList = [RMUser loadTomorrowOutOffOfficePeople];
+            if (self.tomorrowOutOffOfficePeople.count == 0)
+            {
+                self.tomorrowOutOffOfficePeople = [RMUser loadTomorrowOutOffOfficePeople];
+            }
+            
+            _userList = [NSMutableArray arrayWithArray:self.tomorrowOutOffOfficePeople];
+            
+            break;
+            
+            default:
             break;
     }
     
     if (searchedString.length > 0)
     {
-        [_userList replaceObjectAtIndex:0 withObject:[NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-        [_userList replaceObjectAtIndex:1 withObject:[NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-        [_userList replaceObjectAtIndex:2 withObject:[NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]]];
-
-            [self.searchDisplayController.searchResultsTableView reloadData];
+        _userList[0] = [NSMutableArray arrayWithArray:[_userList[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+        _userList[1] = [NSMutableArray arrayWithArray:[_userList[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+        _userList[2] = [NSMutableArray arrayWithArray:[_userList[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+        
+        [self.searchDisplayController.searchResultsTableView reloadDataAnimated:YES];
     }
     else
     {
-        [self.tableView reloadData];
+        [self.tableView reloadDataAnimated:YES];
     }
 }
 
@@ -322,6 +337,9 @@
 
 - (void)didEndRefreshPeople
 {
+    self.tomorrowOutOffOfficePeople = nil;
+    self.todayOutOffOfficePeople = nil;
+    
     [self loadUsersFromDatabase];
     [self removeActivityIndicator];
 }

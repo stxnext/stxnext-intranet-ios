@@ -33,7 +33,6 @@
         fetchedObjects = [self executeFetchRequest:request error:&error];
 //    }];
 
-
     if (error)
     {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);

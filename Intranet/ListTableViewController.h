@@ -21,7 +21,9 @@ typedef NS_ENUM(NSUInteger, ListState) {
 @interface ListTableViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
-
+@property (strong, nonatomic) NSArray *allUsers;
+@property (strong, nonatomic) NSArray *todayOutOffOfficePeople;
+@property (strong, nonatomic) NSArray *tomorrowOutOffOfficePeople;
 
 - (void)hideOutViewButton;
 

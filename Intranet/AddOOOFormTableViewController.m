@@ -683,7 +683,7 @@ typedef enum
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
         }
         
-        [self.tableView reloadData];
+        [self.tableView reloadDataAnimated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
