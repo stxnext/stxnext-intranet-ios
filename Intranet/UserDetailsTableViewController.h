@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rolesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *groupsLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 
 
@@ -41,5 +40,7 @@
 @property (weak, nonatomic) IBOutlet ClockView *clockView;
 
 @property (strong, nonatomic) RMUser *user;
+@property (nonatomic, assign) BOOL isComeFromAbsences;
+@property (nonatomic, assign) BOOL isListStateTommorow;
 
 @end

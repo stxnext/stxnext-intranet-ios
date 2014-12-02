@@ -30,7 +30,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if (coordinator != nil)
     {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     
@@ -69,7 +69,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
     {
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         
         return nil;
     }
@@ -93,7 +93,7 @@ static DatabaseManager *_sharedManager = nil;
     
     if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error])
     {
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
 

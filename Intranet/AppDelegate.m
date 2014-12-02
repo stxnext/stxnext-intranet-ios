@@ -14,9 +14,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     // Disable hiding split controller children on iPad
@@ -26,6 +23,7 @@
         UISplitViewController* splitController = (UISplitViewController*)self.window.rootViewController;
         splitController.delegate = self;
     }
+    
     
     return YES;
 }
@@ -53,16 +51,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [[DatabaseManager sharedManager] saveContext];
-}
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
 }
 
 @end

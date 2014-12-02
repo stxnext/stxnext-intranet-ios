@@ -42,7 +42,7 @@ const NSString* MapKeyUserGroups = @"groups";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    DDLogVerbose(@"%@", json);
+//    NSLog(@"%@", json);
     
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
@@ -92,9 +92,6 @@ const NSString* MapKeyUserGroups = @"groups";
                                           }
                                           
                                           user.groups = _tempGroupArray;
-
-//                                          user.roles = [json[MapKeyUserRoles] validObject];
-//                                          user.groups = [json[MapKeyUserGroups] validObject];
                                       }];
 }
 
@@ -144,12 +141,97 @@ const NSString* MapKeyUserGroups = @"groups";
     return group;
 }
 
-
 - (id)mapToJSON
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"Method %@ not implemented", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
+}
+
++ (NSMutableArray *)loadTodayOutOffOfficePeople
+{
+    return [RMUser loadOutOffOfficePeopleWithTommorow:NO];
+}
++ (NSMutableArray *)loadTomorrowOutOffOfficePeople
+{
+    return [RMUser loadOutOffOfficePeopleWithTommorow:YES];
+}
+
++ (NSMutableArray *)loadOutOffOfficePeopleWithTommorow:(BOOL)tomorow
+{
+    NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                            withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                             ascending:YES
+                                                                                              selector:@selector(localizedCompare:)]
+                                                 withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                              inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+    
+    NSMutableArray *_userList = [[NSMutableArray alloc] init];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES || user.absences.count == 0)
+        {
+            return NO;
+        }
+        
+        for (RMAbsence *absence in user.absences)
+        {
+            if ([absence.isTomorrow boolValue] == tomorow)
+            {
+                return YES;
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 1 && [late.isTomorrow boolValue] == tomorow)
+                {
+                    return YES;
+                }
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
+    
+    [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RMUser *user = (RMUser *)evaluatedObject;
+        
+        if ([user.isClient boolValue] == YES || [user.isFreelancer boolValue] == YES)
+        {
+            return NO;
+        }
+        
+        if (user.lates.count)
+        {
+            for (RMLate *late in user.lates)
+            {
+                if ([late.isWorkingFromHome intValue] == 0 && [late.isTomorrow boolValue] == tomorow)
+                {
+                    return YES;
+                }
+            }
+        }
+        
+        return NO;
+    }]]?:[[NSArray alloc] init]];
+    
+    return [NSMutableArray arrayWithArray:_userList];
 }
 
 @end

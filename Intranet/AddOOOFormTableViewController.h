@@ -18,14 +18,15 @@ typedef enum
 
 @interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate>
 {
-    RequestType currentRequest;
-    NSInteger currentUnCollapsedPickerIndex;
 
+    NSInteger currentUnCollapsedPickerIndex;
+    NSNumber *freedays;
 }
+@property (strong, nonatomic) UIPopoverController *popover;
 
 @property (copy, nonatomic) NSString *explanation;
 @property (nonatomic, assign) NSInteger currentType;
-
+@property (nonatomic, assign) RequestType currentRequest;
 
 // 0' section
 // cells

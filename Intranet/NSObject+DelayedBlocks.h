@@ -12,5 +12,6 @@
 
 - (void)performBlockOnMainThread:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)performBlockInCurrentThread:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
+- (void)performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
 @end

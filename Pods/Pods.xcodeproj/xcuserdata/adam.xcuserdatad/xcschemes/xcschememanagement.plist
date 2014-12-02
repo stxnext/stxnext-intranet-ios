@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-CocoaLumberjack.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-GPUImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,17 +19,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-NSObject+AutoDescription.xcscheme</key>
+		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-UIAlertView+Blocks.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-google-plus-ios-sdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,47 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C3275B77B174967B7D9728A</key>
+		<key>15D7C6CEFB7A70F05726A28A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69B4FFF85B85457996E43927</key>
+		<key>1EB1FB4258386C19EF2E76DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7791CD7D0CEB4256BC696CD6</key>
+		<key>4E9F90B905903D5A1F286EE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>782B52F317F4458081C3134B</key>
+		<key>6E5F7A3887F7801ABB6CF536</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83D6CDECD84A443CB8780FE2</key>
+		<key>7602676D5D0C325482F54AFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>85C3D38F5EA34E969327078B</key>
+		<key>997891EA64C0B1FFF2C6EB22</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98C4C1A620B54FE191F6B2F5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E57CEEB943724ED9ACC087C5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8D3A9C8346E4FAD82A2B2EC</key>
+		<key>CF51E2F6B6AB7B4BB6DF62BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

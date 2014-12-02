@@ -61,7 +61,7 @@
         }
         else
         {
-            DDLogError(@"AB INAVAILABLE");
+            NSLog(@"AB INAVAILABLE");
         }
     }];
     
@@ -106,6 +106,48 @@
                     }
                 }
                 
+                if (self.skype || self.irc)
+                {
+                    ABMutableMultiValueRef social =  ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
+                    
+                    if (self.skype)
+                    {
+                        NSDictionary *skype = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               (NSString*)kABPersonInstantMessageServiceSkype, (NSString*)kABPersonInstantMessageServiceKey,
+                                               self.skype, (NSString*)kABPersonInstantMessageUsernameKey,
+                                               nil
+                                               ];
+                        
+                        ABMultiValueAddValueAndLabel(social, (__bridge CFTypeRef)(skype), kABPersonInstantMessageServiceSkype, NULL);
+                    }
+                    
+                    if (self.irc)
+                    {
+                        NSDictionary *irc = [NSDictionary dictionaryWithObjectsAndKeys:
+                                             (NSString*)kABPersonInstantMessageServiceJabber, (NSString*)kABPersonInstantMessageServiceKey,
+                                             self.irc, (NSString*)kABPersonInstantMessageUsernameKey,
+                                             nil
+                                             ];
+                        
+                        ABMultiValueAddValueAndLabel(social, (__bridge CFTypeRef)(irc), kABPersonInstantMessageServiceJabber, NULL);
+                    }
+                    
+                    
+                    ABRecordSetValue(newPerson, kABPersonInstantMessageProperty, social, &error);
+                    
+                    if (social) CFRelease(social);
+                }
+                
+                if (self.email != nil)
+                {
+                    ABMutableMultiValueRef emails = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+                    ABMultiValueAddValueAndLabel(emails,  CFBridgingRetain(self.email), kABWorkLabel, NULL);
+                    
+                    ABRecordSetValue(newPerson, kABPersonEmailProperty, emails, &error);
+                    
+                    CFRelease(emails);
+                }
+                
                 // TO DO: add other types of phone numbers with labels
                 if (self.phone != nil)
                 {
@@ -122,7 +164,7 @@
                 if (error != NULL)
                 {
                     CFStringRef errorDesc = CFErrorCopyDescription(error);
-                    DDLogError(@"Contact not added: %@", errorDesc);
+                    NSLog(@"Contact not added: %@", errorDesc);
                     if (errorDesc) CFRelease(errorDesc);
                 }
                 else
@@ -132,7 +174,7 @@
                     if (error != NULL)
                     {
                         CFStringRef errorDesc = CFErrorCopyDescription(error);
-                        DDLogError(@"Contact not saved: %@", errorDesc);
+                        NSLog(@"Contact not saved: %@", errorDesc);
                         if (errorDesc) CFRelease(errorDesc);
                     }
                 }
@@ -178,7 +220,7 @@
             }
             else
             {
-                DDLogError(@"AB INAVAILABLE");
+                NSLog(@"AB INAVAILABLE");
             }
         }];
     }
@@ -208,7 +250,7 @@
         }
         else
         {
-            DDLogError(@"AB INAVAILABLE");
+            NSLog(@"AB INAVAILABLE");
         }
     }];
 }
@@ -229,24 +271,24 @@
                 NSString *firstName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonFirstNameProperty));
                 NSString *lastName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonLastNameProperty));
                 
-                DDLogInfo(@"DDLogInfo: %@ %@", firstName, lastName);
+                NSLog(@"NSLog: %@ %@", firstName, lastName);
                 
                 ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
                 
                 for (CFIndex i = 0; i < ABMultiValueGetCount(phoneNumbers); i++)
                 {
                     NSString *phoneNumber = (__bridge NSString *) ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-                    DDLogInfo(@"phone: %@", phoneNumber);
+                    NSLog(@"phone: %@", phoneNumber);
                 }
                 
-                DDLogInfo(@"=============================================");
+                NSLog(@"=============================================");
             }
             
             if (allPeople) CFRelease(allPeople);
         }
         else
         {
-            DDLogError(@"AB INAVAILABLE");
+            NSLog(@"AB INAVAILABLE");
         }
     }];
 }

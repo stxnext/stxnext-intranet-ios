@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0CE37C6F181E8ED10087C96E"
-               BuildableName = "IntranetTests.xctest"
-               BlueprintName = "IntranetTests"
+               BlueprintIdentifier = "0C9D7C8B18D31BA3009E8010"
+               BuildableName = "Intranet Tests.xctest"
+               BlueprintName = "Intranet Tests"
                ReferencedContainer = "container:Intranet.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -67,14 +67,17 @@
             ReferencedContainer = "container:Intranet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "XcodeColors"
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "OBJC_PRINT_EXCEPTIONS"
             value = "YES"
             isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
-      <AdditionalOptions>
+         </AdditionalOption>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

@@ -17,6 +17,7 @@
 + (AFHTTPRequestOperation *)getFalsePresence;
 + (AFHTTPRequestOperation *)logout;
 + (AFHTTPRequestOperation *)user;
++ (AFHTTPRequestOperation *)currentUser;
 
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;

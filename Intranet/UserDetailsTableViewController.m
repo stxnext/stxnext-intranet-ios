@@ -12,6 +12,8 @@
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "AppDelegate+Settings.h"
+#import "NSString+MyRegex.h"
+#import "UIImageView+Additions.h"
 
 @interface UserDetailsTableViewController ()
 {
@@ -21,7 +23,7 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) UILabel *loadingLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -33,14 +35,12 @@
 {
     [super viewDidLoad];
     
-    //code here
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
     
-    //code here
+    [self updateGUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,20 +51,6 @@
     [self updateAddToContactsButton];
     
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    //code here
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    //code here
-    
-    [super viewWillDisappear:animated];
 }
 
 #pragma mark - UITableViewDelegate
@@ -112,7 +98,9 @@
         return size > cell.frame.size.height ? size : cell.frame.size.height;
     }
     
-    return cell.isHidden ? 0 : cell.frame.size.height;
+    CGFloat r = cell.isHidden ? 0 : 56;
+    
+    return r;
 }
 
 #pragma mark - Actions
@@ -131,13 +119,24 @@
 
 - (void)phoneCall
 {
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phone]]
-  orAlertWithText:@"Call app not found."];
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
+    s = [s invertedSet];
+    
+    NSString *number = self.user.phone;
+    number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
+    
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
 }
 
 - (void)phoneDeskCall
 {
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.user.phoneDesk]]
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
+    s = [s invertedSet];
+    
+    NSString *number = self.user.phoneDesk;
+    number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
+    
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]]
   orAlertWithText:@"Call app not found."];
 }
 
@@ -282,7 +281,7 @@
 
 - (void)loadUser
 {
-    if (self.navigationController.viewControllers.count > 1)
+    if (self.navigationController.viewControllers.count > 1 || INTERFACE_IS_PAD)
     {
         self.title = @"Info";
         
@@ -298,6 +297,16 @@
     }
     else
     {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+        {
+            if (!self.user)
+            {
+                [self addActivityIndicator];
+            }
+            
+            return;
+        }
+        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
@@ -306,7 +315,16 @@
         {
             if (!self.user)
             {
-                [self addEmptyView];
+                if (![[AFNetworkReachabilityManager sharedManager] isReachable] && ![APP_DELEGATE myUserId])
+                {
+                    NSLog(@"No internet");
+                    [self addActivityIndicator];
+                    
+                    return;
+                }
+                
+                [self addActivityIndicator];
+                //                [self addEmptyView];
                 [self.webView removeFromSuperview];
                 
                 self.title = @"Me";
@@ -319,25 +337,29 @@
                                                           // We expect 302
                                                       }
                                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                      NSString *html = operation.responseString;
-                                                      NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                                      
-                                                      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"id: [0-9]+,"];
-                                                      NSString *userID ;
-                                                      
-                                                      for (NSString *line in htmlArray)
-                                                      {
-                                                          userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                                          NSString *html = operation.responseString;
+                                                          NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
                                                           
-                                                          if ([predicate evaluateWithObject:userID])
+                                                          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".*\"id\": [0-9]+,.*"];
+                                                          NSString *userID ;
+                                                          
+                                                          for (NSString *line in htmlArray)
                                                           {
-                                                              userID = [[userID stringByReplacingOccurrencesOfString:@"id: " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                              userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                                                               
-                                                              [APP_DELEGATE setMyUserId:userID];
-                                                              
-                                                              break;
+                                                              if ([predicate evaluateWithObject:userID])
+                                                              {
+                                                                  
+                                                                  userID = [userID firstMatchWithRegex:@"(\"id\": [0-9]+,)" error:nil];
+                                                                  userID = [[userID stringByReplacingOccurrencesOfString:@"\"id\": " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                                                                  
+                                                                  NSLog(@"%@", userID);
+                                                                  
+                                                                  [APP_DELEGATE setMyUserId:userID];
+                                                                  
+                                                                  break;
+                                                              }
                                                           }
-                                                      }
                                                           [self loadMe];
                                                       }];
                 }
@@ -358,13 +380,14 @@
                 self.webView.scalesPageToFit = YES;
                 self.webView.delegate = self;
             }
-
+            
             if (!isPageLoaded)
             {
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
                 
                 [self.view addSubview:self.webView];
-                [self addEmptyView];
+                //                [self addEmptyView];
+                [self addActivityIndicator];
             }
         }
     }
@@ -378,11 +401,11 @@
                                               withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
                                            inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
     
-    [self removeEmptyView];
+//    [self removeEmptyView];
+    [self removeActivityIndicator];
     self.tableView.scrollEnabled = YES;
     
     [self updateGUI];
-    [self.tableView reloadData];
 }
 
 - (void)updateGUI
@@ -391,19 +414,25 @@
     
     if (self.user.avatarURL)
     {
-        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL]];
+        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     }
     
-    self.userImage.layer.cornerRadius = 5;
-    self.userImage.clipsToBounds = YES;
-    self.userImage.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.userImage.layer.borderWidth = 1;
+    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
     
-    self.userName.text = self.user.name;
+    if (self.user.name)
+    {
+        self.userName.text = self.user.name;
+        self.mainCell.hidden = NO;
+    }
+    else
+    {
+        self.mainCell.hidden = YES;
+    }
     
     if (self.user.phone)
     {
         self.phoneLabel.text = self.user.phone;
+        self.phoneCell.hidden = NO;
     }
     else
     {
@@ -413,6 +442,7 @@
     if (self.user.phoneDesk)
     {
         self.phoneDeskLabel.text = self.user.phoneDesk;
+        self.phoneDeskCell.hidden = NO;
     }
     else
     {
@@ -422,6 +452,7 @@
     if (self.user.email)
     {
         self.emailLabel.text = self.user.email;
+        self.emailCell.hidden = NO;
     }
     else
     {
@@ -431,6 +462,7 @@
     if (self.user.skype)
     {
         self.skypeLabel.text = self.user.skype;
+        self.skypeCell.hidden = NO;
     }
     else
     {
@@ -440,6 +472,7 @@
     if (self.user.irc)
     {
         self.ircLabel.text = self.user.irc;
+        self.ircCell.hidden = NO;
     }
     else
     {
@@ -449,6 +482,7 @@
     if (self.user.location)
     {
         self.locationLabel.text = self.user.location;
+        self.locationCell.hidden = NO;
     }
     else
     {
@@ -467,6 +501,7 @@
         [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
         self.groupsLabel.text = string;
+        self.groupsCell.hidden = NO;
     }
     else
     {
@@ -485,6 +520,7 @@
         [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
         
         self.rolesLabel.text = string;
+        self.rolesCell.hidden = NO;
     }
     else
     {
@@ -502,59 +538,73 @@
     NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
     latesDateFormater.dateFormat = @"HH:mm";
     
-    if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            NSString *start = [latesDateFormater stringFromDate:late.start];
-            NSString *stop = [latesDateFormater stringFromDate:late.stop];
-            
-            if (start.length || stop.length)
-            {
-                [hours appendFormat:@" %@ - %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
-            }
-            
-            if (late.explanation)
-            {
-                [explanation appendFormat:@" %@", late.explanation];
-            }
-        }];
-    }
-    else if (self.user.absences.count)
+//    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
+    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
     {
         self.clockView.color = MAIN_RED_COLOR;
         
         [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
             RMAbsence *absence = (RMAbsence *)obj;
             
-            NSString *start = [absenceDateFormater stringFromDate:absence.start];
-            NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-            
-            if (start.length || stop.length)
+            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
             {
-                [hours appendFormat:@" %@  -  %@", start.length ? start : @"...",
-                 stop.length ? stop : @"..."];
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (absence.remarks)
+                {
+                    [hours appendFormat:@" %@\n", absence.remarks];
+                }
             }
+        }];
+    }
+    else  if (self.user.lates.count)
+    {
+        self.clockView.color = MAIN_YELLOW_COLOR;
+        
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMLate *late = (RMLate *)obj;
             
-            if (absence.remarks)
+            if (self.isListStateTommorow == [late.isTomorrow boolValue])
             {
-                [explanation appendFormat:@" %@", absence.remarks];
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (late.explanation)
+                {
+                    [hours appendFormat:@" %@\n", late.explanation];
+                }
             }
         }];
     }
     
     [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    [explanation setString:[explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     
-    NSString *text = [NSString stringWithFormat:@"%@%@%@", hours, (hours.length && explanation.length ? @"\n" : @""), explanation];
+    if (hours.length > 1)
+    {
+        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
+    }
     
-    self.explanationLabel.text = text;
+    self.explanationLabel.text = hours;
     
-    if (self.navigationController.viewControllers.count <= 1 || [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    if ( [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    {
+        self.addToContactsCell.hidden = YES;
+    }
+    
+    if (self.navigationController.viewControllers.count <= 1 && INTERFACE_IS_PHONE)
     {
         self.addToContactsCell.hidden = YES;
     }
@@ -576,7 +626,8 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     isPageLoaded = YES;
-    [self removeEmptyView];
+    //    [self removeEmptyView];
+    [self removeActivityIndicator];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -600,25 +651,25 @@
     {
         case MFMailComposeResultCancelled:
         {
-            DDLogInfo(@"Mail cancelled");
+            NSLog(@"Mail cancelled");
         }
             break;
             
         case MFMailComposeResultSaved:
         {
-            DDLogInfo(@"Mail saved");
+            NSLog(@"Mail saved");
         }
             break;
             
         case MFMailComposeResultSent:
         {
-            DDLogInfo(@"Mail sent");
+            NSLog(@"Mail sent");
         }
             break;
             
         case MFMailComposeResultFailed:
         {
-            DDLogInfo(@"Mail sent failure: %@", [error localizedDescription]);
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
         }
             break;
     }
@@ -633,39 +684,41 @@
     return YES;
 }
 
-- (void)addEmptyView
+#pragma mark - Notyfications
+
+- (void)didStartRefreshPeople
 {
-    CGRect frame = [[UIScreen mainScreen] bounds];
-
-    [self.emptyView removeFromSuperview];
+    NSLog(@"START LOAD NOTIFICATION");
     
-    self.emptyView = [[UIView alloc] initWithFrame:frame];
-    self.emptyView.backgroundColor = [UIColor whiteColor];
-    
-    self.loadingLabel = [[UILabel alloc] init];
-    self.loadingLabel.text = @"Loading...";
-    [self.loadingLabel sizeToFit];
-    self.loadingLabel.center = self.emptyView.center;
-    [self.emptyView addSubview:self.loadingLabel];
-
-    if (self.activityView == nil)
+    if (!self.user)
     {
-        self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [self.activityView startAnimating];
+        [self addActivityIndicator];
     }
-
-    CGPoint center = self.emptyView.center;
-    center.y -= self.loadingLabel.frame.size.height/2 + self.activityView.frame.size.height/2;
-    self.activityView.center = center;
-    [self.emptyView addSubview:self.activityView];
-    
-    self.tableView.scrollEnabled = NO;
-    [self.view addSubview:self.emptyView];
 }
 
-- (void)removeEmptyView
+- (void)didEndRefreshPeople
 {
-    [self.emptyView removeFromSuperview];
+    NSLog(@"END LOAD NOTIFICATION");
+    
+    [self loadUser];
+    [self removeActivityIndicator];
+}
+
+- (void)addActivityIndicator
+{
+    [self.activityIndicator removeFromSuperview];
+    self.tableView.userInteractionEnabled = NO;
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator startAnimating];
+    
+    self.activityIndicator.center = self.tableView.center;
+    [self.tableView addSubview:self.activityIndicator];
+}
+
+- (void)removeActivityIndicator
+{
+    self.tableView.userInteractionEnabled = YES;
+    [self.activityIndicator removeFromSuperview];
 }
 
 @end

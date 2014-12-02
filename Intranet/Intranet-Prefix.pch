@@ -24,20 +24,7 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
-// logger
-#import "DDASLLogger.h"
-#import "DDTTYLogger.h"
-#import "DDFileLogger.h"
-
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_ERROR;
-#endif
-
 // External headers
-#import <GooglePlus/GooglePlus.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
 #import <AFNetworking/AFNetworking.h>
 
 // Custom categories
@@ -51,14 +38,11 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 // Custom headers
 #import "Database.h"
-#import "GooglePlusConfig.h"
 #import "HTTPClient.h"
 #import "HTTPClient+Cookies.h"
 #import "UIAlertView+CustomAlert.h"
 #import "UIAlertView+Blocks.h"
 #import "NSObject+DelayedBlocks.h"
-#import "NSObject+AutoDescription.h"
-#import "NSObject+CleanDescription.h"
 
 // Convenience functions
 #define ORIENTATION_IS_PORTRAIT             (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
@@ -70,6 +54,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 
 #define DEVICE_IOS_VERSION                  ([[[UIDevice currentDevice] systemVersion] floatValue])
 #define iOS7_PLUS                           (DEVICE_IOS_VERSION >= 7.0)
+#define iOS8_PLUS                           (DEVICE_IOS_VERSION >= 8.0)
 #define BLURED_BACKGROUND NO
 
 #define STATUS_BAR_HEIGHT ((UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) ? \
@@ -104,3 +89,7 @@ static const int ddLogLevel = LOG_LEVEL_ERROR;
 #define PRESENT         @"Present"
 #define ABSENT          @"Absent"
 #define LATE            @"Late"
+
+#define DID_START_REFRESH_PEOPLE @"didStartRefreshPeople"
+#define DID_END_REFRESH_PEOPLE @"didEndRefreshPeople"
+#define IS_REFRESH_PEOPLE @"isRefreshPeople"

@@ -29,7 +29,6 @@ const NSString* MapKeyLateUserName = @"name";
 
 + (NSManagedObject<JSONMapping>*)mapFromJSON:(id)json
 {
-    DDLogVerbose(@"%@", json);
     return [JSONSerializationHelper objectWithClass:[self class]
                                              withId:json[MapKeyUserId]
                                    inManagedContext:[DatabaseManager sharedManager].managedObjectContext
@@ -44,8 +43,6 @@ const NSString* MapKeyLateUserName = @"name";
                                                                                                  withId:[json[MapKeyLateUserId] validObject]
                                                                                        inManagedContext:[DatabaseManager sharedManager].managedObjectContext
                                                                                           withDecorator:^(NSManagedObject<JSONMapping> *object) {
-//                                                                                              RMUser* user = (RMUser*)object;
-//                                                                                              user.name = [json[MapKeyLateUserName] validObject];
                                                                                           }];
                                           [late.user addLatesObject:late];
                                       }];

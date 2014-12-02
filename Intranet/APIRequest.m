@@ -71,6 +71,15 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)currentUser
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
+                                                                                     action:@"api/current_user"
+                                                                                 parameters:nil];
+    
+    return request;
+}
+
 + (AFHTTPRequestOperation *)user
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET
@@ -87,10 +96,10 @@
                                                                                      action:@"api/absence"
                                                                                  parameters:parameters];
 
-    DDLogInfo(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
-    DDLogInfo(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
-    DDLogInfo(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
-    DDLogInfo(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
+    NSLog(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
+    NSLog(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
+    NSLog(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
 
     [request blockRedirections];
     
@@ -103,6 +112,11 @@
                                                                                      action:@"api/lateness"
                                                                                  parameters:parameters];
     
+    NSLog(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
+    NSLog(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
+    NSLog(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
+
     [request blockRedirections];
     
     return request;

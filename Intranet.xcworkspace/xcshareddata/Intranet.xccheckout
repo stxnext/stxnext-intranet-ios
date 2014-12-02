@@ -10,29 +10,29 @@
 	<string>Intranet</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3E8C7D83-1BD7-4FA5-A275-4EA6BFCD9538</key>
+		<key>D07CBB57B17CE49B958E0034018BB0B40A104973</key>
 		<string>https://github.com/stxnext/stxnext-intranet-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Intranet.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3E8C7D83-1BD7-4FA5-A275-4EA6BFCD9538</key>
+		<key>D07CBB57B17CE49B958E0034018BB0B40A104973</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/stxnext/stxnext-intranet-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3E8C7D83-1BD7-4FA5-A275-4EA6BFCD9538</string>
+	<string>D07CBB57B17CE49B958E0034018BB0B40A104973</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3E8C7D83-1BD7-4FA5-A275-4EA6BFCD9538</string>
+			<string>D07CBB57B17CE49B958E0034018BB0B40A104973</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Intranet</string>
 		</dict>

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListTableViewController.h"
 
-@interface OutOfOfficeTodayTableViewController : UITableViewController
+@interface OutOfOfficeTodayTableViewController : ListTableViewController <UIActionSheetDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *_userList;
 }
+
+
+- (IBAction)changeView:(id)sender;
 
 @end
