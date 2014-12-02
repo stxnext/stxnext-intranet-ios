@@ -17,6 +17,7 @@
     if (self)
     {
         self.color = MAIN_APP_COLOR;
+        self.hidden = YES;
     }
     
     return self;
@@ -67,6 +68,9 @@
 
 - (void)setColor:(UIColor *)color
 {
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
     _color = color;
     [self setNeedsDisplay];
 }

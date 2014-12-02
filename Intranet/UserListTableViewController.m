@@ -31,6 +31,7 @@ static CGFloat tabBarHeight;
     BOOL shouldReloadAvatars;
     ListState currentListState;
     BOOL isDatabaseBusy;
+    BOOL isUpdating;
 }
 
 - (void)viewDidLoad
@@ -195,19 +196,19 @@ static CGFloat tabBarHeight;
 
 - (void)stopRefreshData
 {
-//    [self performBlockOnMainThread:^{
-        [_refreshControl endRefreshing];
-        
-        _showActionButton.enabled = YES;
-        _showPlanningPokerButton.enabled = YES;
-//    } afterDelay:1];
+    [_refreshControl endRefreshing];
+    
+    _showActionButton.enabled = YES;
+    _showPlanningPokerButton.enabled = YES;
+    isUpdating = NO;
 }
 
 #pragma mark - LoadUsers
 
 - (void)loadUsersFromDatabase
 {
-    switch (currentListState) {
+    switch (currentListState)
+    {
         case ListStateAll:
         {
             NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
@@ -270,13 +271,20 @@ static CGFloat tabBarHeight;
 
 - (void)loadUsersFromAPI:(void (^)(void))endAction
 {
+    if (isUpdating)
+    {
+        return;
+    }
+    
+    isUpdating = YES;
+    
     isDatabaseBusy = NO;
     [self showOutViewButton];
     
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
-//        [self stopRefreshData];
+
         endAction();
         
         return;
@@ -364,7 +372,6 @@ static CGFloat tabBarHeight;
                         
                         isDatabaseBusy = NO;
                         [self showOutViewButton];
-//                        [self stopRefreshData]; ////////////
                         endAction();
                     }
                 }];
@@ -383,8 +390,6 @@ static CGFloat tabBarHeight;
                                           {
                                               NSLog(@"LOAD");
                                               load();
-                                              
-//                                              [self stopRefreshData];
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -400,8 +405,7 @@ static CGFloat tabBarHeight;
                                           
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           
-//                                          [self stopRefreshData];
-                                                  endAction();
+                                          endAction();
                                           
                                           [self informStopDownloading];
                                       }];
@@ -417,9 +421,6 @@ static CGFloat tabBarHeight;
                                           {
                                               NSLog(@"LOAD");
                                               load();
-                                              
-//                                              [self stopRefreshData];
-                                              
                                           }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -427,9 +428,8 @@ static CGFloat tabBarHeight;
                                           NSLog(@"Presence API Loading Error");
                                           
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
-                                          
-//                                          [self stopRefreshData];
-                                                  endAction();
+                                        
+                                          endAction();
                                           
                                           [self informStopDownloading];
                                       }];
