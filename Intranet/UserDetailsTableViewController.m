@@ -613,7 +613,7 @@
     [self.userName layoutIfNeeded];
     [self.explanationLabel sizeToFit];
     
-    [self.tableView reloadDataAnimated:YES];
+    [self.tableView reloadDataAnimated:NO];
 }
 
 #pragma mark - UIWebViewDelegate

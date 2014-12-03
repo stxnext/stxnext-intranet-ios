@@ -10,22 +10,11 @@
 #import "ListTableViewController.h"
 #import "LoginViewController.h"
 
-@interface UserListTableViewController : ListTableViewController <LoginViewControllerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+@interface UserListTableViewController : ListTableViewController <LoginViewControllerDelegate>
 {
     IBOutlet UIBarButtonItem *_showActionButton;
-    __weak IBOutlet UIBarButtonItem *_showPlanningPokerButton;
     
     UIRefreshControl *_refreshControl;
-    UIActionSheet  *_actionSheet;
-    NSMutableArray *_userList;
-    UIActionSheet *actionSheet;
 }
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
-@property (strong, nonatomic) UIPopoverController *popover;
-@property (strong, nonatomic) UIActionSheet *requestActionSheet;
-
-- (IBAction)showPlaningPoker:(id)sender;
-- (IBAction)changeView:(id)sender;
 
 @end

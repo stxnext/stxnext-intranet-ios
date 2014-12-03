@@ -13,18 +13,38 @@
 #import "UIImageView+Additions.h"
 
 typedef NS_ENUM(NSUInteger, ListState) {
+    ListStateNotSet, 
     ListStateAll,
     ListStateOutToday,
     ListStateOutTomorrow,
 };
 
-@interface ListTableViewController : UITableViewController
+@interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate,UIPopoverControllerDelegate>
+{
+    NSString *searchedString;
+    ListState currentListState;
+    NSMutableArray *userList;
+    NSMutableArray *avatarsToRefresh;
+    BOOL canShowNoResultsMessage;
+    BOOL isDatabaseBusy;
+}
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
+@property (strong, nonatomic) UIPopoverController *popover;
+@property (strong, nonatomic) UIActionSheet *requestActionSheet;
+
 @property (strong, nonatomic) NSArray *allUsers;
 @property (strong, nonatomic) NSArray *todayOutOffOfficePeople;
 @property (strong, nonatomic) NSArray *tomorrowOutOffOfficePeople;
 
 - (void)hideOutViewButton;
+- (void)loadUsersFromDatabase;
+- (void)showNoSelectionUserDetails;
+
+- (ListState)nextListState;
+- (void)showOutViewButton;
+- (IBAction)changeView:(id)sender;
+- (IBAction)showNewRequest:(id)sender;
 
 @end
