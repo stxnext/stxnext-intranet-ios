@@ -39,8 +39,11 @@
 {
     currentListState = [self nextListState];
     [self showOutViewButton];
-    
     [self loadUsersFromDatabase];
+
+//    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    
+    [self showNoSelectionUserDetails];
 }
 
 - (ListState)nextListState
@@ -125,8 +128,7 @@
         }
             break;
             
-        default:
-            break;
+        default: break;
     }
     
     if (searchedString.length > 0)
@@ -165,7 +167,8 @@
     
     if (!isDatabaseBusy)
     {
-        cell.clockView.hidden = cell.warningDateLabel.hidden = ((user.lates.count + user.absences.count) == 0);
+        __block BOOL shouldHiddeClock = YES;
+        cell.clockView.hidden = shouldHiddeClock;
         
         NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
         absenceDateFormater.dateFormat = @"YYYY-MM-dd";
@@ -186,6 +189,7 @@
                     (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES)
                     )
                 {
+                    shouldHiddeClock = NO;
                     NSString *start = [absenceDateFormater stringFromDate:absence.start];
                     NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
                     
@@ -196,7 +200,6 @@
                     }
                 }
             }];
-            
         };
         
         void(^setLates)(void) = ^(void) {
@@ -210,6 +213,7 @@
                     (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES)
                     )
                 {
+                    shouldHiddeClock = NO;
                     NSString *start = [latesDateFormater stringFromDate:late.start];
                     NSString *stop = [latesDateFormater stringFromDate:late.stop];
                     
@@ -247,6 +251,7 @@
         
         [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
         
+        cell.clockView.hidden = shouldHiddeClock;
         cell.warningDateLabel.text = hours;
     }
     

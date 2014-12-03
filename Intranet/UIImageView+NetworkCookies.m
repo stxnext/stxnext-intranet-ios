@@ -46,7 +46,7 @@ static NSString *documentDirectoryPath;
         [self performBlockOnMainThread:^{
             self.image = image;
         } afterDelay:0];
-        
+    
         return;
     }
     
