@@ -279,7 +279,7 @@
                                               [self showLoginScreen];
                                           }
                                           
-                                          [self.tableView reloadDataAnimated:YES];
+                                          [self.tableView reloadData];
                                           
                                           [[HTTPClient sharedClient].operationQueue cancelAllOperations];
                                           

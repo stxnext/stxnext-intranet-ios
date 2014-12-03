@@ -41,7 +41,7 @@
     [self showOutViewButton];
     [self loadUsersFromDatabase];
 
-//    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     
     [self showNoSelectionUserDetails];
 }
@@ -133,11 +133,11 @@
     
     if (searchedString.length > 0)
     {
-        [self.searchDisplayController.searchResultsTableView reloadDataAnimated:YES];
+        [self.searchDisplayController.searchResultsTableView reloadData];
     }
     else
     {
-        [self.tableView reloadDataAnimated:YES];
+        [self.tableView reloadData];
     }
 }
 

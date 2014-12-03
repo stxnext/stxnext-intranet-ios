@@ -329,7 +329,7 @@ typedef enum
             self.absenceHolidayCellStartPicker.hidden = YES;
             self.absenceHolidayCellEndPicker.hidden = YES;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
         else if (indexPath.row == 0 || indexPath.row == 2)
         {
@@ -340,7 +340,7 @@ typedef enum
             self.absenceHolidayCellStartPicker.hidden = currentUnCollapsedPickerIndex != 1;
             self.absenceHolidayCellEndPicker.hidden = currentUnCollapsedPickerIndex != 3;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
     }
     else if (indexPath.section == 2)
@@ -353,7 +353,7 @@ typedef enum
             self.OOOCellFromPicker.hidden = YES;
             self.OOOCellToPicker.hidden = YES;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
         else if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4)
         {
@@ -365,7 +365,7 @@ typedef enum
             self.OOOCellFromPicker.hidden = currentUnCollapsedPickerIndex != 3;
             self.OOOCellToPicker.hidden = currentUnCollapsedPickerIndex != 5;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
         else if (indexPath.row == 6)
         {
@@ -411,7 +411,7 @@ typedef enum
             self.OOOCellWorkFromHome.hidden = YES;
             self.OOOCellExplanation.hidden = YES;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
             break;
             
@@ -435,7 +435,7 @@ typedef enum
             self.OOOCellWorkFromHome.hidden = NO;
             self.OOOCellExplanation.hidden = NO;
             
-            [self.tableView reloadDataAnimated:YES];
+            [self.tableView reloadData];
         }
             break;
     }
@@ -669,7 +669,7 @@ typedef enum
             break;
     }
     
-    [self.tableView reloadDataAnimated:YES];
+    [self.tableView reloadData];
 }
 
 - (void)getFreeDays
@@ -683,7 +683,7 @@ typedef enum
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationNone];
         }
         
-        [self.tableView reloadDataAnimated:YES];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
