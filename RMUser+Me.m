@@ -50,7 +50,10 @@
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // error
                                           // We expect 302
-                                          endAction();
+                                          if (endAction)
+                                          {
+                                              endAction();
+                                          }
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           NSString *html = operation.responseString;
@@ -74,7 +77,10 @@
                                                   break;
                                               }
                                           }
-                                          endAction();
+                                          if (endAction)
+                                          {
+                                              endAction();
+                                          }
                                       }];
 }
 

@@ -34,11 +34,7 @@
 {
     [super viewDidLoad];
     
-    if (![RMUser myUserId])
-    {
-        [RMUser loadMeUserId:nil];
-    }
-    
+
     self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
     
     [self updateGUI];
@@ -49,10 +45,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self loadUser];
-    [self updateAddToContactsButton];
-    
     [super viewWillAppear:animated];
+    
+    if (![RMUser myUserId])
+    {
+        [RMUser loadMeUserId:^{
+            [self updateGUI];
+        }];
+    }
+    
+    [self updateGUI];
 }
 
 #pragma mark - UITableViewDelegate
@@ -257,6 +259,9 @@
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
                                                   self.user = nil;
+                                                  self.webView = nil;
+                                                  isPageLoaded = NO;
+                                                  
                                                   [RMUser setMyUserId:nil];
                                                   
                                                   [RMUser setUserLoggedType:UserLoginTypeNO];
@@ -280,90 +285,26 @@
 
 #pragma mark - GUI
 
-- (void)loadUser
-{
-    if (self.navigationController.viewControllers.count > 1 || INTERFACE_IS_PAD)
-    {
-        self.title = @"Info";
-        [self updateGUI];
-    }
-    else // me tab on iPhone
-    {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
-        {
-            if (!self.user)
-            {
-                [self addActivityIndicator];
-            }
-            
-            return;
-        }
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(logout:)];
-        if ([RMUser userLoggedType] == UserLoginTypeTrue)
-        {
-            if (!self.user)
-            {
-                if (![[AFNetworkReachabilityManager sharedManager] isReachable] && ![RMUser myUserId])
-                {
-                    NSLog(@"No internet");
-                    [self addActivityIndicator];
-                    
-                    return;
-                }
-                
-                [self addActivityIndicator];
-                [self.webView removeFromSuperview];
-                
-                self.title = @"Me";
-                
-                [self loadMe];
-            }
-        }
-        else
-        {
-            self.title = @"About";
-            
-            if (self.webView == nil)
-            {
-                isPageLoaded = NO;
-                self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height - 114)];
-                self.webView.scalesPageToFit = YES;
-                self.webView.delegate = self;
-            }
-            
-            if (!isPageLoaded)
-            {
-                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
-                
-                [self.view addSubview:self.webView];
-                [self addActivityIndicator];
-            }
-        }
-    }
-}
-
-- (void)loadMe
-{
-    self.user = [RMUser me];
-    
-    [self removeActivityIndicator];
-    self.tableView.scrollEnabled = YES;
-    
-    [self updateGUI];
-}
-
 - (void)updateGUI
 {
+    
+    
+    
     [self.tableView hideEmptySeparators];
  
     if (INTERFACE_IS_PAD)
     {
-        if ([self isLoadedMe]) // my details
+        if ([RMUser userLoggedType] != UserLoginTypeTrue)
         {
+            self.title = @"Info";
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+        }
+        else if ([self isLoadedMe]) // my details
+        {
+            self.title = @"Me";
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
@@ -371,10 +312,65 @@
         }
         else // other people
         {
+            self.title = @"Info";
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(loadMe)];
+        }
+    }
+    else
+    {
+        if ([self isMeTab]) // me
+        {
+            if ([RMUser userLoggedType] != UserLoginTypeTrue)
+            {
+                self.title = @"About";
+                
+                NSLog(@"%@", self.tabBarController.tabBar);
+                
+                if (self.webView == nil)
+                {
+                    isPageLoaded = NO;
+                    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+                    self.webView.scalesPageToFit = YES;
+                    self.webView.delegate = self;
+                }
+                
+                if (!isPageLoaded)
+                {
+                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
+                    
+                    [self.view addSubview:self.webView];
+                    [self addActivityIndicator];
+                }
+            }
+            else
+            {
+                self.title = @"Me";
+                [self.webView removeFromSuperview];
+                self.user = [RMUser me];
+            }
+            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+
+        }
+        else
+        {
+            self.title = @"Info";
+//            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+//            {
+////                if (!self.user)
+////                {
+////                    [self addActivityIndicator];
+////                }
+//                
+//                return;
+//            }
+    
         }
     }
     
@@ -577,6 +573,7 @@
     [self.userName sizeToFit];
     [self.userName layoutIfNeeded];
     [self.explanationLabel sizeToFit];
+    [self updateAddToContactsButton];
     
     [self.tableView reloadDataAnimated:NO];
 }
@@ -663,7 +660,12 @@
 {
     NSLog(@"END LOAD NOTIFICATION");
     
-    [self loadUser];
+//    [self loadUser];
+    if (![self.user isFault])
+    {
+        [self updateGUI];
+    }
+
     [self removeActivityIndicator];
 }
 
@@ -684,11 +686,20 @@
     [self.activityIndicator removeFromSuperview];
 }
 
+- (void)loadMe
+{
+    self.user = [RMUser me];
+}
+
 #pragma mark - Others
 
 - (BOOL)isLoadedMe
 {
-    return  [self.user.id integerValue] == [[RMUser myUserId] integerValue];
+    return [self.user.id integerValue] == [[RMUser myUserId] integerValue];
 }
 
+- (BOOL)isMeTab
+{
+    return [[self.navigationController viewControllers] count] == 1;
+}
 @end
