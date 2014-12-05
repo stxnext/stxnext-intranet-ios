@@ -82,7 +82,7 @@ typedef enum
 
 - (IBAction)done:(id)sender
 {
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
+    if ([RMUser userLoggedType] == UserLoginTypeTrue)
     {
         
         ((UIButton *)sender).enabled = NO;

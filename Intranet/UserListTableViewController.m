@@ -29,7 +29,7 @@
     [self addRefreshControl];
     
     //update data
-    if ([APP_DELEGATE userLoggedType] != UserLoginTypeNO)
+    if ([RMUser userLoggedType] != UserLoginTypeNO)
     {
         [self loadUsersFromDatabase];
 
@@ -40,7 +40,7 @@
         } afterDelay:1];
     }
     
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse || [APP_DELEGATE userLoggedType] == UserLoginTypeError)
+    if ([RMUser userLoggedType] == UserLoginTypeFalse || [RMUser userLoggedType] == UserLoginTypeError)
     {
         [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
     }
@@ -50,7 +50,7 @@
 {
     [super viewDidAppear:animated];
     
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeNO)
+    if ([RMUser userLoggedType] == UserLoginTypeNO)
     {
         [self showLoginScreen];
     }
@@ -74,7 +74,7 @@
     [[HTTPClient sharedClient] startOperation:[APIRequest loginWithCode:code]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           // We expect 302
-                                          [APP_DELEGATE setUserLoggedType:UserLoginTypeError];
+                                          [RMUser setUserLoggedType:UserLoginTypeError];
                                       }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           
@@ -86,7 +86,7 @@
                                           // If redirected properly
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
-                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeTrue];
+                                              [RMUser setUserLoggedType:UserLoginTypeTrue];
                                               
                                               [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
                                               
@@ -96,8 +96,8 @@
                                           }
                                           else
                                           {
-                                              //error with login (e.g. account not exists)
-                                              [APP_DELEGATE setUserLoggedType:UserLoginTypeFalse];
+                                              //error RMUser login (e.g. account not exists)
+                                              [RMUser setUserLoggedType:UserLoginTypeFalse];
                                               
                                               [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
                                               
@@ -257,7 +257,7 @@
         }];
     };
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
+    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           
                                           NSLog(@"Loaded: users");
@@ -288,7 +288,7 @@
                                           [self informStopDownloading];
                                       }];
     
-    [[HTTPClient sharedClient] startOperation:[APP_DELEGATE userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
+    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                           
                                           absencesAndLates = responseObject;

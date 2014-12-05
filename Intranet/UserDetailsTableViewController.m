@@ -35,6 +35,11 @@
 {
     [super viewDidLoad];
     
+    if (![RMUser myUserId])
+    {
+        [RMUser loadMeUserId:nil];
+    }
+    
     self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
     
     [self updateGUI];
@@ -45,8 +50,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //code here
-    
     [self loadUser];
     [self updateAddToContactsButton];
     
@@ -136,8 +139,7 @@
     NSString *number = self.user.phoneDesk;
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]]
-  orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
 }
 
 - (void)emailSend
@@ -200,7 +202,7 @@
 
 - (IBAction)logout:(id)sender
 {
-    if ([APP_DELEGATE userLoggedType] == UserLoginTypeFalse)
+    if ([RMUser userLoggedType] == UserLoginTypeFalse)
     {
         [[HTTPClient sharedClient] deleteCookies];
         
@@ -218,7 +220,7 @@
         
         self.user = nil;
         
-        [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+        [RMUser setUserLoggedType:UserLoginTypeNO];
         
         if (!INTERFACE_IS_PAD)
         {
@@ -256,9 +258,9 @@
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
                                                   self.user = nil;
-                                                  [APP_DELEGATE setMyUserId:nil];
+                                                  [RMUser setMyUserId:nil];
                                                   
-                                                  [APP_DELEGATE setUserLoggedType:UserLoginTypeNO];
+                                                  [RMUser setUserLoggedType:UserLoginTypeNO];
                                                   
                                                   if (!INTERFACE_IS_PAD)
                                                   {
@@ -284,18 +286,9 @@
     if (self.navigationController.viewControllers.count > 1 || INTERFACE_IS_PAD)
     {
         self.title = @"Info";
-        
-        if (INTERFACE_IS_PAD)
-        {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-        }
-        
         [self updateGUI];
     }
-    else
+    else // me tab on iPhone
     {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
         {
@@ -311,11 +304,11 @@
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self
                                                                                  action:@selector(logout:)];
-        if ([APP_DELEGATE userLoggedType] == UserLoginTypeTrue)
+        if ([RMUser userLoggedType] == UserLoginTypeTrue)
         {
             if (!self.user)
             {
-                if (![[AFNetworkReachabilityManager sharedManager] isReachable] && ![APP_DELEGATE myUserId])
+                if (![[AFNetworkReachabilityManager sharedManager] isReachable] && ![RMUser myUserId])
                 {
                     NSLog(@"No internet");
                     [self addActivityIndicator];
@@ -324,49 +317,11 @@
                 }
                 
                 [self addActivityIndicator];
-                //                [self addEmptyView];
                 [self.webView removeFromSuperview];
                 
                 self.title = @"Me";
                 
-                if (![APP_DELEGATE myUserId])
-                {
-                    [[HTTPClient sharedClient] startOperation:[APIRequest user]
-                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                          // error
-                                                          // We expect 302
-                                                      }
-                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                          NSString *html = operation.responseString;
-                                                          NSArray *htmlArray = [html componentsSeparatedByString:@"\n"];
-                                                          
-                                                          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".*\"id\": [0-9]+,.*"];
-                                                          NSString *userID ;
-                                                          
-                                                          for (NSString *line in htmlArray)
-                                                          {
-                                                              userID = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                                              
-                                                              if ([predicate evaluateWithObject:userID])
-                                                              {
-                                                                  
-                                                                  userID = [userID firstMatchWithRegex:@"(\"id\": [0-9]+,)" error:nil];
-                                                                  userID = [[userID stringByReplacingOccurrencesOfString:@"\"id\": " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                                                                  
-                                                                  NSLog(@"%@", userID);
-                                                                  
-                                                                  [APP_DELEGATE setMyUserId:userID];
-                                                                  
-                                                                  break;
-                                                              }
-                                                          }
-                                                          [self loadMe];
-                                                      }];
-                }
-                else
-                {
-                    [self loadMe];
-                }
+                [self loadMe];
             }
         }
         else
@@ -386,7 +341,6 @@
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
                 
                 [self.view addSubview:self.webView];
-                //                [self addEmptyView];
                 [self addActivityIndicator];
             }
         }
@@ -395,13 +349,8 @@
 
 - (void)loadMe
 {
-    NSString *userID = [APP_DELEGATE myUserId];
+    self.user = [RMUser me];
     
-    self.user =  [[JSONSerializationHelper objectsWithClass:[RMUser class] withSortDescriptor:nil
-                                              withPredicate:[NSPredicate predicateWithFormat:@"id = %@", userID]
-                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext] firstObject];
-    
-//    [self removeEmptyView];
     [self removeActivityIndicator];
     self.tableView.scrollEnabled = YES;
     
@@ -411,6 +360,24 @@
 - (void)updateGUI
 {
     [self.tableView hideEmptySeparators];
+ 
+    if (INTERFACE_IS_PAD)
+    {
+        if ([self isLoadedMe]) // my details
+        {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+        }
+        else // other people
+        {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(loadMe)];
+        }
+    }
     
     if (self.user.avatarURL)
     {
@@ -530,7 +497,6 @@
     self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
     
     __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    __block NSMutableString *explanation = [[NSMutableString alloc] initWithString:@""];
     
     NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
     absenceDateFormater.dateFormat = @"YYYY-MM-dd";
@@ -599,12 +565,12 @@
     
     self.explanationLabel.text = hours;
     
-    if ( [APP_DELEGATE userLoggedType] != UserLoginTypeTrue)
+    if ([RMUser userLoggedType] != UserLoginTypeTrue)
     {
         self.addToContactsCell.hidden = YES;
     }
     
-    if (self.navigationController.viewControllers.count <= 1 && INTERFACE_IS_PHONE)
+    if ([self isLoadedMe])
     {
         self.addToContactsCell.hidden = YES;
     }
@@ -626,7 +592,6 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     isPageLoaded = YES;
-    //    [self removeEmptyView];
     [self removeActivityIndicator];
 }
 
@@ -637,7 +602,6 @@
     CGPoint center = self.loadingLabel.center;
     self.loadingLabel.text = @"Loading error.";
     [self.loadingLabel sizeToFit];
-    
     self.loadingLabel.center = center;
 }
 
@@ -719,6 +683,13 @@
 {
     self.tableView.userInteractionEnabled = YES;
     [self.activityIndicator removeFromSuperview];
+}
+
+#pragma mark - Others
+
+- (BOOL)isLoadedMe
+{
+    return  [self.user.id integerValue] == [[RMUser myUserId] integerValue];
 }
 
 @end

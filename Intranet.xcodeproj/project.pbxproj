@@ -70,6 +70,7 @@
 		661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45018C48CF400B7A4F5 /* Lato-Thin.ttf */; };
 		661AE46318C48CF400B7A4F5 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */; };
 		661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */; };
+		662587891A319FB200CDF2D5 /* RMUser+Me.m in Sources */ = {isa = PBXBuildFile; fileRef = 662587881A319FB200CDF2D5 /* RMUser+Me.m */; };
 		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
@@ -189,6 +190,8 @@
 		661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TCCustomFont.h"; sourceTree = "<group>"; };
 		661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TCCustomFont.m"; sourceTree = "<group>"; };
+		662587871A319FB200CDF2D5 /* RMUser+Me.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+Me.h"; sourceTree = "<group>"; };
+		662587881A319FB200CDF2D5 /* RMUser+Me.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+Me.m"; sourceTree = "<group>"; };
 		6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTypeTableViewController.h; sourceTree = "<group>"; };
 		6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTypeTableViewController.m; sourceTree = "<group>"; };
 		6627C82918BC89F2003893EB /* ExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplanationViewController.h; sourceTree = "<group>"; };
@@ -261,6 +264,7 @@
 				0CF7FA6018214B200056F907 /* RMUser.h */,
 				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
 				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
+				662587871A319FB200CDF2D5 /* RMUser+Me.h */,
 				66360E471A2757CC00417B75 /* RMAbsence.m */,
 				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
 				66360E441A2757CB00417B75 /* RMLate.m */,
@@ -268,6 +272,7 @@
 				0CF7FA6118214B200056F907 /* RMUser.m */,
 				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
+				662587881A319FB200CDF2D5 /* RMUser+Me.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -683,6 +688,7 @@
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
+				662587891A319FB200CDF2D5 /* RMUser+Me.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
