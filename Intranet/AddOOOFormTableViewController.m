@@ -9,7 +9,7 @@
 #import "AddOOOFormTableViewController.h"
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
-#import "AppDelegate+Settings.h"
+
 #define NEW_MENU YES
 
 typedef enum

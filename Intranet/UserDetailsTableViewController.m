@@ -11,7 +11,6 @@
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
-#import "AppDelegate+Settings.h"
 #import "NSString+MyRegex.h"
 #import "UIImageView+Additions.h"
 

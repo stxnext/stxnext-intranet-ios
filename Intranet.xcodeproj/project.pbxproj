@@ -74,7 +74,6 @@
 		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
-		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		66360E451A2757CB00417B75 /* RMLate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E441A2757CB00417B75 /* RMLate.m */; };
 		66360E481A2757CC00417B75 /* RMAbsence.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E471A2757CC00417B75 /* RMAbsence.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
@@ -198,8 +197,6 @@
 		6627C82A18BC89F2003893EB /* ExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplanationViewController.m; sourceTree = "<group>"; };
 		6627C82C18BCAAD9003893EB /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
-		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
-		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
 		66360E431A2757CB00417B75 /* RMLate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLate.h; sourceTree = "<group>"; };
 		66360E441A2757CB00417B75 /* RMLate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLate.m; sourceTree = "<group>"; };
 		66360E461A2757CC00417B75 /* RMAbsence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbsence.h; sourceTree = "<group>"; };
@@ -385,11 +382,9 @@
 			children = (
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
-				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
-				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 			);
 			name = Application;
@@ -669,7 +664,6 @@
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				66360E451A2757CB00417B75 /* RMLate.m in Sources */,
-				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,

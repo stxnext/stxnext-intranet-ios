@@ -11,7 +11,6 @@
 #import "APIRequest.h"
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "UIView+Screenshot.h"
-#import "AppDelegate+Settings.h"
 
 @implementation UserListTableViewController
 {

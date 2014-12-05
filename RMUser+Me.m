@@ -9,7 +9,6 @@
 #import "RMUser+Me.h"
 #import "APIRequest.h"
 #import "AFHTTPRequestOperation+Redirect.h"
-#import "AppDelegate+Settings.h"
 #import "NSString+MyRegex.h"
 
 @implementation RMUser (Me)
