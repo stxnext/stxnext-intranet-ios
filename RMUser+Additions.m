@@ -97,7 +97,7 @@ const NSString* MapKeyUserGroups = @"groups";
 
 + (NSString *)formatRole:(NSString *)role
 {
-    if ([role isEqualToString:@"ACCOUNTANT"] || [role isEqualToString:@"ADMIN"] || [role isEqualToString:@"OFFICE MANAGER"] || [role isEqualToString:@"PROGRAMMER"] || [role isEqualToString:@"RECRUITER"] || [role isEqualToString:@"TESTER"] || [role isEqualToString:@"TECH LEAD"])
+    if ([role isEqualToString:@"ACCOUNTANT"] || [role isEqualToString:@"ADMIN"] || [role isEqualToString:@"OFFICE MANAGER"] || [role isEqualToString:@"PROGRAMMER"] || [role isEqualToString:@"RECRUITER"] || [role isEqualToString:@"TESTER"] || [role isEqualToString:@"TECH LEAD"] || [role isEqualToString:@"HR MANAGER"] || [role isEqualToString:@"PRODUCT OWNER"] || [role isEqualToString:@"BUSINESS RESEARCHER"] || [role isEqualToString:@"OFFICE ASSISTANT"]  || [role isEqualToString:@"SCRUM MASTER"])
     {
         return [role capitalizedString];
     }
@@ -112,6 +112,21 @@ const NSString* MapKeyUserGroups = @"groups";
         return @"CEO's Assistant";
     }
     
+    if ([role isEqualToString:@"CEO"])
+    {
+        return @"CEO";
+    }
+    
+    if ([role isEqualToString:@"CTO"])
+    {
+        return @"CTO";
+    }
+    
+    if ([role isEqualToString:@"COO"])
+    {
+        return @"COO";
+    }
+    
     if ([role isEqualToString:@"MARKETING SPEC"])
     {
         return @"Marketing Specialist";
@@ -121,7 +136,12 @@ const NSString* MapKeyUserGroups = @"groups";
     {
         return @"QA Lead";
     }
-    
+
+    if ([role isEqualToString:@"HR MANAGER"])
+    {
+        return @"HR Manager";
+    }
+        
     return role;
 }
 
@@ -138,7 +158,12 @@ const NSString* MapKeyUserGroups = @"groups";
         return [group uppercaseString];
     }
     
-    return group;
+    if ([group isEqualToString:@"team_leader"])
+    {
+        return @"Team Leader";
+    }
+    
+    return [group capitalizedString];
 }
 
 - (id)mapToJSON
