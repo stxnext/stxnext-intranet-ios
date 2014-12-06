@@ -10,6 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ClockView.h"
 
+@protocol UserDetailsTableViewControllerDelegate;
 @interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
@@ -42,5 +43,16 @@
 @property (strong, nonatomic) RMUser *user;
 @property (nonatomic, assign) BOOL isComeFromAbsences;
 @property (nonatomic, assign) BOOL isListStateTommorow;
+
+@property (nonatomic, weak) id<UserDetailsTableViewControllerDelegate> delegate;
+
+@end
+
+
+@protocol UserDetailsTableViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)didChangeUserDetailsToMe;
 
 @end

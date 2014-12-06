@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     
+    [self.tableView hideEmptySeparators];
 
     self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
     
@@ -105,6 +106,297 @@
     CGFloat r = cell.isHidden ? 0 : 56;
     
     return r;
+}
+
+#pragma mark - GUI
+
+- (void)updateGUI
+{
+    if (INTERFACE_IS_PAD)
+    {
+        if ([RMUser userLoggedType] != UserLoginTypeTrue)
+        {
+            self.title = @"Info";
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+        }
+        else if ([self isLoadedMe]) // my details
+        {
+            self.title = @"Me";
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+        }
+        else // other people
+        {
+            self.title = @"Info";
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(loadMe)];
+        }
+    }
+    else
+    {
+        if ([self isMeTab]) // me
+        {
+            if ([RMUser userLoggedType] != UserLoginTypeTrue)
+            {
+                self.title = @"About";
+                
+                NSLog(@"%@", self.tabBarController.tabBar);
+                
+                if (self.webView == nil)
+                {
+                    isPageLoaded = NO;
+                    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+                    self.webView.scalesPageToFit = YES;
+                    self.webView.delegate = self;
+                }
+                
+                if (!isPageLoaded)
+                {
+                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
+                    
+                    [self.view addSubview:self.webView];
+                    [self addActivityIndicator];
+                }
+            }
+            else
+            {
+                self.title = @"Me";
+                [self.webView removeFromSuperview];
+                self.user = [RMUser me];
+            }
+            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(logout:)];
+
+        }
+        else
+        {
+            self.title = @"Info";
+//            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+//            {
+////                if (!self.user)
+////                {
+////                    [self addActivityIndicator];
+////                }
+//                
+//                return;
+//            }
+    
+        }
+    }
+    
+    [self updateCells];
+    
+    [self.tableView reloadDataAnimated:NO];
+}
+
+- (void)updateCells
+{
+    if (self.user.avatarURL)
+    {
+        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
+    }
+    
+    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
+    
+    if (self.user.name)
+    {
+        self.userName.text = self.user.name;
+        self.mainCell.hidden = NO;
+    }
+    else
+    {
+        self.mainCell.hidden = YES;
+    }
+    
+    if (self.user.phone)
+    {
+        self.phoneLabel.text = self.user.phone;
+        self.phoneCell.hidden = NO;
+    }
+    else
+    {
+        self.phoneCell.hidden = YES;
+    }
+    
+    if (self.user.phoneDesk)
+    {
+        self.phoneDeskLabel.text = self.user.phoneDesk;
+        self.phoneDeskCell.hidden = NO;
+    }
+    else
+    {
+        self.phoneDeskCell.hidden = YES;
+    }
+    
+    if (self.user.email)
+    {
+        self.emailLabel.text = self.user.email;
+        self.emailCell.hidden = NO;
+    }
+    else
+    {
+        self.emailCell.hidden = YES;
+    }
+    
+    if (self.user.skype)
+    {
+        self.skypeLabel.text = self.user.skype;
+        self.skypeCell.hidden = NO;
+    }
+    else
+    {
+        self.skypeCell.hidden = YES;
+    }
+    
+    if (self.user.irc)
+    {
+        self.ircLabel.text = self.user.irc;
+        self.ircCell.hidden = NO;
+    }
+    else
+    {
+        self.ircCell.hidden = YES;
+    }
+    
+    if (self.user.location)
+    {
+        self.locationLabel.text = self.user.location;
+        self.locationCell.hidden = NO;
+    }
+    else
+    {
+        self.locationCell.hidden = YES;
+    }
+    
+    NSString *(^formatValues)(id) = ^(id array){
+        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
+        
+        for (NSString *value in array)
+        {
+            [string appendFormat:@"%@, ", value];
+        }
+        
+        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
+        
+        return string;
+    };
+    
+    if ([self.user.groups count])
+    {
+        self.groupsLabel.text = formatValues(self.user.groups);
+        self.groupsCell.hidden = NO;
+    }
+    else
+    {
+        self.groupsCell.hidden = YES;
+    }
+    
+    if ([self.user.roles count])
+    {
+        self.rolesLabel.text = formatValues(self.user.roles);
+        self.rolesCell.hidden = NO;
+    }
+    else
+    {
+        self.rolesCell.hidden = YES;
+    }
+    
+    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
+    
+    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+    
+    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
+    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
+    
+    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
+    latesDateFormater.dateFormat = @"HH:mm";
+    
+    //    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
+    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
+    {
+        self.clockView.color = MAIN_RED_COLOR;
+        
+        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMAbsence *absence = (RMAbsence *)obj;
+            
+            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
+            {
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (absence.remarks)
+                {
+                    [hours appendFormat:@" %@\n", absence.remarks];
+                }
+            }
+        }];
+    }
+    else  if (self.user.lates.count)
+    {
+        self.clockView.color = MAIN_YELLOW_COLOR;
+        
+        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
+            RMLate *late = (RMLate *)obj;
+            
+            if (self.isListStateTommorow == [late.isTomorrow boolValue])
+            {
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                if (start.length || stop.length)
+                {
+                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
+                     stop.length ? stop : @"..."];
+                }
+                
+                if (late.explanation)
+                {
+                    [hours appendFormat:@" %@\n", late.explanation];
+                }
+            }
+        }];
+    }
+    
+    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    
+    if (hours.length > 1)
+    {
+        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
+    }
+    
+    self.explanationLabel.text = hours;
+    
+    if ([RMUser userLoggedType] != UserLoginTypeTrue)
+    {
+        self.addToContactsCell.hidden = YES;
+    }
+    
+    if ([self isLoadedMe])
+    {
+        self.addToContactsCell.hidden = YES;
+    }
+    
+    [self.userName sizeToFit];
+    [self.userName layoutIfNeeded];
+    [self.explanationLabel sizeToFit];
+    
+    [self updateAddToContactsButton];
 }
 
 #pragma mark - Actions
@@ -223,7 +515,7 @@
         
         [RMUser setUserLoggedType:UserLoginTypeNO];
         
-        if (!INTERFACE_IS_PAD)
+        if (INTERFACE_IS_PHONE)
         {
             [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
         }
@@ -266,7 +558,7 @@
                                                   
                                                   [RMUser setUserLoggedType:UserLoginTypeNO];
                                                   
-                                                  if (!INTERFACE_IS_PAD)
+                                                  if (INTERFACE_IS_PHONE)
                                                   {
                                                       [APP_DELEGATE goToTabAtIndex:TabIndexUserList];
                                                   }
@@ -283,307 +575,7 @@
     }
 }
 
-#pragma mark - GUI
-
-- (void)updateGUI
-{
-    
-    
-    
-    [self.tableView hideEmptySeparators];
- 
-    if (INTERFACE_IS_PAD)
-    {
-        if ([RMUser userLoggedType] != UserLoginTypeTrue)
-        {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-        }
-        else if ([self isLoadedMe]) // my details
-        {
-            self.title = @"Me";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-        }
-        else // other people
-        {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(loadMe)];
-        }
-    }
-    else
-    {
-        if ([self isMeTab]) // me
-        {
-            if ([RMUser userLoggedType] != UserLoginTypeTrue)
-            {
-                self.title = @"About";
-                
-                NSLog(@"%@", self.tabBarController.tabBar);
-                
-                if (self.webView == nil)
-                {
-                    isPageLoaded = NO;
-                    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
-                    self.webView.scalesPageToFit = YES;
-                    self.webView.delegate = self;
-                }
-                
-                if (!isPageLoaded)
-                {
-                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
-                    
-                    [self.view addSubview:self.webView];
-                    [self addActivityIndicator];
-                }
-            }
-            else
-            {
-                self.title = @"Me";
-                [self.webView removeFromSuperview];
-                self.user = [RMUser me];
-            }
-            
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-
-        }
-        else
-        {
-            self.title = @"Info";
-//            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
-//            {
-////                if (!self.user)
-////                {
-////                    [self addActivityIndicator];
-////                }
-//                
-//                return;
-//            }
-    
-        }
-    }
-    
-    if (self.user.avatarURL)
-    {
-        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
-    }
-    
-    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
-    
-    if (self.user.name)
-    {
-        self.userName.text = self.user.name;
-        self.mainCell.hidden = NO;
-    }
-    else
-    {
-        self.mainCell.hidden = YES;
-    }
-    
-    if (self.user.phone)
-    {
-        self.phoneLabel.text = self.user.phone;
-        self.phoneCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneCell.hidden = YES;
-    }
-    
-    if (self.user.phoneDesk)
-    {
-        self.phoneDeskLabel.text = self.user.phoneDesk;
-        self.phoneDeskCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneDeskCell.hidden = YES;
-    }
-    
-    if (self.user.email)
-    {
-        self.emailLabel.text = self.user.email;
-        self.emailCell.hidden = NO;
-    }
-    else
-    {
-        self.emailCell.hidden = YES;
-    }
-    
-    if (self.user.skype)
-    {
-        self.skypeLabel.text = self.user.skype;
-        self.skypeCell.hidden = NO;
-    }
-    else
-    {
-        self.skypeCell.hidden = YES;
-    }
-    
-    if (self.user.irc)
-    {
-        self.ircLabel.text = self.user.irc;
-        self.ircCell.hidden = NO;
-    }
-    else
-    {
-        self.ircCell.hidden = YES;
-    }
-    
-    if (self.user.location)
-    {
-        self.locationLabel.text = self.user.location;
-        self.locationCell.hidden = NO;
-    }
-    else
-    {
-        self.locationCell.hidden = YES;
-    }
-    
-    if ([self.user.groups count])
-    {
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-        
-        for (NSString *group in self.user.groups)
-        {
-            [string appendFormat:@"%@, ", group];
-        }
-        
-        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        self.groupsLabel.text = string;
-        self.groupsCell.hidden = NO;
-    }
-    else
-    {
-        self.groupsCell.hidden = YES;
-    }
-    
-    if ([self.user.roles count])
-    {
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-        
-        for (NSString *role in self.user.roles)
-        {
-            [string appendFormat:@"%@, ", role];
-        }
-        
-        [string replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        self.rolesLabel.text = string;
-        self.rolesCell.hidden = NO;
-    }
-    else
-    {
-        self.rolesCell.hidden = YES;
-    }
-    
-    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-//    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
-    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
-    {
-        self.clockView.color = MAIN_RED_COLOR;
-        
-        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
-            
-            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
-            {
-                NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (absence.remarks)
-                {
-                    [hours appendFormat:@" %@\n", absence.remarks];
-                }
-            }
-        }];
-    }
-    else  if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            if (self.isListStateTommorow == [late.isTomorrow boolValue])
-            {
-                NSString *start = [latesDateFormater stringFromDate:late.start];
-                NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (late.explanation)
-                {
-                    [hours appendFormat:@" %@\n", late.explanation];
-                }
-            }
-        }];
-    }
-    
-    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    
-    if (hours.length > 1)
-    {
-        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
-    }
-    
-    self.explanationLabel.text = hours;
-    
-    if ([RMUser userLoggedType] != UserLoginTypeTrue)
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    if ([self isLoadedMe])
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    [self.userName sizeToFit];
-    [self.userName layoutIfNeeded];
-    [self.explanationLabel sizeToFit];
-    [self updateAddToContactsButton];
-    
-    [self.tableView reloadDataAnimated:NO];
-}
-
 #pragma mark - UIWebViewDelegate
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    
-}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -637,6 +629,8 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma mark - Rotations
+
 - (BOOL)shouldAutorotate
 {
     [self updateGUI];
@@ -686,12 +680,7 @@
     [self.activityIndicator removeFromSuperview];
 }
 
-- (void)loadMe
-{
-    self.user = [RMUser me];
-}
-
-#pragma mark - Others
+#pragma mark - Other
 
 - (BOOL)isLoadedMe
 {
@@ -702,4 +691,20 @@
 {
     return [[self.navigationController viewControllers] count] == 1;
 }
+
+- (void)loadMe
+{
+    self.user = [RMUser me];
+
+    if (self.user && ![self.user isFault])
+    {
+        if ([self.delegate respondsToSelector:@selector(didChangeUserDetailsToMe)])
+        {
+            [self.delegate didChangeUserDetailsToMe];
+        }
+    }
+    
+    [self updateGUI];
+}
+
 @end

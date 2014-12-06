@@ -363,6 +363,31 @@
     return result;
 }
 
+- (NSInteger)fakeSectionForRealSection:(NSInteger)section
+{
+    NSInteger result = -1;
+    
+    if (currentListState == ListStateAll)
+    {
+        return section;
+    }
+    
+    int idx = 0;
+    for (NSArray *array in userList)
+    {
+        [array count] ? result++: result;
+        
+        if (idx == section)
+        {
+            break;
+        }
+        
+        idx++;
+    }
+    
+    return result;
+}
+
 - (NSInteger)numberOfNotEmptySections
 {
     int result = 0;
@@ -498,6 +523,8 @@
 {
     if ([segue.destinationViewController isKindOfClass:[UserDetailsTableViewController class]])
     {
+        UserDetailsTableViewController *viewController = (UserDetailsTableViewController *)segue.destinationViewController;
+        
         UserListCell *cell = (UserListCell *)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
@@ -508,7 +535,7 @@
         
         if (currentListState == ListStateAll)
         {
-            ((UserDetailsTableViewController *)segue.destinationViewController).user = userList[indexPath.row];
+            viewController.user = userList[indexPath.row];
         }
         else
         {
@@ -516,13 +543,60 @@
             
             if (realSection == 0)
             {
-                ((UserDetailsTableViewController *)segue.destinationViewController).isComeFromAbsences = YES;
+                viewController.isComeFromAbsences = YES;
             }
             
-            ((UserDetailsTableViewController *)segue.destinationViewController).user = userList[realSection][indexPath.row];
+            viewController.user = userList[realSection][indexPath.row];
         }
         
-        ((UserDetailsTableViewController *)segue.destinationViewController).isListStateTommorow = currentListState == ListStateOutTomorrow;
+        viewController.isListStateTommorow = currentListState == ListStateOutTomorrow;
+        
+        if (INTERFACE_IS_PAD)
+        {
+            viewController.delegate = self;
+        }
+    }
+}
+
+#pragma mark - UserDetailsTableViewControllerDelegate
+
+- (void)didChangeUserDetailsToMe
+{
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    
+    RMUser *me = [RMUser me];
+    
+    NSInteger __block position = NSNotFound;
+    NSInteger __block  section = 0;
+    
+    switch (currentListState)
+    {
+        case ListStateNotSet:
+            return;
+
+        case ListStateAll:
+            position = [userList indexOfObject:me];
+            break;
+
+        case ListStateOutToday:
+        case ListStateOutTomorrow:
+            [userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if ([obj containsObject:me])
+                {
+                    position = [obj indexOfObject:me];
+                    section = [self fakeSectionForRealSection:idx];
+                    *stop = YES;
+                }
+            }];
+            
+            break;
+    }
+
+    if (position != NSNotFound)
+    {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:position inSection:section]
+                                    animated:YES
+                              scrollPosition:UITableViewScrollPositionTop];
     }
 }
 

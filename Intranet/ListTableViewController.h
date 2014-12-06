@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
     ListStateOutTomorrow,
 };
 
-@interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate,UIPopoverControllerDelegate>
+@interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UserDetailsTableViewControllerDelegate>
 {
     NSString *searchedString;
     ListState currentListState;
