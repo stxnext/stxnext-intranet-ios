@@ -146,6 +146,11 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
+                        if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
+                        {
+                            [self.delegate didFinishAddingOOO];
+                        }
+                        
                         if (INTERFACE_IS_PHONE)
                         {
                             [self dismissViewControllerAnimated:YES completion:nil];
@@ -206,6 +211,11 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
+                        if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
+                        {
+                            [self.delegate didFinishAddingOOO];
+                        }
+
                         if (INTERFACE_IS_PHONE)
                         {
                             [self dismissViewControllerAnimated:YES completion:nil];

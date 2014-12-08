@@ -12,9 +12,7 @@
 
 @interface UserListTableViewController : ListTableViewController <LoginViewControllerDelegate>
 {
-    IBOutlet UIBarButtonItem *_showActionButton;
-    
-    UIRefreshControl *_refreshControl;
+
 }
 
 @end

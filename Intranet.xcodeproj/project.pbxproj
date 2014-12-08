@@ -80,6 +80,7 @@
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 		6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6675937D19E6BAD9004603C5 /* CoreTelephony.framework */; };
+		6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696422E1A35BB7500E5F604 /* ControllableBlock.m */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A83E271A28945D00B53A65 /* ListTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
@@ -209,6 +210,8 @@
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		6675937D19E6BAD9004603C5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6696422D1A35BB7500E5F604 /* ControllableBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllableBlock.h; sourceTree = "<group>"; };
+		6696422E1A35BB7500E5F604 /* ControllableBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllableBlock.m; sourceTree = "<group>"; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66A83E261A28945D00B53A65 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
@@ -416,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
+				6696422D1A35BB7500E5F604 /* ControllableBlock.h */,
 				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
@@ -427,6 +431,7 @@
 				66515F1818B38A7700092BB2 /* UIView+Additions.h */,
 				66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+				6696422E1A35BB7500E5F604 /* ControllableBlock.m */,
 				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
@@ -692,6 +697,7 @@
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
+				6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,

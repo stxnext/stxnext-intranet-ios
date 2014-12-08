@@ -25,6 +25,7 @@
     
     currentListState = [self nextListState];
     [self showOutViewButton];
+    [self addRefreshControl];
 }
 
 - (void)hideOutViewButton
@@ -58,6 +59,265 @@
 }
 
 #pragma mark - Data
+
+- (void)processUsers:(NSDictionary *)users absencesAndLates:(NSDictionary *)absencesAndLates finalAction:(SimpleBlock)finalAction
+{
+    //    [[NSOperationQueue new] addOperationWithBlock:^{
+    isDatabaseBusy = YES;
+    [self hideOutViewButton];
+    
+    if (shouldReloadAvatars)
+    {
+        avatarsToRefresh = [NSMutableArray new];
+        [[UIImageView sharedCookies] removeAllObjects];
+        
+        NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
+                                               withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                ascending:YES
+                                                                                                 selector:@selector(localizedCompare:)]
+                                                    withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
+                                                 inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        
+        for (RMUser *user in temp)
+        {
+            [avatarsToRefresh addObject:user.id];
+        }
+        
+        shouldReloadAvatars = NO;
+    }
+    
+    @synchronized(self){
+        if (users)
+        {
+            [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
+                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        }
+        
+        if (absencesAndLates)
+        {
+            [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
+                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+            
+            [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
+                                           inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
+        }
+        
+        for (id user in users[@"users"])
+        {
+            [RMUser mapFromJSON:user];
+        }
+        
+        for (id absence in absencesAndLates[@"absences"])
+        {
+            RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
+            rm.isTomorrow = [NSNumber numberWithBool:NO];
+        }
+        
+        for (id late in absencesAndLates[@"lates"])
+        {
+            RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
+            rm.isTomorrow = [NSNumber numberWithBool:NO];
+        }
+        
+        for (id absence in absencesAndLates[@"absences_tomorrow"])
+        {
+            RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
+            rm.isTomorrow = [NSNumber numberWithBool:YES];
+        }
+        
+        for (id late in absencesAndLates[@"lates_tomorrow"])
+        {
+            RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
+            rm.isTomorrow = [NSNumber numberWithBool:YES];
+        }
+        
+        [[DatabaseManager sharedManager] saveContext];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            @synchronized(self){
+                self.allUsers = nil;
+                self.tomorrowOutOffOfficePeople = nil;
+                self.todayOutOffOfficePeople = nil;
+                
+                [self loadUsersFromDatabase];
+                [self informStopDownloading];
+                
+                isDatabaseBusy = NO;
+                [self showOutViewButton];
+                
+                if (finalAction)
+                {
+                    finalAction();
+                }
+            }
+        }];
+    }
+    //    }];
+}
+
+- (void)downloadUsers:(void (^)(NSDictionary *users))resultAction
+{
+    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSLog(@"Loaded: users");
+                                          resultAction(responseObject);
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          NSLog(@"Users API Loading Error");
+                                          
+                                          if ([operation redirectToLoginView])
+                                          {
+                                              [self showLoginScreen];
+                                          }
+                                          
+                                          [self.tableView reloadData];
+                                          
+                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
+                                          
+                                          resultAction(nil);
+                                          
+                                          [self informStopDownloading];
+                                      }];
+    
+}
+
+- (void)downloadAbsencesAndLates:(void (^)(NSDictionary *absencesAndLates))resultAction
+{
+    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSLog(@"Loaded: absences and lates");
+                                          resultAction(responseObject);
+                                      }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          
+                                          NSLog(@"Presence API Loading Error");
+                                          
+                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
+                                          
+                                          resultAction(nil);
+                                          
+                                          [self informStopDownloading];
+                                      }];
+}
+
+- (void)loadUsersFromAPI:(SimpleBlock)finalAction
+{
+    if (isUpdating)
+    {
+        return;
+    }
+    
+    isUpdating = YES;
+    isDatabaseBusy = NO;
+    
+    [self showOutViewButton];
+    
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        NSLog(@"No internet");
+        
+        finalAction();
+        
+        return;
+    }
+    
+    NSLog(@"Start loading from: API");
+    
+    [self informStartDownloading];
+    NSMutableDictionary *downloadedData = [NSMutableDictionary new];
+    NSOperationQueue *queue = [NSOperationQueue new];
+    queue.suspended = YES;
+    
+    __block ControllableBlock *getUsers;
+    getUsers = [ControllableBlock blockOperationWithBlock:^{
+        NSLog(@"Block - Get users");
+        [self downloadUsers:^(NSDictionary *users) {
+            if (users)
+            {
+                [downloadedData setObject:users forKey:@"users"];
+            }
+            
+            [getUsers informIsFinished];
+        }];
+    }];
+    
+    __block ControllableBlock *getAbsencesAndLates;
+    getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
+        NSLog(@"Block - Get Absences And Lates");
+        [self downloadAbsencesAndLates:^(NSDictionary *absencesAndLates) {
+            if (absencesAndLates)
+            {
+                [downloadedData setObject:absencesAndLates forKey:@"absencesAndLates"];
+            }
+            
+            [getAbsencesAndLates informIsFinished];
+        }];
+    }];
+    
+    NSBlockOperation *processData = [NSBlockOperation blockOperationWithBlock:^{
+        NSLog(@"Block - Process Data");
+        [self processUsers:[downloadedData objectForKey:@"users"] absencesAndLates:[downloadedData objectForKey:@"absencesAndLates"] finalAction:finalAction];
+    }];
+    
+    [processData addDependency:getUsers];
+    [processData addDependency:getAbsencesAndLates];
+    
+    [queue addOperations:@[getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
+    queue.suspended = NO;
+}
+
+- (void)reloadLates:(SimpleBlock)finalAction
+{
+    if (isUpdating)
+    {
+        return;
+    }
+    
+    isUpdating = YES;
+    isDatabaseBusy = NO;
+    
+    [self showOutViewButton];
+    
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        NSLog(@"No internet");
+        
+        finalAction();
+        
+        return;
+    }
+    
+    NSLog(@"Start loading from: reload Lates");
+    
+    [self informStartDownloading];
+    NSMutableDictionary *downloadedData = [NSMutableDictionary new];
+    NSOperationQueue *queue = [NSOperationQueue new];
+    queue.suspended = YES;
+    
+    __block ControllableBlock *getAbsencesAndLates;
+    getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
+        NSLog(@"Block - Get Absences And Lates");
+        [self downloadAbsencesAndLates:^(NSDictionary *absencesAndLates) {
+            if (absencesAndLates)
+            {
+                [downloadedData setObject:absencesAndLates forKey:@"absencesAndLates"];
+            }
+            
+            [getAbsencesAndLates informIsFinished];
+        }];
+    }];
+    
+    NSBlockOperation *processData = [NSBlockOperation blockOperationWithBlock:^{
+        NSLog(@"Block - Process Data");
+        [self processUsers:[downloadedData objectForKey:@"users"] absencesAndLates:[downloadedData objectForKey:@"absencesAndLates"] finalAction:finalAction];
+    }];
+    
+    [processData addDependency:getAbsencesAndLates];
+    
+    [queue addOperations:@[getAbsencesAndLates, processData] waitUntilFinished:NO];
+    queue.suspended = NO;
+}
 
 - (void)loadUsersFromDatabase
 {
@@ -116,9 +376,9 @@
             if (searchedString.length > 0)
             {
                 userList = [NSMutableArray arrayWithCapacity:3];
-                userList[0] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[1] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[2] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[0] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[1] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[2] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
             }
             else
             {
@@ -139,6 +399,27 @@
     {
         [self.tableView reloadData];
     }
+}
+
+- (void)addRefreshControl
+{
+    if (self.refreshControl == nil)
+    {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+        [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
+        _refreshControl = refreshControl;
+        self.refreshControl = refreshControl;
+    }
+}
+    IBOutlet UIBarButtonItem *_showActionButton;
+
+- (void)stopRefreshData
+{
+    [_refreshControl endRefreshing];
+    
+    _showActionButton.enabled = YES;
+    isUpdating = NO;
 }
 
 #pragma mark - UITableView
@@ -462,6 +743,7 @@
             
             AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
             form.currentRequest = (int)buttonIndex;
+            form.delegate = self;
         }
         else
         {
@@ -469,6 +751,7 @@
             
             AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
             outOfOfficeForm.currentRequest = (int)buttonIndex;
+            outOfOfficeForm.delegate = self;
             
             if (INTERFACE_IS_PAD)
             {
@@ -558,6 +841,15 @@
     }
 }
 
+#pragma mark - AddOOOFormTableViewControllerDelegate
+
+- (void)didFinishAddingOOO
+{
+    [self reloadLates:^{
+        [self stopRefreshData];
+    }];
+}
+
 #pragma mark - UserDetailsTableViewControllerDelegate
 
 - (void)didChangeUserDetailsToMe
@@ -598,6 +890,23 @@
                                     animated:YES
                               scrollPosition:UITableViewScrollPositionTop];
     }
+}
+
+
+#pragma mark - Add OOO
+
+- (void)informStartDownloading
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DID_START_REFRESH_PEOPLE object:self];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:IS_REFRESH_PEOPLE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)informStopDownloading
+{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:IS_REFRESH_PEOPLE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DID_END_REFRESH_PEOPLE object:self];
 }
 
 #pragma mark - iPad

@@ -11,6 +11,9 @@
 #import "UserDetailsTableViewController.h"
 #import "AddOOOFormTableViewController.h"
 #import "UIImageView+Additions.h"
+#import "APIRequest.h"
+#import "AFHTTPRequestOperation+Redirect.h"
+#import "ControllableBlock.h"
 
 typedef NS_ENUM(NSUInteger, ListState) {
     ListStateNotSet, 
@@ -19,14 +22,18 @@ typedef NS_ENUM(NSUInteger, ListState) {
     ListStateOutTomorrow,
 };
 
-@interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UserDetailsTableViewControllerDelegate>
+@interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UserDetailsTableViewControllerDelegate, AddOOOFormTableViewControllerDelegate>
 {
     NSString *searchedString;
     ListState currentListState;
     NSMutableArray *userList;
     NSMutableArray *avatarsToRefresh;
+    UIRefreshControl *_refreshControl;
+    IBOutlet UIBarButtonItem *_showActionButton;
     BOOL canShowNoResultsMessage;
     BOOL isDatabaseBusy;
+    BOOL shouldReloadAvatars;
+    BOOL isUpdating;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
@@ -41,10 +48,15 @@ typedef NS_ENUM(NSUInteger, ListState) {
 - (void)hideOutViewButton;
 - (void)loadUsersFromDatabase;
 - (void)showNoSelectionUserDetails;
+- (void)showLoginScreen;
+- (void)addRefreshControl;
+- (void)stopRefreshData;
 
 - (ListState)nextListState;
 - (void)showOutViewButton;
 - (IBAction)changeView:(id)sender;
 - (IBAction)showNewRequest:(id)sender;
+- (void)loadUsersFromAPI:(SimpleBlock)finalAction;
+- (void)reloadLates:(SimpleBlock)finalAction;
 
 @end

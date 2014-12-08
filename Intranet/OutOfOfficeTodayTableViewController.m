@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
 }
@@ -45,6 +45,19 @@
     }
     
     [super loadUsersFromDatabase];
+}
+
+- (void)startRefreshData
+{
+    [self showNoSelectionUserDetails];
+    
+    _showActionButton.enabled = NO;
+    
+    [self reloadLates:^{
+        [self stopRefreshData];
+    }];
+    
+    shouldReloadAvatars = YES;
 }
 
 #pragma mark - Notyfications
@@ -91,7 +104,6 @@
             case ListStateOutToday:
                 [self.viewSwitchButton setTitle:@"Tomorrow"];
                 self.title = @"Today";
-                self.refreshControl = nil;
                 
                 break;
                 

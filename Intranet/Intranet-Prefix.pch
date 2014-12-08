@@ -94,4 +94,4 @@
 #define DID_END_REFRESH_PEOPLE @"didEndRefreshPeople"
 #define IS_REFRESH_PEOPLE @"isRefreshPeople"
 
-typedef dispatch_block_t Block;
+typedef dispatch_block_t SimpleBlock;

@@ -8,24 +8,19 @@
 
 #import "UserListTableViewController.h"
 
-#import "APIRequest.h"
-#import "AFHTTPRequestOperation+Redirect.h"
 #import "UIView+Screenshot.h"
 
 @implementation UserListTableViewController
 {
     __weak UIPopoverController *myPopover;
-    
-    BOOL shouldReloadAvatars;
-    BOOL isUpdating;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self informStopDownloading];
-    [self addRefreshControl];
+//    [self informStopDownloading];
+//    [self addRefreshControl];
     
     //update data
     if ([RMUser userLoggedType] != UserLoginTypeNO)
@@ -109,17 +104,6 @@
 
 #pragma mark - Download data
 
-- (void)addRefreshControl
-{
-    if (self.refreshControl == nil)
-    {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
-        [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-        _refreshControl = refreshControl;
-        self.refreshControl = refreshControl;
-    }
-}
 
 - (void)startRefreshData
 {
@@ -134,183 +118,7 @@
     shouldReloadAvatars = YES;
 }
 
-- (void)stopRefreshData
-{
-    [_refreshControl endRefreshing];
-    
-    _showActionButton.enabled = YES;
-    isUpdating = NO;
-}
 
-- (void)loadUsersFromAPI:(void (^)(void))endAction
-{
-    if (isUpdating)
-    {
-        return;
-    }
-    
-    isUpdating = YES;
-    isDatabaseBusy = NO;
-    
-    [self showOutViewButton];
-    
-    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
-    {
-        NSLog(@"No internet");
-
-        endAction();
-        
-        return;
-    }
-    
-    [self informStartDownloading];
-    
-    __block NSInteger operations = 2;
-    __block id users;
-    __block id absencesAndLates;
-    
-    NSLog(@"Loading from: API");
-
-    void(^load)(void) = ^(void) {
-        NSLog(@"^LOAD");
-        [[NSOperationQueue new] addOperationWithBlock:^{
-            isDatabaseBusy = YES;
-            [self hideOutViewButton];
-            
-            if (shouldReloadAvatars)
-            {
-                avatarsToRefresh = [NSMutableArray new];
-                [[UIImageView sharedCookies] removeAllObjects];
-                
-                NSArray *temp = [JSONSerializationHelper objectsWithClass:[RMUser class]
-                                                       withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                                        ascending:YES
-                                                                                                         selector:@selector(localizedCompare:)]
-                                                            withPredicate:[NSPredicate predicateWithFormat:@"isActive = YES"]
-                                                         inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                
-                for (RMUser *user in temp)
-                {
-                    [avatarsToRefresh addObject:user.id];
-                }
-                
-                shouldReloadAvatars = NO;
-            }
-
-            @synchronized(self){
-                [JSONSerializationHelper deleteObjectsWithClass:[RMUser class]
-                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                
-                [JSONSerializationHelper deleteObjectsWithClass:[RMAbsence class]
-                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                
-                [JSONSerializationHelper deleteObjectsWithClass:[RMLate class]
-                                               inManagedContext:[DatabaseManager sharedManager].managedObjectContext];
-                
-                for (id user in users[@"users"])
-                {
-                    [RMUser mapFromJSON:user];
-                }
-                
-                for (id absence in absencesAndLates[@"absences"])
-                {
-                    RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
-                    rm.isTomorrow = [NSNumber numberWithBool:NO];
-                }
-                
-                for (id late in absencesAndLates[@"lates"])
-                {
-                    RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
-                    rm.isTomorrow = [NSNumber numberWithBool:NO];
-                }
-                
-                for (id absence in absencesAndLates[@"absences_tomorrow"])
-                {
-                    RMAbsence *rm = (RMAbsence *)[RMAbsence mapFromJSON:absence];
-                    rm.isTomorrow = [NSNumber numberWithBool:YES];
-                }
-                
-                for (id late in absencesAndLates[@"lates_tomorrow"])
-                {
-                    RMLate *rm = (RMLate *)[RMLate mapFromJSON:late];
-                    rm.isTomorrow = [NSNumber numberWithBool:YES];
-                }
-
-                [[DatabaseManager sharedManager] saveContext];
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    @synchronized(self){
-                        self.allUsers = nil;
-                        self.tomorrowOutOffOfficePeople = nil;
-                        self.todayOutOffOfficePeople = nil;
-                        
-                        [self loadUsersFromDatabase];
-                        [self informStopDownloading];
-                        
-                        isDatabaseBusy = NO;
-                        [self showOutViewButton];
-                        endAction();
-                    }
-                }];
-            }
-        }];
-    };
-    
-    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getUsers] : [APIRequest getFalseUsers]
-                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          
-                                          NSLog(@"Loaded: users");
-                                          
-                                          users = responseObject;
-                                          
-                                          if (--operations == 0)
-                                          {
-                                              NSLog(@"LOAD");
-                                              load();
-                                          }
-                                      }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          
-                                          NSLog(@"Users API Loading Error");
-                                          
-                                          if ([operation redirectToLoginView])
-                                          {
-                                              [self showLoginScreen];
-                                          }
-                                          
-                                          [self.tableView reloadData];
-                                          
-                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
-                                          
-                                          endAction();
-                                          
-                                          [self informStopDownloading];
-                                      }];
-    
-    [[HTTPClient sharedClient] startOperation:[RMUser userLoggedType] == UserLoginTypeTrue ? [APIRequest getPresence] : [APIRequest getFalsePresence]
-                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                          
-                                          absencesAndLates = responseObject;
-                                          
-                                          NSLog(@"Loaded: absences and lates");
-                                          
-                                          if (--operations == 0)
-                                          {
-                                              NSLog(@"LOAD");
-                                              load();
-                                          }
-                                      }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          
-                                          NSLog(@"Presence API Loading Error");
-                                          
-                                          [[HTTPClient sharedClient].operationQueue cancelAllOperations];
-                                        
-                                          endAction();
-                                          
-                                          [self informStopDownloading];
-                                      }];
-}
 
 - (void)closePopover
 {
@@ -334,22 +142,6 @@
     {
         return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
     }
-}
-
-#pragma mark - Add OOO
-
-- (void)informStartDownloading
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:DID_START_REFRESH_PEOPLE object:self];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:IS_REFRESH_PEOPLE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)informStopDownloading
-{
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:IS_REFRESH_PEOPLE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DID_END_REFRESH_PEOPLE object:self];
 }
 
 - (void)showOutViewButton
