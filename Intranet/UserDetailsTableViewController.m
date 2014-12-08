@@ -36,8 +36,7 @@
     
     [self.tableView hideEmptySeparators];
 
-    self.phoneLabel.text = self.emailLabel.text = self.phoneDeskLabel.text = self.skypeLabel.text = self.ircLabel.text = self.userName.text = self.addToContactLabel.text = self.locationLabel.text = self.rolesLabel.text = self.groupsLabel.text = self.explanationLabel.text = @"";
-    
+    [self resetLabels];
     [self updateGUI];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
@@ -55,7 +54,10 @@
         }];
     }
     
-    [self updateGUI];
+    if (![self.user isFault])
+    {
+        [self updateGUI];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -397,6 +399,21 @@
     [self.explanationLabel sizeToFit];
     
     [self updateAddToContactsButton];
+}
+
+- (void)resetLabels
+{
+    self.phoneLabel.text = @"";
+    self.emailLabel.text = @"";
+    self.phoneDeskLabel.text = @"";
+    self.skypeLabel.text = @"";
+    self.ircLabel.text = @"";
+    self.userName.text = @"";
+    self.addToContactLabel.text = @"";
+    self.locationLabel.text = @"";
+    self.rolesLabel.text = @"";
+    self.groupsLabel.text = @"";
+    self.explanationLabel.text = @"";
 }
 
 #pragma mark - Actions
