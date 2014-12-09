@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     [self.tableView hideEmptySeparators];
-
+    
     [self resetLabels];
     [self updateGUI];
     
@@ -178,21 +178,21 @@
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(logout:)];
-
+            
         }
         else
         {
             self.title = @"Info";
-//            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
-//            {
-////                if (!self.user)
-////                {
-////                    [self addActivityIndicator];
-////                }
-//                
-//                return;
-//            }
-    
+            //            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
+            //            {
+            ////                if (!self.user)
+            ////                {
+            ////                    [self addActivityIndicator];
+            ////                }
+            //
+            //                return;
+            //            }
+            
         }
     }
     
@@ -323,8 +323,12 @@
     NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
     latesDateFormater.dateFormat = @"HH:mm";
     
+    BOOL isAbsenceAndCommingFromAbsence = (self.isComeFromAbsences && self.user.absences.count);
+    BOOL isAbsenceAndNotCommingFromAbsence = (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count);
+    
     //    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
-    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
+    //    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
+    if (isAbsenceAndCommingFromAbsence || isAbsenceAndNotCommingFromAbsence)
     {
         self.clockView.color = MAIN_RED_COLOR;
         
@@ -671,12 +675,11 @@
 {
     NSLog(@"END LOAD NOTIFICATION");
     
-//    [self loadUser];
     if (![self.user isFault])
     {
         [self updateGUI];
     }
-
+    
     [self removeActivityIndicator];
 }
 
@@ -712,7 +715,7 @@
 - (void)loadMe
 {
     self.user = [RMUser me];
-
+    
     if (self.user && ![self.user isFault])
     {
         if ([self.delegate respondsToSelector:@selector(didChangeUserDetailsToMe)])

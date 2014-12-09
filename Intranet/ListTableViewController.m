@@ -19,7 +19,7 @@
     [super viewDidLoad];
     
     self.clearsSelectionOnViewWillAppear = YES;
- 
+    
     [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
     
@@ -41,7 +41,7 @@
     currentListState = [self nextListState];
     [self showOutViewButton];
     [self loadUsersFromDatabase];
-
+    
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     
     [self showNoSelectionUserDetails];
@@ -54,6 +54,11 @@
 }
 
 - (void)showOutViewButton
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
+}
+
+- (void)showLoginScreen
 {
     NSAssert(NO, @"Subclasses need to overwrite this method");
 }
@@ -179,7 +184,6 @@
                                           
                                           [self informStopDownloading];
                                       }];
-    
 }
 
 - (void)downloadAbsencesAndLates:(void (^)(NSDictionary *absencesAndLates))resultAction
@@ -229,8 +233,7 @@
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.suspended = YES;
     
-    __block ControllableBlock *getUsers;
-    getUsers = [ControllableBlock blockOperationWithBlock:^{
+    __block ControllableBlock *getUsers = [ControllableBlock blockOperationWithBlock:^{
         NSLog(@"Block - Get users");
         [self downloadUsers:^(NSDictionary *users) {
             if (users)
@@ -242,8 +245,7 @@
         }];
     }];
     
-    __block ControllableBlock *getAbsencesAndLates;
-    getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
+    __block ControllableBlock *getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
         NSLog(@"Block - Get Absences And Lates");
         [self downloadAbsencesAndLates:^(NSDictionary *absencesAndLates) {
             if (absencesAndLates)
@@ -295,8 +297,7 @@
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.suspended = YES;
     
-    __block ControllableBlock *getAbsencesAndLates;
-    getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
+    __block ControllableBlock *getAbsencesAndLates = [ControllableBlock blockOperationWithBlock:^{
         NSLog(@"Block - Get Absences And Lates");
         [self downloadAbsencesAndLates:^(NSDictionary *absencesAndLates) {
             if (absencesAndLates)
@@ -408,15 +409,16 @@
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
         [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
-        _refreshControl = refreshControl;
+        
+//        _refreshControl = refreshControl;
         self.refreshControl = refreshControl;
     }
 }
-    IBOutlet UIBarButtonItem *_showActionButton;
 
 - (void)stopRefreshData
 {
-    [_refreshControl endRefreshing];
+//    [_refreshControl endRefreshing];
+    [self.refreshControl endRefreshing];
     
     _showActionButton.enabled = YES;
     isUpdating = NO;
@@ -432,7 +434,7 @@
     
     RMUser *user;
     NSInteger realSection = [self realSectionForNotEmptySection:indexPath.section];
-
+    
     if (currentListState == ListStateAll)
     {
         user = userList[indexPath.row];
@@ -459,16 +461,14 @@
         
         NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
         
-        void(^setAbsences)(void) = ^(void) {
+        SimpleBlock setAbsences = ^{
             cell.clockView.color = MAIN_RED_COLOR;
             
             [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMAbsence *absence = (RMAbsence *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO)
-                    ||
-                    (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES)
-                    )
+                if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO) ||
+                    (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES))
                 {
                     shouldHiddeClock = NO;
                     NSString *start = [absenceDateFormater stringFromDate:absence.start];
@@ -483,16 +483,14 @@
             }];
         };
         
-        void(^setLates)(void) = ^(void) {
+        SimpleBlock setLates = ^{
             cell.clockView.color = MAIN_YELLOW_COLOR;
             
             [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMLate *late = (RMLate *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO)
-                    ||
-                    (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES)
-                    )
+                if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO) ||
+                    (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES))
                 {
                     shouldHiddeClock = NO;
                     NSString *start = [latesDateFormater stringFromDate:late.start];
@@ -636,11 +634,11 @@
     {
         result++;
         [array count] ? section--: section;
-
+        
         if (section < 0)
             break;
     }
- 
+    
     return result;
 }
 
@@ -677,7 +675,7 @@
     {
         [array count]  ? result++ : result;
     }
- 
+    
     return result;
 }
 
@@ -716,7 +714,7 @@
             UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
-
+            
         }
         else
         {
@@ -724,7 +722,7 @@
             [self.popover dismissPopoverAnimated:NO];
             
             self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
-
+            
             
             [self.requestActionSheet showFromBarButtonItem:self.addRequestButton animated:YES];
         }
@@ -865,11 +863,11 @@
     {
         case ListStateNotSet:
             return;
-
+            
         case ListStateAll:
             position = [userList indexOfObject:me];
             break;
-
+            
         case ListStateOutToday:
         case ListStateOutTomorrow:
             [userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -883,7 +881,7 @@
             
             break;
     }
-
+    
     if (position != NSNotFound)
     {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:position inSection:section]

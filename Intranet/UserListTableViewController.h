@@ -11,8 +11,5 @@
 #import "LoginViewController.h"
 
 @interface UserListTableViewController : ListTableViewController <LoginViewControllerDelegate>
-{
-
-}
 
 @end

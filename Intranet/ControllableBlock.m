@@ -13,6 +13,7 @@
     BOOL executing;
     BOOL finished;
 }
+
 @end
 
 @implementation ControllableBlock
@@ -43,7 +44,9 @@
 
     [self willChangeValueForKey:@"isExecuting"];
     [NSThread detachNewThreadSelector:@selector(main) toTarget:self withObject:nil];
+    
     executing = YES;
+    
     [self didChangeValueForKey:@"isExecuting"];
 }
 

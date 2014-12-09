@@ -28,8 +28,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
     ListState currentListState;
     NSMutableArray *userList;
     NSMutableArray *avatarsToRefresh;
-    UIRefreshControl *_refreshControl;
-    IBOutlet UIBarButtonItem *_showActionButton;
+//    UIRefreshControl *_refreshControl;
     BOOL canShowNoResultsMessage;
     BOOL isDatabaseBusy;
     BOOL shouldReloadAvatars;
@@ -38,6 +37,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *viewSwitchButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addRequestButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showActionButton;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) UIActionSheet *requestActionSheet;
 

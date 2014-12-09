@@ -51,8 +51,8 @@
 {
     [self showNoSelectionUserDetails];
     
-    _showActionButton.enabled = NO;
-    
+    self.showActionButton.enabled = NO;
+        
     [self reloadLates:^{
         [self stopRefreshData];
     }];

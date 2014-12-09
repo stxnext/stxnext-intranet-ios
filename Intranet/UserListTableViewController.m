@@ -19,9 +19,6 @@
 {
     [super viewDidLoad];
     
-//    [self informStopDownloading];
-//    [self addRefreshControl];
-    
     //update data
     if ([RMUser userLoggedType] != UserLoginTypeNO)
     {
@@ -104,21 +101,27 @@
 
 #pragma mark - Download data
 
-
 - (void)startRefreshData
 {
     [self showNoSelectionUserDetails];
     
-    _showActionButton.enabled = NO;
+    self.showActionButton.enabled = NO;
     
-    [self loadUsersFromAPI:^{
-        [self stopRefreshData];
-    }];
-    
+    if (currentListState == ListStateAll)
+    {
+        [self loadUsersFromAPI:^{
+            [self stopRefreshData];
+        }];
+    }
+    else
+    {
+        [self reloadLates:^{
+            [self stopRefreshData];
+        }];
+    }
+
     shouldReloadAvatars = YES;
 }
-
-
 
 - (void)closePopover
 {
@@ -152,19 +155,21 @@
             case ListStateAll:
                 [self.viewSwitchButton setTitle:@"Out"];
                 self.title = @"All";
-                [self addRefreshControl];
+//                [self addRefreshControl];
                 
                 break;
                 
             case ListStateOutToday:
                 [self.viewSwitchButton setTitle:@"Tomorrow"];
                 self.title = @"Out";
-                self.refreshControl = nil;
+//                [self.refreshControl endRefreshing];
+//                self.refreshControl = nil;
                 
                 break;
                 
             case ListStateOutTomorrow:
                 [self.viewSwitchButton setTitle:@"All"];
+//                [self.refreshControl endRefreshing];
                 self.title = @"Tomorrow";
 
                 break;
