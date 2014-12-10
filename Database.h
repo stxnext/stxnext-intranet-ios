@@ -13,6 +13,7 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "JSONSerializationHelper.h"
 #import "RMUser+Additions.h"
+#import "RMUser+Me.h"
 #import "RMLate+Additions.h"
 #import "RMAbsence+Additions.h"
 

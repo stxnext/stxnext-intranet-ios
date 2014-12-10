@@ -29,10 +29,9 @@
     __block NSError *error = nil;
     __block NSArray *fetchedObjects = nil;
 
-    [self performBlockAndWait:^{
+//    [self performBlockAndWait:^{
         fetchedObjects = [self executeFetchRequest:request error:&error];
-    }];
-
+//    }];
 
     if (error)
     {

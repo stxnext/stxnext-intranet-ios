@@ -34,19 +34,11 @@ static NSString *documentDirectoryPath;
     return _sharedCookies;
 }
 
-- (void)setImageUsingCookiesWithURL:(NSURL*)url forceRefresh:(BOOL)refresh
+- (void)setImageUsingCookiesWithURL:(NSURL *)url forceRefresh:(BOOL)refresh
 {
-//    [self sd_setImageWithURL:[NSURL URLWithString:@"http://img1.wikia.nocookie.net/__cb20130611173955/4-fun/pl/images/8/8c/Kot_gladiator.jpg"]
-//            placeholderImage:[UIImage imageNamed:@"tabbar_icon_me_big"]
-//                     options:refresh ? SDWebImageRefreshCached : 0];
-//    
-//    return;
-    
-    
     NSString *pathComponent = [NSString stringWithFormat:@"/%@.png", [url lastPathComponent]];
     NSString *imagePath = [[self.class documentDirectoryPath] stringByAppendingPathComponent:pathComponent];
     
-    NSURL *imageURL;
     UIImage *image = [[UIImageView sharedCookies] objectForKey:url];
 
     if (image)
@@ -54,22 +46,24 @@ static NSString *documentDirectoryPath;
         [self performBlockOnMainThread:^{
             self.image = image;
         } afterDelay:0];
+    
         return;
     }
-
+    
+    NSURL *imageURL;
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath] )
     {
         imageURL = [NSURL fileURLWithPath:imagePath];
         image = [UIImage imageWithContentsOfFile:imagePath];
         [[UIImageView sharedCookies] setObject:image forKey:url];
-    }
     
-    if (image)
-    {
-        [self performBlockOnMainThread:^{
-            self.image = image;
-        } afterDelay:0];
+        if (image)
+        {
+            [self performBlockOnMainThread:^{
+                self.image = image;
+            } afterDelay:0];
+        }
     }
     
     if (!image || refresh)

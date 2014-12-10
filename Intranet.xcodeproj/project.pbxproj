@@ -70,16 +70,17 @@
 		661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45018C48CF400B7A4F5 /* Lato-Thin.ttf */; };
 		661AE46318C48CF400B7A4F5 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */; };
 		661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */; };
+		662587891A319FB200CDF2D5 /* RMUser+Me.m in Sources */ = {isa = PBXBuildFile; fileRef = 662587881A319FB200CDF2D5 /* RMUser+Me.m */; };
 		6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */; };
 		6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82A18BC89F2003893EB /* ExplanationViewController.m */; };
 		6627C82E18BCAAD9003893EB /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627C82D18BCAAD9003893EB /* NSDate+Additions.m */; };
-		662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */; };
 		66360E451A2757CB00417B75 /* RMLate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E441A2757CB00417B75 /* RMLate.m */; };
 		66360E481A2757CC00417B75 /* RMAbsence.m in Sources */ = {isa = PBXBuildFile; fileRef = 66360E471A2757CC00417B75 /* RMAbsence.m */; };
 		663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */; };
 		66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66515F1918B38A7700092BB2 /* UIView+Additions.m */; };
 		66600E5A1833984600BA9DC3 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66600E591833984600BA9DC3 /* ClockView.m */; };
 		6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6675937D19E6BAD9004603C5 /* CoreTelephony.framework */; };
+		6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696422E1A35BB7500E5F604 /* ControllableBlock.m */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A83E271A28945D00B53A65 /* ListTableViewController.m */; };
 		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
@@ -189,14 +190,14 @@
 		661AE45118C48CF400B7A4F5 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TCCustomFont.h"; sourceTree = "<group>"; };
 		661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TCCustomFont.m"; sourceTree = "<group>"; };
+		662587871A319FB200CDF2D5 /* RMUser+Me.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMUser+Me.h"; sourceTree = "<group>"; };
+		662587881A319FB200CDF2D5 /* RMUser+Me.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMUser+Me.m"; sourceTree = "<group>"; };
 		6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTypeTableViewController.h; sourceTree = "<group>"; };
 		6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTypeTableViewController.m; sourceTree = "<group>"; };
 		6627C82918BC89F2003893EB /* ExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplanationViewController.h; sourceTree = "<group>"; };
 		6627C82A18BC89F2003893EB /* ExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplanationViewController.m; sourceTree = "<group>"; };
 		6627C82C18BCAAD9003893EB /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		6627C82D18BCAAD9003893EB /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
-		662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Settings.h"; sourceTree = "<group>"; };
-		662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Settings.m"; sourceTree = "<group>"; };
 		66360E431A2757CB00417B75 /* RMLate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLate.h; sourceTree = "<group>"; };
 		66360E441A2757CB00417B75 /* RMLate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLate.m; sourceTree = "<group>"; };
 		66360E461A2757CC00417B75 /* RMAbsence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbsence.h; sourceTree = "<group>"; };
@@ -209,6 +210,8 @@
 		66600E581833984600BA9DC3 /* ClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockView.h; sourceTree = "<group>"; };
 		66600E591833984600BA9DC3 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		6675937D19E6BAD9004603C5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6696422D1A35BB7500E5F604 /* ControllableBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllableBlock.h; sourceTree = "<group>"; };
+		6696422E1A35BB7500E5F604 /* ControllableBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllableBlock.m; sourceTree = "<group>"; };
 		66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOOOFormTableViewController.h; sourceTree = "<group>"; };
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66A83E261A28945D00B53A65 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
@@ -261,6 +264,7 @@
 				0CF7FA6018214B200056F907 /* RMUser.h */,
 				0CF7FA6918214CDF0056F907 /* RMUser+Additions.h */,
 				272DF89718324DD00014FBCA /* RMUser+AddressBook.h */,
+				662587871A319FB200CDF2D5 /* RMUser+Me.h */,
 				66360E471A2757CC00417B75 /* RMAbsence.m */,
 				0CF7FA7018214D2B0056F907 /* RMAbsence+Additions.m */,
 				66360E441A2757CB00417B75 /* RMLate.m */,
@@ -268,6 +272,7 @@
 				0CF7FA6118214B200056F907 /* RMUser.m */,
 				0CF7FA6A18214CDF0056F907 /* RMUser+Additions.m */,
 				272DF89818324DD00014FBCA /* RMUser+AddressBook.m */,
+				662587881A319FB200CDF2D5 /* RMUser+Me.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -380,11 +385,9 @@
 			children = (
 				0CE37C5B181E8ED10087C96E /* AppDelegate.h */,
 				272DF88E183229460014FBCA /* AppDelegate+Navigation.h */,
-				662CE1DA18AB625B0071E01E /* AppDelegate+Settings.h */,
 				0C7E16E91833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.h */,
 				0CE37C5C181E8ED10087C96E /* AppDelegate.m */,
 				272DF88F183229460014FBCA /* AppDelegate+Navigation.m */,
-				662CE1DB18AB625B0071E01E /* AppDelegate+Settings.m */,
 				0C7E16EA1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m */,
 			);
 			name = Application;
@@ -416,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
+				6696422D1A35BB7500E5F604 /* ControllableBlock.h */,
 				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
@@ -427,6 +431,7 @@
 				66515F1818B38A7700092BB2 /* UIView+Additions.h */,
 				66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */,
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
+				6696422E1A35BB7500E5F604 /* ControllableBlock.m */,
 				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
@@ -664,7 +669,6 @@
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
 				66360E451A2757CB00417B75 /* RMLate.m in Sources */,
-				662CE1DC18AB625B0071E01E /* AppDelegate+Settings.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,
 				27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */,
@@ -683,6 +687,7 @@
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,
 				0CF7FA6E18214D060056F907 /* RMLate+Additions.m in Sources */,
+				662587891A319FB200CDF2D5 /* RMUser+Me.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
@@ -692,6 +697,7 @@
 				0CF7FA7118214D2B0056F907 /* RMAbsence+Additions.m in Sources */,
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
+				6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,

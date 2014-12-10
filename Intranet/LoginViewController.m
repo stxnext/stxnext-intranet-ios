@@ -9,8 +9,12 @@
 #import "LoginViewController.h"
 //#import "GooglePlusClient.h"
 
+
+// PRODUKCJA
 #define kGoogleAuthSignInURL @"https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&redirect_uri=https%3A%2F%2Fintranet.stxnext.pl%2Fauth%2Fcallback&response_type=code&client_id=83120712902.apps.googleusercontent.com&access_type=offline"
 
+// TEST
+//#define kGoogleAuthSignInURL @"https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&redirect_uri=https%3A%2F%2Fintranet-staging.bolt.stxnext.pl%2Fauth%2Fcallback&response_type=code&client_id=83120712902-4fud2l3ki3s995c6m8bmebabqca1do0f.apps.googleusercontent.com&access_type=offline"
 
 //#define kGoogleAuthSignInURL @"https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&redirect_uri=https%3A%2F%2Fintranet-staging.bolt.stxnext.pl%2Fauth%2Fcallback&response_type=code&client_id=83120712902-4fud2l3ki3s995c6m8bmebabqca1do0f.apps.googleusercontent.com&access_type=offline"
 
@@ -45,32 +49,6 @@
     [_webView loadRequest:request];
     
 }
-
-//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-//{
-//    if (INTERFACE_IS_PAD)
-//    {
-//        self.view.bounds = CGRectMake(0, 0, 700, 650);
-//    }
-//}
-//
-//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
-//{
-//    if (INTERFACE_IS_PAD)
-//    {
-//        self.view.bounds = CGRectMake(0, 0, 700, 650);
-//    }
-//}
-//
-//- (void)viewWillLayoutSubviews
-//{
-//    [super viewWillLayoutSubviews];
-//    
-//    if (INTERFACE_IS_PAD)
-//    {
-//        self.view.bounds = CGRectMake(0, 0, 700, 650);
-//    }
-//}
 
 #pragma mark Utilities
 
@@ -111,8 +89,9 @@
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        [self close];
+        [RMUser loadMeUserId:^{
+            [self close];
+        }];
     });
     
     // Prevent any further calls

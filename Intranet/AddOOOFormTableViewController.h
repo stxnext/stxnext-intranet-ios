@@ -16,6 +16,7 @@ typedef enum
     RequestTypeOutOfOffice
 }RequestType;
 
+@protocol AddOOOFormTableViewControllerDelegate;
 @interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate>
 {
 
@@ -23,6 +24,7 @@ typedef enum
     NSNumber *freedays;
 }
 @property (strong, nonatomic) UIPopoverController *popover;
+@property (weak, nonatomic) id<AddOOOFormTableViewControllerDelegate> delegate;
 
 @property (copy, nonatomic) NSString *explanation;
 @property (nonatomic, assign) NSInteger currentType;
@@ -67,5 +69,12 @@ typedef enum
 
 // actions
 - (IBAction)dateTimeValueChanged:(UIDatePicker *)sender;
+
+@end
+
+
+@protocol AddOOOFormTableViewControllerDelegate <NSObject>
+
+- (void)didFinishAddingOOO;
 
 @end
