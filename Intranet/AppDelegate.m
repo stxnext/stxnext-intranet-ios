@@ -24,6 +24,7 @@
         splitController.delegate = self;
     }
     
+//    [[[UIWindow keyWindow] rootViewController] performSelector:@selector(recursiveDescription) withObject:nil];
     
     return YES;
 }
@@ -54,3 +55,11 @@
 }
 
 @end
+
+
+//@implementation NSURLRequest(DataController)
+//+ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+//{
+//    return YES;
+//}
+//@end

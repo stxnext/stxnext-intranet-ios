@@ -553,6 +553,8 @@
 {
     NSInteger number;
     NSInteger count = 1;
+
+    NSInteger realSection = [self realSectionForNotEmptySection:section];
     
     if (currentListState == ListStateAll)
     {
@@ -560,11 +562,11 @@
     }
     else
     {
-        number = [userList[section] count];
+        number = [userList[realSection] count];
         count = [userList[0] count] + [userList[1] count] + [userList[2] count];
     }
     
-    if (count == 0 && section == 0 && canShowNoResultsMessage)//show once
+    if (count == 0 && realSection == 0 && canShowNoResultsMessage)//show once
     {
         [UIAlertView showWithTitle:@"Info"
                            message:@"Nothing to show."

@@ -155,21 +155,17 @@
             case ListStateAll:
                 [self.viewSwitchButton setTitle:@"Out"];
                 self.title = @"All";
-//                [self addRefreshControl];
                 
                 break;
                 
             case ListStateOutToday:
                 [self.viewSwitchButton setTitle:@"Tomorrow"];
                 self.title = @"Out";
-//                [self.refreshControl endRefreshing];
-//                self.refreshControl = nil;
                 
                 break;
                 
             case ListStateOutTomorrow:
                 [self.viewSwitchButton setTitle:@"All"];
-//                [self.refreshControl endRefreshing];
                 self.title = @"Tomorrow";
 
                 break;
