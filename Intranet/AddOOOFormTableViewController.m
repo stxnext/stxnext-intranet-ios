@@ -421,7 +421,9 @@ typedef enum
             self.OOOCellWorkFromHome.hidden = YES;
             self.OOOCellExplanation.hidden = YES;
             
-            [self.tableView reloadData];
+            [self performBlockOnMainThread:^{
+                [self.tableView reloadData];
+            } afterDelay:0.5];
         }
             break;
             
@@ -444,8 +446,10 @@ typedef enum
             self.OOOCellToPicker.hidden = YES;
             self.OOOCellWorkFromHome.hidden = NO;
             self.OOOCellExplanation.hidden = NO;
-            
-            [self.tableView reloadData];
+
+            [self performBlockOnMainThread:^{
+                [self.tableView reloadData];
+            } afterDelay:0.5];
         }
             break;
     }
