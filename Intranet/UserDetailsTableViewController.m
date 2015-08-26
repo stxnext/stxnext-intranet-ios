@@ -208,7 +208,7 @@
         [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     }
     
-    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
+    [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2 color:[Branding stxGreen]];
     
     if (self.user.name)
     {

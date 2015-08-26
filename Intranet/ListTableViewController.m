@@ -446,7 +446,7 @@
     
     cell.userName.text = user.name;
     
-    [cell.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
+    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2 color:[Branding stxLightGray]];
     
     if (!isDatabaseBusy)
     {

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "AppDelegate+SplitControllerDelegate.h"
 
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -25,6 +24,31 @@
     }
     
 //    [[[UIWindow keyWindow] rootViewController] performSelector:@selector(recursiveDescription) withObject:nil];
+    
+    // Stylize tab bar + navigation bar on iPhone
+    if ([self.window.rootViewController isKindOfClass:[UITabBarController class]])
+    {
+        // Status bar
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        UIView *statusBarSubview = [[UIView alloc] init];
+        statusBarSubview.frame = CGRectMake(0, 0, self.window.rootViewController.view.frame.size.width, 20);
+        statusBarSubview.backgroundColor = [Branding stxDarkGreen];
+        [self.window.rootViewController.view addSubview:statusBarSubview];
+        
+        // Navigation bar
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setTranslucent:NO];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+        
+        // Tab bar item
+        [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -2)];
+        
+        // Tab bar
+        [[UITabBar appearance] setTintColor:[Branding stxLightGreen]];
+        [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
+        [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxDarkGreen]]];
+        [[UITabBar appearance] setTranslucent:NO];
+    }
     
     return YES;
 }

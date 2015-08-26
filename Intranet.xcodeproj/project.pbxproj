@@ -91,6 +91,7 @@
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 		66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
+		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -231,6 +232,8 @@
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
+		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -284,6 +287,8 @@
 				66063DC6182149A300C30C93 /* UserListCell.h */,
 				66600E591833984600BA9DC3 /* ClockView.m */,
 				66063DC7182149A300C30C93 /* UserListCell.m */,
+				D1C5915F1B8DA47E001DD5F5 /* Branding.h */,
+				D1C591601B8DA47E001DD5F5 /* Branding.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -665,6 +670,7 @@
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
+				D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */,
 				6612D00419A71A3100A5FD23 /* NSString+MyRegex.m in Sources */,
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
