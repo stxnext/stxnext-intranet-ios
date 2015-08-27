@@ -11,6 +11,7 @@
 #import "AppDelegate+Navigation.h"
 
 #define NEW_MENU YES
+#define MIN_TIME_DIFF 900 //defines (in seconds) minimum time interval between ooo 'from' and 'to' dates
 
 typedef enum
 {
@@ -665,7 +666,7 @@ typedef enum
             
             if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:MIN_TIME_DIFF] animated:YES];
                 self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];
             }
         }
@@ -675,7 +676,7 @@ typedef enum
         {
             if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:MIN_TIME_DIFF] animated:YES];
             }
             
             self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];
