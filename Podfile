@@ -7,4 +7,4 @@ pod 'iCarousel'
 pod 'GPUImage'
 pod 'LBBlurredImage'
 pod 'SDWebImage'
-
+pod 'UIImage+ImageWithColor'
