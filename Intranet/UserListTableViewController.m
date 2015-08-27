@@ -154,7 +154,7 @@
         {
             case ListStateAll:
                 [self.viewSwitchButton setTitle:@"Out"];
-                self.title = @"All";
+                self.title = NSLocalizedString(@"Employees", nil);
                 
                 break;
                 
@@ -165,7 +165,7 @@
                 break;
                 
             case ListStateOutTomorrow:
-                [self.viewSwitchButton setTitle:@"All"];
+                [self.viewSwitchButton setTitle:NSLocalizedString(@"Employees", nil)];
                 self.title = @"Tomorrow";
 
                 break;

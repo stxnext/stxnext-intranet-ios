@@ -141,8 +141,7 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             @synchronized(self){
                 self.allUsers = nil;
-                self.tomorrowOutOffOfficePeople = nil;
-                self.todayOutOffOfficePeople = nil;
+                self.outOfOfficePeople = nil;
                 
                 [self loadUsersFromDatabase];
                 [self informStopDownloading];
@@ -347,43 +346,23 @@
         }
             break;
         case ListStateOutToday:
-        {
-            if (self.todayOutOffOfficePeople.count == 0)
-            {
-                self.todayOutOffOfficePeople = [RMUser loadTodayOutOffOfficePeople];
-            }
-            
-            if (searchedString.length > 0)
-            {
-                userList = [NSMutableArray arrayWithCapacity:3];
-                userList[0] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[1] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[2] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-            }
-            else
-            {
-                userList = [NSMutableArray arrayWithArray:self.todayOutOffOfficePeople];
-            }
-        }
-            break;
-            
         case ListStateOutTomorrow:
         {
-            if (self.tomorrowOutOffOfficePeople.count == 0)
+            if (self.outOfOfficePeople.count == 0)
             {
-                self.tomorrowOutOffOfficePeople = [RMUser loadTomorrowOutOffOfficePeople];
+                self.outOfOfficePeople = [RMUser loadOutOffOfficePeople];
             }
             
             if (searchedString.length > 0)
             {
                 userList = [NSMutableArray arrayWithCapacity:3];
-                userList[0] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[1] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[2] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[0] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[1] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[2] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
             }
             else
             {
-                userList = [NSMutableArray arrayWithArray:self.tomorrowOutOffOfficePeople];
+                userList = [NSMutableArray arrayWithArray:self.outOfOfficePeople];
             }
             
         }
@@ -445,12 +424,15 @@
     }
     
     cell.userName.text = user.name;
+    cell.userName.textColor = [Branding stxGreen];
     
     [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2 color:[Branding stxLightGray]];
     
     if (!isDatabaseBusy)
     {
         __block BOOL shouldHiddeClock = YES;
+        __block BOOL shouldHideTomorrow = YES;
+        
         cell.clockView.hidden = shouldHiddeClock;
         
         NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
@@ -459,7 +441,8 @@
         NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
         latesDateFormater.dateFormat = @"HH:mm";
         
-        NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+        cell.userReason.text = @"";
+        NSMutableAttributedString *hours = [[NSMutableAttributedString alloc] initWithString:@""];
         
         SimpleBlock setAbsences = ^{
             cell.clockView.color = MAIN_RED_COLOR;
@@ -467,18 +450,32 @@
             [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMAbsence *absence = (RMAbsence *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO) ||
-                    (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES))
+                shouldHiddeClock = NO;
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
                 {
-                    shouldHiddeClock = NO;
-                    NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                    NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                    NSString *startText = start;
+                    NSString *stopText = stop;
                     
-                    if (start.length || stop.length)
+                    if(start.length)
                     {
-                        [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
-                         stop.length ? stop : @"..."];
+                        NSArray *startDate = [start componentsSeparatedByString:@"-"];
+                        if([startDate count] > 2) startText = [NSString stringWithFormat:@"%@.%@",[startDate objectAtIndex:2], [startDate objectAtIndex:1]];
                     }
+                    
+                    if(stop.length)
+                    {
+                        NSArray *stopDate = [stop componentsSeparatedByString:@"-"];
+                        if([stopDate count] > 2) stopText = [NSString stringWithFormat:@"%@.%@",[stopDate objectAtIndex:2], [stopDate objectAtIndex:1]];
+                    }
+                    
+                    NSAttributedString *textToAppend = [self colorizedStringFromString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@  %@  %@  %@\n", NSLocalizedString(@"From", nil), start.length ? startText : @"...", NSLocalizedString(@"to", nil), stop.length ? stopText : @"..."]]];
+                    if([[hours string] rangeOfString:[textToAppend string]].location == NSNotFound) [hours appendAttributedString:textToAppend];
+                    
+                    if([cell.userReason.text isEqualToString:@""]) cell.userReason.text = absence.remarks;
+                    else if ([cell.userReason.text rangeOfString:absence.remarks].location == NSNotFound) cell.userReason.text = [cell.userReason.text stringByAppendingString:[NSString stringWithFormat:@"; %@", absence.remarks]];
                 }
             }];
         };
@@ -489,18 +486,20 @@
             [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMLate *late = (RMLate *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO) ||
-                    (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES))
+                shouldHideTomorrow = ![late.isTomorrow boolValue];
+                shouldHiddeClock = NO;
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                BOOL properSection = (([late.isWorkingFromHome boolValue] && realSection != 2) || (![late.isWorkingFromHome boolValue] && realSection == 2));
+                
+                if ((start.length || stop.length) && properSection)
                 {
-                    shouldHiddeClock = NO;
-                    NSString *start = [latesDateFormater stringFromDate:late.start];
-                    NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                    
-                    if (start.length || stop.length)
-                    {
-                        [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
-                         stop.length ? stop : @"..."];
-                    }
+                    NSAttributedString *textToAppend = [self colorizedStringFromString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@  %@  %@  %@\n", shouldHideTomorrow ? @"" : [NSLocalizedString(@"Tomorrow", nil) uppercaseString], NSLocalizedString(@"From", nil), start.length ? start : @"...", NSLocalizedString(@"to", nil), stop.length ? stop : @"..."]]];
+                    if([[hours string] rangeOfString:[textToAppend string]].location == NSNotFound) [hours appendAttributedString:textToAppend];
+
+                    if([cell.userReason.text isEqualToString:@""]) cell.userReason.text = late.explanation;
+                    else if ([cell.userReason.text rangeOfString:late.explanation].location == NSNotFound) cell.userReason.text = [cell.userReason.text stringByAppendingString:[NSString stringWithFormat:@"; %@", late.explanation]];
                 }
             }];
         };
@@ -527,11 +526,16 @@
                 setAbsences();
             }
         }
-        
-        [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-        
+
         cell.clockView.hidden = shouldHiddeClock;
-        cell.warningDateLabel.text = hours;
+        
+        // remove newline character at the end of the string
+        if([[hours string] length] > 2)
+        {
+            NSAttributedString *attributedHours = [hours attributedSubstringFromRange:NSMakeRange(0, [[hours string] length] - 1)];
+            [cell.warningDateLabel setAttributedText:attributedHours];
+        }
+        else [cell.warningDateLabel setAttributedText:hours];
     }
     
     if (user.avatarURL)
@@ -586,36 +590,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (currentListState == ListStateAll)
-    {
-        return 1;
-    }
-    else
-    {
-        return [self numberOfNotEmptySections];
-    }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (currentListState != ListStateAll)
-    {
-        NSInteger realSection = [self realSectionForNotEmptySection:section];
-        
-        switch (realSection)
-        {
-            case 0:
-                return @"ABSENCE / HOLIDAY";
-                
-            case 1:
-                return @"WORK FROM HOME";
-                
-            case 2:
-                return @"OUT OF OFFICE";
-        }
-    }
-    
-    return @"";
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -921,6 +896,31 @@
         
         self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
     }
+}
+
+#pragma mark customization
+- (NSAttributedString *)colorizedStringFromString:(NSAttributedString *)source
+{
+    NSString *hours = [source string];
+    NSMutableAttributedString *attributedHours = [source mutableCopy];
+    
+    NSRange fromRange = [hours rangeOfString:[NSString stringWithFormat:@" %@ ",NSLocalizedString(@"From", nil)]];
+    if(fromRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [Branding stxGreen] } range:fromRange];
+    }
+    NSRange toRange = [hours rangeOfString:[NSString stringWithFormat:@" %@ ",NSLocalizedString(@"to", nil)]];
+    if(fromRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [Branding stxGreen] } range:toRange];
+    }
+    NSRange tomorrowRange = [hours rangeOfString:[NSLocalizedString(@"Tomorrow", nil) uppercaseString]];
+    if(tomorrowRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [Branding stxGreen]} range:tomorrowRange];
+    }
+    
+    return attributedHours;
 }
 
 @end

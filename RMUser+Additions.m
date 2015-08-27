@@ -173,16 +173,7 @@ const NSString* MapKeyUserGroups = @"groups";
                                  userInfo:nil];
 }
 
-+ (NSMutableArray *)loadTodayOutOffOfficePeople
-{
-    return [RMUser loadOutOffOfficePeopleWithTommorow:NO];
-}
-+ (NSMutableArray *)loadTomorrowOutOffOfficePeople
-{
-    return [RMUser loadOutOffOfficePeopleWithTommorow:YES];
-}
-
-+ (NSMutableArray *)loadOutOffOfficePeopleWithTommorow:(BOOL)tomorow
++ (NSMutableArray *)loadOutOffOfficePeople
 {
     NSArray *users = [JSONSerializationHelper objectsWithClass:[RMUser class]
                                             withSortDescriptor:[NSSortDescriptor sortDescriptorWithKey:@"name"
@@ -201,15 +192,7 @@ const NSString* MapKeyUserGroups = @"groups";
             return NO;
         }
         
-        for (RMAbsence *absence in user.absences)
-        {
-            if ([absence.isTomorrow boolValue] == tomorow)
-            {
-                return YES;
-            }
-        }
-        
-        return NO;
+        return YES;
     }]]?:[[NSArray alloc] init]];
     
     [_userList addObject:[users filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -224,7 +207,7 @@ const NSString* MapKeyUserGroups = @"groups";
         {
             for (RMLate *late in user.lates)
             {
-                if ([late.isWorkingFromHome intValue] == 1 && [late.isTomorrow boolValue] == tomorow)
+                if ([late.isWorkingFromHome intValue] == 1)
                 {
                     return YES;
                 }
@@ -246,7 +229,7 @@ const NSString* MapKeyUserGroups = @"groups";
         {
             for (RMLate *late in user.lates)
             {
-                if ([late.isWorkingFromHome intValue] == 0 && [late.isTomorrow boolValue] == tomorow)
+                if ([late.isWorkingFromHome intValue] == 0)
                 {
                     return YES;
                 }

@@ -72,8 +72,7 @@
 
 - (void)didEndRefreshPeople
 {
-    self.tomorrowOutOffOfficePeople = nil;
-    self.todayOutOffOfficePeople = nil;
+    self.outOfOfficePeople = nil;
     
     [self loadUsersFromDatabase];
     [self removeActivityIndicator];
