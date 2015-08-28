@@ -15,6 +15,11 @@
     return [UIColor colorWithRed:(241.0/255.0) green:(241.0/255.0) blue:(241.0/255.0) alpha:1.0];
 }
 
++ (UIColor *)stxGray
+{
+    return [UIColor colorWithRed:(215.0/255.0) green:(215.0/255.0) blue:(215.0/255.0) alpha:1.0];
+}
+
 + (UIColor *)stxGreen
 {
     return [UIColor colorWithRed:(46.0/255.0) green:(159.0/255.0) blue:(153.0/255.0) alpha:1.0];

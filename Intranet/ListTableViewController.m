@@ -18,10 +18,14 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[Branding stxLightGray]];
     self.clearsSelectionOnViewWillAppear = YES;
     
     [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
+    
+    [self.tableView setSeparatorColor:[Branding stxGray]];
+    [self.searchDisplayController.searchResultsTableView setSeparatorColor:[Branding stxGray]];
     
     currentListState = [self nextListState];
     [self showOutViewButton];
@@ -426,8 +430,9 @@
     
     cell.userName.text = user.name;
     cell.userName.textColor = [Branding stxGreen];
+    cell.userRole.text = [user.roles firstObject];
     
-    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxLightGray]];
+    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGray]];
     
     if (!isDatabaseBusy)
     {

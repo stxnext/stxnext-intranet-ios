@@ -20,7 +20,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[Branding stxLightGray]];
     [self.absencesButton setTitle:NSLocalizedString(@"Holiday", nil) forState:UIControlStateNormal];
     [self.workFromHomeButton setTitle:NSLocalizedString(@"Work from Home", nil) forState:UIControlStateNormal];
     [self.outOfOfficeButton setTitle:NSLocalizedString(@"Out of Office", nil) forState:UIControlStateNormal];

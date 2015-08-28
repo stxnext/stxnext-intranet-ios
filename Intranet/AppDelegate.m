@@ -37,7 +37,6 @@
         
         // Navigation bar
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
-        [[UINavigationBar appearance] setTranslucent:NO];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
         
         // Tab bar item
@@ -47,7 +46,6 @@
         [[UITabBar appearance] setTintColor:[Branding stxLightGreen]];
         [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
         [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxDarkGreen]]];
-        [[UITabBar appearance] setTranslucent:NO];
     }
     
     return YES;

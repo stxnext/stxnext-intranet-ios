@@ -10,4 +10,9 @@
 
 @implementation UserListCell
 
+- (UIEdgeInsets)layoutMargins
+{
+    return UIEdgeInsetsZero;
+}
+
 @end

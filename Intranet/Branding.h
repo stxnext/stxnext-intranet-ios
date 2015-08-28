@@ -12,6 +12,7 @@
 @interface Branding : NSObject
 
 + (UIColor *)stxLightGray;
++ (UIColor *)stxGray;
 + (UIColor *)stxGreen;
 + (UIColor *)stxLightGreen;
 + (UIColor *)stxDarkGreen;
