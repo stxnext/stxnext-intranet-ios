@@ -155,21 +155,16 @@
             case ListStateAll:
                 [self.viewSwitchButton setTitle:@"Out"];
                 self.title = NSLocalizedString(@"Employees", nil);
-                
                 break;
                 
-            case ListStateOutToday:
-                [self.viewSwitchButton setTitle:@"Tomorrow"];
-                self.title = @"Out";
+            case ListStateAbsent:
+            case ListStateWorkFromHome:
+            case ListStateOutOfOffice:
+                [self.viewSwitchButton setTitle:@"Absences"];
+                self.title = NSLocalizedString(@"Absences", nil);
                 
                 break;
-                
-            case ListStateOutTomorrow:
-                [self.viewSwitchButton setTitle:NSLocalizedString(@"Employees", nil)];
-                self.title = @"Tomorrow";
 
-                break;
-                
             default:break;
         }
         
@@ -184,15 +179,8 @@
     {
         case ListStateNotSet:
             return ListStateAll;
-            
-        case ListStateAll:
-            return ListStateOutToday;
-            
-        case ListStateOutToday:
-            return ListStateOutTomorrow;
-            
-        case ListStateOutTomorrow:
-            return ListStateAll;
+        
+        default: break;
     }
     
     return ListStateAll;

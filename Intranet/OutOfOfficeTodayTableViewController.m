@@ -20,15 +20,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    [self.view setBackgroundColor:[Branding stxLightGray]];
+    [self.absencesButton setTitle:NSLocalizedString(@"Holiday", nil) forState:UIControlStateNormal];
+    [self.workFromHomeButton setTitle:NSLocalizedString(@"Work from Home", nil) forState:UIControlStateNormal];
+    [self.outOfOfficeButton setTitle:NSLocalizedString(@"Out of Office", nil) forState:UIControlStateNormal];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-
+    [super viewWillAppear:animated];
+    
     [self loadUsersFromDatabase];
 }
 
@@ -100,23 +104,17 @@
     [self performBlockOnMainThread:^{
         switch (currentListState)
         {
-            case ListStateOutToday:
-                [self.viewSwitchButton setTitle:@"Tomorrow"];
-                self.title = @"Today";
-                
+            case ListStateAbsent:
+                self.title = NSLocalizedString(@"Holiday", nil);
                 break;
-                
-            case ListStateOutTomorrow:
-                [self.viewSwitchButton setTitle:@"Today"];
-                self.title = @"Tomorrow";
-                
+            case ListStateWorkFromHome:
+                self.title = NSLocalizedString(@"Work from Home", nil);
                 break;
-                
+            case ListStateOutOfOffice:
+                self.title = NSLocalizedString(@"Out of Office", nil);
+                break;
             default:break;
         }
-        
-        self.viewSwitchButton.enabled = YES;
-        [self.navigationItem setLeftBarButtonItem:self.viewSwitchButton animated:YES];
     } afterDelay:0];
 }
 
@@ -125,18 +123,33 @@
     switch (currentListState)
     {
         case ListStateNotSet:
-            return ListStateOutToday;
+            return ListStateAbsent;
             
-        case ListStateOutToday:
-            return ListStateOutTomorrow;
+        case ListStateAbsent:
+            return ListStateWorkFromHome;
             
-        case ListStateOutTomorrow:
-            return ListStateOutToday;
+        case ListStateWorkFromHome:
+            return ListStateOutOfOffice;
+            
+        case ListStateOutOfOffice:
+            return ListStateAbsent;
 
         default:break;
     }
     
-    return ListStateOutToday;
+    return ListStateAbsent;
+}
+
+- (IBAction)setListState:(id)sender {
+    [self performBlockOnMainThread:^{
+        UIButton *tappedButton = (UIButton *)sender;
+        if([tappedButton isEqual:self.workFromHomeButton]) currentListState = ListStateWorkFromHome;
+        else if([tappedButton isEqual:self.outOfOfficeButton]) currentListState = ListStateOutOfOffice;
+        else currentListState = ListStateAbsent;
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationBottom];
+    } afterDelay:0];
+    
+    [self showOutViewButton];
 }
 
 @end

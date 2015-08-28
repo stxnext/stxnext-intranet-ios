@@ -18,8 +18,9 @@
 typedef NS_ENUM(NSUInteger, ListState) {
     ListStateNotSet, 
     ListStateAll,
-    ListStateOutToday,
-    ListStateOutTomorrow,
+    ListStateAbsent,
+    ListStateWorkFromHome,
+    ListStateOutOfOffice
 };
 
 @interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UserDetailsTableViewControllerDelegate, AddOOOFormTableViewControllerDelegate>

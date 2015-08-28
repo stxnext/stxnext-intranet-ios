@@ -345,8 +345,9 @@
             }
         }
             break;
-        case ListStateOutToday:
-        case ListStateOutTomorrow:
+        case ListStateAbsent:
+        case ListStateWorkFromHome:
+        case ListStateOutOfOffice:
         {
             if (self.outOfOfficePeople.count == 0)
             {
@@ -426,7 +427,7 @@
     cell.userName.text = user.name;
     cell.userName.textColor = [Branding stxGreen];
     
-    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2 color:[Branding stxLightGray]];
+    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxLightGray]];
     
     if (!isDatabaseBusy)
     {
@@ -604,6 +605,10 @@
     {
         return section;
     }
+    
+    if (currentListState == ListStateAbsent) return 0;
+    else if(currentListState == ListStateWorkFromHome) return 1;
+    else if (currentListState == ListStateOutOfOffice) return 2;
     
     NSInteger result = -1;
     
@@ -807,7 +812,7 @@
             viewController.user = userList[realSection][indexPath.row];
         }
         
-        viewController.isListStateTommorow = currentListState == ListStateOutTomorrow;
+        viewController.isListStateTommorow = currentListState == ListStateAbsent;
         
         if (INTERFACE_IS_PAD)
         {
@@ -845,8 +850,9 @@
             position = [userList indexOfObject:me];
             break;
             
-        case ListStateOutToday:
-        case ListStateOutTomorrow:
+        case ListStateAbsent:
+        case ListStateWorkFromHome:
+        case ListStateOutOfOffice:
             [userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 if ([obj containsObject:me])
                 {

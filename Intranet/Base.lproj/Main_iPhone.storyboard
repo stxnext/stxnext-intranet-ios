@@ -522,24 +522,33 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="32"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Absences">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="Por-sD-wmX"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa">
                                     <rect key="frame" x="105" y="0.0" width="110" height="32"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Work from Home">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="NMi-ZR-3ba"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5">
                                     <rect key="frame" x="215" y="0.0" width="105" height="32"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Out of Office">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="6aw-bS-sPY"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -630,7 +639,7 @@
                                         <constraint firstAttribute="bottom" secondItem="cif-yX-dhG" secondAttribute="bottom" constant="5" id="svf-xy-9nd"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="userImage" destination="AJG-Ey-ln0" id="TPu-Cu-eeh"/>
                                     <outlet property="userName" destination="l6S-jP-pRk" id="Toz-dn-OyD"/>
@@ -645,21 +654,12 @@
                             <outlet property="delegate" destination="qlc-xU-5my" id="GIG-rg-nBC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LVp-eE-K9x">
-                        <barButtonItem key="leftBarButtonItem" title="Tomorrow" id="QOd-Cy-2bM">
-                            <connections>
-                                <action selector="changeView:" destination="qlc-xU-5my" id="Jpd-iH-EWW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kFI-xb-R5m">
-                            <connections>
-                                <action selector="showNewRequest:" destination="qlc-xU-5my" id="pfJ-fo-g37"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="LVp-eE-K9x"/>
                     <connections>
+                        <outlet property="absencesButton" destination="bVI-EM-KMH" id="Z7f-Xi-5ue"/>
+                        <outlet property="outOfOfficeButton" destination="FUv-Qi-En5" id="1ho-QL-Wif"/>
                         <outlet property="searchDisplayController" destination="OJh-wR-n8b" id="OCx-Tz-rux"/>
-                        <outlet property="viewSwitchButton" destination="QOd-Cy-2bM" id="Y4S-dI-KE8"/>
+                        <outlet property="workFromHomeButton" destination="U8r-wE-Ifa" id="7yx-ra-w3h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gGo-2U-Xxz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1288,11 +1288,11 @@
             </objects>
             <point key="canvasLocation" x="2568" y="1193"/>
         </scene>
-        <!--Out-->
+        <!--Absences-->
         <scene sceneID="eoU-qG-hpL">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="11o-D8-hKM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Out" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
+                <navigationController title="Absences" automaticallyAdjustsScrollViewInsets="NO" id="11o-D8-hKM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Absences" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JyO-Gv-2XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
