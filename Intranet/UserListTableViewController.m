@@ -78,9 +78,7 @@
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
                                               [RMUser setUserLoggedType:UserLoginTypeTrue];
-                                              
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
-                                              
+                                                                                            
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
                                               }];
@@ -162,10 +160,10 @@
             case ListStateOutOfOffice:
                 [self.viewSwitchButton setTitle:@"Absences"];
                 self.title = NSLocalizedString(@"Absences", nil);
-                
                 break;
 
-            default:break;
+            default:
+                break;
         }
         
         self.viewSwitchButton.enabled = YES;

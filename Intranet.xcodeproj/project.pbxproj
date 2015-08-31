@@ -91,6 +91,9 @@
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 		66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
+		D119D29B1B944605009826BB /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D29A1B944605009826BB /* OfficesViewController.m */; };
+		D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D119D29C1B9446C7009826BB /* MapKit.framework */; };
+		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
 
@@ -232,6 +235,11 @@
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
 		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D119D2991B944605009826BB /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
+		D119D29A1B944605009826BB /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
+		D119D29C1B9446C7009826BB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D119D29F1B945E1B009826BB /* OfficeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeAnnotation.h; sourceTree = "<group>"; };
+		D119D2A01B945E1B009826BB /* OfficeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeAnnotation.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
 		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -242,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */,
 				6675937F19E6BE4B004603C5 /* CoreTelephony.framework in Frameworks */,
 				272DF89618324D320014FBCA /* AddressBook.framework in Frameworks */,
 				0CF7FA7518214FB50056F907 /* CoreData.framework in Frameworks */,
@@ -331,6 +340,7 @@
 		0CE37C4B181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D119D29C1B9446C7009826BB /* MapKit.framework */,
 				6675937D19E6BAD9004603C5 /* CoreTelephony.framework */,
 				6D90568253FE42FDAA87331E /* libPods.a */,
 				272DF89518324D320014FBCA /* AddressBook.framework */,
@@ -354,6 +364,7 @@
 				0CF7FA471821449D0056F907 /* Database */,
 				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* Network */,
+				D119D29E1B945DF4009826BB /* Models */,
 				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
 				0C43A79D1822723500FB513D /* Views */,
@@ -403,6 +414,7 @@
 			children = (
 				66A83E261A28945D00B53A65 /* ListTableViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
+				D119D2991B944605009826BB /* OfficesViewController.h */,
 				66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
@@ -410,6 +422,7 @@
 				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
 				66A83E271A28945D00B53A65 /* ListTableViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
+				D119D29A1B944605009826BB /* OfficesViewController.m */,
 				66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
@@ -520,6 +533,15 @@
 				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
 			);
 			path = "Planning Poker";
+			sourceTree = "<group>";
+		};
+		D119D29E1B945DF4009826BB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D119D29F1B945E1B009826BB /* OfficeAnnotation.h */,
+				D119D2A01B945E1B009826BB /* OfficeAnnotation.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		F2BF403691DD390509BE4A42 /* Pods */ = {
@@ -685,6 +707,7 @@
 				272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */,
 				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
+				D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
@@ -696,6 +719,7 @@
 				662587891A319FB200CDF2D5 /* RMUser+Me.m in Sources */,
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
+				D119D29B1B944605009826BB /* OfficesViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
