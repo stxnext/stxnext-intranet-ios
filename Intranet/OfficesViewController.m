@@ -144,6 +144,19 @@
     }
 }
 
+#pragma mark mapkit
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    [self performMapHotfix];
+}
+
+- (void)performMapHotfix //based on stackoverflow question id 12641658
+{
+    self.mapView.mapType = MKMapTypeHybrid;
+    self.mapView.mapType = MKMapTypeStandard;
+}
+
 /*
 #pragma mark - Navigation
 

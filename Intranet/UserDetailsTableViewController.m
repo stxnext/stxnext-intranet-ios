@@ -19,6 +19,7 @@
     BOOL isPageLoaded;
 }
 
+@property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) UILabel *loadingLabel;
@@ -41,11 +42,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearData) name:DID_LOGOUT object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    BOOL superHeroMode = [[NSUserDefaults standardUserDefaults] boolForKey:kHEROMODE];
+    if(superHeroMode)
+    {
+        [self isFemale] ? [self.profileBackground setImage:[UIImage imageNamed:@"superhero_her"]] : [self.profileBackground setImage:[UIImage imageNamed:@"superhero_him"]];
+    }
+    else [self.profileBackground setImage:[UIImage imageNamed:@"superhero_none"]];
     
     if (![RMUser myUserId])
     {
@@ -174,11 +183,7 @@
                 self.user = [RMUser me];
             }
             
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reportAbsence)];
         }
         else
         {
@@ -514,7 +519,7 @@
     }
 }
 
-- (IBAction)logout:(id)sender
+- (IBAction)logout:(id)sender //left only for iPad purposes, probably will be changed or removed after new version for iPad is released
 {
     if ([RMUser userLoggedType] == UserLoginTypeFalse)
     {
@@ -571,9 +576,7 @@
                                                   
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
-                                                  self.user = nil;
-                                                  self.webView = nil;
-                                                  isPageLoaded = NO;
+                                                  [self clearData];
                                                   
                                                   [RMUser setMyUserId:nil];
                                                   
@@ -594,6 +597,18 @@
                                               }
                                           }];
     }
+}
+
+- (void)reportAbsence
+{
+    NSLog(@"absence");
+}
+
+- (void)clearData
+{
+    self.user = nil;
+    self.webView = nil;
+    isPageLoaded = NO;
 }
 
 #pragma mark - UIWebViewDelegate
@@ -725,6 +740,17 @@
     }
     
     [self updateGUI];
+}
+
+- (BOOL)isFemale
+{
+    NSArray *nameSplit = [self.user.name componentsSeparatedByString:@" "];
+    if(nameSplit && nameSplit.count > 1)
+    {
+        NSString *firstName = [nameSplit firstObject];
+        if([firstName hasSuffix:@"a"]) return YES;
+    }
+    return NO;
 }
 
 @end

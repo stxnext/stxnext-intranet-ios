@@ -94,6 +94,7 @@
 		D119D29B1B944605009826BB /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D29A1B944605009826BB /* OfficesViewController.m */; };
 		D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D119D29C1B9446C7009826BB /* MapKit.framework */; };
 		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
+		D119D2A41B94918C009826BB /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A31B94918C009826BB /* SettingsTableViewController.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
 
@@ -240,6 +241,8 @@
 		D119D29C1B9446C7009826BB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D119D29F1B945E1B009826BB /* OfficeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeAnnotation.h; sourceTree = "<group>"; };
 		D119D2A01B945E1B009826BB /* OfficeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeAnnotation.m; sourceTree = "<group>"; };
+		D119D2A21B94918C009826BB /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		D119D2A31B94918C009826BB /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
 		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -416,6 +419,7 @@
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
 				D119D2991B944605009826BB /* OfficesViewController.h */,
 				66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */,
+				D119D2A21B94918C009826BB /* SettingsTableViewController.h */,
 				0CF7CAD1181FF4D100AAB9D4 /* UIModalViewController.h */,
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
@@ -424,6 +428,7 @@
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
 				D119D29A1B944605009826BB /* OfficesViewController.m */,
 				66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */,
+				D119D2A31B94918C009826BB /* SettingsTableViewController.m */,
 				0CF7CAD2181FF4D100AAB9D4 /* UIModalViewController.m */,
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
@@ -690,6 +695,7 @@
 				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
+				D119D2A41B94918C009826BB /* SettingsTableViewController.m in Sources */,
 				0C8E7D931824FF7B00B3B034 /* UIAlertView+CustomAlert.m in Sources */,
 				0CF7CADE18200EAD00AAB9D4 /* HTTPClient.m in Sources */,
 				D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */,

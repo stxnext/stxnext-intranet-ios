@@ -93,5 +93,8 @@
 #define DID_START_REFRESH_PEOPLE @"didStartRefreshPeople"
 #define DID_END_REFRESH_PEOPLE @"didEndRefreshPeople"
 #define IS_REFRESH_PEOPLE @"isRefreshPeople"
+#define DID_LOGOUT @"didLogout"
+
+#define kHEROMODE @"SuperHeroMode"
 
 typedef dispatch_block_t SimpleBlock;
