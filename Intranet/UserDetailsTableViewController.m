@@ -13,10 +13,19 @@
 #import "AppDelegate+Navigation.h"
 #import "NSString+MyRegex.h"
 #import "UIImageView+Additions.h"
+#import "UserDetailsTableViewCell.h"
+
+#define kUSER_LOCATION @"Office"
+#define kUSER_EMAIL @"E-mail"
+#define kUSER_PHONE @"Tel"
+#define kUSER_SKYPE @"Skype"
+#define kUSER_IRC @"IRC"
 
 @interface UserDetailsTableViewController ()
 {
     BOOL isPageLoaded;
+    NSDictionary *userDetails;
+    NSArray *detailsOrder;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
@@ -36,8 +45,11 @@
     [super viewDidLoad];
     
     [self.tableView hideEmptySeparators];
+    [self.view setBackgroundColor:[Branding stxLightGray]];
     
-    [self resetLabels];
+    if(self.user.avatarURL) [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
+    [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
+
     [self updateGUI];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
@@ -49,13 +61,14 @@
 {
     [super viewWillAppear:animated];
     
+    [self.tableView setUserInteractionEnabled:NO];
     BOOL superHeroMode = [[NSUserDefaults standardUserDefaults] boolForKey:kHEROMODE];
     if(superHeroMode)
     {
         [self isFemale] ? [self.profileBackground setImage:[UIImage imageNamed:@"superhero_her"]] : [self.profileBackground setImage:[UIImage imageNamed:@"superhero_him"]];
     }
     else [self.profileBackground setImage:[UIImage imageNamed:@"superhero_none"]];
-    
+        
     if (![RMUser myUserId])
     {
         [RMUser loadMeUserId:^{
@@ -69,35 +82,77 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if(![self isMeTab])
+    {
+        userDetails = nil;
+        detailsOrder = nil;
+    }
+}
+
+//check what kind of user data is available (not nil) and prepare a dictionary containing only these data which should be displayed on user page... additionally create an array of dictionary keys to maintain proper order of tableview cells (it is necessary since [userDetails allKeys] also returns keys in an array, but not in order)
+- (void)prepareUserDetails
+{
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] init];
+    NSMutableArray *availableInfo = [[NSMutableArray alloc] init];
+    
+    if(self.user.location)
+    {
+        [userData setObject:self.user.location forKey:kUSER_LOCATION];
+        [availableInfo addObject:kUSER_LOCATION];
+    }
+    if(self.user.email)
+    {
+        [userData setObject:self.user.email forKey:kUSER_EMAIL];
+        [availableInfo addObject:kUSER_EMAIL];
+    }
+    if(self.user.phone)
+    {
+        //it would be nice to have all telephone numbers in the same format
+        NSString *phoneString = [[[NSString stringWithFormat:@"%@", self.user.phone] stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        if([phoneString hasPrefix:@"+48"] && [phoneString length] > 3) phoneString = [phoneString substringFromIndex:3];
+        
+        [userData setObject:phoneString forKey:kUSER_PHONE];
+        [availableInfo addObject:kUSER_PHONE];
+    }
+    if(self.user.skype)
+    {
+        [userData setObject:self.user.skype forKey:kUSER_SKYPE];
+        [availableInfo addObject:kUSER_SKYPE];
+    }
+    if(self.user.irc)
+    {
+        [userData setObject:self.user.irc forKey:kUSER_IRC];
+        [availableInfo addObject:kUSER_IRC];
+    }
+    
+    userDetails = [userData copy];
+    detailsOrder = [availableInfo copy];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UserDetailsTableViewCell *cell = (UserDetailsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    if (cell == self.phoneCell)
+    if ([cell.header.text isEqualToString:kUSER_PHONE])
     {
         [self phoneCall];
     }
-    else if (cell == self.phoneDeskCell)
-    {
-        [self phoneDeskCall];
-    }
-    else if (cell == self.emailCell)
+    else if ([cell.header.text isEqualToString:kUSER_EMAIL])
     {
         [self emailSend];
     }
-    else if (cell == self.skypeCell)
+    else if ([cell.header.text isEqualToString:kUSER_SKYPE])
     {
         [self skypeCall];
     }
-    else if (cell == self.ircCell)
+    else if ([cell.header.text isEqualToString:kUSER_IRC])
     {
         [self ircSend];
-    }
-    else if (cell == self.addToContactsCell)
-    {
-        [self addToContacts];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -105,18 +160,45 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    if(indexPath.row == 0) return 44;
+    return 32;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellIdentifier = @"userDetailsCell";
+    if([self isHeaderIndex:indexPath]) cellIdentifier = @"userInfoCell";
+
+    UserDetailsTableViewCell *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(!myCell) myCell = [[UserDetailsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    if (cell == self.mainCell)
+    if([self isHeaderIndex:indexPath])
     {
-        float size = self.explanationLabel.frame.size.height + 20 + self.userName.frame.size.height + 20;
-        
-        return size > cell.frame.size.height ? size : cell.frame.size.height;
+        [myCell.header setText:self.user.name];
+        [myCell.details setText:[[self.user.roles componentsJoinedByString:@", "] uppercaseString]];
     }
-    
-    CGFloat r = cell.isHidden ? 0 : 56;
-    
-    return r;
+    else
+    {
+        NSString *currentKey = [detailsOrder objectAtIndex:indexPath.row - 1];
+        [myCell.header setText:[NSString stringWithFormat:@"%@",currentKey]];
+        [myCell.details setText:[userDetails objectForKey:currentKey]];
+        
+        //we don't want the office row to be selectable since it doesn't trigger any action
+        if([currentKey isEqualToString:kUSER_LOCATION]) [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+
+    return myCell;
+}
+
+- (BOOL)isHeaderIndex:(NSIndexPath *)indexPath
+{
+    return (indexPath.row == 0);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    [self prepareUserDetails];
+    return [[userDetails allKeys] count] + 1;
 }
 
 #pragma mark - GUI
@@ -201,228 +283,8 @@
         }
     }
     
-    [self updateCells];
-    
     [self.tableView reloadDataAnimated:NO];
-}
-
-- (void)updateCells
-{
-    if (self.user.avatarURL)
-    {
-        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
-    }
-    
-    [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
-    
-    if (self.user.name)
-    {
-        self.userName.text = self.user.name;
-        self.mainCell.hidden = NO;
-    }
-    else
-    {
-        self.mainCell.hidden = YES;
-    }
-    
-    if (self.user.phone)
-    {
-        self.phoneLabel.text = self.user.phone;
-        self.phoneCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneCell.hidden = YES;
-    }
-    
-    if (self.user.phoneDesk)
-    {
-        self.phoneDeskLabel.text = self.user.phoneDesk;
-        self.phoneDeskCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneDeskCell.hidden = YES;
-    }
-    
-    if (self.user.email)
-    {
-        self.emailLabel.text = self.user.email;
-        self.emailCell.hidden = NO;
-    }
-    else
-    {
-        self.emailCell.hidden = YES;
-    }
-    
-    if (self.user.skype)
-    {
-        self.skypeLabel.text = self.user.skype;
-        self.skypeCell.hidden = NO;
-    }
-    else
-    {
-        self.skypeCell.hidden = YES;
-    }
-    
-    if (self.user.irc)
-    {
-        self.ircLabel.text = self.user.irc;
-        self.ircCell.hidden = NO;
-    }
-    else
-    {
-        self.ircCell.hidden = YES;
-    }
-    
-    if (self.user.location)
-    {
-        self.locationLabel.text = self.user.location;
-        self.locationCell.hidden = NO;
-    }
-    else
-    {
-        self.locationCell.hidden = YES;
-    }
-    
-    NSString *(^formatValues)(id) = ^(id array){
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-        
-        for (NSString *value in array)
-        {
-            [string appendFormat:@"%@, ", value];
-        }
-        
-        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        return string;
-    };
-    
-    if ([self.user.groups count])
-    {
-        self.groupsLabel.text = formatValues(self.user.groups);
-        self.groupsCell.hidden = NO;
-    }
-    else
-    {
-        self.groupsCell.hidden = YES;
-    }
-    
-    if ([self.user.roles count])
-    {
-        self.rolesLabel.text = formatValues(self.user.roles);
-        self.rolesCell.hidden = NO;
-    }
-    else
-    {
-        self.rolesCell.hidden = YES;
-    }
-    
-    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-    BOOL isAbsenceAndCommingFromAbsence = (self.isComeFromAbsences && self.user.absences.count);
-    BOOL isAbsenceAndNotCommingFromAbsence = (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count);
-    
-    //    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
-    //    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
-    if (isAbsenceAndCommingFromAbsence || isAbsenceAndNotCommingFromAbsence)
-    {
-        self.clockView.color = MAIN_RED_COLOR;
-        
-        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
-            
-            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
-            {
-                NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (absence.remarks)
-                {
-                    [hours appendFormat:@" %@\n", absence.remarks];
-                }
-            }
-        }];
-    }
-    else  if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            if (self.isListStateTommorow == [late.isTomorrow boolValue])
-            {
-                NSString *start = [latesDateFormater stringFromDate:late.start];
-                NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (late.explanation)
-                {
-                    [hours appendFormat:@" %@\n", late.explanation];
-                }
-            }
-        }];
-    }
-    
-    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    
-    if (hours.length > 1)
-    {
-        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
-    }
-    
-    self.explanationLabel.text = hours;
-    
-    if ([RMUser userLoggedType] != UserLoginTypeTrue)
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    if ([self isLoadedMe])
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    [self.userName sizeToFit];
-    [self.userName layoutIfNeeded];
-    [self.explanationLabel sizeToFit];
-    
-    [self updateAddToContactsButton];
-}
-
-- (void)resetLabels
-{
-    self.phoneLabel.text = @"";
-    self.emailLabel.text = @"";
-    self.phoneDeskLabel.text = @"";
-    self.skypeLabel.text = @"";
-    self.ircLabel.text = @"";
-    self.userName.text = @"";
-    self.addToContactLabel.text = @"";
-    self.locationLabel.text = @"";
-    self.rolesLabel.text = @"";
-    self.groupsLabel.text = @"";
-    self.explanationLabel.text = @"";
+    [self.tableView setUserInteractionEnabled:YES];
 }
 
 #pragma mark - Actions
@@ -444,7 +306,7 @@
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
-    NSString *number = self.user.phone;
+    NSString *number = [userDetails objectForKey:kUSER_PHONE];
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
     [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
@@ -465,7 +327,7 @@
 {
     if ([MFMailComposeViewController canSendMail])
     {
-        NSArray *toRecipents = [NSArray arrayWithObject:self.user.email];
+        NSArray *toRecipents = [NSArray arrayWithObject:[userDetails objectForKey:kUSER_EMAIL]];
         
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         mc.mailComposeDelegate = self;
@@ -483,13 +345,13 @@
 
 - (void)skypeCall
 {
-    [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:self.user.skype]]
+    [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_SKYPE]]]
   orAlertWithText:@"Skype app not found."];
 }
 
 - (void)ircSend
 {
-    [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:self.user.irc]]
+    [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_IRC]]]
   orAlertWithText:@"IRC app not found."];
 }
 
