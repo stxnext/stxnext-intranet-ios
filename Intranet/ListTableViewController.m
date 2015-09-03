@@ -414,7 +414,12 @@
 {
     static NSString *CellIdentifier = @"UserCell";
     
-    UserListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UserListCell *cell;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        cell = (UserListCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    } else {
+        cell = (UserListCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     
     RMUser *user;
     NSInteger realSection = [self realSectionForNotEmptySection:indexPath.section];
