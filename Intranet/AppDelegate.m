@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppDelegate+SplitControllerDelegate.h"
+#import "UIImage+Color.h"
 
 @implementation AppDelegate
 
@@ -43,9 +44,17 @@
         [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -2)];
         
         // Tab bar
-        [[UITabBar appearance] setTintColor:[Branding stxLightGreen]];
         [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
         [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxDarkGreen]]];
+        
+        UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+        for (UITabBarItem *item in tabBarController.tabBar.items) {
+            UIImage *tabBarImg = item.image;
+            item.image = [[tabBarImg imagePaintedWithColor:[Branding stxLightGreen]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        }
+        
+        [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [Branding stxLightGreen], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:10.0]} forState:UIControlStateNormal];
+        [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
     }
     
     return YES;

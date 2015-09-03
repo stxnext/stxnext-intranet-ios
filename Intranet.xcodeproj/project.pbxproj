@@ -95,6 +95,7 @@
 		D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D119D29C1B9446C7009826BB /* MapKit.framework */; };
 		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
 		D119D2A41B94918C009826BB /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A31B94918C009826BB /* SettingsTableViewController.m */; };
+		D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D14AC9041B98622F008FFD58 /* UIImage+Color.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
@@ -244,6 +245,8 @@
 		D119D2A01B945E1B009826BB /* OfficeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeAnnotation.m; sourceTree = "<group>"; };
 		D119D2A21B94918C009826BB /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		D119D2A31B94918C009826BB /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		D14AC9031B98622F008FFD58 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		D14AC9041B98622F008FFD58 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
@@ -451,6 +454,7 @@
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
 				6612D00219A71A3100A5FD23 /* NSString+MyRegex.h */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
+				D14AC9031B98622F008FFD58 /* UIImage+Color.h */,
 				66CA6E781A2DB75B00BF822F /* UIImageView+Additions.h */,
 				661AE46618C4902300B7A4F5 /* UILabel+TCCustomFont.h */,
 				66063DCC182149C700C30C93 /* UITableView+Additions.h */,
@@ -463,6 +467,7 @@
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
 				6612D00319A71A3100A5FD23 /* NSString+MyRegex.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
+				D14AC9041B98622F008FFD58 /* UIImage+Color.m */,
 				66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */,
 				661AE46718C4902300B7A4F5 /* UILabel+TCCustomFont.m */,
 				66063DCD182149C700C30C93 /* UITableView+Additions.m */,
@@ -745,6 +750,7 @@
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
+				D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
