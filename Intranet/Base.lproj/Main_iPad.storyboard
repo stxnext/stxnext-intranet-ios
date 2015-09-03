@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="xSe-sU-l9n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="xSe-sU-l9n">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -146,7 +146,7 @@
                                     <outlet property="userImage" destination="WRU-Ph-QZN" id="tv4-cj-5ze"/>
                                     <outlet property="userName" destination="Ksz-84-dGV" id="bOC-i8-ndI"/>
                                     <outlet property="warningDateLabel" destination="zXn-9A-cjH" id="BgO-vQ-FEE"/>
-                                    <segue destination="IJQ-ly-s4Q" kind="custom" customClass="UserDetailsSegue" id="f5H-gJ-3zI"/>
+                                    <segue destination="a8T-M4-qyM" kind="custom" customClass="UserDetailsSegue" id="vvH-18-91V"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -185,6 +185,118 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1515" y="-2448"/>
+        </scene>
+        <!--User Details Table View Controller-->
+        <scene sceneID="vLI-7G-Mza">
+            <objects>
+                <tableViewController id="a8T-M4-qyM" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UI7-a5-yVj">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="9Ny-is-pdX">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="zl6-dx-R0e">
+                                    <rect key="frame" x="344" y="17" width="80" height="80"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="80" id="GWz-C5-bsd"/>
+                                        <constraint firstAttribute="height" constant="80" id="OV8-7O-WNP"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="gAZ-3b-hpN" secondAttribute="trailing" id="AnY-2A-k0g"/>
+                                <constraint firstItem="zl6-dx-R0e" firstAttribute="top" secondItem="9Ny-is-pdX" secondAttribute="top" constant="17" id="EGq-xf-qfz"/>
+                                <constraint firstAttribute="bottom" secondItem="gAZ-3b-hpN" secondAttribute="bottom" id="dFx-E7-oln"/>
+                                <constraint firstAttribute="centerX" secondItem="zl6-dx-R0e" secondAttribute="centerX" id="jUJ-ie-1yb"/>
+                                <constraint firstItem="gAZ-3b-hpN" firstAttribute="leading" secondItem="9Ny-is-pdX" secondAttribute="leading" id="lhB-zF-dxu"/>
+                                <constraint firstItem="gAZ-3b-hpN" firstAttribute="top" secondItem="9Ny-is-pdX" secondAttribute="top" id="xyb-CP-T23"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfoCell" id="NeX-Rh-JsL" customClass="UserDetailsTableViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NeX-Rh-JsL" id="3gm-IS-M2o">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Imie Nazwisko" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5z-f3-Qys" userLabel="Name">
+                                            <rect key="frame" x="16" y="10" width="568" height="16"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Programmer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hr6-wG-Fjk" userLabel="Role">
+                                            <rect key="frame" x="16" y="24" width="288" height="12"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="details" destination="Hr6-wG-Fjk" id="RcH-6D-GYP"/>
+                                    <outlet property="header" destination="g5z-f3-Qys" id="8BR-eI-b4H"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userDetailsCell" id="Zcu-Le-qd7" customClass="UserDetailsTableViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zcu-Le-qd7" id="x32-r0-E4H">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skype:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxd-ev-RiI" userLabel="Skype">
+                                            <rect key="frame" x="16" y="14" width="44" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="1FK-fo-9mK"/>
+                                                <constraint firstAttribute="height" constant="16" id="gih-8w-ESM"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.08235294118" green="0.35294117650000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clj-cg-EcD">
+                                            <rect key="frame" x="61" y="14" width="25" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="Tkj-1s-Qga"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="260" id="Usw-WE-ULy"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="gxd-ev-RiI" firstAttribute="baseline" secondItem="clj-cg-EcD" secondAttribute="baseline" constant="-2" id="1px-s6-oBp"/>
+                                        <constraint firstItem="clj-cg-EcD" firstAttribute="leading" secondItem="gxd-ev-RiI" secondAttribute="trailing" constant="1" id="GAC-fa-dKd"/>
+                                        <constraint firstItem="gxd-ev-RiI" firstAttribute="top" secondItem="x32-r0-E4H" secondAttribute="topMargin" constant="6" id="ZqP-vg-lyZ"/>
+                                        <constraint firstItem="gxd-ev-RiI" firstAttribute="leading" secondItem="x32-r0-E4H" secondAttribute="leadingMargin" constant="8" id="deW-ae-tvg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="details" destination="clj-cg-EcD" id="xWI-Pw-1Qd"/>
+                                    <outlet property="header" destination="gxd-ev-RiI" id="UFK-IR-LaV"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="a8T-M4-qyM" id="rTT-TC-O3N"/>
+                            <outlet property="delegate" destination="a8T-M4-qyM" id="mwA-xd-a8t"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="profileBackground" destination="gAZ-3b-hpN" id="50I-Ci-xaC"/>
+                        <outlet property="userImage" destination="zl6-dx-R0e" id="xh7-zH-SIm"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JUD-I7-M17" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2487" y="-2405"/>
         </scene>
         <!--User Details Table View Controller-->
         <scene sceneID="Vmo-kS-BW0">
@@ -564,7 +676,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8r7-LS-XBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2156" y="-2487"/>
+            <point key="canvasLocation" x="3478" y="-2436"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5M1-oI-Lh2">
@@ -588,6 +700,8 @@
     <resources>
         <image name="Hero" width="290" height="615"/>
         <image name="STXNext" width="250" height="72"/>
+        <image name="superhero_none" width="640" height="240"/>
+        <image name="tabbar_icon_me_big" width="75" height="75"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
