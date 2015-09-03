@@ -190,14 +190,17 @@
         <scene sceneID="vLI-7G-Mza">
             <objects>
                 <tableViewController id="a8T-M4-qyM" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UI7-a5-yVj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UI7-a5-yVj">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9Ny-is-pdX">
-                            <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="157"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-v5-Qt0">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                                </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
                                 </imageView>
@@ -211,11 +214,15 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="5pS-v5-Qt0" firstAttribute="top" secondItem="gAZ-3b-hpN" secondAttribute="top" id="0dd-hV-hXU"/>
+                                <constraint firstItem="5pS-v5-Qt0" firstAttribute="trailing" secondItem="gAZ-3b-hpN" secondAttribute="trailing" id="0zh-Cm-0tP"/>
                                 <constraint firstAttribute="trailing" secondItem="gAZ-3b-hpN" secondAttribute="trailing" id="AnY-2A-k0g"/>
                                 <constraint firstItem="zl6-dx-R0e" firstAttribute="top" secondItem="9Ny-is-pdX" secondAttribute="top" constant="17" id="EGq-xf-qfz"/>
-                                <constraint firstAttribute="bottom" secondItem="gAZ-3b-hpN" secondAttribute="bottom" id="dFx-E7-oln"/>
+                                <constraint firstItem="5pS-v5-Qt0" firstAttribute="bottom" secondItem="gAZ-3b-hpN" secondAttribute="bottom" id="Sep-p2-Yy6"/>
+                                <constraint firstAttribute="bottom" secondItem="gAZ-3b-hpN" secondAttribute="bottom" constant="20" id="dFx-E7-oln"/>
                                 <constraint firstAttribute="centerX" secondItem="zl6-dx-R0e" secondAttribute="centerX" id="jUJ-ie-1yb"/>
                                 <constraint firstItem="gAZ-3b-hpN" firstAttribute="leading" secondItem="9Ny-is-pdX" secondAttribute="leading" id="lhB-zF-dxu"/>
+                                <constraint firstItem="5pS-v5-Qt0" firstAttribute="leading" secondItem="gAZ-3b-hpN" secondAttribute="leading" id="lmY-pE-zcG"/>
                                 <constraint firstItem="gAZ-3b-hpN" firstAttribute="top" secondItem="9Ny-is-pdX" secondAttribute="top" id="xyb-CP-T23"/>
                             </constraints>
                         </view>
@@ -260,7 +267,7 @@
                                             <color key="textColor" red="0.08235294118" green="0.35294117650000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clj-cg-EcD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clj-cg-EcD">
                                             <rect key="frame" x="61" y="14" width="25" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="Tkj-1s-Qga"/>
@@ -700,6 +707,7 @@
     <resources>
         <image name="Hero" width="290" height="615"/>
         <image name="STXNext" width="250" height="72"/>
+        <image name="gradient_blur" width="10" height="240"/>
         <image name="superhero_none" width="640" height="240"/>
         <image name="tabbar_icon_me_big" width="75" height="75"/>
     </resources>

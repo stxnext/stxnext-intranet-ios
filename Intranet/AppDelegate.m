@@ -26,19 +26,16 @@
     
 //    [[[UIWindow keyWindow] rootViewController] performSelector:@selector(recursiveDescription) withObject:nil];
     
+    // Appearance
+    
     // Stylize tab bar + navigation bar on iPhone
-    if ([self.window.rootViewController isKindOfClass:[UITabBarController class]])
-    {
-        // Status bar
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    if (INTERFACE_IS_PHONE) {
         UIView *statusBarSubview = [[UIView alloc] init];
         statusBarSubview.frame = CGRectMake(0, 0, self.window.rootViewController.view.frame.size.width, 20);
         statusBarSubview.backgroundColor = [Branding stxDarkGreen];
         [self.window.rootViewController.view addSubview:statusBarSubview];
         
-        // Navigation bar
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
         
         // Tab bar item
         [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -2)];
@@ -55,7 +52,17 @@
         
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [Branding stxLightGreen], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:10.0]} forState:UIControlStateNormal];
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
+    } else {
+        [[UINavigationBar appearance]setBarTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     }
+    
+    // Status bar
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    // Navigation bar
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     return YES;
 }

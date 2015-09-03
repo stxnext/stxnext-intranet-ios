@@ -45,7 +45,12 @@
     [super viewDidLoad];
     
     [self.tableView hideEmptySeparators];
-    [self.view setBackgroundColor:[Branding stxLightGray]];
+    
+    if (INTERFACE_IS_PHONE) {
+        [self.view setBackgroundColor:[Branding stxLightGray]];
+    } else {
+        [self.view setBackgroundColor:[UIColor whiteColor]];
+    }
     
     if(self.user.avatarURL) [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
@@ -55,6 +60,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearData) name:DID_LOGOUT object:nil];
+    
+    if (INTERFACE_IS_PAD) {
+        UIImage *img = self.profileBackground.image;
+        img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, 3, 0, 3)];
+        self.profileBackground.image = img;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
