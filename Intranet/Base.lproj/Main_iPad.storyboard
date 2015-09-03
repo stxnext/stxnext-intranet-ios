@@ -161,11 +161,7 @@
                                 <action selector="changeView:" destination="JVO-4w-KUi" id="SEN-v0-Uf1"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oNQ-VK-UX0">
-                            <connections>
-                                <action selector="showNewRequest:" destination="JVO-4w-KUi" id="fcQ-Zc-bdO"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="oNQ-VK-UX0"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addRequestButton" destination="oNQ-VK-UX0" id="WMt-wL-9Xo"/>

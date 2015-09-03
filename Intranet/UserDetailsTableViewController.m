@@ -14,6 +14,7 @@
 #import "NSString+MyRegex.h"
 #import "UIImageView+Additions.h"
 #import "UserDetailsTableViewCell.h"
+#import "UIImage+Color.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -91,6 +92,8 @@
     {
         [self updateGUI];
     }
+    
+    [self updateAddToContactsButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -275,8 +278,6 @@
                 [self.webView removeFromSuperview];
                 self.user = [RMUser me];
             }
-            
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reportAbsence)];
         }
         else
         {
@@ -368,6 +369,8 @@
 
 - (void)addToContacts
 {
+    [self.actionButton setUserInteractionEnabled:NO];
+    
     if ([_user isInContacts])
     {
         [_user removeFromContacts];
@@ -378,17 +381,32 @@
     }
     
     [self updateAddToContactsButton];
+    
+    [self.actionButton setUserInteractionEnabled:YES];
 }
 
 - (void)updateAddToContactsButton
 {
+    UIImage *removeImage = [UIImage imageNamed:@"minus31"];
+    UIImage *addImage = [UIImage imageNamed:@"add88"];
+    UIImage *lateImage = [UIImage imageNamed:@"wallclock"];
+    
+    if([self isMeTab])
+    {
+        [self.actionButton setImage:[lateImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
+        [self.actionButton setImage:[lateImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateHighlighted];
+        return;
+    }
+    
     if ([_user isInContacts])
     {
-        self.addToContactLabel.text = @"remove from contacts";
+        [self.actionButton setImage:[removeImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
+        [self.actionButton setImage:[removeImage imagePaintedWithColor:[Branding stxDarkGreen]] forState:UIControlStateHighlighted];
     }
     else
     {
-        self.addToContactLabel.text = @"add to contacts";
+        [self.actionButton setImage:[addImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
+        [self.actionButton setImage:[addImage imagePaintedWithColor:[Branding stxDarkGreen]] forState:UIControlStateHighlighted];
     }
 }
 
@@ -470,11 +488,6 @@
                                               }
                                           }];
     }
-}
-
-- (void)reportAbsence
-{
-    NSLog(@"absence");
 }
 
 - (void)clearData
@@ -615,8 +628,7 @@
     [self updateGUI];
 }
 
-- (BOOL)isFemale
-{
+- (BOOL)isFemale {
     NSArray *nameSplit = [self.user.name componentsSeparatedByString:@" "];
     if(nameSplit && nameSplit.count > 1)
     {
@@ -624,6 +636,48 @@
         if([firstName hasSuffix:@"a"]) return YES;
     }
     return NO;
+}
+
+#pragma mark absence/contact button actions
+
+- (IBAction)triggerAction:(id)sender {
+    if([self isMeTab]) [self showNewRequest:sender];
+    else [self addToContacts];
+}
+
+- (void)showNewRequest:(id)sender
+{
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    else
+    {
+        if (INTERFACE_IS_PHONE)
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            
+            [actionSheet showFromTabBar:self.tabBarController.tabBar];
+        }
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex < 2)
+    {
+        if (INTERFACE_IS_PHONE)
+        {
+            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+            
+            AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
+            form.currentRequest = (int)buttonIndex;
+            form.delegate = self;
+        }
+    }
 }
 
 @end

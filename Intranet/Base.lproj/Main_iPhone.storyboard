@@ -47,11 +47,14 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="4Im-4X-4uN" userLabel="Employee photo">
                                     <rect key="frame" x="120" y="20" width="80" height="80"/>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Et1-gY-1Ak">
-                                    <rect key="frame" x="266" y="8" width="46" height="30"/>
-                                    <state key="normal" title="Button">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Et1-gY-1Ak" userLabel="Action button">
+                                    <rect key="frame" x="278" y="78" width="32" height="32"/>
+                                    <state key="normal" image="wallclock">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="triggerAction:" destination="eBK-zg-izl" eventType="touchUpInside" id="k1P-zu-Ztb"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -131,6 +134,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Gg6-u9-s2R"/>
                     <connections>
+                        <outlet property="actionButton" destination="Et1-gY-1Ak" id="byj-lj-Vml"/>
                         <outlet property="profileBackground" destination="QYN-4S-AJj" id="LzB-y2-LnA"/>
                         <outlet property="userImage" destination="4Im-4X-4uN" id="Qn2-D6-W1e"/>
                     </connections>
@@ -143,7 +147,7 @@
         <scene sceneID="pLe-vT-XJK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nvf-NT-HOc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Employees" image="tabbar_icon_users" id="3B0-eY-fjy"/>
+                    <tabBarItem key="tabBarItem" title="Employees" image="employee1" id="3B0-eY-fjy"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="egg-Ro-Cxg">
@@ -259,7 +263,7 @@
         <scene sceneID="VvS-jr-683">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N91-HD-i7s" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" image="tabbar_icon_me" id="Z7h-1E-pvt"/>
+                    <tabBarItem key="tabBarItem" title="Me" image="office-worker2" id="Z7h-1E-pvt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="f8z-aH-CAF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -445,7 +449,7 @@
         <scene sceneID="DGD-dl-uWS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="LTv-PQ-Hj5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Offices" selectedImage="tabbar_icon_users" id="Nq7-Cu-JOB"/>
+                    <tabBarItem key="tabBarItem" title="Offices" image="office17" id="Nq7-Cu-JOB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aXH-Me-TfM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -665,14 +669,14 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="156" id="b63-Qt-Yij">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="185" id="b63-Qt-Yij">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b63-Qt-Yij" id="zH7-Fy-Pft">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jip-5c-JoR">
-                                                    <rect key="frame" x="10" y="5" width="300" height="146"/>
+                                                    <rect key="frame" x="10" y="5" width="300" height="175"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdm-Az-45G">
                                                             <rect key="frame" x="10" y="10" width="280" height="17"/>
@@ -692,7 +696,7 @@
                                                             <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-HP-tnR">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-HP-tnR">
                                                             <rect key="frame" x="20" y="46" width="270" height="47"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="270" id="z4C-Am-DeW"/>
@@ -705,7 +709,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Design &amp; UX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0TQ-mp-9Lt">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Design &amp; UX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0TQ-mp-9Lt">
                                                             <rect key="frame" x="10" y="98" width="280" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="280" id="AIu-tM-KO0"/>
@@ -714,7 +718,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-fm-rqb">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-fm-rqb">
                                                             <rect key="frame" x="20" y="113" width="270" height="24"/>
                                                             <string key="text">Logan Stevens
 Dominik Shuster</string>
@@ -722,13 +726,37 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBd-nd-fHp">
+                                                            <rect key="frame" x="10" y="142" width="280" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="mtX-Tc-TB4"/>
+                                                                <constraint firstAttribute="width" constant="280" id="xy8-2M-UeZ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
+                                                            <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons made by Freepik from www.flaticon.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-Co-kVP">
+                                                            <rect key="frame" x="20" y="157" width="270" height="12"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="12" id="Vg3-S3-lqg"/>
+                                                                <constraint firstAttribute="width" constant="270" id="b67-Al-SKA"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="iBd-nd-fHp" firstAttribute="top" secondItem="Zsc-fm-rqb" secondAttribute="bottom" constant="5" id="0Lg-pK-LsC"/>
+                                                        <constraint firstItem="iBd-nd-fHp" firstAttribute="leading" secondItem="jip-5c-JoR" secondAttribute="leading" constant="10" id="4US-Xb-ZG7"/>
                                                         <constraint firstAttribute="trailing" secondItem="0TQ-mp-9Lt" secondAttribute="trailing" constant="10" id="8uz-JA-Tlm"/>
                                                         <constraint firstItem="Zsc-fm-rqb" firstAttribute="top" secondItem="0TQ-mp-9Lt" secondAttribute="bottom" id="9cO-oj-1hz"/>
                                                         <constraint firstItem="84u-HP-tnR" firstAttribute="top" secondItem="9kx-lA-prG" secondAttribute="bottom" id="EK5-tR-OE5"/>
+                                                        <constraint firstItem="Hrk-Co-kVP" firstAttribute="top" secondItem="iBd-nd-fHp" secondAttribute="bottom" id="Fgc-fp-10v"/>
                                                         <constraint firstItem="9kx-lA-prG" firstAttribute="top" secondItem="Fdm-Az-45G" secondAttribute="bottom" constant="5" id="GpW-kf-q4g"/>
+                                                        <constraint firstItem="Hrk-Co-kVP" firstAttribute="leading" secondItem="jip-5c-JoR" secondAttribute="leading" constant="20" id="H8w-OC-Ith"/>
                                                         <constraint firstAttribute="width" constant="300" id="XMt-Iz-xQk"/>
                                                         <constraint firstItem="9kx-lA-prG" firstAttribute="leading" secondItem="jip-5c-JoR" secondAttribute="leading" constant="10" id="YQW-lk-9zx"/>
                                                         <constraint firstAttribute="trailing" secondItem="9kx-lA-prG" secondAttribute="trailing" constant="10" id="YbP-D5-Dtc"/>
@@ -777,7 +805,8 @@ Dominik Shuster</string>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DO5-Ny-WiH">
                                                     <rect key="frame" x="10" y="5" width="300" height="54"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="STX Intranet 1.5 STX Next Mobile Team 2015" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqf-co-SiT">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="STX Intranet 1.5
+STX Next Mobile Team 2015" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqf-co-SiT">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="54"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                             <color key="textColor" red="0.08235294118" green="0.35294117650000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -834,7 +863,7 @@ Dominik Shuster</string>
         <scene sceneID="We9-cR-cuI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PKd-ur-PLa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" selectedImage="tabbar_icon_ooot" id="3WX-iN-FUj"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="three115" id="3WX-iN-FUj"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dNZ-YD-tj6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1465,7 +1494,7 @@ Dominik Shuster</string>
         <scene sceneID="eoU-qG-hpL">
             <objects>
                 <navigationController title="Absences" automaticallyAdjustsScrollViewInsets="NO" id="11o-D8-hKM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Absences" image="tabbar_icon_ooot" id="GI2-Zc-m8J"/>
+                    <tabBarItem key="tabBarItem" title="Absences" image="businessman243" id="GI2-Zc-m8J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="JyO-Gv-2XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1501,11 +1530,14 @@ Dominik Shuster</string>
         </scene>
     </scenes>
     <resources>
+        <image name="businessman243" width="24" height="24"/>
+        <image name="employee1" width="24" height="24"/>
+        <image name="office-worker2" width="24" height="24"/>
+        <image name="office17" width="24" height="24"/>
         <image name="superhero_none" width="640" height="240"/>
-        <image name="tabbar_icon_me" width="25" height="25"/>
         <image name="tabbar_icon_me_big" width="75" height="75"/>
-        <image name="tabbar_icon_ooot" width="25" height="25"/>
-        <image name="tabbar_icon_users" width="25" height="25"/>
+        <image name="three115" width="24" height="24"/>
+        <image name="wallclock" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1513,7 +1545,7 @@ Dominik Shuster</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8yv-kA-sUN"/>
+        <segue reference="set-Zf-g71"/>
         <segue reference="X62-zH-gKD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

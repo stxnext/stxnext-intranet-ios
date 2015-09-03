@@ -67,6 +67,15 @@
     NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
+#pragma mark UI
+
+- (void)setUserInteractionEnabled:(BOOL)enabled
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:!enabled];
+    [self.tableView setUserInteractionEnabled:enabled];
+    if(INTERFACE_IS_PHONE) [self.tabBarController.tabBar setUserInteractionEnabled:enabled];
+}
+
 #pragma mark - Data
 
 - (void)processUsers:(NSDictionary *)users absencesAndLates:(NSDictionary *)absencesAndLates finalAction:(SimpleBlock)finalAction
