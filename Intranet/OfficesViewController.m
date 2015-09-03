@@ -146,8 +146,9 @@
 
 #pragma mark mapkit
 
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     [self performMapHotfix];
 }
 
