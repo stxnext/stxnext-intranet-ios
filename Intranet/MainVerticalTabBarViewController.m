@@ -16,6 +16,8 @@
 
 @property (nonatomic) UITabBarController *embededTabBarController;
 
+@property (nonatomic) NSUInteger selectedRow;
+
 @end
 
 @implementation MainVerticalTabBarViewController
@@ -35,12 +37,17 @@
                          @"three115",
                          @"wallclock",
                          ];
+    
+    NSIndexPath *initialSelected = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.verticalBarTableView selectRowAtIndexPath:initialSelected animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -58,13 +65,21 @@
     
     NSString *imgName = _modelImagesData[indexPath.row];
     
-    cell.imageView.image = [UIImage imageNamed:imgName];
+    cell.tabImageView.image = [UIImage imageNamed:imgName];
+    
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    cell.selected = indexPath.row == _selectedRow;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _selectedRow = indexPath.row;
     self.embededTabBarController.selectedIndex = indexPath.row;
 }
 

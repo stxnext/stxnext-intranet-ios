@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    self.delegate = self;
     // Do any additional setup after loading the view.
 }
 
@@ -35,4 +36,26 @@
 }
 */
 
+//- (BOOL)splitViewController:(UISplitViewController *)splitViewController
+//collapseSecondaryViewController:(UIViewController *)secondaryViewController
+//  ontoPrimaryViewController:(UIViewController *)primaryViewController {
+//    
+////    if ([secondaryViewController isKindOfClass:[UINavigationController class]]
+////        && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[PriceDetailTableView class]]
+////        
+////        //&& ([(PriceDetailTableView *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)
+////        
+////        ) {
+////        
+////        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+////        return YES;
+////        
+////    } else {
+////        
+////        return NO;
+////        
+//
+//    //    }
+//    return NO;
+//}
 @end

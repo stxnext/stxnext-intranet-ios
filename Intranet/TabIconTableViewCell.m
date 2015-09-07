@@ -8,16 +8,22 @@
 
 #import "TabIconTableViewCell.h"
 
+#import "Branding.h"
+
 @implementation TabIconTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    UIColor *bcgColor = highlighted ? [Branding stxLightGreen] : [Branding stxGreen];
+    self.contentView.backgroundColor = bcgColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    UIColor *bcgColor = selected ? [Branding stxDarkGreen] : [Branding stxGreen];
+    self.contentView.backgroundColor = bcgColor;
 }
 
 @end

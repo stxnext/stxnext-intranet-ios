@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UsersSplitViewController : UISplitViewController
+@interface UsersSplitViewController : UISplitViewController<UISplitViewControllerDelegate>
 
 @end
