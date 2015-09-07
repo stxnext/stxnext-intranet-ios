@@ -8,17 +8,22 @@
 
 #import "UserDetailsSegue.h"
 
+#import "UsersSplitViewController.h"
+
 @implementation UserDetailsSegue
 
 - (void)perform
 {
-    UIViewController* detailController = ((UIViewController*)self.sourceViewController).splitViewController.viewControllers.lastObject;
+//    UIViewController* detailController = ((UIViewController*)self.sourceViewController).splitViewController.viewControllers.lastObject;
+    UsersSplitViewController *splitController = (UsersSplitViewController *)((UIViewController*)self.sourceViewController).splitViewController;
     
-    if (![detailController isKindOfClass:[UINavigationController class]])
-        return;
+    [splitController showDetailViewController:self.destinationViewController sender:self];
+//    .viewControllers = @[ self.destinationViewController ];
+//    if (![detailController isKindOfClass:[UINavigationController class]])
+//        return;
     
-    UINavigationController* navigationController = (UINavigationController*)detailController;
-    [navigationController setViewControllers:@[ self.destinationViewController ]];
+//    UINavigationController* navigationController = (UINavigationController*)detailController;
+//    [navigationController setViewControllers:@[ self.destinationViewController ]];
 }
 
 @end
