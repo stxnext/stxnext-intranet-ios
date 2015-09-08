@@ -7,8 +7,8 @@
 //
 
 #import "UserListTableViewController.h"
-
 #import "UIView+Screenshot.h"
+#import "MBProgressHUD.h"
 
 @implementation UserListTableViewController
 {
@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setInteractionEnabled:NO];
     
     //update data
     if ([RMUser userLoggedType] != UserLoginTypeNO)
@@ -27,6 +28,7 @@
         [self performBlockInCurrentThread:^{
             [self loadUsersFromAPI:^{
                 [self stopRefreshData];
+                [self setInteractionEnabled:YES];
             }];
         } afterDelay:1];
     }
@@ -95,6 +97,19 @@
                                               }];
                                           }
                                       }];
+}
+
+- (void)setInteractionEnabled:(BOOL)enabled
+{
+    [self.tableView setUserInteractionEnabled:enabled];
+    [self.tabBarController.tabBar setUserInteractionEnabled:enabled];
+    
+    if(!enabled)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Loading", nil);
+    }
+    else [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 #pragma mark - Download data
