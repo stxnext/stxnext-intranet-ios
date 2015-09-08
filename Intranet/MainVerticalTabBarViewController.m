@@ -10,6 +10,8 @@
 
 #import "TabIconTableViewCell.h"
 
+#import "UIImage+Color.h"
+
 @interface MainVerticalTabBarViewController ()
 
 @property (nonatomic) NSArray *modelImagesData;
@@ -65,8 +67,9 @@
     
     NSString *imgName = _modelImagesData[indexPath.row];
     
-    cell.tabImageView.image = [UIImage imageNamed:imgName];
+    UIImage *imageInCell = [UIImage imageNamed:imgName];
     
+    cell.tabImageView.image = [[imageInCell imagePaintedWithColor:[Branding stxLightGreen]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     return cell;
 }

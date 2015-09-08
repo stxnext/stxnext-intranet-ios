@@ -221,6 +221,11 @@
 {
     if (INTERFACE_IS_PAD)
     {
+        if ([self isMeTab]) {
+            
+            self.user = [RMUser me];
+        }
+        
         if ([RMUser userLoggedType] != UserLoginTypeTrue)
         {
             self.title = @"Info";
@@ -610,6 +615,9 @@
 
 - (BOOL)isMeTab
 {
+    if (INTERFACE_IS_PAD) {
+        return [self splitViewController] ? NO : YES;
+    }
     return [[self.navigationController viewControllers] count] == 1;
 }
 
