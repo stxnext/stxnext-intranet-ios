@@ -291,7 +291,7 @@
                             <rect key="frame" x="0.0" y="64" width="320" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH" customClass="BottomTiltedButton">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Absences">
@@ -301,7 +301,7 @@
                                         <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="Por-sD-wmX"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa" customClass="BottomTiltedButton">
                                     <rect key="frame" x="105" y="0.0" width="110" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Work from Home">
@@ -311,7 +311,7 @@
                                         <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="NMi-ZR-3ba"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5" customClass="BottomTiltedButton">
                                     <rect key="frame" x="215" y="0.0" width="105" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Out of Office">
@@ -415,6 +415,7 @@
                         <outlet property="absencesButton" destination="bVI-EM-KMH" id="Z7f-Xi-5ue"/>
                         <outlet property="outOfOfficeButton" destination="FUv-Qi-En5" id="1ho-QL-Wif"/>
                         <outlet property="searchDisplayController" destination="OJh-wR-n8b" id="OCx-Tz-rux"/>
+                        <outlet property="tabButtonsContainer" destination="rAQ-BS-GmG" id="kqW-Vf-AMK"/>
                         <outlet property="workFromHomeButton" destination="U8r-wE-Ifa" id="7yx-ra-w3h"/>
                     </connections>
                 </tableViewController>
@@ -1455,7 +1456,7 @@ Dominik Shuster</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="X62-zH-gKD"/>
-        <segue reference="jFO-Dk-1lA"/>
+        <segue reference="set-Zf-g71"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

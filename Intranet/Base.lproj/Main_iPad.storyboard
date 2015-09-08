@@ -250,29 +250,58 @@
                             <rect key="frame" x="0.0" y="0.0" width="308" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWQ-cZ-gD2">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWQ-cZ-gD2" customClass="BottomTiltedButton">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="31" id="eh0-69-gwP"/>
+                                        <constraint firstAttribute="width" constant="105" id="jZH-Nf-5uW"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Absences">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="Tdd-P7-N2o" eventType="touchUpInside" id="b8z-Cv-f8L"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62V-5i-uUz">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62V-5i-uUz" customClass="BottomTiltedButton">
                                     <rect key="frame" x="105" y="0.0" width="110" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="110" id="E6T-au-yLm"/>
+                                        <constraint firstAttribute="height" constant="31" id="ON8-wQ-vws"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Work from Home">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="Tdd-P7-N2o" eventType="touchUpInside" id="nMs-pn-wra"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E54-px-w6G">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E54-px-w6G" customClass="BottomTiltedButton">
                                     <rect key="frame" x="215" y="0.0" width="105" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="31" id="mdA-w1-aZn"/>
+                                        <constraint firstAttribute="width" constant="105" id="wME-Wx-Yc7"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Out of Office">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="setListState:" destination="Tdd-P7-N2o" eventType="touchUpInside" id="ACC-DT-aL4"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="62V-5i-uUz" firstAttribute="top" secondItem="juy-ou-zc8" secondAttribute="top" id="F9E-X2-D12"/>
+                                <constraint firstItem="hWQ-cZ-gD2" firstAttribute="leading" secondItem="juy-ou-zc8" secondAttribute="leading" id="FcU-rt-6Sg"/>
+                                <constraint firstItem="E54-px-w6G" firstAttribute="top" secondItem="juy-ou-zc8" secondAttribute="top" id="LRB-gQ-XiZ"/>
+                                <constraint firstItem="E54-px-w6G" firstAttribute="leading" secondItem="62V-5i-uUz" secondAttribute="trailing" id="Rf9-CF-JyD"/>
+                                <constraint firstItem="62V-5i-uUz" firstAttribute="leading" secondItem="hWQ-cZ-gD2" secondAttribute="trailing" id="SLf-Ue-VpC"/>
+                                <constraint firstItem="hWQ-cZ-gD2" firstAttribute="top" secondItem="juy-ou-zc8" secondAttribute="top" id="rHb-qr-14q"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="UserCell" rowHeight="97" id="iq3-0F-dDI" customClass="UserListCell">
@@ -348,32 +377,36 @@
                     <connections>
                         <outlet property="absencesButton" destination="hWQ-cZ-gD2" id="bKD-of-AQ2"/>
                         <outlet property="outOfOfficeButton" destination="E54-px-w6G" id="SPp-mx-5q7"/>
+                        <outlet property="tabButtonWidthOne" destination="jZH-Nf-5uW" id="h0W-fh-0tu"/>
+                        <outlet property="tabButtonWidthThree" destination="wME-Wx-Yc7" id="J9t-IF-4Tf"/>
+                        <outlet property="tabButtonWidthTwo" destination="E6T-au-yLm" id="vs5-vn-SRk"/>
+                        <outlet property="tabButtonsContainer" destination="juy-ou-zc8" id="RDk-Eh-hdE"/>
                         <outlet property="workFromHomeButton" destination="62V-5i-uUz" id="AQ5-pM-L4b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDp-rf-62b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2912" y="-3931"/>
+            <point key="canvasLocation" x="2748" y="-3928"/>
         </scene>
         <!--Item-->
         <scene sceneID="vLI-7G-Mza">
             <objects>
                 <tableViewController id="a8T-M4-qyM" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UI7-a5-yVj">
-                        <rect key="frame" x="0.0" y="0.0" width="688" height="955"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9Ny-is-pdX">
-                            <rect key="frame" x="0.0" y="0.0" width="688" height="157"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="157"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gradient_blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-v5-Qt0">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-v5-Qt0">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="zl6-dx-R0e">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="zl6-dx-R0e">
                                     <rect key="frame" x="344" y="17" width="80" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="GWz-C5-bsd"/>
@@ -1919,8 +1952,8 @@ Dominik Shuster</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ZM0-wj-43r"/>
         <segue reference="oNa-ee-xZs"/>
+        <segue reference="PFT-Kd-4hd"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

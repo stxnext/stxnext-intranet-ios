@@ -94,6 +94,7 @@
 		8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962701B99950400C029CD /* UsersSplitViewController.m */; };
 		8FE962751B99A07700C029CD /* MainVerticalTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962741B99A07700C029CD /* MainVerticalTabBarViewController.m */; };
 		8FE962781B99A77000C029CD /* TabIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962771B99A77000C029CD /* TabIconTableViewCell.m */; };
+		8FFBBA961B9EE6C60007600A /* BottomTiltedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */; };
 		D119D29B1B944605009826BB /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D29A1B944605009826BB /* OfficesViewController.m */; };
 		D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D119D29C1B9446C7009826BB /* MapKit.framework */; };
 		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
@@ -247,6 +248,8 @@
 		8FE962741B99A07700C029CD /* MainVerticalTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainVerticalTabBarViewController.m; sourceTree = "<group>"; };
 		8FE962761B99A77000C029CD /* TabIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabIconTableViewCell.h; sourceTree = "<group>"; };
 		8FE962771B99A77000C029CD /* TabIconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabIconTableViewCell.m; sourceTree = "<group>"; };
+		8FFBBA941B9EE6C60007600A /* BottomTiltedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTiltedButton.h; sourceTree = "<group>"; };
+		8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTiltedButton.m; sourceTree = "<group>"; };
 		D119D2991B944605009826BB /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		D119D29A1B944605009826BB /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
 		D119D29C1B9446C7009826BB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -320,6 +323,8 @@
 				D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */,
 				8FE962761B99A77000C029CD /* TabIconTableViewCell.h */,
 				8FE962771B99A77000C029CD /* TabIconTableViewCell.m */,
+				8FFBBA941B9EE6C60007600A /* BottomTiltedButton.h */,
+				8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -762,6 +767,7 @@
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				D119D29B1B944605009826BB /* OfficesViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
+				8FFBBA961B9EE6C60007600A /* BottomTiltedButton.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */,

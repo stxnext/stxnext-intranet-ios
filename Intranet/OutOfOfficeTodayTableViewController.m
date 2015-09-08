@@ -7,10 +7,17 @@
 //
 
 #import "OutOfOfficeTodayTableViewController.h"
+#import "BottomTiltedButton.h"
 
 @interface OutOfOfficeTodayTableViewController ()
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
+@property (nonatomic, weak) IBOutlet UIView *tabButtonsContainer;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tabButtonWidthOne;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tabButtonWidthTwo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tabButtonWidthThree;
 
 @end
 
@@ -26,6 +33,22 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
+    
+    [self clearAllTabsTintSelecting:0];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    if (INTERFACE_IS_PAD) {
+        CGRect containerRect = self.tabButtonsContainer.bounds;
+        CGFloat oneButtonWidth = containerRect.size.width / 3.f;
+        
+        _tabButtonWidthOne.constant = oneButtonWidth;
+        _tabButtonWidthTwo.constant = oneButtonWidth;
+        _tabButtonWidthThree.constant = oneButtonWidth;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -142,13 +165,37 @@
 - (IBAction)setListState:(id)sender {
     [self performBlockOnMainThread:^{
         UIButton *tappedButton = (UIButton *)sender;
-        if([tappedButton isEqual:self.workFromHomeButton]) currentListState = ListStateWorkFromHome;
-        else if([tappedButton isEqual:self.outOfOfficeButton]) currentListState = ListStateOutOfOffice;
-        else currentListState = ListStateAbsent;
+        NSInteger idx;
+        if([tappedButton isEqual:self.workFromHomeButton]) {
+            idx = 1;
+             currentListState = ListStateWorkFromHome;
+        } else if([tappedButton isEqual:self.outOfOfficeButton]) {
+            idx = 2;
+            currentListState = ListStateOutOfOffice;
+        } else {
+            idx = 0;
+            currentListState = ListStateAbsent;
+        }
+        
+        [self clearAllTabsTintSelecting:idx];
+        
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationBottom];
     } afterDelay:0];
     
     [self showOutViewButton];
+}
+
+- (void)clearAllTabsTintSelecting:(NSInteger)selectedIdx
+{
+    NSInteger counter = 0;
+    for (UIView *subButton in self.tabButtonsContainer.subviews) {
+        if ([subButton isKindOfClass:[BottomTiltedButton class]]) {
+            BottomTiltedButton *but = (BottomTiltedButton *)subButton;
+            BOOL tilted = counter == selectedIdx;
+            but.isTilted = tilted;
+        }
+        counter++;
+    }
 }
 
 @end
