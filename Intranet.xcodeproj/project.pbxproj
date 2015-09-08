@@ -100,6 +100,7 @@
 		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
 		D119D2A41B94918C009826BB /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A31B94918C009826BB /* SettingsTableViewController.m */; };
 		D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D14AC9041B98622F008FFD58 /* UIImage+Color.m */; };
+		D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
@@ -259,6 +260,8 @@
 		D119D2A31B94918C009826BB /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		D14AC9031B98622F008FFD58 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		D14AC9041B98622F008FFD58 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LatenessViewController.h; sourceTree = "<group>"; };
+		D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LatenessViewController.m; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
@@ -440,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				8FE962721B999D6A00C029CD /* iPad */,
+				D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */,
 				66A83E261A28945D00B53A65 /* ListTableViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
 				D119D2991B944605009826BB /* OfficesViewController.h */,
@@ -449,6 +453,7 @@
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
+				D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */,
 				66A83E271A28945D00B53A65 /* ListTableViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
 				D119D29A1B944605009826BB /* OfficesViewController.m */,
@@ -776,6 +781,7 @@
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
+				D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,

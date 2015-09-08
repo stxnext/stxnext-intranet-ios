@@ -664,7 +664,7 @@
     {
         if (INTERFACE_IS_PHONE)
         {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), @"Absence / Holiday", @"Out of office", nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
         }
@@ -673,7 +673,16 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex < 2)
+    if (buttonIndex == 0)
+    {
+        if (INTERFACE_IS_PHONE)
+        {
+            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LatenessFormViewControllerId"];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }
+    else if (buttonIndex < 3)
     {
         if (INTERFACE_IS_PHONE)
         {
@@ -682,7 +691,7 @@
             [self presentViewController:nvc animated:YES completion:nil];
             
             AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
-            form.currentRequest = (int)buttonIndex;
+            form.currentRequest = (int)(buttonIndex - 1);
             form.delegate = self;
         }
     }

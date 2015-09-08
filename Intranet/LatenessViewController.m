@@ -1,0 +1,181 @@
+//
+//  LatenessViewController.m
+//  Intranet
+//
+//  Created by Paweł Urbanowicz on 08.09.2015.
+//  Copyright (c) 2015 STXNext. All rights reserved.
+//
+
+#import "LatenessViewController.h"
+#import "APIRequest.h"
+
+#define MAX_LATENESS 2 //maximum lateness diff in hours, default 2
+#define SECS_PER_HOUR 3600
+
+@implementation LatenessViewController
+{
+    NSDate *startDate; //default date, set as 9:00 AM
+    NSDate *endDate;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.explanationField setDelegate:self];
+    
+    [self setDefaults];
+    [self setGestureRecognizer];
+}
+
+- (void)setDefaults
+{
+    [self.closeButton setTitle:NSLocalizedString(@"Close", nil)];
+    [self.submitButton setTitle:NSLocalizedString(@"Submit", nil)];
+    [self.submitButton setEnabled:NO];
+    
+    startDate = [[NSDate date] dateWithHour:9 minute:0 second:0];
+    endDate = startDate; //by default end date is equal to start date
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm"];
+    [self.lateLabel setText:[dateFormatter stringFromDate:startDate]];
+}
+
+#pragma mark gesture recognizer
+
+- (void)setGestureRecognizer
+{
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragLateness:)];
+    [panGesture setMinimumNumberOfTouches:1];
+    [panGesture setMaximumNumberOfTouches:1];
+    [panGesture setDelegate:self];
+    
+    [self.view addGestureRecognizer:panGesture];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (void)dragLateness:(id)sender
+{
+    UIPanGestureRecognizer *gesture = (UIPanGestureRecognizer*)sender;
+    CGPoint location = [gesture locationInView:self.lateImage];
+    
+    if(!CGRectContainsPoint(self.lateImage.bounds, location)) return;
+    
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        if(![self.fingerLabel isHidden])
+        {
+            [self.fingerLabel setHidden:YES];
+            [self.lateImage setImage:[UIImage imageNamed:@"zzzz"]];
+            [self.lateImage setAlpha:0.0];
+        }
+    }
+    if(gesture.state == UIGestureRecognizerStateChanged)
+    {
+        CGFloat deadzone = self.lateImage.frame.size.width * 0.05; //touch won't be detected in this area, measured both for left & right edge
+        CGFloat coverPercentage = ((location.x - deadzone) / (self.lateImage.frame.size.width - 2*deadzone));
+        
+        //if we're out of frame just fix it
+        if(coverPercentage < 0) coverPercentage = 0;
+        else if(coverPercentage > 1) coverPercentage = 1;
+        
+        [self.lateImage setAlpha:coverPercentage];
+        
+        NSInteger lateMinutes = coverPercentage * MAX_LATENESS * SECS_PER_HOUR;
+        NSLog(@"%f",coverPercentage);
+        endDate = [startDate dateByAddingTimeInterval:lateMinutes];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"hh:mm"];
+        [self.lateLabel setText:[dateFormatter stringFromDate:endDate]];
+    }
+    if(gesture.state == UIGestureRecognizerStateEnded)
+    {
+        if([endDate isEqualToDate:startDate]) [self.submitButton setEnabled:NO];
+        else [self.submitButton setEnabled:YES];
+    }
+}
+
+#pragma mark action buttons
+
+- (IBAction)closeForm:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)submitForm:(id)sender {
+    if ([RMUser userLoggedType] == UserLoginTypeTrue)
+    {
+        [((UIButton *)sender) setEnabled:NO];
+        [self.view setUserInteractionEnabled:NO];
+        
+        NSDateFormatter *hourFormatter = [[NSDateFormatter alloc] init];
+        [hourFormatter setDateFormat:@"hh:mm"];
+        
+        NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+        [dayFormatter setDateFormat:@"dd/MM/yyyy"];
+        
+        NSString *explanation = (self.explanationField.text.length > 0) ? [self.explanationField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] : NSLocalizedString(@"I'll be late.", nil);
+        NSString *from = [hourFormatter stringFromDate:startDate];
+        NSString *to = [hourFormatter stringFromDate:endDate];
+        NSString *date = [dayFormatter stringFromDate:startDate];
+        
+        if (from.length && to.length && date.length && explanation.length)
+        {
+            NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
+                                                                            to,
+                                                                            date,
+                                                                            [NSNumber numberWithBool:NO],
+                                                                            explanation]
+                                                                  forKeys:@[@"late_start",
+                                                                            @"late_end",
+                                                                            @"popup_date",
+                                                                            @"work_from_home",
+                                                                            @"popup_explanation"]];
+            
+            
+            NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
+            
+            [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                if (INTERFACE_IS_PHONE)
+                {
+                    [self closeForm:self];
+                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+                [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                                   message:NSLocalizedString(@"Request has not been added. Please try again.",nil)
+                                     style:UIAlertViewStyleDefault
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                         }];
+                
+                [((UIButton *)sender) setEnabled:YES];
+                [self.view setUserInteractionEnabled:YES];
+            }];
+        }
+        else
+        {
+            [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                               message:NSLocalizedString(@"All fields required.", nil)
+                                 style:UIAlertViewStyleDefault
+                     cancelButtonTitle:nil
+                     otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                     }];
+            
+            [((UIButton *)sender) setEnabled:YES];
+            [self.view setUserInteractionEnabled:YES];
+        }
+    }
+    else
+    {
+        [self closeForm:self];
+    }
+}
+
+@end
