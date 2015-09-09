@@ -83,6 +83,7 @@
                                                                                             
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
+                                                  [self setInteractionEnabled:YES];
                                               }];
                                           }
                                           else
@@ -94,6 +95,7 @@
                                               
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
+                                                  [self setInteractionEnabled:YES];
                                               }];
                                           }
                                       }];

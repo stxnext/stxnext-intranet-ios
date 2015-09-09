@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self clearCookies];
     
     // Setup web view
     _webView.scrollView.bounces = NO;
@@ -48,6 +49,15 @@
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:request];
     
+}
+
+- (void)clearCookies
+{
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark Utilities

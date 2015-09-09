@@ -635,7 +635,7 @@
                                                             <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-HP-tnR">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-HP-tnR">
                                                             <rect key="frame" x="20" y="46" width="270" height="47"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="270" id="z4C-Am-DeW"/>
@@ -648,7 +648,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Design &amp; UX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0TQ-mp-9Lt">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Design &amp; UX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0TQ-mp-9Lt">
                                                             <rect key="frame" x="10" y="98" width="280" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="280" id="AIu-tM-KO0"/>
@@ -657,7 +657,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-fm-rqb">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsc-fm-rqb">
                                                             <rect key="frame" x="20" y="113" width="270" height="24"/>
                                                             <string key="text">Logan Stevens
 Dominik Shuster</string>
@@ -665,7 +665,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Icons" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBd-nd-fHp">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBd-nd-fHp">
                                                             <rect key="frame" x="10" y="142" width="280" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="mtX-Tc-TB4"/>
@@ -675,7 +675,7 @@ Dominik Shuster</string>
                                                             <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Icons made by Freepik from www.flaticon.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-Co-kVP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons made by Freepik from www.flaticon.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-Co-kVP">
                                                             <rect key="frame" x="20" y="157" width="270" height="12"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="12" id="Vg3-S3-lqg"/>
@@ -925,7 +925,7 @@ Dominik Shuster</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qnv-pB-0xK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnv-pB-0xK">
                                 <rect key="frame" x="0.0" y="64" width="320" height="138"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQo-0c-LWH">
@@ -936,25 +936,55 @@ Dominik Shuster</string>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="lOm-oX-zPU"/>
+                                    <constraint firstAttribute="height" constant="138" id="ylu-gt-zF5"/>
+                                </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lateness reason" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="96D-cg-vzw">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lateness reason" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="96D-cg-vzw">
                                 <rect key="frame" x="10" y="210" width="300" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="fcK-JS-EXB"/>
+                                    <constraint firstAttribute="width" constant="300" id="wum-wF-X0k"/>
+                                </constraints>
                                 <color key="textColor" red="0.08235294118" green="0.35294117650000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="UBw-To-KdC">
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="UBw-To-KdC">
                                 <rect key="frame" x="0.0" y="248" width="320" height="320"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="7jf-g9-UE5"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Move your finger!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-Kq-E0t">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move your finger!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-Kq-E0t">
                                 <rect key="frame" x="16" y="527" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="pMH-4u-F5m"/>
+                                    <constraint firstAttribute="height" constant="21" id="reh-iq-4NZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="96D-cg-vzw" firstAttribute="leading" secondItem="B4N-SF-cmc" secondAttribute="leading" constant="10" id="JA4-aG-pVW"/>
+                            <constraint firstItem="gfD-Kq-E0t" firstAttribute="leading" secondItem="B4N-SF-cmc" secondAttribute="leadingMargin" id="Qpg-fq-kHd"/>
+                            <constraint firstItem="UZr-rI-d6r" firstAttribute="top" secondItem="gfD-Kq-E0t" secondAttribute="bottom" constant="20" id="QtU-Ww-lR8"/>
+                            <constraint firstAttribute="trailing" secondItem="96D-cg-vzw" secondAttribute="trailing" constant="10" id="UYj-VD-aqu"/>
+                            <constraint firstItem="96D-cg-vzw" firstAttribute="top" secondItem="qnv-pB-0xK" secondAttribute="bottom" constant="8" id="VQX-F5-rFK"/>
+                            <constraint firstItem="UBw-To-KdC" firstAttribute="top" secondItem="96D-cg-vzw" secondAttribute="bottom" constant="8" id="aoq-wb-q2z"/>
+                            <constraint firstItem="UZr-rI-d6r" firstAttribute="top" secondItem="UBw-To-KdC" secondAttribute="bottom" id="arc-da-hWQ"/>
+                            <constraint firstItem="qnv-pB-0xK" firstAttribute="leading" secondItem="B4N-SF-cmc" secondAttribute="leading" id="gFP-qO-6IN"/>
+                            <constraint firstItem="gfD-Kq-E0t" firstAttribute="trailing" secondItem="B4N-SF-cmc" secondAttribute="trailingMargin" id="h2w-6x-nYN"/>
+                            <constraint firstItem="UBw-To-KdC" firstAttribute="leading" secondItem="B4N-SF-cmc" secondAttribute="leading" id="hbV-Db-xDs"/>
+                            <constraint firstItem="qnv-pB-0xK" firstAttribute="top" secondItem="eWZ-QT-5Ej" secondAttribute="bottom" id="jaT-4S-NDq"/>
+                            <constraint firstAttribute="trailing" secondItem="UBw-To-KdC" secondAttribute="trailing" id="n9h-1B-I0F"/>
+                            <constraint firstAttribute="trailing" secondItem="qnv-pB-0xK" secondAttribute="trailing" id="pKR-56-Wr5"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fGW-Cl-FJw">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="7Mm-IC-mAc">
