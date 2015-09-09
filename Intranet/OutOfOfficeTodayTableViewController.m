@@ -126,13 +126,13 @@
         switch (currentListState)
         {
             case ListStateAbsent:
-                self.title = NSLocalizedString(@"Holiday", nil);
+                self.navigationItem.title = NSLocalizedString(@"Holiday", nil);
                 break;
             case ListStateWorkFromHome:
-                self.title = NSLocalizedString(@"Work from Home", nil);
+                self.navigationItem.title = NSLocalizedString(@"Work from Home", nil);
                 break;
             case ListStateOutOfOffice:
-                self.title = NSLocalizedString(@"Out of Office", nil);
+                self.navigationItem.title = NSLocalizedString(@"Out of Office", nil);
                 break;
             default:break;
         }

@@ -29,6 +29,8 @@
 
 - (void)setDefaults
 {
+    [self.navigationItem setTitle:NSLocalizedString(@"New Request", nil)];
+    
     [self.closeButton setTitle:NSLocalizedString(@"Close", nil)];
     
     
@@ -92,6 +94,7 @@
         if(coverPercentage < 0) coverPercentage = 0;
         else if(coverPercentage > 1) coverPercentage = 1;
         
+        [self.lateWrapper setBackgroundColor:[self greenColorForPercentage:coverPercentage]];
         [self.lateImage setAlpha:coverPercentage];
         
         NSInteger lateMinutes = coverPercentage * MAX_LATENESS * SECS_PER_HOUR;
@@ -113,6 +116,18 @@
             else [self.submitBottomPadButton setEnabled:YES];
         }
     }
+}
+
+- (UIColor *)greenColorForPercentage:(CGFloat)percentage
+{
+    const CGFloat *lightGreen = CGColorGetComponents([[Branding stxGreen] CGColor]);
+    const CGFloat *darkGreen = CGColorGetComponents([[Branding stxDarkGreen] CGColor]);
+    
+    CGFloat myRed = lightGreen[0] + percentage * (darkGreen[0] - lightGreen[0]);
+    CGFloat myGreen = lightGreen[1] + percentage * (darkGreen[1] - lightGreen[1]);
+    CGFloat myBlue = lightGreen[2] + percentage * (darkGreen[2] - lightGreen[2]);
+
+    return [UIColor colorWithRed:myRed green:myGreen blue:myBlue alpha:1.0];
 }
 
 #pragma mark action buttons
