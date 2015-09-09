@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self prepareButtons];
     
     [self.mapView addGestureRecognizer:self.swipeRightRecognizer];
     [self.mapView addGestureRecognizer:self.swipeLeftRecognizer];
@@ -33,6 +34,13 @@
     
     [self.infoWrapper setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
     [self prepareLocations];
+}
+
+- (void)prepareButtons {
+    for (UIButton *btn in self.actionButtons) {
+        [btn setTintColor:[Branding stxGray]];
+        [btn setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
+    }
 }
 
 - (void)prepareLocations {
@@ -142,6 +150,17 @@
         default:
             break;
     }
+}
+
+- (IBAction)triggerAction:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    NSUInteger selectedAction = 0;
+    
+    if([btn isEqual:self.locationButton]) selectedAction = 1;
+    else if([btn isEqual:self.navigationButton]) selectedAction = 2;
+    
+    [self actionSheet:nil clickedButtonAtIndex:selectedAction];
 }
 
 #pragma mark mapkit

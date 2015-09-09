@@ -20,4 +20,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailsLabel;
 
+#pragma mark action buttons
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *actionButtons;
+@property (weak, nonatomic) IBOutlet UIButton *navigationButton;
+@property (weak, nonatomic) IBOutlet UIButton *locationButton;
+@property (weak, nonatomic) IBOutlet UIButton *phonecallButton;
+
 @end

@@ -506,16 +506,64 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="z6Q-7y-r6J"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
+                                <rect key="frame" x="278" y="83" width="32" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="d6Q-Gu-nX0"/>
+                                    <constraint firstAttribute="width" constant="32" id="h5T-Zb-oYW"/>
+                                </constraints>
+                                <state key="normal" image="car189">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="tnN-Sx-QcZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
+                                <rect key="frame" x="244" y="83" width="32" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="8lp-y0-ueS"/>
+                                    <constraint firstAttribute="width" constant="32" id="NH7-GG-cte"/>
+                                </constraints>
+                                <state key="normal" image="map-pointer2">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="rYI-Ke-DHj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
+                                <rect key="frame" x="210" y="83" width="32" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="6k5-H5-uSo"/>
+                                    <constraint firstAttribute="width" constant="32" id="zUM-cN-9eE"/>
+                                </constraints>
+                                <state key="normal" image="phone325">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="tEW-aE-a5o"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RFq-5H-vdt" secondAttribute="trailing" constant="10" id="0tP-3O-YML"/>
                             <constraint firstItem="AYy-z3-FQG" firstAttribute="top" secondItem="tx5-xS-ZqO" secondAttribute="bottom" id="52Z-Wh-TWZ"/>
                             <constraint firstItem="NGu-oB-yVq" firstAttribute="top" secondItem="ntM-1Y-wRv" secondAttribute="bottom" constant="10" id="T0I-In-FKY"/>
+                            <constraint firstItem="QQh-Va-JFl" firstAttribute="top" secondItem="NGu-oB-yVq" secondAttribute="bottom" constant="2" id="Y3F-Pk-jaI"/>
                             <constraint firstItem="tx5-xS-ZqO" firstAttribute="leading" secondItem="rSt-8u-eRT" secondAttribute="leading" id="d6X-6c-EOn"/>
                             <constraint firstItem="tx5-xS-ZqO" firstAttribute="top" secondItem="rSt-8u-eRT" secondAttribute="top" id="e8h-Mv-VGV"/>
                             <constraint firstAttribute="trailing" secondItem="NGu-oB-yVq" secondAttribute="trailing" constant="10" id="fUz-na-EI6"/>
+                            <constraint firstItem="RFq-5H-vdt" firstAttribute="leading" secondItem="tbf-1r-bt4" secondAttribute="trailing" constant="2" id="fod-sH-IBH"/>
                             <constraint firstItem="NGu-oB-yVq" firstAttribute="leading" secondItem="rSt-8u-eRT" secondAttribute="leading" constant="10" id="qDf-zC-RXa"/>
+                            <constraint firstItem="tbf-1r-bt4" firstAttribute="top" secondItem="NGu-oB-yVq" secondAttribute="bottom" constant="2" id="sgi-Ih-X9n"/>
                             <constraint firstAttribute="trailing" secondItem="tx5-xS-ZqO" secondAttribute="trailing" id="szH-QA-d1E"/>
+                            <constraint firstItem="RFq-5H-vdt" firstAttribute="top" secondItem="NGu-oB-yVq" secondAttribute="bottom" constant="2" id="tuj-mI-TPW"/>
+                            <constraint firstItem="tbf-1r-bt4" firstAttribute="leading" secondItem="QQh-Va-JFl" secondAttribute="trailing" constant="2" id="zdf-dW-vu7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FYr-Fh-wXe"/>
@@ -523,9 +571,15 @@
                         <outlet property="cityLabel" destination="hvL-0e-ypJ" id="EuI-Sf-LLu"/>
                         <outlet property="detailsLabel" destination="5d9-nP-MER" id="2Xq-rB-Hfa"/>
                         <outlet property="infoWrapper" destination="NGu-oB-yVq" id="zFx-yk-CRB"/>
+                        <outlet property="locationButton" destination="tbf-1r-bt4" id="QYE-kY-Lbf"/>
                         <outlet property="mapView" destination="tx5-xS-ZqO" id="wN6-T9-j6N"/>
+                        <outlet property="navigationButton" destination="RFq-5H-vdt" id="0Ya-uC-iJz"/>
+                        <outlet property="phonecallButton" destination="QQh-Va-JFl" id="v3h-gT-ez6"/>
                         <outlet property="swipeLeftRecognizer" destination="XaA-9t-79s" id="DW2-R9-QWU"/>
                         <outlet property="swipeRightRecognizer" destination="7Hb-sW-DaY" id="nmo-0O-BpU"/>
+                        <outletCollection property="actionButtons" destination="QQh-Va-JFl" id="buy-gr-VZn"/>
+                        <outletCollection property="actionButtons" destination="tbf-1r-bt4" id="uC6-Q8-XcA"/>
+                        <outletCollection property="actionButtons" destination="RFq-5H-vdt" id="yb3-zU-ldA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqO-bd-Z4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1559,9 +1613,12 @@ Dominik Shuster</string>
     <resources>
         <image name="arrow_right" width="512" height="291"/>
         <image name="businessman243" width="24" height="24"/>
+        <image name="car189" width="24" height="24"/>
         <image name="employee1" width="24" height="24"/>
+        <image name="map-pointer2" width="24" height="24"/>
         <image name="office-worker2" width="24" height="24"/>
         <image name="office17" width="24" height="24"/>
+        <image name="phone325" width="24" height="24"/>
         <image name="superhero_none" width="640" height="240"/>
         <image name="tabbar_icon_me_big" width="75" height="75"/>
         <image name="three115" width="24" height="24"/>
