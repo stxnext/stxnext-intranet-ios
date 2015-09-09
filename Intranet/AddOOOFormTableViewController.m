@@ -374,7 +374,17 @@ typedef enum
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             UIActionSheet *typeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Planned leave", nil), NSLocalizedString(@"Leave at request", nil), NSLocalizedString(@"Illness", nil), NSLocalizedString(@"Compassionate leave", nil), NSLocalizedString(@"Absence", nil), nil];
             
-            if(INTERFACE_IS_PHONE) [typeActionSheet showInView:self.view];
+            if(INTERFACE_IS_PHONE) {
+                [typeActionSheet showInView:self.view];
+            } else {
+                
+                CGRect rectCell = [tableView rectForRowAtIndexPath:indexPath];
+                
+                CGRect rect = [tableView convertRect:rectCell toView:self.view];
+                
+                [typeActionSheet showFromRect:rect inView:self.view animated:YES];
+                
+            }
         }
     }
     else if (indexPath.section == 2)

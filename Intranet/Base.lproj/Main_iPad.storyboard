@@ -1676,49 +1676,40 @@ Dominik Shuster</string>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZcM-31-2NP">
                                                     <rect key="frame" x="15" y="11" width="36" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ea-Zh-ccx">
                                                     <rect key="frame" x="241" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="0By-0H-85o" kind="push" id="KEg-ua-KD7"/>
-                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="2Nr-0b-wgh" detailTextLabel="Ti8-cv-Qta" style="IBUITableViewCellStyleValue1" id="pgn-F7-VX8">
-                                        <rect key="frame" x="0.0" y="711" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="TBP-qD-q4U">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pgn-F7-VX8" id="rX1-Ox-vOc">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TBP-qD-q4U" id="8f7-zL-0Ub">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Explanation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Nr-0b-wgh">
-                                                    <rect key="frame" x="15" y="11" width="90" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ti8-cv-Qta">
-                                                    <rect key="frame" x="241" y="11" width="44" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIT-Zb-T26">
+                                                    <rect key="frame" x="0.0" y="0.0" width="676" height="70"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KIT-Zb-T26" firstAttribute="leading" secondItem="8f7-zL-0Ub" secondAttribute="leading" id="B12-cf-6Db"/>
+                                                <constraint firstItem="KIT-Zb-T26" firstAttribute="top" secondItem="8f7-zL-0Ub" secondAttribute="top" id="ZPY-2K-gzb"/>
+                                                <constraint firstAttribute="bottom" secondItem="KIT-Zb-T26" secondAttribute="bottom" id="gSe-3j-mYh"/>
+                                                <constraint firstAttribute="trailing" secondItem="KIT-Zb-T26" secondAttribute="trailing" id="kqe-eD-aFb"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="HK7-Pb-kMg" kind="push" id="DRs-Se-wtP"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1897,32 +1888,27 @@ Dominik Shuster</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9df-IH-o68" detailTextLabel="Lod-El-gyi" style="IBUITableViewCellStyleValue1" id="tfd-I7-zaQ">
-                                        <rect key="frame" x="0.0" y="1465" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="bhf-h9-Lza">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tfd-I7-zaQ" id="R3h-Yc-HVG">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bhf-h9-Lza" id="ysy-uk-Qn3">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Explanation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9df-IH-o68">
-                                                    <rect key="frame" x="15" y="11" width="90" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lod-El-gyi">
-                                                    <rect key="frame" x="241" y="11" width="44" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVO-m3-PpG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="676" height="68"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="rVO-m3-PpG" secondAttribute="bottom" id="C88-9H-Q2P"/>
+                                                <constraint firstItem="rVO-m3-PpG" firstAttribute="leading" secondItem="ysy-uk-Qn3" secondAttribute="leading" id="Nh8-aV-PEf"/>
+                                                <constraint firstAttribute="trailing" secondItem="rVO-m3-PpG" secondAttribute="trailing" id="QJ7-Xc-olW"/>
+                                                <constraint firstItem="rVO-m3-PpG" firstAttribute="top" secondItem="ysy-uk-Qn3" secondAttribute="top" id="VcI-4f-A17"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="HK7-Pb-kMg" kind="push" id="oNa-ee-xZs"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1963,7 +1949,6 @@ Dominik Shuster</string>
                         <outlet property="OOOCell" destination="ys8-2z-X0p" id="gsR-im-R4e"/>
                         <outlet property="OOOCellDate" destination="Kne-f3-bW5" id="pFW-Os-0p7"/>
                         <outlet property="OOOCellDatePicker" destination="Ua2-hY-77u" id="Cqr-jf-oSc"/>
-                        <outlet property="OOOCellExplanation" destination="tfd-I7-zaQ" id="cfO-Mg-hBo"/>
                         <outlet property="OOOCellFrom" destination="usO-G3-PKf" id="Zaq-b0-vCz"/>
                         <outlet property="OOOCellFromPicker" destination="iIK-un-Khe" id="G6W-BI-MoX"/>
                         <outlet property="OOOCellTo" destination="4yr-Rp-4Sw" id="S5u-pg-pfO"/>
@@ -1975,7 +1960,6 @@ Dominik Shuster</string>
                         <outlet property="absenceHolidayCell" destination="YS1-JT-E4m" id="PNa-1U-Y4U"/>
                         <outlet property="absenceHolidayCellEnd" destination="asU-kE-ANT" id="EAa-lw-sO8"/>
                         <outlet property="absenceHolidayCellEndPicker" destination="ggo-cg-eMF" id="B3x-fz-gaZ"/>
-                        <outlet property="absenceHolidayCellExplanation" destination="pgn-F7-VX8" id="iQM-JK-4y4"/>
                         <outlet property="absenceHolidayCellStart" destination="gHd-NK-M7Q" id="oBY-2h-fbc"/>
                         <outlet property="absenceHolidayCellStartPicker" destination="ibR-Hd-xjN" id="xoA-W1-wQR"/>
                         <outlet property="absenceHolidayCellType" destination="yam-Ke-2b5" id="hty-HI-ghh"/>
@@ -2075,7 +2059,6 @@ Dominik Shuster</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ZM0-wj-43r"/>
-        <segue reference="DRs-Se-wtP"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>
