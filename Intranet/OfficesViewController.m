@@ -39,6 +39,7 @@
 - (void)prepareButtons {
     for (UIButton *btn in self.actionButtons) {
         [btn setTintColor:[Branding stxGray]];
+        [btn.imageView setImage:[btn.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         [btn setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
     }
 }

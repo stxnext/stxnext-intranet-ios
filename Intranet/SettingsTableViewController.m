@@ -56,7 +56,7 @@
     
     [self.view setBackgroundColor:[Branding stxLightGray]];
     [self.superHeroLabel setText:NSLocalizedString(@"I am a SuperHero!", nil)];
-    [self.superHeroSwitch setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
+    if(iOS8_PLUS) [self.superHeroSwitch setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
     
     [self.versionLabel setText:[NSString stringWithFormat:@"STX Intranet %@\nSTX Next Mobile Team 2015",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
     [self.logoutLabel setTitle:[NSLocalizedString(@"Logout", nil) uppercaseString] forState:UIControlStateNormal];

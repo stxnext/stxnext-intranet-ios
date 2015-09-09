@@ -94,23 +94,23 @@ typedef enum
             {
                 NSString *popup_type = nil;
                 
-                if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Planned leave"])
+                if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Planned leave", nil)])
                 {
                     popup_type = @"planowany";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Leave at request"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Leave at request", nil)])
                 {
                     popup_type = @"zadanie";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Illness"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Illness", nil)])
                 {
                     popup_type = @"l4";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Compassionate leave"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Compassionate leave", nil)])
                 {
                     popup_type = @"okolicznosciowy";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Absence"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Absence", nil)])
                 {
                     popup_type = @"inne";
                 }
@@ -369,6 +369,13 @@ typedef enum
             
             [self.tableView reloadData];
         }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellType])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
+            UIActionSheet *typeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Planned leave", nil), NSLocalizedString(@"Leave at request", nil), NSLocalizedString(@"Illness", nil), NSLocalizedString(@"Compassionate leave", nil), NSLocalizedString(@"Absence", nil), nil];
+            
+            if(INTERFACE_IS_PHONE) [typeActionSheet showInView:self.view];
+        }
     }
     else if (indexPath.section == 2)
     {
@@ -403,6 +410,12 @@ typedef enum
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    self.currentType = buttonIndex;
+    self.absenceHolidayCellType.detailTextLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
 }
 
 - (void)updateTableView
@@ -605,7 +618,7 @@ typedef enum
     self.absenceHolidayCellType.detailTextLabel.text = type;
 }
 
-#pragma mark -  RequestTypeTableViewControllerDelegate
+#pragma mark -  RequestTypeTableViewControllerDelegate   
 
 - (void)explanationViewController:(ExplanationViewController *)explanationViewController explanation:(NSString *)explanation
 {
