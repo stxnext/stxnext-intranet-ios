@@ -21,6 +21,7 @@
 
 @end
 
+
 @implementation MainVerticalTabBarViewController
 
 - (void)viewDidLoad {
@@ -31,13 +32,13 @@
     self.verticalBarTableView.delegate = self;
     
     _modelImagesData = @[
-                         @"employee1",
+                         @"employee1", //
                          @"office-worker2",
                          @"businessman243",
                          @"office17",
-                         @"businessman267",
-                         @"wallclock",
-                         @"travel25",
+                         @"businessman267", // 4 - lateness
+                         @"wallclock", // absence
+                         @"travel25", // holiday
                          @"three115",
                          ];
     
@@ -77,37 +78,32 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     cell.selected = indexPath.row == _selectedRow;
 }
-/*
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 5) {
-        
-        UIActionSheet *popoverDelay = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"Absence", nil)
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
-        CGRect rectCell = [tableView rectForRowAtIndexPath:indexPath];
-        
-        CGRect rect = [tableView convertRect:rectCell toView:self.view];
-        
-        [popoverDelay showFromRect:rect inView:self.view animated:YES];
-        return [NSIndexPath indexPathForRow:_selectedRow inSection:0];
-    }
-    return indexPath;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.row == 5) {
-//    } else {
     _selectedRow = indexPath.row;
     self.embededTabBarController.selectedIndex = indexPath.row;
-//    }
+    
+    if (indexPath.row == 5 || indexPath.row == 6) {
+        // absence/holiday
+        UINavigationController *navCtrOpq = self.embededTabBarController.viewControllers[indexPath.row];
+        
+        if ([navCtrOpq.viewControllers count] == 0) {
+        
+            UIViewController *rootViewController = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"HolidayAbsenceControllerId"];
+            
+            AddOOOFormTableViewController *rootHolidayContr = (AddOOOFormTableViewController *)rootViewController;
+            RequestType reqType = RequestTypeOutOfOffice;
+            if (indexPath.row == 6) {
+                reqType = RequestTypeAbsenceHoliday;
+            }
+            rootHolidayContr.currentRequest = reqType;
+            
+            [navCtrOpq showViewController:rootViewController sender:self];
+        }
+    }
 }
 
 #pragma mark - Navigation
@@ -118,26 +114,5 @@
         self.embededTabBarController = segue.destinationViewController;
     }
 }
-
-//#pragma mark - UIActionSheetDelegate
-//
-//- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-//{
-//    
-//}
-//
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex < 2) {
-//        _selectedRow = 5;
-//        self.embededTabBarController.selectedIndex = _selectedRow;
-//        NSIndexPath *absencesIP = [NSIndexPath indexPathForRow:_selectedRow inSection:0];
-//        [self.verticalBarTableView selectRowAtIndexPath:absencesIP animated:YES scrollPosition:UITableViewScrollPositionNone];
-//        UINavigationController *navVc = self.embededTabBarController.viewControllers[5];
-//        
-//        AddOOOFormTableViewController *form = (AddOOOFormTableViewController *)[navVc.viewControllers firstObject];
-//        form.currentRequest = (int)buttonIndex;
-//    }
-//  }
 
 @end

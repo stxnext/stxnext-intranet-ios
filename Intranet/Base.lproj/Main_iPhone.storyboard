@@ -1568,7 +1568,7 @@ Dominik Shuster</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQD-3o-wRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2568" y="1193"/>
+            <point key="canvasLocation" x="2420" y="1193"/>
         </scene>
         <!--Absences-->
         <scene sceneID="eoU-qG-hpL">
