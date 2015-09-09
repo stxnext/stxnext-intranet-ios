@@ -21,7 +21,6 @@
 
 @end
 
-
 @implementation OutOfOfficeTodayTableViewController
 
 - (void)viewDidLoad

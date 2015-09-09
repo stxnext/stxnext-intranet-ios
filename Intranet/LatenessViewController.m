@@ -30,8 +30,17 @@
 - (void)setDefaults
 {
     [self.closeButton setTitle:NSLocalizedString(@"Close", nil)];
-    [self.submitButton setTitle:NSLocalizedString(@"Submit", nil)];
-    [self.submitButton setEnabled:NO];
+    
+    
+    if (INTERFACE_IS_PHONE) {
+        [self.submitButton setTitle:NSLocalizedString(@"Submit", nil)];
+        [self.submitButton setEnabled:NO];
+    } else {
+        
+        [self.submitBottomPadButton setTitle:NSLocalizedString(@"Submit", nil)
+                                    forState:UIControlStateNormal];
+        [self.submitBottomPadButton setEnabled:NO];
+    }
     
     startDate = [[NSDate date] dateWithHour:9 minute:0 second:0];
     endDate = startDate; //by default end date is equal to start date
@@ -95,8 +104,14 @@
     }
     if(gesture.state == UIGestureRecognizerStateEnded)
     {
-        if([endDate isEqualToDate:startDate]) [self.submitButton setEnabled:NO];
-        else [self.submitButton setEnabled:YES];
+        if (INTERFACE_IS_PHONE) {
+            if([endDate isEqualToDate:startDate]) [self.submitButton setEnabled:NO];
+            else [self.submitButton setEnabled:YES];
+        } else {
+            
+            if([endDate isEqualToDate:startDate]) [self.submitBottomPadButton setEnabled:NO];
+            else [self.submitBottomPadButton setEnabled:YES];
+        }
     }
 }
 

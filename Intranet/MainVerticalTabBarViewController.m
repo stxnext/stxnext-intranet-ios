@@ -13,7 +13,7 @@
 
 #import "UIImage+Color.h"
 
-@interface MainVerticalTabBarViewController ()<UIActionSheetDelegate>
+@interface MainVerticalTabBarViewController ()//<UIActionSheetDelegate>
 
 @property (nonatomic) NSArray *modelImagesData;
 @property (nonatomic) UITabBarController *embededTabBarController;
@@ -35,8 +35,10 @@
                          @"office-worker2",
                          @"businessman243",
                          @"office17",
-                         @"three115",
+                         @"businessman267",
                          @"wallclock",
+                         @"travel25",
+                         @"three115",
                          ];
     
     NSIndexPath *initialSelected = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -78,7 +80,7 @@
     
     cell.selected = indexPath.row == _selectedRow;
 }
-
+/*
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 5) {
@@ -97,17 +99,15 @@
     }
     return indexPath;
 }
+*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row == 5) {
-
-        
-    } else {
-        _selectedRow = indexPath.row;
-        self.embededTabBarController.selectedIndex = indexPath.row;
-    }
+//    if (indexPath.row == 5) {
+//    } else {
+    _selectedRow = indexPath.row;
+    self.embededTabBarController.selectedIndex = indexPath.row;
+//    }
 }
 
 #pragma mark - Navigation
@@ -119,30 +119,25 @@
     }
 }
 
-#pragma mark - UIActionSheetDelegate
-
-
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (buttonIndex < 2) {
-        _selectedRow = 5;
-        self.embededTabBarController.selectedIndex = _selectedRow;
-        NSIndexPath *absencesIP = [NSIndexPath indexPathForRow:_selectedRow inSection:0];
-        [self.verticalBarTableView selectRowAtIndexPath:absencesIP animated:YES scrollPosition:UITableViewScrollPositionNone];
-    }
-    
-    if (buttonIndex == 1) {
-        UINavigationController *navVc = self.embededTabBarController.viewControllers[5];
-        
-        AddOOOFormTableViewController *form = (AddOOOFormTableViewController *)[navVc.viewControllers firstObject];
-        form.currentRequest = (int)buttonIndex;
-    }
-}
+//#pragma mark - UIActionSheetDelegate
+//
+//- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+//{
+//    
+//}
+//
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex < 2) {
+//        _selectedRow = 5;
+//        self.embededTabBarController.selectedIndex = _selectedRow;
+//        NSIndexPath *absencesIP = [NSIndexPath indexPathForRow:_selectedRow inSection:0];
+//        [self.verticalBarTableView selectRowAtIndexPath:absencesIP animated:YES scrollPosition:UITableViewScrollPositionNone];
+//        UINavigationController *navVc = self.embededTabBarController.viewControllers[5];
+//        
+//        AddOOOFormTableViewController *form = (AddOOOFormTableViewController *)[navVc.viewControllers firstObject];
+//        form.currentRequest = (int)buttonIndex;
+//    }
+//  }
 
 @end

@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+@property (weak, nonatomic) IBOutlet UIButton *submitBottomPadButton;
 
 @property (weak, nonatomic) IBOutlet UIView *lateWrapper;
 @property (weak, nonatomic) IBOutlet UILabel *lateLabel;

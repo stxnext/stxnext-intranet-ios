@@ -106,12 +106,21 @@
     [self.tableView setUserInteractionEnabled:enabled];
     [self.tabBarController.tabBar setUserInteractionEnabled:enabled];
     
+    UIView *viewForHudPlacing;
+    if (INTERFACE_IS_PHONE) {
+        viewForHudPlacing = self.view;
+    } else {
+        UIViewController *rootVC = self.splitViewController;
+        viewForHudPlacing = rootVC.view;
+    }
+    
     if(!enabled)
     {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewForHudPlacing animated:YES];
         hud.labelText = NSLocalizedString(@"Loading", nil);
+    } else {
+         [MBProgressHUD hideHUDForView:viewForHudPlacing animated:YES];
     }
-    else [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 #pragma mark - Download data
