@@ -657,12 +657,13 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
-    }
-    else
-    {
-        if (INTERFACE_IS_PHONE)
-        {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), @"Absence / Holiday", @"Out of office", nil];
+    } else {
+        if (INTERFACE_IS_PHONE) {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil)
+                                                                     delegate:self
+                                                            cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                       destructiveButtonTitle:nil
+                                                            otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence / Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
         }

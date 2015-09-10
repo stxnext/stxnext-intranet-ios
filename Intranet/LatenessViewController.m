@@ -174,8 +174,12 @@
                 if (INTERFACE_IS_PHONE)
                 {
                     [self closeForm:self];
+                } else {
+                    
                 }
-                
+                if (self.delegate && [self.delegate respondsToSelector:@selector(didFinishLatenessProcess)]) {
+                    [self.delegate didFinishLatenessProcess];
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 
                 [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)

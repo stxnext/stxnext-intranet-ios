@@ -8,12 +8,16 @@
 
 #import "MainVerticalTabBarViewController.h"
 
-#import "TabIconTableViewCell.h"
+
 #import "AddOOOFormTableViewController.h"
+#import "SettingsTableViewController.h"
+#import "LatenessViewController.h"
+
+#import "TabIconTableViewCell.h"
 
 #import "UIImage+Color.h"
 
-@interface MainVerticalTabBarViewController ()//<UIActionSheetDelegate>
+@interface MainVerticalTabBarViewController ()<UIGestureRecognizerDelegate, AddOOOFormTableViewControllerDelegate, LatenessViewControllerDelegate>//<UIActionSheetDelegate>
 
 @property (nonatomic) NSArray *modelImagesData;
 @property (nonatomic) UITabBarController *embededTabBarController;
@@ -43,7 +47,30 @@
                          ];
     
     NSIndexPath *initialSelected = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.verticalBarTableView selectRowAtIndexPath:initialSelected animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self.verticalBarTableView selectRowAtIndexPath:initialSelected
+                                           animated:NO
+                                     scrollPosition:UITableViewScrollPositionNone];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    UITapGestureRecognizer *tapBehindGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBehindDetected:)];
+    [tapBehindGesture setNumberOfTapsRequired:1];
+    tapBehindGesture.cancelsTouchesInView = NO;
+    //    [tapBehindGesture setCancelsTouchesInView:NO]; //So the user can still interact with controls in the modal view
+    tapBehindGesture.delegate = self;
+    
+    [self.view.window addGestureRecognizer:tapBehindGesture];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+//    [self.view.window removeGestureRecognizer:_tapBehindGesture];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,29 +108,120 @@
     cell.selected = indexPath.row == _selectedRow;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectedRow = indexPath.row;
-    self.embededTabBarController.selectedIndex = indexPath.row;
-    
-    if (indexPath.row == 5 || indexPath.row == 6) {
-        // absence/holiday
-        UINavigationController *navCtrOpq = self.embededTabBarController.viewControllers[indexPath.row];
+    if (indexPath.row >3) {
+        UIViewController *modalController;
         
-        if ([navCtrOpq.viewControllers count] == 0) {
+        if (indexPath.row == 4) {
+            LatenessViewController *latenessContr = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"LatenessFormId"];
+            latenessContr.delegate = self;
+            modalController = latenessContr;
+        }
         
-            UIViewController *rootViewController = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"HolidayAbsenceControllerId"];
+        if (indexPath.row == 5 || indexPath.row == 6) {
+            // absence/holiday
+            AddOOOFormTableViewController *rootHolidayContr = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"HolidayAbsenceControllerId"];
             
-            AddOOOFormTableViewController *rootHolidayContr = (AddOOOFormTableViewController *)rootViewController;
             RequestType reqType = RequestTypeOutOfOffice;
             if (indexPath.row == 6) {
                 reqType = RequestTypeAbsenceHoliday;
             }
             rootHolidayContr.currentRequest = reqType;
+            rootHolidayContr.delegate = self;
             
-            [navCtrOpq showViewController:rootViewController sender:self];
+            modalController = rootHolidayContr;
+        }
+        
+        if (indexPath.row == 7) {
+            SettingsTableViewController *settingsContr = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"SettingsFormId"];
+            
+            modalController = settingsContr;
+        }
+        
+        if (modalController) {
+            modalController.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentViewController:modalController
+                               animated:YES completion:^{
+                                   
+                               }];
+        } else {
+            NSLog(@"nil view controller, not showing");
         }
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < 4) {
+        _selectedRow = indexPath.row;
+        self.embededTabBarController.selectedIndex = indexPath.row;
+    } else {
+        
+    }
+}
+
+- (void)tapBehindDetected:(UITapGestureRecognizer *)sender
+{
+    
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        NSLog(@"touch");
+        if (self.presentedViewController) {
+            
+            CGPoint locatView = [sender locationInView:self.view];
+            NSLog(@"location in view %@", NSStringFromCGPoint(locatView));
+            
+            CGSize modalSize = self.presentedViewController.view.frame.size;
+            CGSize viewSize = self.view.frame.size;
+            CGFloat dx = (viewSize.width - modalSize.width) / 2.f;
+            CGFloat dy = (viewSize.height - modalSize.height) / 2.f;
+            CGRect rectModal = CGRectInset(self.view.frame, dx, dy);
+            
+            if (!CGRectContainsPoint(rectModal, locatView)) {
+            
+                [self dismissFormController];
+            }
+            
+        }
+    }
+}
+
+- (void)didFinishLatenessProcess
+{
+    [self dismissFormController];
+}
+
+- (void)didFinishAddingOOO
+{
+    [self dismissFormController];
+}
+
+- (void)dismissFormController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSIndexPath *prevIP = [NSIndexPath indexPathForRow:_selectedRow inSection:0];
+    [self.verticalBarTableView selectRowAtIndexPath:prevIP animated:NO scrollPosition:UITableViewScrollPositionNone];
+    
+}
+
+//
+#pragma mark - Gesture Recognizer
+// because of iOS8
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
 }
 
 #pragma mark - Navigation

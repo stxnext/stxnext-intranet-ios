@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D90568253FE42FDAA87331E /* libPods.a */; };
 		0C10C4A5181E949000439D24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A4181E949000439D24 /* SystemConfiguration.framework */; };
 		0C10C4A7181E949E00439D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */; };
 		0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */; };
@@ -47,6 +46,7 @@
 		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
 		2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2791D7C31833B82F0073C9DC /* AddressBookManager.m */; };
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
+		5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48042D1CDD9C791E0E68610E /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
@@ -91,6 +91,7 @@
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 		66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
+		8FE021A11BA1774B00BBB410 /* GreenSTXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */; };
 		8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962701B99950400C029CD /* UsersSplitViewController.m */; };
 		8FE962751B99A07700C029CD /* MainVerticalTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962741B99A07700C029CD /* MainVerticalTabBarViewController.m */; };
 		8FE962781B99A77000C029CD /* TabIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962771B99A77000C029CD /* TabIconTableViewCell.m */; };
@@ -174,6 +175,7 @@
 		2791D7C31833B82F0073C9DC /* AddressBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookManager.m; sourceTree = "<group>"; };
 		27A999D1182255C60091B173 /* HTTPClient+Cookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPClient+Cookies.h"; sourceTree = "<group>"; };
 		27A999D2182255C60091B173 /* HTTPClient+Cookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+Cookies.m"; sourceTree = "<group>"; };
+		48042D1CDD9C791E0E68610E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
 		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
 		66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewController.h; sourceTree = "<group>"; };
@@ -241,8 +243,9 @@
 		66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Additions.m"; sourceTree = "<group>"; };
 		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
-		6D90568253FE42FDAA87331E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8FE0219F1BA1774B00BBB410 /* GreenSTXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreenSTXButton.h; sourceTree = "<group>"; };
+		8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreenSTXButton.m; sourceTree = "<group>"; };
 		8FE9626F1B99950400C029CD /* UsersSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersSplitViewController.h; sourceTree = "<group>"; };
 		8FE962701B99950400C029CD /* UsersSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersSplitViewController.m; sourceTree = "<group>"; };
 		8FE962731B99A07700C029CD /* MainVerticalTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainVerticalTabBarViewController.h; sourceTree = "<group>"; };
@@ -283,7 +286,7 @@
 				0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */,
 				0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */,
 				0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */,
-				024BD0A93CC44FC1997207E1 /* libPods.a in Frameworks */,
+				5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +331,8 @@
 				8FE962771B99A77000C029CD /* TabIconTableViewCell.m */,
 				8FFBBA941B9EE6C60007600A /* BottomTiltedButton.h */,
 				8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */,
+				8FE0219F1BA1774B00BBB410 /* GreenSTXButton.h */,
+				8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -372,7 +377,6 @@
 			children = (
 				D119D29C1B9446C7009826BB /* MapKit.framework */,
 				6675937D19E6BAD9004603C5 /* CoreTelephony.framework */,
-				6D90568253FE42FDAA87331E /* libPods.a */,
 				272DF89518324D320014FBCA /* AddressBook.framework */,
 				0CF7FA7418214FB50056F907 /* CoreData.framework */,
 				0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */,
@@ -381,6 +385,7 @@
 				0C10C4A4181E949000439D24 /* SystemConfiguration.framework */,
 				0CE37C50181E8ED10087C96E /* UIKit.framework */,
 				0CE37C71181E8ED10087C96E /* XCTest.framework */,
+				48042D1CDD9C791E0E68610E /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				0CE37C46181E8ED10087C96E /* Frameworks */,
 				0CE37C47181E8ED10087C96E /* Resources */,
 				48B2064B704B4D7C9DEE49AE /* Copy Pods Resources */,
+				767A239419177C72FA13A603 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -708,6 +714,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		767A239419177C72FA13A603 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FC655F2C038B40C59BD09BE0 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -761,6 +782,7 @@
 				D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
+				8FE021A11BA1774B00BBB410 /* GreenSTXButton.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
 				66360E481A2757CC00417B75 /* RMAbsence.m in Sources */,

@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LatenessViewControllerDelegate <NSObject>
+
+- (void)didFinishLatenessProcess;
+
+@end
+
 @interface LatenessViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) id<LatenessViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;

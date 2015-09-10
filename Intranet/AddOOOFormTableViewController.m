@@ -39,6 +39,12 @@ typedef enum
         self.currentType = 0;
     }
     
+    if (INTERFACE_IS_PAD) {
+        NSString *title = self.currentRequest == RequestTypeAbsenceHoliday ? @"Absence/Holiday" : @"Out of office";
+        
+        [self.navigationItem setTitle:title];
+    }
+    
     self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
@@ -115,12 +121,20 @@ typedef enum
                     popup_type = @"inne";
                 }
                 
-                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                UITextView *tField = self.absenceHolidayExplanation;
+                NSString *explanation;
+                if (INTERFACE_IS_PAD) {
+                    explanation = [tField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                } else {
+                    explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                }
+                
                 popup_type = [popup_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *from = [self.absenceHolidayCellStart.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *to = [self.absenceHolidayCellEnd.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
-                if (from.length && to.length && popup_type.length && self.explanation.length)
+                if (from.length && to.length && popup_type.length && [explanation length])
                 {
                     if (![[from componentsSeparatedByString:@"/"][1] isEqualToString:[to componentsSeparatedByString:@"/"][1]])
                     {
@@ -128,7 +142,8 @@ typedef enum
                                            message:@"Please split the date into 2 months."
                                              style:UIAlertViewStyleDefault
                                  cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                 otherButtonTitles:@[@"OK"]
+                                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                  }];
                         
                         return;
@@ -137,7 +152,7 @@ typedef enum
                     NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[popup_type,
                                                                                     from,
                                                                                     to,
-                                                                                    self.explanation]
+                                                                                    explanation]
                                                                           forKeys:@[@"popup_type",
                                                                                     @"popup_date_start",
                                                                                     @"popup_date_end",
@@ -145,7 +160,8 @@ typedef enum
                     
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"absence"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON]
+                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
                         {
@@ -158,9 +174,10 @@ typedef enum
                         }
                         else
                         {
-                            [self.popover dismissPopoverAnimated:YES];
+//                            [self.popover dismissPopoverAnimated:YES];
                         }
-                        
+                                                          
+                          ((UIButton *)sender).enabled = YES;
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
                         [UIAlertView showWithTitle:@"Error"
@@ -189,18 +206,26 @@ typedef enum
                 
             case RequestTypeOutOfOffice:
             {
-                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                UITextView *tField = self.OOOExplanation;
+                
+                NSString *explanation;
+                if (INTERFACE_IS_PAD) {
+                    explanation = [tField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                } else {
+                    explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                }
+                
                 NSString *from = [self.OOOCellFrom.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *to = [self.OOOCellTo.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *date = [self.OOOCellDate.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
-                if (from.length && to.length && date.length && self.explanation.length)
+                if (from.length && to.length && date.length && [explanation length] > 0)
                 {
                     NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
                                                                                     to,
                                                                                     date,
                                                                                     [NSNumber numberWithBool:self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark],
-                                                                                    self.explanation]
+                                                                                    explanation]
                                                                           forKeys:@[@"late_start",
                                                                                     @"late_end",
                                                                                     @"popup_date",
@@ -210,7 +235,8 @@ typedef enum
                     
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON]
+                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
                         {
@@ -223,8 +249,9 @@ typedef enum
                         }
                         else
                         {
-                            [self.popover dismissPopoverAnimated:YES];
+//                            [self.popover dismissPopoverAnimated:YES];
                         }
+                      ((UIButton *)sender).enabled = YES;
 
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -285,6 +312,10 @@ typedef enum
         {
             return 0 ;
         }
+        else if (indexPath.row == 5)
+        {
+            return 80.f;
+        }
     }
     
     if (indexPath.section == 2)
@@ -300,6 +331,10 @@ typedef enum
         else if (indexPath.row == 1 || indexPath.row == 3 || indexPath.row == 5)
         {
             return 0;
+        }
+        else if (indexPath.row == 7)
+        {
+            return 80.f;
         }
     }
     
@@ -372,7 +407,11 @@ typedef enum
         else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellType])
         {
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
-            UIActionSheet *typeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Planned leave", nil), NSLocalizedString(@"Leave at request", nil), NSLocalizedString(@"Illness", nil), NSLocalizedString(@"Compassionate leave", nil), NSLocalizedString(@"Absence", nil), nil];
+            UIActionSheet *typeActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                         delegate:self
+                                                                cancelButtonTitle:nil
+                                                           destructiveButtonTitle:nil
+                                                                otherButtonTitles:NSLocalizedString(@"Planned leave", nil), NSLocalizedString(@"Leave at request", nil), NSLocalizedString(@"Illness", nil), NSLocalizedString(@"Compassionate leave", nil), NSLocalizedString(@"Absence", nil), nil];
             
             if(INTERFACE_IS_PHONE) {
                 [typeActionSheet showInView:self.view];
@@ -450,8 +489,10 @@ typedef enum
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    self.currentType = buttonIndex;
-    self.absenceHolidayCellType.detailTextLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if (buttonIndex >= 0) {
+        self.currentType = buttonIndex;
+        self.absenceHolidayCellType.detailTextLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+    }
 }
 
 - (void)updateTableView
