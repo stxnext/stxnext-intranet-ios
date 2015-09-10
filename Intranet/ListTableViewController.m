@@ -744,41 +744,34 @@
             form.currentRequest = (int)buttonIndex;
             form.delegate = self;
         }
-        else
-        {
-            UINavigationController *nvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
-            
-            AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
-            outOfOfficeForm.currentRequest = (int)buttonIndex;
-            outOfOfficeForm.delegate = self;
-            
-            if (INTERFACE_IS_PAD)
-            {
-                self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
-                self.popover.delegate = self;
-                
-                if (iOS8_PLUS)
-                {
-                    [self performBlockOnMainThread:^{ //hack, popover don't show on ios 8
-                        [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
-                                             permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                             animated:NO];
-                        outOfOfficeForm.popover = self.popover;
-                    } afterDelay:0];
-                }
-                else
-                {
-                    [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
-                                         permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                         animated:NO];
-                    outOfOfficeForm.popover = self.popover;
-                }
-            }
-            else
-            {
-                [self presentViewController:nvc animated:YES completion:nil];
-            }
-        }
+        // wylaczony na ipadzie
+//        else
+//        {
+//            UINavigationController *nvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+//            
+//            AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
+//            outOfOfficeForm.currentRequest = (int)buttonIndex;
+//            outOfOfficeForm.delegate = self;
+//            self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
+//            self.popover.delegate = self;
+//            
+//            if (iOS8_PLUS)
+//            {
+//                [self performBlockOnMainThread:^{ //hack, popover don't show on ios 8
+//                    [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+//                                         permittedArrowDirections:UIPopoverArrowDirectionUp
+//                                                         animated:NO];
+//                    outOfOfficeForm.popover = self.popover;
+//                } afterDelay:0];
+//            }
+//            else
+//            {
+//                [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+//                                     permittedArrowDirections:UIPopoverArrowDirectionUp
+//                                                     animated:NO];
+//                outOfOfficeForm.popover = self.popover;
+//            }
+//        }
     }
 }
 
