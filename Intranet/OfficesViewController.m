@@ -39,7 +39,6 @@
 - (void)prepareButtons {
     for (UIButton *btn in self.actionButtons) {
         [btn setTintColor:[Branding stxGray]];
-        [btn.imageView setImage:[btn.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         [btn setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
     }
 }
@@ -119,7 +118,7 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     UIActionSheet *officeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Call", nil), NSLocalizedString(@"Show on map", nil), NSLocalizedString(@"Navigate", nil), nil];
-    [officeActionSheet showInView:self.view];
+    if(INTERFACE_IS_PHONE) [officeActionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 #pragma mark action sheet

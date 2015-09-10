@@ -377,14 +377,17 @@ typedef enum
             if(INTERFACE_IS_PHONE) {
                 [typeActionSheet showInView:self.view];
             } else {
-                
                 CGRect rectCell = [tableView rectForRowAtIndexPath:indexPath];
-                
                 CGRect rect = [tableView convertRect:rectCell toView:self.view];
-                
                 [typeActionSheet showFromRect:rect inView:self.view animated:YES];
-                
             }
+        }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellExplanation])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Remarks", nil) message:NSLocalizedString(@"Please leave information about your availability via email or phone.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:@"OK", nil];
+            explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [explanationAlert show];
         }
     }
     else if (indexPath.section == 2)
@@ -398,6 +401,13 @@ typedef enum
             self.OOOCellToPicker.hidden = YES;
             
             [self.tableView reloadData];
+        }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.OOOCellExplanation])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Explanation", nil) message:NSLocalizedString(@"Please leave your explanation below.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:@"OK", nil];
+            explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [explanationAlert show];
         }
         else if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4)
         {
@@ -420,6 +430,22 @@ typedef enum
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *explanation = [[[alertView textFieldAtIndex:0] text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if(buttonIndex == 1 && [explanation length] > 0)
+    {
+        self.explanation = explanation;
+        if(self.OOOCellExplanation) self.OOOCellExplanation.detailTextLabel.text = explanation;
+        if(self.absenceHolidayCellExplanation) self.absenceHolidayCellExplanation.detailTextLabel.text = explanation;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1) [self.tableView reloadData];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

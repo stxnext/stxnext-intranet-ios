@@ -17,7 +17,7 @@ typedef enum
 }RequestType;
 
 @protocol AddOOOFormTableViewControllerDelegate;
-@interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate, UIActionSheetDelegate>
+@interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
 
     NSInteger currentUnCollapsedPickerIndex;
