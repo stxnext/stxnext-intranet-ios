@@ -73,14 +73,14 @@
 {
     [super viewWillAppear:animated];
     
-    [self.tableView setUserInteractionEnabled:NO];
     BOOL superHeroMode = [[NSUserDefaults standardUserDefaults] boolForKey:kHEROMODE];
     if(superHeroMode)
     {
         [self isFemale] ? [self.profileBackground setImage:[UIImage imageNamed:@"superhero_her"]] : [self.profileBackground setImage:[UIImage imageNamed:@"superhero_him"]];
     }
     else [self.profileBackground setImage:[UIImage imageNamed:@"superhero_none"]];
-        
+    if ([self isMeTab] && !self.user.name) self.user = [RMUser me];
+    
     if (![RMUser myUserId])
     {
         [RMUser loadMeUserId:^{
@@ -301,7 +301,6 @@
     }
     
     [self.tableView reloadDataAnimated:NO];
-    [self.tableView setUserInteractionEnabled:YES];
 }
 
 #pragma mark - Actions
@@ -347,11 +346,14 @@
         NSArray *toRecipents = [NSArray arrayWithObject:[userDetails objectForKey:kUSER_EMAIL]];
         
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        [[mc navigationBar] setTintColor:[UIColor whiteColor]];
         mc.mailComposeDelegate = self;
         [mc setToRecipients:toRecipents];
         
         // Present mail view controller on screen
-        [self presentViewController:mc animated:YES completion:NULL];
+        [self presentViewController:mc animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
     }
     else
     {
@@ -374,8 +376,6 @@
 
 - (void)addToContacts
 {
-    [self.actionButton setUserInteractionEnabled:NO];
-    
     if ([_user isInContacts])
     {
         [_user removeFromContacts];
@@ -386,8 +386,6 @@
     }
     
     [self updateAddToContactsButton];
-    
-    [self.actionButton setUserInteractionEnabled:YES];
 }
 
 - (void)updateAddToContactsButton

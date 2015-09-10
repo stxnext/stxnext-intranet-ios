@@ -133,8 +133,10 @@
     
     if (currentListState == ListStateAll)
     {
+        [self.tabBarController.tabBar setUserInteractionEnabled:NO];
         [self loadUsersFromAPI:^{
             [self stopRefreshData];
+            [self.tabBarController.tabBar setUserInteractionEnabled:YES];
         }];
     }
     else
