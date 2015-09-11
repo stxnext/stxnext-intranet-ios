@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *verticalBarTableView;
 
+@property (nonatomic) UITabBarController *embededTabBarController;
+
 @end

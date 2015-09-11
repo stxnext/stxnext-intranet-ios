@@ -69,6 +69,7 @@ typedef enum
 
 @property (weak, nonatomic) IBOutlet UITextView *OOOExplanation;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *submitCell;
 // actions
 - (IBAction)dateTimeValueChanged:(UIDatePicker *)sender;
 

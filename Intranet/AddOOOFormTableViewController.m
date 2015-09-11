@@ -72,6 +72,7 @@ typedef enum
         self.currentRequest = RequestTypeAbsenceHoliday;
     }
     
+    self.submitCell.backgroundColor = [UIColor clearColor];
     [self updateTableView];
 }
 

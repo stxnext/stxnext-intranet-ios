@@ -20,7 +20,6 @@
 @interface MainVerticalTabBarViewController ()<UIGestureRecognizerDelegate, AddOOOFormTableViewControllerDelegate, LatenessViewControllerDelegate>//<UIActionSheetDelegate>
 
 @property (nonatomic) NSArray *modelImagesData;
-@property (nonatomic) UITabBarController *embededTabBarController;
 @property (nonatomic) NSUInteger selectedRow;
 
 @end
