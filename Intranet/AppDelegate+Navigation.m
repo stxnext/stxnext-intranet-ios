@@ -28,11 +28,11 @@
     UISplitViewController *controller = (UISplitViewController *)self.window.rootViewController;
 
     [self.window.rootViewController.view logViewHierarchy];
-    
-    if ([((UINavigationController *)controller.viewControllers[0]).viewControllers[0] respondsToSelector:@selector(showLoginScreen)])
-    {
-        [((UINavigationController *)controller.viewControllers[0]).viewControllers[0] performSelector:@selector(showLoginScreen)];
-    }
+//    
+//    if ([((UINavigationController *)controller.viewControllers[0]).viewControllers[0] respondsToSelector:@selector(showLoginScreen)])
+//    {
+//        [((UINavigationController *)controller.viewControllers[0]).viewControllers[0] performSelector:@selector(showLoginScreen)];
+//    }
 }
 
 @end

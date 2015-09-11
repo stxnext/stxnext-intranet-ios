@@ -60,7 +60,6 @@
     UITapGestureRecognizer *tapBehindGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBehindDetected:)];
     [tapBehindGesture setNumberOfTapsRequired:1];
     tapBehindGesture.cancelsTouchesInView = NO;
-    //    [tapBehindGesture setCancelsTouchesInView:NO]; //So the user can still interact with controls in the modal view
     tapBehindGesture.delegate = self;
     
     [self.view.window addGestureRecognizer:tapBehindGesture];
@@ -163,7 +162,6 @@
 
 - (void)tapBehindDetected:(UITapGestureRecognizer *)sender
 {
-    
     if (sender.state == UIGestureRecognizerStateEnded)
     {
         NSLog(@"touch");
@@ -182,7 +180,6 @@
             
                 [self dismissFormController];
             }
-            
         }
     }
 }

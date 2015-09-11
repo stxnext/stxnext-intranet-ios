@@ -232,7 +232,6 @@ typedef enum
                                                                                     @"work_from_home",
                                                                                     @"popup_explanation"]];
                     
-                    
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON]
@@ -341,12 +340,37 @@ typedef enum
     return 44;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    if (INTERFACE_IS_PAD) {
+        [self paintHeaderFooter:view OnColor:[Branding stxLightGray]];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if (INTERFACE_IS_PAD) {
+        [self paintHeaderFooter:view OnColor:[Branding stxLightGray]];
+    }
+}
+
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 3) {
         return NO;
     }
     return YES;
+}
+
+- (void)paintHeaderFooter:(UIView *)view OnColor:(UIColor *)bcgColor
+{
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        UITableViewHeaderFooterView *hfView = (UITableViewHeaderFooterView *)view;
+        hfView.contentView.backgroundColor = bcgColor;
+        hfView.backgroundView.backgroundColor = bcgColor;
+    } else {
+        view.backgroundColor = bcgColor;
+    }
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -424,7 +448,12 @@ typedef enum
         else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellExplanation])
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Remarks", nil) message:NSLocalizedString(@"Please leave information about your availability via email or phone.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:@"OK", nil];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Remarks", nil)
+                                                                       message:NSLocalizedString(@"Please leave information about your availability via email or phone.", nil)
+                                                                      delegate:self
+                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                             otherButtonTitles:@"OK", nil];
+            
             explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
             [explanationAlert show];
         }
@@ -444,7 +473,12 @@ typedef enum
         else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.OOOCellExplanation])
         {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Explanation", nil) message:NSLocalizedString(@"Please leave your explanation below.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:@"OK", nil];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Explanation", nil)
+                                                                       message:NSLocalizedString(@"Please leave your explanation below.", nil)
+                                                                      delegate:self
+                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                             otherButtonTitles:@"OK", nil];
+            
             explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
             [explanationAlert show];
         }
@@ -570,7 +604,7 @@ typedef enum
         {
             if (NEW_MENU)
             {
-                return 0.01;
+                return 0.00001;
             }
             
             return 44;
@@ -633,7 +667,7 @@ typedef enum
             break;
     }
     
-    return 0.01;
+    return 0.0001;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
