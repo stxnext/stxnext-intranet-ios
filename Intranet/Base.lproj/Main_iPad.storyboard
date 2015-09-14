@@ -121,8 +121,8 @@
                                     <constraint firstAttribute="width" constant="240" id="R0b-vT-MbB"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Hero" translatesAutoresizingMaskIntoConstraints="NO" id="I52-E6-fw2">
-                                <rect key="frame" x="161" y="156" width="447" height="650"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hero" translatesAutoresizingMaskIntoConstraints="NO" id="I52-E6-fw2">
+                                <rect key="frame" x="161" y="163" width="447" height="650"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="447" id="hVK-mt-UXC"/>
                                     <constraint firstAttribute="height" constant="650" id="vVd-HV-MzV"/>
@@ -932,11 +932,11 @@ Dominik Shuster</string>
                         <rect key="frame" x="0.0" y="20" width="540" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eif-bd-rla">
-                                <rect key="frame" x="0.0" y="0.0" width="540" height="240"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eif-bd-rla">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="241"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="008-A8-oGZ">
-                                        <rect key="frame" x="8" y="8" width="524" height="224"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="008-A8-oGZ">
+                                        <rect key="frame" x="8" y="8" width="524" height="225"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="110"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -951,8 +951,8 @@ Dominik Shuster</string>
                                     <constraint firstAttribute="bottom" secondItem="008-A8-oGZ" secondAttribute="bottom" constant="8" id="oEC-WA-Dyy"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="akT-8j-0Rz">
-                                <rect key="frame" x="0.0" y="305" width="540" height="229"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="akT-8j-0Rz">
+                                <rect key="frame" x="0.0" y="296" width="540" height="215"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lateness reason" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SVu-d7-T30">
                                 <rect key="frame" x="16" y="258" width="508" height="30"/>
@@ -964,8 +964,8 @@ Dominik Shuster</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cy-zC-L0m" customClass="GreenSTXButton">
-                                <rect key="frame" x="115" y="550" width="310" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cy-zC-L0m" customClass="GreenSTXButton">
+                                <rect key="frame" x="115" y="549" width="310" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="mHZ-H0-XTM"/>
                                     <constraint firstAttribute="width" constant="310" id="uCR-1g-UaP"/>
