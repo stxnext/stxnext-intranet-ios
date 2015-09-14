@@ -391,21 +391,19 @@
 
 - (void)updateAddToContactsButton
 {
-    UIImage *removeImage = [UIImage imageNamed:@"minus31"];
-    UIImage *addImage = [UIImage imageNamed:@"add88"];
-    UIImage *lateImage = [UIImage imageNamed:@"wallclock"];
+    UIImage *removeImage = [UIImage imageNamed:@"forbidden27"];
+    UIImage *addImage = [UIImage imageNamed:@"add54"];
+    UIImage *lateImage = [UIImage imageNamed:@"clock55"];
     
     if([self isMeTab])
     {
-        [self.actionButton setImage:[lateImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
-        [self.actionButton setImage:[lateImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateHighlighted];
+        [self.actionButton setImage:lateImage forState:UIControlStateNormal];
         return;
     }
     
     if ([_user isInContacts])
     {
-        [self.actionButton setImage:[removeImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
-        [self.actionButton setImage:[removeImage imagePaintedWithColor:[Branding stxDarkGreen]] forState:UIControlStateHighlighted];
+        [self.actionButton setImage:removeImage forState:UIControlStateNormal];
     }
     else
     {
