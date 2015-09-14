@@ -10,6 +10,8 @@
 #import "UIView+Screenshot.h"
 #import "MBProgressHUD.h"
 
+#import "MainVerticalTabBarViewController.h"
+
 @implementation UserListTableViewController
 {
     __weak UIPopoverController *myPopover;
@@ -120,6 +122,16 @@
         hud.labelText = NSLocalizedString(@"Loading", nil);
     } else {
          [MBProgressHUD hideHUDForView:viewForHudPlacing animated:YES];
+        if (INTERFACE_IS_PAD) {
+            RMUser *me = [RMUser me];
+            
+            RMLate *todayLate = [me lateForToday];
+            
+            MainVerticalTabBarViewController *mainController = (MainVerticalTabBarViewController *)[[UIApplication sharedApplication] delegate].window.rootViewController;
+            
+            [mainController presentLateDate:todayLate.stop];
+            
+        }
     }
 }
 

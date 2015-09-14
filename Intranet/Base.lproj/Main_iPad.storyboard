@@ -60,6 +60,12 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="office17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpd-3x-oBo">
                                                     <rect key="frame" x="8" y="8" width="64" height="60"/>
                                                 </imageView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIB-Y0-sB4">
+                                                    <rect key="frame" x="32" y="51" width="40" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.70588237047195435" blue="0.70588237047195435" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Fpd-3x-oBo" firstAttribute="top" secondItem="XOW-1f-qts" secondAttribute="topMargin" id="AMr-1a-JIA"/>
@@ -70,6 +76,7 @@
                                         </tableViewCellContentView>
                                         <color key="tintColor" red="0.098039215686274508" green="0.35686274509803922" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="secondaryLabel" destination="rIB-Y0-sB4" id="JdI-hw-C0R"/>
                                             <outlet property="tabImageView" destination="Fpd-3x-oBo" id="wlc-kI-qNz"/>
                                         </connections>
                                     </tableViewCell>

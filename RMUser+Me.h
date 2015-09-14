@@ -15,7 +15,7 @@ typedef enum
     UserLoginTypeFalse = 2,
     UserLoginTypeError = 3
     
-}UserLoginType;
+} UserLoginType;
 
 @interface RMUser (Me)
 

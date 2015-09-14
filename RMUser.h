@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) NSSet *absences;
 @property (nonatomic, retain) NSSet *lates;
+
 @end
 
 @interface RMUser (CoreDataGeneratedAccessors)

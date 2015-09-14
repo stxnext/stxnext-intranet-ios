@@ -35,6 +35,25 @@ const NSString* MapKeyUserGroups = @"groups";
 
 #pragma mark Serialization
 
+- (RMLate *)lateForToday
+{
+    RMLate *result;
+    
+    NSDate *today = [NSDate new];
+    
+    for (RMLate *late in self.lates) {
+        if (!result) {
+            result = late;
+        } else {
+            if ([result.stop compare:late.stop] == NSOrderedAscending) {
+                result = late;
+            }
+        }
+    }
+    
+    return result;
+}
+
 + (NSString*)coreDataEntityName
 {
     return @"User";

@@ -18,6 +18,11 @@
     NSDate *endDate;
 }
 
+- (NSDate *)latenessEndDate
+{
+    return endDate;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

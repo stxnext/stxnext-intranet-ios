@@ -10,7 +10,12 @@
 
 @interface NSDate (Additions)
 
+- (BOOL)compareIfEqualDay:(NSDate *)anotherDay;
+
 - (NSDate *)dateWithHour:(NSInteger)hour
                  minute:(NSInteger)minute
                  second:(NSInteger)second;
+
+- (NSDate *)dateWithHourMinutes;
+
 @end

@@ -11,5 +11,6 @@
 @interface TabIconTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *tabImageView;
+@property (weak, nonatomic) IBOutlet UILabel *secondaryLabel;
 
 @end

@@ -22,6 +22,8 @@
 @property (nonatomic) NSArray *modelImagesData;
 @property (nonatomic) NSUInteger selectedRow;
 
+@property (nonatomic) NSDate *lateDate;
+
 @end
 
 
@@ -97,6 +99,11 @@
     UIImage *imageInCell = [UIImage imageNamed:imgName];
     
     cell.tabImageView.image = [[imageInCell imagePaintedWithColor:[Branding stxLightGreen]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    if (indexPath.row == 4) {
+        self.latenessLabel = cell.secondaryLabel;
+        cell.secondaryLabel.hidden = NO;
+    }
     
     return cell;
 }
@@ -185,6 +192,14 @@
 
 - (void)didFinishLatenessProcess
 {
+    
+    UIViewController *vc = self.presentedViewController;
+    
+    if ([vc isKindOfClass:[LatenessViewController class]]) {
+        LatenessViewController *lateVC = (LatenessViewController *)vc;
+        [self presentLateDate:lateVC.latenessEndDate];
+    }
+    
     [self dismissFormController];
 }
 
@@ -221,6 +236,51 @@
 }
 
 #pragma mark - Navigation
+
+- (void)presentLateDate:(NSDate *)lateDate
+{
+    NSDate *outDate;
+    lateDate = [lateDate dateWithHourMinutes];
+    if (!_lateDate) {
+        self.lateDate = lateDate;
+        outDate = lateDate;
+    } else {
+        if ([_lateDate compare:lateDate] == NSOrderedAscending) {
+            self.lateDate = lateDate;
+            outDate = lateDate;
+        } else {
+            NSLog(@"just check:");
+        }
+    }
+    if (outDate) {
+        UILabel *latenessLabel = self.latenessLabel;
+        if (outDate) {
+            latenessLabel.hidden = NO;
+            
+            static NSDateFormatter *dateFormatter;
+            
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                dateFormatter = [[NSDateFormatter alloc]init];
+                dateFormatter.dateFormat = @"HH:mm";
+            });
+            
+            latenessLabel.text = [dateFormatter stringFromDate:outDate];
+        } else {
+            latenessLabel.hidden = YES;
+            
+        }
+    }
+}
+
+- (void)setLateDate:(NSDate *)lateDate
+{
+    _lateDate = [lateDate dateWithHourMinutes];
+//    [newDateArray addObject:dateOnly];
+}
+
+
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

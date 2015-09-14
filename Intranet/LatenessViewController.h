@@ -29,4 +29,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *lateImage;
 @property (weak, nonatomic) IBOutlet UILabel *fingerLabel;
 
+- (NSDate *)latenessEndDate;
+
 @end

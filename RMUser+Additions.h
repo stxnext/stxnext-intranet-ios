@@ -35,4 +35,6 @@ extern const NSString* MapKeyUserGroups;
 
 + (NSMutableArray *)loadOutOffOfficePeople;
 
+- (RMLate *)lateForToday;
+
 @end

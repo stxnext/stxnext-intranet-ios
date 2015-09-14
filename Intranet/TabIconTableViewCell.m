@@ -33,6 +33,11 @@
     
 }
 
+- (void)secondaryLabelSetup:(NSString *)labelText
+{
+    
+}
+
 - (UIEdgeInsets)layoutMargins
 {
     return UIEdgeInsetsZero;
