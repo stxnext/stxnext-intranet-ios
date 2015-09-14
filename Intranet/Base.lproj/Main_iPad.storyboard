@@ -407,14 +407,14 @@
                             <rect key="frame" x="0.0" y="0.0" width="688" height="157"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gradient_blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-v5-Qt0">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-v5-Qt0">
+                                    <rect key="frame" x="0.0" y="0.0" width="688" height="137"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="137"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-3b-hpN">
+                                    <rect key="frame" x="0.0" y="0.0" width="688" height="137"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="zl6-dx-R0e">
-                                    <rect key="frame" x="344" y="17" width="80" height="80"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tabbar_icon_me_big" translatesAutoresizingMaskIntoConstraints="NO" id="zl6-dx-R0e">
+                                    <rect key="frame" x="304" y="17" width="80" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="GWz-C5-bsd"/>
                                         <constraint firstAttribute="height" constant="80" id="OV8-7O-WNP"/>
