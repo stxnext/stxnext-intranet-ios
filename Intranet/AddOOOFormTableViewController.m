@@ -312,7 +312,7 @@ typedef enum
         {
             return 0 ;
         }
-        else if (indexPath.row == 5)
+        else if (indexPath.row == 5 && INTERFACE_IS_PAD)
         {
             return 80.f;
         }
@@ -332,7 +332,7 @@ typedef enum
         {
             return 0;
         }
-        else if (indexPath.row == 7)
+        else if (indexPath.row == 7 && INTERFACE_IS_PAD)
         {
             return 80.f;
         }

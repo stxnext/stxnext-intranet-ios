@@ -53,6 +53,7 @@
         [self.view setBackgroundColor:[UIColor whiteColor]];
     }
     
+    if ([self isMeTab] && !self.user.name) self.user = [RMUser me];
     if(self.user.avatarURL) [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
 
