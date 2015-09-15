@@ -118,7 +118,7 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    UIActionSheet *officeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Call", nil), NSLocalizedString(@"Show on map", nil), NSLocalizedString(@"Navigate", nil), nil];
+    UIActionSheet *officeActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Call", nil), NSLocalizedString(@"Show on map", nil), NSLocalizedString(@"Navigate", nil), nil];
     if(INTERFACE_IS_PHONE) [officeActionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 

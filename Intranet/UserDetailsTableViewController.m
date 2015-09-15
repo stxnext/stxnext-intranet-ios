@@ -15,7 +15,6 @@
 #import "UIImageView+Additions.h"
 #import "UserDetailsTableViewCell.h"
 #import "UIImage+Color.h"
-#import "UIView+Toast.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -200,7 +199,11 @@
         [myCell.details setText:[userDetails objectForKey:currentKey]];
         
         //we don't want the office row to be selectable since it doesn't trigger any action
-        if([currentKey isEqualToString:kUSER_LOCATION]) [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if([currentKey isEqualToString:kUSER_LOCATION])
+        {
+            [myCell.header setText:NSLocalizedString(@"Office", nil)];
+            [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
     }
 
     return myCell;
@@ -230,24 +233,24 @@
         
         if ([RMUser userLoggedType] != UserLoginTypeTrue)
         {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+            self.title = NSLocalizedString(@"Info", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(logout:)];
         }
         else if ([self isLoadedMe]) // my details
         {
-            self.title = @"Me";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+            self.title = NSLocalizedString(@"Me", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(logout:)];
         }
         else // other people
         {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
+            self.title = NSLocalizedString(@"Info", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Me", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(loadMe)];
@@ -259,7 +262,7 @@
         {
             if ([RMUser userLoggedType] != UserLoginTypeTrue)
             {
-                self.title = @"About";
+                self.title = NSLocalizedString(@"About", nil);
                 
                 NSLog(@"%@", self.tabBarController.tabBar);
                 
@@ -281,14 +284,14 @@
             }
             else
             {
-                self.title = @"Me";
+                self.title = NSLocalizedString(@"Me", nil);
                 [self.webView removeFromSuperview];
                 self.user = [RMUser me];
             }
         }
         else
         {
-            self.title = @"Info";
+            self.title = NSLocalizedString(@"Info", nil);
             //            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
             //            {
             ////                if (!self.user)
@@ -327,7 +330,7 @@
     NSString *number = [userDetails objectForKey:kUSER_PHONE];
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:NSLocalizedString(@"Call app not found.", nil)];
 }
 
 - (void)phoneDeskCall
@@ -338,7 +341,7 @@
     NSString *number = self.user.phoneDesk;
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:NSLocalizedString(@"Call app not found.",nil)];
 }
 
 - (void)emailSend
@@ -359,21 +362,21 @@
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Error"
-                           withText:@"Email app not found."];
+        [UIAlertView alertWithTitle:NSLocalizedString(@"Error", nil)
+                           withText:NSLocalizedString(@"Email app not found.", nil)];
     }
 }
 
 - (void)skypeCall
 {
     [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_SKYPE]]]
-  orAlertWithText:@"Skype app not found."];
+  orAlertWithText:NSLocalizedString(@"Skype app not found.", nil)];
 }
 
 - (void)ircSend
 {
     [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_IRC]]]
-  orAlertWithText:@"IRC app not found."];
+  orAlertWithText:NSLocalizedString(@"IRC app not found.", nil)];
 }
 
 - (void)addToContacts
@@ -506,7 +509,7 @@
     isPageLoaded = NO;
     
     CGPoint center = self.loadingLabel.center;
-    self.loadingLabel.text = @"Loading error.";
+    self.loadingLabel.text = NSLocalizedString(@"Loading error.", nil);
     [self.loadingLabel sizeToFit];
     self.loadingLabel.center = center;
 }
@@ -656,7 +659,7 @@
                                                                      delegate:self
                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                        destructiveButtonTitle:nil
-                                                            otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence / Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
+                                                            otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
         }

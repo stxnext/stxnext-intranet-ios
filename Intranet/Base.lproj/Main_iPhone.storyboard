@@ -19,8 +19,8 @@
                     <connections>
                         <segue destination="nvf-NT-HOc" kind="relationship" relationship="viewControllers" id="J4U-SZ-Kot"/>
                         <segue destination="11o-D8-hKM" kind="relationship" relationship="viewControllers" id="uUK-VI-JUA"/>
-                        <segue destination="LTv-PQ-Hj5" kind="relationship" relationship="viewControllers" id="aah-Bw-mG5"/>
                         <segue destination="N91-HD-i7s" kind="relationship" relationship="viewControllers" id="hSC-rk-6Fn"/>
+                        <segue destination="LTv-PQ-Hj5" kind="relationship" relationship="viewControllers" id="aah-Bw-mG5"/>
                         <segue destination="PKd-ur-PLa" kind="relationship" relationship="viewControllers" id="GgZ-mg-wUL"/>
                     </connections>
                 </tabBarController>
@@ -468,8 +468,8 @@
                                     <outlet property="delegate" destination="jqE-fZ-SEO" id="BX1-cY-XuM"/>
                                 </connections>
                             </mapView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-oB-yVq" userLabel="InfoWrapper">
-                                <rect key="frame" x="10" y="30" width="300" height="51"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-oB-yVq" userLabel="InfoWrapper">
+                                <rect key="frame" x="10" y="10" width="300" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poznań" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvL-0e-ypJ" userLabel="CityLabel">
                                         <rect key="frame" x="8" y="8" width="284" height="21"/>
@@ -505,8 +505,8 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="z6Q-7y-r6J"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
-                                <rect key="frame" x="278" y="83" width="32" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
+                                <rect key="frame" x="278" y="63" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="d6Q-Gu-nX0"/>
@@ -517,8 +517,8 @@
                                     <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="tnN-Sx-QcZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
-                                <rect key="frame" x="244" y="83" width="32" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
+                                <rect key="frame" x="244" y="63" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="8lp-y0-ueS"/>
@@ -529,8 +529,8 @@
                                     <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="rYI-Ke-DHj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
-                                <rect key="frame" x="210" y="83" width="32" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
+                                <rect key="frame" x="210" y="63" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="6k5-H5-uSo"/>
@@ -1034,12 +1034,12 @@ Dominik Shuster</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fGW-Cl-FJw">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="7Mm-IC-mAc">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7Mm-IC-mAc">
                             <connections>
                                 <action selector="closeForm:" destination="Xqs-kn-oGf" id="6eW-1O-omz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="Pri-va-A5v">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Pri-va-A5v">
                             <connections>
                                 <action selector="submitForm:" destination="Xqs-kn-oGf" id="HvL-bF-mOc"/>
                             </connections>

@@ -34,13 +34,11 @@
 
 - (void)setDefaults
 {
-    [self.navigationItem setTitle:NSLocalizedString(@"New Request", nil)];
-    
-    [self.closeButton setTitle:NSLocalizedString(@"Close", nil)];
-    
+    [self.navigationItem setTitle:NSLocalizedString(@"New request", nil)];
+    [self.explanationField setPlaceholder:NSLocalizedString(@"Lateness reason", nil)];
+    [self.fingerLabel setText:NSLocalizedString(@"Move your finger!", nil)];
     
     if (INTERFACE_IS_PHONE) {
-        [self.submitButton setTitle:NSLocalizedString(@"Submit", nil)];
         [self.submitButton setEnabled:NO];
     } else {
         

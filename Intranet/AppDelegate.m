@@ -48,6 +48,7 @@
         for (UITabBarItem *item in tabBarController.tabBar.items) {
             UIImage *tabBarImg = item.image;
             item.image = [[tabBarImg imagePaintedWithColor:[Branding stxLightGreen]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            [item setTitle:NSLocalizedString(item.title, nil)];
         }
         
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [Branding stxLightGreen], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:10.0]} forState:UIControlStateNormal];

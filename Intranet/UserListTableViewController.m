@@ -37,7 +37,7 @@
     
     if ([RMUser userLoggedType] == UserLoginTypeFalse || [RMUser userLoggedType] == UserLoginTypeError)
     {
-        [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+        [[self.tabBarController.tabBar.items lastObject] setTitle:NSLocalizedString(@"About", nil)];
     }
 }
 
@@ -93,7 +93,7 @@
                                               //error RMUser login (e.g. account not exists)
                                               [RMUser setUserLoggedType:UserLoginTypeFalse];
                                               
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+                                              [[self.tabBarController.tabBar.items lastObject] setTitle:NSLocalizedString(@"About", nil)];
                                               
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
@@ -191,14 +191,14 @@
         switch (currentListState)
         {
             case ListStateAll:
-                [self.viewSwitchButton setTitle:@"Out"];
+                [self.viewSwitchButton setTitle:NSLocalizedString(@"Out", nil)];
                 self.title = NSLocalizedString(@"Employees", nil);
                 break;
                 
             case ListStateAbsent:
             case ListStateWorkFromHome:
             case ListStateOutOfOffice:
-                [self.viewSwitchButton setTitle:@"Absences"];
+                [self.viewSwitchButton setTitle:NSLocalizedString(@"Absences", nil)];
                 self.title = NSLocalizedString(@"Absences", nil);
                 break;
 

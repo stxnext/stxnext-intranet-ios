@@ -26,6 +26,7 @@
     
     [self.tableView setSeparatorColor:[Branding stxGray]];
     [self.searchDisplayController.searchResultsTableView setSeparatorColor:[Branding stxGray]];
+    [self.searchDisplayController.searchBar setPlaceholder:NSLocalizedString(@"Search", nil)];
     
     currentListState = [self nextListState];
     [self showOutViewButton];
@@ -400,7 +401,7 @@
     if (self.refreshControl == nil)
     {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil)];
         [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
         
 //        _refreshControl = refreshControl;
@@ -592,8 +593,8 @@
     
     if (count == 0 && realSection == 0 && canShowNoResultsMessage)//show once
     {
-        [UIAlertView showWithTitle:@"Info"
-                           message:@"Nothing to show."
+        [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                           message:NSLocalizedString(@"Nothing to show.", nil)
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -705,14 +706,14 @@
 {
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"No Internet connection.", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }
     else
     {
         if (INTERFACE_IS_PHONE)
         {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil), nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
             
@@ -722,7 +723,7 @@
             [self.requestActionSheet dismissWithClickedButtonIndex:20 animated:NO];
             [self.popover dismissPopoverAnimated:NO];
             
-            self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil), nil];
             
             
             [self.requestActionSheet showFromBarButtonItem:self.addRequestButton animated:YES];
@@ -781,8 +782,8 @@
 {
     if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && ![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        [UIAlertView showWithTitle:@"Error"
-                           message:@"No Internet connection."
+        [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                           message:NSLocalizedString(@"No Internet connection.", nil)
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {

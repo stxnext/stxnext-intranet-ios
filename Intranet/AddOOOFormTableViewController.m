@@ -30,7 +30,7 @@ typedef enum
 
 - (void)viewDidLoad
 {
-    self.title = @"New Request";
+    self.title = NSLocalizedString(@"New request", nil);
     
     [super viewDidLoad];
     
@@ -40,12 +40,13 @@ typedef enum
     }
     
     if (INTERFACE_IS_PAD) {
-        NSString *title = self.currentRequest == RequestTypeAbsenceHoliday ? @"Absence/Holiday" : @"Out of office";
+        NSString *title = self.currentRequest == RequestTypeAbsenceHoliday ? NSLocalizedString(@"Absence/Holiday", nil) : NSLocalizedString(@"Out of office", nil);
         
         [self.navigationItem setTitle:title];
     }
     
-    self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
+    [self setCellLabels];
+    self.absenceHolidayCellType.detailTextLabel.text = NSLocalizedString(@"Planned leave", nil);
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
@@ -74,6 +75,20 @@ typedef enum
     
     self.submitCell.backgroundColor = [UIColor clearColor];
     [self updateTableView];
+}
+
+- (void)setCellLabels
+{
+    [self.OOOCellDate.textLabel setText:NSLocalizedString(@"Date", nil)];
+    [self.OOOCellFrom.textLabel setText:NSLocalizedString(@"Od", nil)];
+    [self.OOOCellTo.textLabel setText:NSLocalizedString(@"To", nil)];
+    [self.OOOCellWorkFromHome.textLabel setText:NSLocalizedString(@"Work from home", nil)];
+    [self.OOOCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];
+
+    [self.absenceHolidayCellStart.textLabel setText:NSLocalizedString(@"Start", nil)];
+    [self.absenceHolidayCellEnd.textLabel setText:NSLocalizedString(@"End", nil)];
+    [self.absenceHolidayCellType.textLabel setText:NSLocalizedString(@"Type", nil)];
+    [self.absenceHolidayCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];
 }
 
 - (IBAction)cancel:(id)sender
@@ -139,8 +154,8 @@ typedef enum
                 {
                     if (![[from componentsSeparatedByString:@"/"][1] isEqualToString:[to componentsSeparatedByString:@"/"][1]])
                     {
-                        [UIAlertView showWithTitle:@"Info"
-                                           message:@"Please split the date into 2 months."
+                        [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                           message:NSLocalizedString(@"Please split the date into 2 months.", nil)
                                              style:UIAlertViewStyleDefault
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"]
@@ -181,8 +196,8 @@ typedef enum
                           ((UIButton *)sender).enabled = YES;
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-                        [UIAlertView showWithTitle:@"Error"
-                                           message:@"Request has not been added. Please try again."
+                        [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                                           message:NSLocalizedString(@"Request has not been added. Please try again.", nil)
                                              style:UIAlertViewStyleDefault
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -193,8 +208,8 @@ typedef enum
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
+                    [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                       message:NSLocalizedString(@"All fields required.", nil)
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -267,8 +282,8 @@ typedef enum
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
+                    [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                       message:NSLocalizedString(@"All fields required.", nil)
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -690,7 +705,7 @@ typedef enum
         {
             if (self.currentRequest == RequestTypeAbsenceHoliday)
             {
-                return [NSString stringWithFormat:@"ABSENCE / HOLIDAY - %@ days left", freedays?: @" "];
+                return [NSString stringWithFormat:NSLocalizedString(@"ABSENCE / HOLIDAY - %@ days left", nil), freedays?: @" "];
             }
         }
             break;
@@ -699,7 +714,7 @@ typedef enum
         {
             if (self.currentRequest == RequestTypeOutOfOffice)
             {
-                return @"OUT OF OFFICE";
+                return NSLocalizedString(@"OUT OF OFFICE", nil);
             }
         }
             break;
