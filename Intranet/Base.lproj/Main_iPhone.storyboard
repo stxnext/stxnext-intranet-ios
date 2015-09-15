@@ -33,7 +33,7 @@
             <objects>
                 <tableViewController id="eBK-zg-izl" customClass="UserDetailsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zBt-hv-5ub">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -261,7 +261,7 @@
         <!--Me-->
         <scene sceneID="VvS-jr-683">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N91-HD-i7s" sceneMemberID="viewController">
+                <navigationController title="Me" automaticallyAdjustsScrollViewInsets="NO" id="N91-HD-i7s" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Me" image="office-worker2" id="Z7h-1E-pvt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="f8z-aH-CAF">
@@ -433,7 +433,7 @@
         <!--Offices-->
         <scene sceneID="DGD-dl-uWS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="LTv-PQ-Hj5" sceneMemberID="viewController">
+                <navigationController title="Offices" automaticallyAdjustsScrollViewInsets="NO" id="LTv-PQ-Hj5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Offices" image="office17" id="Nq7-Cu-JOB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aXH-Me-TfM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -456,11 +456,11 @@
                         <viewControllerLayoutGuide type="bottom" id="AYy-z3-FQG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rSt-8u-eRT">
-                        <rect key="frame" x="0.0" y="64" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx5-xS-ZqO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="B28-la-7Ik"/>
                                 </constraints>
@@ -468,7 +468,7 @@
                                     <outlet property="delegate" destination="jqE-fZ-SEO" id="BX1-cY-XuM"/>
                                 </connections>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-oB-yVq" userLabel="InfoWrapper">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-oB-yVq" userLabel="InfoWrapper">
                                 <rect key="frame" x="10" y="30" width="300" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poznań" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvL-0e-ypJ" userLabel="CityLabel">
@@ -505,7 +505,7 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="z6Q-7y-r6J"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
                                 <rect key="frame" x="278" y="83" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -517,7 +517,7 @@
                                     <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="tnN-Sx-QcZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
                                 <rect key="frame" x="244" y="83" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -529,7 +529,7 @@
                                     <action selector="triggerAction:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="rYI-Ke-DHj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
                                 <rect key="frame" x="210" y="83" width="32" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -819,7 +819,7 @@ Dominik Shuster</string>
         <!--Settings-->
         <scene sceneID="We9-cR-cuI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PKd-ur-PLa" sceneMemberID="viewController">
+                <navigationController title="Settings" automaticallyAdjustsScrollViewInsets="NO" id="PKd-ur-PLa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="three115" id="3WX-iN-FUj"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dNZ-YD-tj6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1614,7 +1614,7 @@ Dominik Shuster</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="set-Zf-g71"/>
+        <segue reference="jFO-Dk-1lA"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

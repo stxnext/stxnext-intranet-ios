@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self prepareUI];
+    [self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

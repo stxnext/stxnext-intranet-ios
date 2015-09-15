@@ -15,6 +15,7 @@
 #import "UIImageView+Additions.h"
 #import "UserDetailsTableViewCell.h"
 #import "UIImage+Color.h"
+#import "UIView+Toast.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -401,15 +402,8 @@
         return;
     }
     
-    if ([_user isInContacts])
-    {
-        [self.actionButton setImage:removeImage forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.actionButton setImage:[addImage imagePaintedWithColor:[Branding stxGreen]] forState:UIControlStateNormal];
-        [self.actionButton setImage:[addImage imagePaintedWithColor:[Branding stxDarkGreen]] forState:UIControlStateHighlighted];
-    }
+    if ([_user isInContacts]) [self.actionButton setImage:removeImage forState:UIControlStateNormal];
+    else [self.actionButton setImage:addImage forState:UIControlStateNormal];
 }
 
 - (IBAction)logout:(id)sender //left only for iPad purposes, probably will be changed or removed after new version for iPad is released

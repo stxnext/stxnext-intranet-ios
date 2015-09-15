@@ -28,6 +28,7 @@
     
     [self.mapView addGestureRecognizer:self.swipeRightRecognizer];
     [self.mapView addGestureRecognizer:self.swipeLeftRecognizer];
+    [self.navigationItem setTitle:NSLocalizedString(@"Offices", nil)];
     
     [self.cityLabel setTextColor:[Branding stxGreen]];
     [self.detailsLabel setTextColor:[Branding stxDarkGreen]];
