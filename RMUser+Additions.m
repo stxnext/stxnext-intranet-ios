@@ -38,9 +38,7 @@ const NSString* MapKeyUserGroups = @"groups";
 - (RMLate *)lateForToday
 {
     RMLate *result;
-    
-    NSDate *today = [NSDate new];
-    
+        
     for (RMLate *late in self.lates) {
         if (!result) {
             result = late;

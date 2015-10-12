@@ -289,20 +289,7 @@
                 self.user = [RMUser me];
             }
         }
-        else
-        {
-            self.title = NSLocalizedString(@"Info", nil);
-            //            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
-            //            {
-            ////                if (!self.user)
-            ////                {
-            ////                    [self addActivityIndicator];
-            ////                }
-            //
-            //                return;
-            //            }
-            
-        }
+        else self.title = NSLocalizedString(@"Info", nil);
     }
     
     [self.tableView reloadDataAnimated:NO];

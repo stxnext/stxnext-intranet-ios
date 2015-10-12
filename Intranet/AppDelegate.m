@@ -41,7 +41,7 @@
         [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -2)];
         
         // Tab bar
-        [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
+        [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
         [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxDarkGreen]]];
         
         UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
@@ -53,18 +53,16 @@
         
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [Branding stxLightGreen], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:10.0]} forState:UIControlStateNormal];
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
-    } else {
-        [[UINavigationBar appearance]setBarTintColor:[UIColor whiteColor]];
-        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     }
     
     // Status bar
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     // Navigation bar
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
+    if(INTERFACE_IS_PHONE) {
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    }
     return YES;
 }
 

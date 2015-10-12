@@ -27,7 +27,7 @@
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    NSDateComponents *components = [calendar components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+    NSDateComponents *components = [calendar components: NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
                                                fromDate:self];
     [components setHour:hour];
     [components setMinute:minute];
@@ -40,7 +40,7 @@
 
 - (NSDate *)dateWithHourMinutes
 {
-    unsigned int flags = NSHourCalendarUnit | NSMinuteCalendarUnit;
+    unsigned int flags = NSCalendarUnitHour | NSCalendarUnitDay;
     NSCalendar* calendar = [NSCalendar currentCalendar];
     NSDateComponents* components = [calendar components:flags fromDate:self];
     //Taking the time zone into account

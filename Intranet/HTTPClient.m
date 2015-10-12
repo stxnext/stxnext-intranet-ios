@@ -97,10 +97,11 @@ static HTTPClient *_sharedClient = nil;
         
         return [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
     }];
-        
+    
+    NSError *error = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:[HTTPClient nameForMethod:method]
                                                                    URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]
-                                                                  parameters:parameters];
+                                                                  parameters:parameters error:&error];
     
     
     [request setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];

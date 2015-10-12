@@ -161,7 +161,8 @@
     if([btn isEqual:self.locationButton]) selectedAction = 1;
     else if([btn isEqual:self.navigationButton]) selectedAction = 2;
     
-    [self actionSheet:nil clickedButtonAtIndex:selectedAction];
+    UIActionSheet *tempActionSheet = [[UIActionSheet alloc] init];
+    [self actionSheet:tempActionSheet clickedButtonAtIndex:selectedAction];
 }
 
 #pragma mark mapkit
