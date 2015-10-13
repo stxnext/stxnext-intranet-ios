@@ -102,6 +102,7 @@
 		D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */; };
 		D17300B41BA80BA80049AD8D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D17300B61BA80BA80049AD8D /* Localizable.strings */; };
 		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; settings = {ASSET_TAGS = (); }; };
+		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; settings = {ASSET_TAGS = (); }; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
@@ -265,6 +266,8 @@
 		D17300BA1BA80BDA0049AD8D /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D19F946D1BCD077E0039029A /* UIUnderlinedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUnderlinedButton.h; sourceTree = "<group>"; };
 		D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUnderlinedButton.m; sourceTree = "<group>"; };
+		D19F94701BCD25A20039029A /* CellularRangeDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellularRangeDetector.h; sourceTree = "<group>"; };
+		D19F94711BCD25A20039029A /* CellularRangeDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellularRangeDetector.m; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
 				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
 				661AE43F18C48CF400B7A4F5 /* Lato2OFL */,
+				D19F94701BCD25A20039029A /* CellularRangeDetector.h */,
+				D19F94711BCD25A20039029A /* CellularRangeDetector.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -777,6 +782,7 @@
 				66515F1A18B38A7700092BB2 /* UIView+Additions.m in Sources */,
 				8FE962781B99A77000C029CD /* TabIconTableViewCell.m in Sources */,
 				0C7E16EB1833A79E00BD2AB4 /* AppDelegate+SplitControllerDelegate.m in Sources */,
+				D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */,
 				66360E451A2757CB00417B75 /* RMLate.m in Sources */,
 				66600E5A1833984600BA9DC3 /* ClockView.m in Sources */,
 				6627C82B18BC89F2003893EB /* ExplanationViewController.m in Sources */,

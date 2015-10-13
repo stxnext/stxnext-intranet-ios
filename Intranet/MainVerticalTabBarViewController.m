@@ -170,7 +170,6 @@
 {
     if (sender.state == UIGestureRecognizerStateEnded)
     {
-        NSLog(@"touch");
         if (self.presentedViewController) {
             
             CGPoint locatView = [sender locationInView:self.view];

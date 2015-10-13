@@ -8,10 +8,14 @@
 
 #import "OfficesViewController.h"
 #import "OfficeAnnotation.h"
+#import "UIUnderlinedButton.h"
+#import "CellularRangeDetector.h"
 
 #define MILES_TO_METERS 1609.344
 
 @interface OfficesViewController ()
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *locationButtons;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *locationsSegment;
 
 @end
 
@@ -35,6 +39,10 @@
     
     [self.infoWrapper setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
     [self prepareLocations];
+    
+    if(self.locationsSegment) {
+        self.locationsSegment.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+    }
 }
 
 - (void)prepareButtons {
@@ -90,8 +98,19 @@
     if([location objectForKey:kOFFICE_FAX]) [subtitleString appendFormat:@"Fax: %@", [location objectForKey:kOFFICE_FAX]];
     [self.detailsLabel setText:[subtitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
+    for (NSInteger i=0; i<[self.locationButtons count]; i++)
+    {
+        UIUnderlinedButton *officeButton = (UIUnderlinedButton *)[self.locationButtons objectAtIndex:i];
+        if(i == locationIndex) [officeButton setUnderlined:YES];
+        else [officeButton setUnderlined:NO];
+        [officeButton setNeedsDisplay];
+    }
+    
     [_mapView setRegion:viewRegion animated:animated];
     currentOffice = locationIndex;
+    
+    if(self.locationsSegment) [self.locationsSegment setSelectedSegmentIndex:locationIndex];
+    NSLog(@"x");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,13 +119,13 @@
 }
 
 - (IBAction)swipeLocation:(id)sender {
-    if([(UISwipeGestureRecognizer *)sender isEqual:self.swipeLeftRecognizer])
+    if([(UISwipeGestureRecognizer *)sender isEqual:self.swipeRightRecognizer])
     {
         //go to previous office
         if(currentOffice == 0) [self setLocation:officeLocations.count-1 withAnimation:YES];
         else [self setLocation:currentOffice-1 withAnimation:YES];
     }
-    else if([(UISwipeGestureRecognizer *)sender isEqual:self.swipeRightRecognizer])
+    else if([(UISwipeGestureRecognizer *)sender isEqual:self.swipeLeftRecognizer])
     {
         //go to next office
         if(currentOffice == officeLocations.count-1) [self setLocation:0 withAnimation:YES];
@@ -132,6 +151,7 @@
     switch (buttonIndex) {
         case 0:
         {
+            if(![CellularRangeDetector hasCellularCoverage]) break;
             NSString *phoneNumber = [[pin.currentLocation objectForKey:kOFFICE_PHONE] stringByReplacingOccurrencesOfString:@" " withString:@""];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phoneNumber]];
             [[UIApplication sharedApplication] openURL:url];
@@ -165,6 +185,12 @@
     [self actionSheet:tempActionSheet clickedButtonAtIndex:selectedAction];
 }
 
+- (IBAction)segmentSelected:(id)sender {
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    [self setLocation:segment.selectedSegmentIndex withAnimation:YES];
+    NSLog(@"y");
+}
+
 #pragma mark mapkit
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -177,6 +203,11 @@
 {
     self.mapView.mapType = MKMapTypeHybrid;
     self.mapView.mapType = MKMapTypeStandard;
+}
+
+- (IBAction)forceLocationFromButton:(id)sender {
+    NSInteger index = [self.locationButtons indexOfObject:(UIButton *)sender];
+    [self setLocation:index withAnimation:YES];
 }
 
 /*

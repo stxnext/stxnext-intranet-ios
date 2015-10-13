@@ -319,7 +319,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="0.0" y="0.0" width="106" height="32"/>
                                     <animations/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                     <state key="normal" title="Absences">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -330,7 +330,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="107" y="0.0" width="106" height="32"/>
                                     <animations/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                     <state key="normal" title="Work from Home">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -341,7 +341,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="214" y="0.0" width="106" height="32"/>
                                     <animations/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                     <state key="normal" title="Out of Office">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -500,8 +500,45 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIQ-Tv-rOU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9d-fa-CTl" customClass="UIUnderlinedButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="106" height="32"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <state key="normal" title="Poznań"/>
+                                        <connections>
+                                            <action selector="forceLocationFromButton:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="atj-rJ-ZQM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efD-0O-tQt" customClass="UIUnderlinedButton">
+                                        <rect key="frame" x="107" y="0.0" width="106" height="32"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <state key="normal" title="Piła"/>
+                                        <connections>
+                                            <action selector="forceLocationFromButton:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="OjE-UQ-WKs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pio-Sx-fa6" customClass="UIUnderlinedButton">
+                                        <rect key="frame" x="214" y="0.0" width="106" height="32"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <state key="normal" title="Wrocław"/>
+                                        <connections>
+                                            <action selector="forceLocationFromButton:" destination="jqE-fZ-SEO" eventType="touchUpInside" id="8lk-Ls-HHh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="JXd-fO-jNd"/>
+                                </constraints>
+                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx5-xS-ZqO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="32" width="320" height="423"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="B28-la-7Ik"/>
@@ -511,7 +548,7 @@
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-oB-yVq" userLabel="InfoWrapper">
-                                <rect key="frame" x="10" y="10" width="300" height="51"/>
+                                <rect key="frame" x="10" y="42" width="300" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poznań" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvL-0e-ypJ" userLabel="CityLabel">
                                         <rect key="frame" x="8" y="8" width="284" height="21"/>
@@ -551,7 +588,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFq-5H-vdt">
-                                <rect key="frame" x="278" y="63" width="32" height="32"/>
+                                <rect key="frame" x="278" y="95" width="32" height="32"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -564,7 +601,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1r-bt4">
-                                <rect key="frame" x="244" y="63" width="32" height="32"/>
+                                <rect key="frame" x="244" y="95" width="32" height="32"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -577,7 +614,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Va-JFl">
-                                <rect key="frame" x="210" y="63" width="32" height="32"/>
+                                <rect key="frame" x="210" y="95" width="32" height="32"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -595,12 +632,15 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RFq-5H-vdt" secondAttribute="trailing" constant="10" id="0tP-3O-YML"/>
                             <constraint firstItem="AYy-z3-FQG" firstAttribute="top" secondItem="tx5-xS-ZqO" secondAttribute="bottom" id="52Z-Wh-TWZ"/>
-                            <constraint firstItem="NGu-oB-yVq" firstAttribute="top" secondItem="ntM-1Y-wRv" secondAttribute="bottom" constant="10" id="T0I-In-FKY"/>
+                            <constraint firstItem="tx5-xS-ZqO" firstAttribute="top" secondItem="JIQ-Tv-rOU" secondAttribute="bottom" id="KBp-BC-vgN"/>
+                            <constraint firstAttribute="trailing" secondItem="JIQ-Tv-rOU" secondAttribute="trailing" id="RQe-E7-moN"/>
+                            <constraint firstItem="NGu-oB-yVq" firstAttribute="top" secondItem="ntM-1Y-wRv" secondAttribute="bottom" constant="42" id="T0I-In-FKY"/>
                             <constraint firstItem="QQh-Va-JFl" firstAttribute="top" secondItem="NGu-oB-yVq" secondAttribute="bottom" constant="2" id="Y3F-Pk-jaI"/>
                             <constraint firstItem="tx5-xS-ZqO" firstAttribute="leading" secondItem="rSt-8u-eRT" secondAttribute="leading" id="d6X-6c-EOn"/>
-                            <constraint firstItem="tx5-xS-ZqO" firstAttribute="top" secondItem="rSt-8u-eRT" secondAttribute="top" id="e8h-Mv-VGV"/>
+                            <constraint firstItem="JIQ-Tv-rOU" firstAttribute="leading" secondItem="rSt-8u-eRT" secondAttribute="leading" id="eZJ-aF-yqr"/>
                             <constraint firstAttribute="trailing" secondItem="NGu-oB-yVq" secondAttribute="trailing" constant="10" id="fUz-na-EI6"/>
                             <constraint firstItem="RFq-5H-vdt" firstAttribute="leading" secondItem="tbf-1r-bt4" secondAttribute="trailing" constant="2" id="fod-sH-IBH"/>
+                            <constraint firstItem="JIQ-Tv-rOU" firstAttribute="top" secondItem="ntM-1Y-wRv" secondAttribute="bottom" id="iuh-od-YrL"/>
                             <constraint firstItem="NGu-oB-yVq" firstAttribute="leading" secondItem="rSt-8u-eRT" secondAttribute="leading" constant="10" id="qDf-zC-RXa"/>
                             <constraint firstItem="tbf-1r-bt4" firstAttribute="top" secondItem="NGu-oB-yVq" secondAttribute="bottom" constant="2" id="sgi-Ih-X9n"/>
                             <constraint firstAttribute="trailing" secondItem="tx5-xS-ZqO" secondAttribute="trailing" id="szH-QA-d1E"/>
@@ -622,6 +662,9 @@
                         <outletCollection property="actionButtons" destination="QQh-Va-JFl" id="buy-gr-VZn"/>
                         <outletCollection property="actionButtons" destination="tbf-1r-bt4" id="uC6-Q8-XcA"/>
                         <outletCollection property="actionButtons" destination="RFq-5H-vdt" id="yb3-zU-ldA"/>
+                        <outletCollection property="locationButtons" destination="a9d-fa-CTl" id="eZY-tK-2NU"/>
+                        <outletCollection property="locationButtons" destination="efD-0O-tQt" id="Js7-g1-bGV"/>
+                        <outletCollection property="locationButtons" destination="Pio-Sx-fa6" id="Lnl-wj-eQO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqO-bd-Z4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
