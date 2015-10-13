@@ -350,7 +350,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vt-Sm-fvt">
-                                            <rect key="frame" x="91" y="28" width="213" height="14.5"/>
+                                            <rect key="frame" x="91" y="28" width="221" height="14.5"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="46" id="n9H-3j-Xzh"/>
@@ -360,13 +360,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="owF-LY-lHS">
-                                            <rect key="frame" x="91" y="8" width="213" height="19"/>
+                                            <rect key="frame" x="91" y="8" width="221" height="19"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00 - 14:30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="2d8-2l-nL7">
-                                            <rect key="frame" x="252" y="76" width="52" height="12"/>
+                                            <rect key="frame" x="260" y="76" width="52" height="12"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="52" id="E6I-3n-S7A"/>
@@ -385,10 +385,10 @@
                                         <constraint firstItem="owF-LY-lHS" firstAttribute="leading" secondItem="jHk-bu-sYG" secondAttribute="leadingMargin" constant="83" id="FoY-fC-xhg"/>
                                         <constraint firstItem="gA4-JP-rnt" firstAttribute="leading" secondItem="jHk-bu-sYG" secondAttribute="leadingMargin" id="MNM-Ic-tJd"/>
                                         <constraint firstItem="owF-LY-lHS" firstAttribute="top" secondItem="2Vt-Sm-fvt" secondAttribute="top" constant="-20" id="Oxe-xy-CAa"/>
-                                        <constraint firstItem="2d8-2l-nL7" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" constant="-8" id="XRP-c3-En0"/>
+                                        <constraint firstItem="2d8-2l-nL7" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" id="XRP-c3-En0"/>
                                         <constraint firstItem="gA4-JP-rnt" firstAttribute="top" secondItem="jHk-bu-sYG" secondAttribute="topMargin" constant="2" id="Zvf-xL-BZ9"/>
-                                        <constraint firstItem="2Vt-Sm-fvt" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" constant="-8" id="cMX-v2-hcB"/>
-                                        <constraint firstItem="owF-LY-lHS" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" constant="-8" id="k59-Bx-gYL"/>
+                                        <constraint firstItem="2Vt-Sm-fvt" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" id="cMX-v2-hcB"/>
+                                        <constraint firstItem="owF-LY-lHS" firstAttribute="trailing" secondItem="jHk-bu-sYG" secondAttribute="trailingMargin" id="k59-Bx-gYL"/>
                                         <constraint firstItem="2d8-2l-nL7" firstAttribute="bottom" secondItem="jHk-bu-sYG" secondAttribute="bottomMargin" id="rNG-ac-pq6"/>
                                     </constraints>
                                 </tableViewCellContentView>
