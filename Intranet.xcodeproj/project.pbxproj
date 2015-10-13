@@ -94,7 +94,6 @@
 		8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962701B99950400C029CD /* UsersSplitViewController.m */; };
 		8FE962751B99A07700C029CD /* MainVerticalTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962741B99A07700C029CD /* MainVerticalTabBarViewController.m */; };
 		8FE962781B99A77000C029CD /* TabIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE962771B99A77000C029CD /* TabIconTableViewCell.m */; };
-		8FFBBA961B9EE6C60007600A /* BottomTiltedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */; };
 		D119D29B1B944605009826BB /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D29A1B944605009826BB /* OfficesViewController.m */; };
 		D119D29D1B9446C7009826BB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D119D29C1B9446C7009826BB /* MapKit.framework */; };
 		D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D119D2A01B945E1B009826BB /* OfficeAnnotation.m */; };
@@ -102,6 +101,7 @@
 		D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D14AC9041B98622F008FFD58 /* UIImage+Color.m */; };
 		D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */; };
 		D17300B41BA80BA80049AD8D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D17300B61BA80BA80049AD8D /* Localizable.strings */; };
+		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; settings = {ASSET_TAGS = (); }; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 /* End PBXBuildFile section */
@@ -251,8 +251,6 @@
 		8FE962741B99A07700C029CD /* MainVerticalTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainVerticalTabBarViewController.m; sourceTree = "<group>"; };
 		8FE962761B99A77000C029CD /* TabIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabIconTableViewCell.h; sourceTree = "<group>"; };
 		8FE962771B99A77000C029CD /* TabIconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabIconTableViewCell.m; sourceTree = "<group>"; };
-		8FFBBA941B9EE6C60007600A /* BottomTiltedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTiltedButton.h; sourceTree = "<group>"; };
-		8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTiltedButton.m; sourceTree = "<group>"; };
 		D119D2991B944605009826BB /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		D119D29A1B944605009826BB /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
 		D119D29C1B9446C7009826BB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -265,6 +263,8 @@
 		D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LatenessViewController.h; sourceTree = "<group>"; };
 		D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LatenessViewController.m; sourceTree = "<group>"; };
 		D17300BA1BA80BDA0049AD8D /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D19F946D1BCD077E0039029A /* UIUnderlinedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUnderlinedButton.h; sourceTree = "<group>"; };
+		D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUnderlinedButton.m; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
@@ -329,10 +329,10 @@
 				D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */,
 				8FE962761B99A77000C029CD /* TabIconTableViewCell.h */,
 				8FE962771B99A77000C029CD /* TabIconTableViewCell.m */,
-				8FFBBA941B9EE6C60007600A /* BottomTiltedButton.h */,
-				8FFBBA951B9EE6C60007600A /* BottomTiltedButton.m */,
 				8FE0219F1BA1774B00BBB410 /* GreenSTXButton.h */,
 				8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */,
+				D19F946D1BCD077E0039029A /* UIUnderlinedButton.h */,
+				D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -803,7 +803,6 @@
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				D119D29B1B944605009826BB /* OfficesViewController.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
-				8FFBBA961B9EE6C60007600A /* BottomTiltedButton.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
 				66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */,
@@ -820,6 +819,7 @@
 				D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 				D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */,
+				D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,10 @@
 //
 
 #import "OutOfOfficeTodayTableViewController.h"
-#import "BottomTiltedButton.h"
+#import "UIUnderlinedButton.h"
 
 @interface OutOfOfficeTodayTableViewController ()
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *actionButtons;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
@@ -33,7 +34,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
     
-    [self clearAllTabsTintSelecting:0];
+    [self clearAllTabsSelecting:0];
 }
 
 - (void)viewWillLayoutSubviews
@@ -163,37 +164,33 @@
 
 - (IBAction)setListState:(id)sender {
     [self performBlockOnMainThread:^{
-        UIButton *tappedButton = (UIButton *)sender;
-        NSInteger idx;
-        if([tappedButton isEqual:self.workFromHomeButton]) {
-            idx = 1;
-             currentListState = ListStateWorkFromHome;
-        } else if([tappedButton isEqual:self.outOfOfficeButton]) {
-            idx = 2;
-            currentListState = ListStateOutOfOffice;
-        } else {
-            idx = 0;
-            currentListState = ListStateAbsent;
+        NSInteger idx = [self.actionButtons indexOfObject:(UIButton *)sender];
+        [self clearAllTabsSelecting:idx];
+        
+        switch (idx) {
+            case 0:
+                currentListState = ListStateAbsent;
+                break;
+            case 1:
+                currentListState = ListStateWorkFromHome;
+                break;
+            case 2:
+                currentListState = ListStateOutOfOffice;
+            default:
+                break;
         }
-        
-        [self clearAllTabsTintSelecting:idx];
-        
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationBottom];
     } afterDelay:0];
     
     [self showOutViewButton];
 }
 
-- (void)clearAllTabsTintSelecting:(NSInteger)selectedIdx
+- (void)clearAllTabsSelecting:(NSInteger)selectedIdx
 {
-    NSInteger counter = 0;
-    for (UIView *subButton in self.tabButtonsContainer.subviews) {
-        if ([subButton isKindOfClass:[BottomTiltedButton class]]) {
-            BottomTiltedButton *but = (BottomTiltedButton *)subButton;
-            BOOL tilted = counter == selectedIdx;
-            but.isTilted = tilted;
-        }
-        counter++;
+    for (UIUnderlinedButton *btn in self.actionButtons) {
+        if ([btn isEqual:[self.actionButtons objectAtIndex:selectedIdx]]) [btn setUnderlined:YES];
+        else [btn setUnderlined:NO];
+        [btn setNeedsDisplay];
     }
 }
 

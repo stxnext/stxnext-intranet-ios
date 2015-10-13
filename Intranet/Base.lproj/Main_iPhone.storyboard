@@ -316,8 +316,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH" customClass="BottomTiltedButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="105" height="32"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVI-EM-KMH" customClass="UIUnderlinedButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="32"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Absences">
@@ -327,8 +327,8 @@
                                         <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="Por-sD-wmX"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa" customClass="BottomTiltedButton">
-                                    <rect key="frame" x="105" y="0.0" width="110" height="32"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8r-wE-Ifa" customClass="UIUnderlinedButton">
+                                    <rect key="frame" x="107" y="0.0" width="106" height="32"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Work from Home">
@@ -338,8 +338,8 @@
                                         <action selector="setListState:" destination="qlc-xU-5my" eventType="touchUpInside" id="NMi-ZR-3ba"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5" customClass="BottomTiltedButton">
-                                    <rect key="frame" x="215" y="0.0" width="105" height="32"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-Qi-En5" customClass="UIUnderlinedButton">
+                                    <rect key="frame" x="214" y="0.0" width="106" height="32"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Out of Office">
@@ -453,6 +453,9 @@
                         <outlet property="searchDisplayController" destination="OJh-wR-n8b" id="OCx-Tz-rux"/>
                         <outlet property="tabButtonsContainer" destination="rAQ-BS-GmG" id="kqW-Vf-AMK"/>
                         <outlet property="workFromHomeButton" destination="U8r-wE-Ifa" id="7yx-ra-w3h"/>
+                        <outletCollection property="actionButtons" destination="bVI-EM-KMH" id="pgG-A8-0XD"/>
+                        <outletCollection property="actionButtons" destination="U8r-wE-Ifa" id="uEc-tE-RYT"/>
+                        <outletCollection property="actionButtons" destination="FUv-Qi-En5" id="XZ8-sm-4hu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gGo-2U-Xxz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1609,7 +1612,7 @@ Dominik Shuster</string>
         <image name="three115" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jFO-Dk-1lA"/>
+        <segue reference="set-Zf-g71"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.61176470588235299" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -276,7 +276,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWQ-cZ-gD2" customClass="BottomTiltedButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWQ-cZ-gD2" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="31"/>
                                     <animations/>
                                     <constraints>
@@ -291,7 +291,7 @@
                                         <action selector="setListState:" destination="Tdd-P7-N2o" eventType="touchUpInside" id="b8z-Cv-f8L"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62V-5i-uUz" customClass="BottomTiltedButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62V-5i-uUz" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="105" y="0.0" width="110" height="31"/>
                                     <animations/>
                                     <constraints>
@@ -306,7 +306,7 @@
                                         <action selector="setListState:" destination="Tdd-P7-N2o" eventType="touchUpInside" id="nMs-pn-wra"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E54-px-w6G" customClass="BottomTiltedButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E54-px-w6G" customClass="UIUnderlinedButton">
                                     <rect key="frame" x="215" y="0.0" width="105" height="31"/>
                                     <animations/>
                                     <constraints>
@@ -418,6 +418,9 @@
                         <outlet property="tabButtonWidthTwo" destination="E6T-au-yLm" id="vs5-vn-SRk"/>
                         <outlet property="tabButtonsContainer" destination="juy-ou-zc8" id="RDk-Eh-hdE"/>
                         <outlet property="workFromHomeButton" destination="62V-5i-uUz" id="AQ5-pM-L4b"/>
+                        <outletCollection property="actionButtons" destination="hWQ-cZ-gD2" id="AXu-YG-lGh"/>
+                        <outletCollection property="actionButtons" destination="62V-5i-uUz" id="YF5-H2-26i"/>
+                        <outletCollection property="actionButtons" destination="E54-px-w6G" id="RXV-c4-qMs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDp-rf-62b" userLabel="First Responder" sceneMemberID="firstResponder"/>
