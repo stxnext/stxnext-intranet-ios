@@ -49,6 +49,8 @@
 "Email app not found." = "Nie znaleziono aplikacji e-mail.";
 "Skype app not found." = "Nie znaleziono aplikacji Skype.";
 "IRC app not found." = "Nie znaleziono klienta IRC.";
+"No range" = "Brak zasięgu";
+"No cellular coverage." = "Nie można połączyć z siecią komórkową.";
 
 /* Karta Settings */
 "Settings" = "Ustawienia";

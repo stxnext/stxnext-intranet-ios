@@ -15,6 +15,8 @@
 #import "UIImageView+Additions.h"
 #import "UserDetailsTableViewCell.h"
 #import "UIImage+Color.h"
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -311,6 +313,11 @@
 
 - (void)phoneCall
 {
+    if(![self hasCellularCoverage]) {
+        UIAlertView *noRangeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No range", nil) message:NSLocalizedString(@"No cellular coverage.", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noRangeAlert show];
+        return;
+    }
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
@@ -322,6 +329,11 @@
 
 - (void)phoneDeskCall
 {
+    if(![self hasCellularCoverage]) {
+        UIAlertView *noRangeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No range", nil) message:NSLocalizedString(@"No cellular coverage.", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noRangeAlert show];
+        return;
+    }
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
@@ -352,6 +364,17 @@
         [UIAlertView alertWithTitle:NSLocalizedString(@"Error", nil)
                            withText:NSLocalizedString(@"Email app not found.", nil)];
     }
+}
+
+//based on stackoverflow solution @ http://stackoverflow.com/a/27922674
+- (BOOL)hasCellularCoverage {
+    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
+    CTCarrier *carrier = [networkInfo subscriberCellularProvider];
+    
+    if (!carrier.isoCountryCode) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)skypeCall
