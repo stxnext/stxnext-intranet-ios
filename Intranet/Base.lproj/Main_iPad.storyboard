@@ -944,6 +944,8 @@
                     <navigationItem key="navigationItem" id="hHS-Q6-Au1"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="superHeroLabel" destination="u66-qZ-xML" id="pR0-un-ZnF"/>
+                        <outlet property="superHeroSwitch" destination="qpm-P6-Qgf" id="omZ-OC-ur6"/>
                         <outlet property="versionLabel" destination="Lph-rL-xCh" id="NHq-Tx-ceZ"/>
                     </connections>
                 </tableViewController>
