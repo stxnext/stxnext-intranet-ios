@@ -141,17 +141,20 @@
         if (indexPath.row == 7) {
             SettingsTableViewController *settingsContr = [[UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil]instantiateViewControllerWithIdentifier:@"SettingsFormId"];
             
-            modalController = settingsContr;
+            UINavigationController *settingsNavigator = [[UINavigationController alloc] initWithRootViewController:settingsContr];
+            settingsNavigator.modalPresentationStyle = UIModalPresentationFormSheet;
+            [settingsNavigator.navigationBar setBackgroundImage:[UIImage imageWithColor:[Branding stxGreen]] forBarMetrics:UIBarMetricsDefault];
+            [settingsNavigator.navigationBar
+             setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            
+            [self presentViewController:settingsNavigator
+                               animated:YES completion:nil];
         }
         
         if (modalController) {
             modalController.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentViewController:modalController
-                               animated:YES completion:^{
-                                   
-                               }];
-        } else {
-            NSLog(@"nil view controller, not showing");
+                               animated:YES completion:nil];
         }
     }
 }

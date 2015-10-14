@@ -80,7 +80,7 @@ typedef enum
 - (void)setCellLabels
 {
     [self.OOOCellDate.textLabel setText:NSLocalizedString(@"Date", nil)];
-    [self.OOOCellFrom.textLabel setText:NSLocalizedString(@"Od", nil)];
+    [self.OOOCellFrom.textLabel setText:NSLocalizedString(@"From", nil)];
     [self.OOOCellTo.textLabel setText:NSLocalizedString(@"To", nil)];
     [self.OOOCellWorkFromHome.textLabel setText:NSLocalizedString(@"Work from home", nil)];
     [self.OOOCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];

@@ -42,6 +42,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if(INTERFACE_IS_PAD) {
+        UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+        [logoutButton setTintColor:[UIColor whiteColor]];
+        [self.navigationItem setRightBarButtonItem:logoutButton];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
