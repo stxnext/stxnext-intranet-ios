@@ -16,6 +16,7 @@
 #import "UserDetailsTableViewCell.h"
 #import "UIImage+Color.h"
 #import "CellularRangeDetector.h"
+#import "UserWorkedHours.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -177,31 +178,57 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([self isHoursIndex:indexPath]) return 120;
-    if([self isHeaderIndex:indexPath]) return 44;
+    if([self isHeaderIndex:indexPath]) return 44.0f;
     return 32;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellIdentifier = @"userDetailsCell";
-    if([self isHoursIndex:indexPath]) cellIdentifier = @"userHoursCell";
     if([self isHeaderIndex:indexPath]) cellIdentifier = @"userInfoCell";
+    UserWorkedHours *workedHours = [UserWorkedHours sharedHours];
 
     UserDetailsTableViewCell *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!myCell) myCell = [[UserDetailsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    if([self isHoursIndex:indexPath])
-    {
-        return myCell;
-    }
     if([self isHeaderIndex:indexPath])
     {
+        if([self isInHoursSection:indexPath])
+        {
+            [myCell.header setText:NSLocalizedString(@"Worked hours", nil)];
+            if(workedHours.getTodaysArrival) [myCell.details setText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Today from", nil), workedHours.getTodaysArrival]];
+            return myCell;
+        }
         [myCell.header setText:self.user.name];
         [myCell.details setText:[[self.user.roles componentsJoinedByString:@", "] uppercaseString]];
     }
     else
     {
+        if([self isInHoursSection:indexPath])
+        {
+            NSNumber *diff = [NSNumber numberWithFloat:0.1];
+            switch (indexPath.row) {
+                case 1:
+                    [myCell.header setText:NSLocalizedString(@"Today", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getTodaysSum, workedHours.getTodaysDiff]];
+                    diff = workedHours.getTodaysDiff;
+                    break;
+                case 2:
+                    [myCell.header setText:NSLocalizedString(@"Month", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getMonthSum, workedHours.getMonthDiff]];
+                    diff = workedHours.getMonthDiff;
+                    break;
+                case 3:
+                    [myCell.header setText:NSLocalizedString(@"Quarter", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getQuarterSum, workedHours.getQuarterDiff]];
+                    diff = workedHours.getQuarterDiff;
+                    break;
+                default:
+                    break;
+            }
+            if([diff floatValue] <= 0) [myCell.details setTextColor:[UIColor redColor]];
+            return myCell;
+        }
         NSString *currentKey = [detailsOrder objectAtIndex:indexPath.row - 1];
         [myCell.header setText:[NSString stringWithFormat:@"%@",currentKey]];
         [myCell.details setText:[userDetails objectForKey:currentKey]];
@@ -217,20 +244,20 @@
     return myCell;
 }
 
-- (BOOL)isHoursIndex:(NSIndexPath *)indexPath {
-    if ([self isMeTab] && indexPath.section == 0 && indexPath.row == 0) return YES;
-    return NO;
+- (BOOL)isInHoursSection:(NSIndexPath *)indexPath
+{
+    return (indexPath.section == 0 && [self isMeTab]);
 }
 
 - (BOOL)isHeaderIndex:(NSIndexPath *)indexPath
 {
-    if ((![self isMeTab] && indexPath.row == 0 && indexPath.section == 0) || ([self isMeTab] && indexPath.row == 0 && indexPath.section == 1)) return YES;
+    if (indexPath.row == 0) return YES;
     return NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([self isMeTab] && section == 0) return 1;
+    if([self isMeTab] && section == 0) return 4;
     [self prepareUserDetails];
     return [[userDetails allKeys] count] + 1;
 }

@@ -105,6 +105,7 @@
 		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; settings = {ASSET_TAGS = (); }; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
+		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -272,6 +273,8 @@
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
 		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
+		D1C7FB3D1BD665EA0068A5B5 /* UserWorkedHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorkedHours.h; sourceTree = "<group>"; };
+		D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorkedHours.m; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -598,6 +601,8 @@
 			children = (
 				D119D29F1B945E1B009826BB /* OfficeAnnotation.h */,
 				D119D2A01B945E1B009826BB /* OfficeAnnotation.m */,
+				D1C7FB3D1BD665EA0068A5B5 /* UserWorkedHours.h */,
+				D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -823,6 +828,7 @@
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */,
 				D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */,
+				D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */,
 				0C7E16E51833A11400BD2AB4 /* UserDetailsSegue.m in Sources */,
 				D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */,
 				D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */,

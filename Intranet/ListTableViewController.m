@@ -7,6 +7,7 @@
 //
 
 #import "ListTableViewController.h"
+#import "UserWorkedHours.h"
 
 @interface ListTableViewController ()
 
@@ -218,6 +219,17 @@
                                       }];
 }
 
+//this operation is fully optional so we will continue even if it doesn't succeed...
+- (void)requestHoursData:(void (^)(NSDictionary *users))resultAction
+{
+    NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
+    [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        resultAction(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        resultAction(nil);
+    }];
+}
+
 - (void)loadUsersFromAPI:(SimpleBlock)finalAction
 {
     if (isUpdating)
@@ -245,6 +257,16 @@
     NSMutableDictionary *downloadedData = [NSMutableDictionary new];
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.suspended = YES;
+    
+    __block ControllableBlock *getHours = [ControllableBlock blockOperationWithBlock:^{
+        NSLog(@"Block - Get hours");
+        [self requestHoursData:^(NSDictionary *users) {
+            if(users) {
+                [[UserWorkedHours sharedHours] setHoursFromDictionary:users];
+            }
+            [getHours informIsFinished];
+        }];
+    }];
     
     __block ControllableBlock *getUsers = [ControllableBlock blockOperationWithBlock:^{
         NSLog(@"Block - Get users");
@@ -278,7 +300,7 @@
     [processData addDependency:getUsers];
     [processData addDependency:getAbsencesAndLates];
     
-    [queue addOperations:@[getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
+    [queue addOperations:@[getHours, getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
     queue.suspended = NO;
 }
 

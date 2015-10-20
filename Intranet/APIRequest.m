@@ -136,4 +136,12 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/worked_hours?user_id=%@", userId] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
 @end

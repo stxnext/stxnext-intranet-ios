@@ -22,4 +22,5 @@
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)getFreeDays;
++ (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId;
 @end
