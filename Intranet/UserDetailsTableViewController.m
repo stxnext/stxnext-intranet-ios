@@ -57,6 +57,7 @@
     if ([self isMeTab] && !self.user.name) self.user = [RMUser me];
     if(self.user.avatarURL) [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
     [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
+    [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor clearColor]];
 
     [self updateGUI];
     
@@ -176,18 +177,24 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0) return 44;
+    if([self isHoursIndex:indexPath]) return 120;
+    if([self isHeaderIndex:indexPath]) return 44;
     return 32;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellIdentifier = @"userDetailsCell";
+    if([self isHoursIndex:indexPath]) cellIdentifier = @"userHoursCell";
     if([self isHeaderIndex:indexPath]) cellIdentifier = @"userInfoCell";
 
     UserDetailsTableViewCell *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!myCell) myCell = [[UserDetailsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
+    if([self isHoursIndex:indexPath])
+    {
+        return myCell;
+    }
     if([self isHeaderIndex:indexPath])
     {
         [myCell.header setText:self.user.name];
@@ -210,15 +217,34 @@
     return myCell;
 }
 
+- (BOOL)isHoursIndex:(NSIndexPath *)indexPath {
+    if ([self isMeTab] && indexPath.section == 0 && indexPath.row == 0) return YES;
+    return NO;
+}
+
 - (BOOL)isHeaderIndex:(NSIndexPath *)indexPath
 {
-    return (indexPath.row == 0);
+    if ((![self isMeTab] && indexPath.row == 0 && indexPath.section == 0) || ([self isMeTab] && indexPath.row == 0 && indexPath.section == 1)) return YES;
+    return NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if([self isMeTab] && section == 0) return 1;
     [self prepareUserDetails];
     return [[userDetails allKeys] count] + 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if([self isMeTab]) return 2;
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(section == 0) return 12.0f;
+    return 20.0f;
 }
 
 #pragma mark - GUI

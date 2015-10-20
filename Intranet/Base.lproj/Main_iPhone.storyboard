@@ -40,7 +40,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="rtU-BV-SgC">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="QYN-4S-AJj">
@@ -52,7 +52,7 @@
                                     <animations/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Et1-gY-1Ak" userLabel="Action button">
-                                    <rect key="frame" x="277" y="97" width="32" height="32"/>
+                                    <rect key="frame" x="277" y="96" width="32" height="32"/>
                                     <animations/>
                                     <color key="tintColor" red="0.81960784310000001" green="0.27058823529999998" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" image="add54"/>
@@ -65,8 +65,43 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userHoursCell" rowHeight="120" id="PK0-3h-c75" customClass="UserDetailsTableViewCell">
+                                <rect key="frame" x="0.0" y="150" width="320" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PK0-3h-c75" id="6iB-3R-PcF">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZgZ-Bc-PCX">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stan na dzień 10.12.2014" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-Zn-Mbh" userLabel="Role">
+                                                    <rect key="frame" x="16" y="24" width="288" height="12"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="10"/>
+                                                    <color key="textColor" red="0.58431372550000005" green="0.58431372550000005" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Przepracowane godziny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ju7-VO-Bwk" userLabel="Name">
+                                                    <rect key="frame" x="16" y="10" width="288" height="16"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userInfoCell" id="foe-LP-hIe" customClass="UserDetailsTableViewCell">
-                                <rect key="frame" x="0.0" y="162" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="270" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="foe-LP-hIe" id="ai1-el-jZE">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -96,7 +131,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userDetailsCell" rowHeight="32" id="wGO-fV-eQ7" customClass="UserDetailsTableViewCell">
-                                <rect key="frame" x="0.0" y="206" width="320" height="32"/>
+                                <rect key="frame" x="0.0" y="314" width="320" height="32"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wGO-fV-eQ7" id="Lgf-kJ-WrD">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
