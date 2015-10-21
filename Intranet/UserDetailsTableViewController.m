@@ -29,6 +29,7 @@
     BOOL isPageLoaded;
     NSDictionary *userDetails;
     NSArray *detailsOrder;
+    UIRefreshControl *refresh;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
@@ -71,6 +72,14 @@
         img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, 3, 0, 3)];
         self.profileBackground.image = img;
     }
+    
+    if ([self isMeTab]) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
+        self.refreshControl.backgroundColor = [Branding stxLightGray];
+        self.refreshControl.tintColor = [Branding stxGreen];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [Branding stxGreen]}];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,6 +117,20 @@
         userDetails = nil;
         detailsOrder = nil;
     }
+}
+
+- (void)requestUserHours
+{
+    NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
+    [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kUSERHOURS];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[UserWorkedHours sharedHours] setHoursFromDictionary:responseObject];
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.refreshControl endRefreshing];
+    }];
 }
 
 //check what kind of user data is available (not nil) and prepare a dictionary containing only these data which should be displayed on user page... additionally create an array of dictionary keys to maintain proper order of tableview cells (it is necessary since [userDetails allKeys] also returns keys in an array, but not in order)

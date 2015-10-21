@@ -224,6 +224,9 @@
 {
     NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
     [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //save the data to userdefaults, no need to use core data for storing one record...
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kUSERHOURS];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         resultAction(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         resultAction(nil);
@@ -245,6 +248,7 @@
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
+        [self setCachedHours];
         
         finalAction();
         
@@ -264,6 +268,7 @@
             if(users) {
                 [[UserWorkedHours sharedHours] setHoursFromDictionary:users];
             }
+            else [self setCachedHours];
             [getHours informIsFinished];
         }];
     }];
@@ -302,6 +307,11 @@
     
     [queue addOperations:@[getHours, getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
     queue.suspended = NO;
+}
+
+- (void)setCachedHours {
+    NSDictionary *cachedHours = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kUSERHOURS];
+    if(cachedHours) [[UserWorkedHours sharedHours] setHoursFromDictionary:cachedHours];
 }
 
 - (void)reloadLates:(SimpleBlock)finalAction
@@ -423,7 +433,9 @@
     if (self.refreshControl == nil)
     {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil)];
+        refreshControl.backgroundColor = [Branding stxLightGray];
+        refreshControl.tintColor = [Branding stxGreen];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [Branding stxGreen]}];
         [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
         
 //        _refreshControl = refreshControl;

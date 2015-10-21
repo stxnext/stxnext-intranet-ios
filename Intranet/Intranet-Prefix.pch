@@ -96,5 +96,6 @@
 #define DID_LOGOUT @"didLogout"
 
 #define kHEROMODE @"SuperHeroMode"
+#define kUSERHOURS @"UserHours"
 
 typedef dispatch_block_t SimpleBlock;

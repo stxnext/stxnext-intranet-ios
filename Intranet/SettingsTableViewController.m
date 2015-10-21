@@ -121,6 +121,10 @@
                                               {
                                                   [[HTTPClient sharedClient] deleteCookies];
                                                   
+                                                  [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHEROMODE];
+                                                  [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUSERHOURS];
+                                                  [[NSUserDefaults standardUserDefaults] synchronize];
+                                                  
                                                   // delete all cookies (to remove Google login cookies)
                                                   
                                                   NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
