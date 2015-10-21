@@ -43,6 +43,12 @@
     [self prepareUI];
     [self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
     [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
+    
+    NSDate *timeReminder = [[NSUserDefaults standardUserDefaults] objectForKey:kTIMEREMINDER];
+    if(timeReminder) {
+        [self.notificationSwitch setOn:YES];
+        [self setNotificationLabelFromTime:timeReminder];
+    }
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -95,22 +101,47 @@
         [self setEmptyNotificationTime];
         return;
     }
-    [ActionSheetDatePicker showPickerWithTitle:NSLocalizedString(@"Notification time", nil) datePickerMode:UIDatePickerModeTime selectedDate:[self get5pm] doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
-        [[NSUserDefaults standardUserDefaults] setObject:selectedDate forKey:kTIMEREMINDER];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    [ActionSheetDatePicker showPickerWithTitle:NSLocalizedString(@"Notification time", nil) datePickerMode:UIDatePickerModeTime selectedDate:[self getDefaultNotificationTime] doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+        [self setNotificationFromTime:selectedDate];
+        [self setNotificationLabelFromTime:selectedDate];
     } cancelBlock:^(ActionSheetDatePicker *picker) {
         [self setEmptyNotificationTime];
     } origin:(UIView *)sender];
 }
 
 - (void)setEmptyNotificationTime {
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTIMEREMINDER];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
     [self.notificationSwitch setOn:NO];
 }
 
-- (NSDate *)get5pm {
+- (void)setNotificationFromTime:(NSDate *)date {
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = date;
+    localNotification.alertBody = NSLocalizedString(@"Remember to note your working hours in the Intranet!", nil);
+    localNotification.timeZone = [NSTimeZone localTimeZone];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    localNotification.repeatInterval = NSCalendarUnitDay;
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:date forKey:kTIMEREMINDER];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setNotificationLabelFromTime:(NSDate *)date
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    
+    NSString *notificationLabelText = [NSString stringWithFormat:@"%@ (%.2ld:%.2ld)", NSLocalizedString(@"Remind me to note my time", nil), (long)hour, (long)minute];
+    [self.notificationLabel setText:notificationLabelText];
+}
+
+- (NSDate *)getDefaultNotificationTime {
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setMinute:0];
     [components setHour:17];
