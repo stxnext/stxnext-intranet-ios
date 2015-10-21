@@ -15,6 +15,7 @@
 "Loading" = "Ładowanie";
 "Refresh" = "Ładowanie";
 "Submit" = "Wyślij";
+"Reminder" = "Przypomnienie";
 
 "New request" = "Nowy wniosek";
 "Loading error." = "Problem z ładowaniem";
@@ -90,6 +91,11 @@
 "Remarks" = "Uwagi";
 "Please leave your explanation below." = "Proszę wpisać wyjaśnienie poniżej.";
 "Please leave information about your availability via email or phone." = "Proszę o wpisanie, czy będzie się dostępnym pod telefonem i czy będzie się miało dostęp do Internetu.";
+
+/* Notowanie czasu */
+"Notification time" = "Czas przypomnienia";
+"Remember to note your working hours in the Intranet!" = "Pamiętaj by zanotować swój czas pracy w Intranecie!";
+"Remind me to note my time" = "Przypomnij o zanotowaniu czasu";
 
 /* Inne */
 "No Internet connection." = "Brak dostępu do Internetu.";

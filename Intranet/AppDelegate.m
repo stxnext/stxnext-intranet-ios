@@ -44,6 +44,9 @@
         statusBarSubview.backgroundColor = [Branding stxDarkGreen];
         [self.window.rootViewController.view addSubview:statusBarSubview];
         
+        // UIBarButtonItem
+        UIBarButtonItem *barButtonAppearance = [UIBarButtonItem appearance];
+        [barButtonAppearance setTintColor:[Branding stxGreen]];
         
         // Tab bar item
         [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -2)];
