@@ -729,8 +729,44 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="56" id="PUc-Hl-zHX">
+                                        <rect key="frame" x="0.0" y="56" width="320" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PUc-Hl-zHX" id="h0g-LV-9pb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjb-1y-GxN">
+                                                    <rect key="frame" x="10" y="8" width="300" height="41"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Przypomnij o wpisaniu godzin (17:00)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhc-lN-g0s">
+                                                            <rect key="frame" x="10" y="10" width="229" height="21"/>
+                                                            <animations/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="14"/>
+                                                            <color key="textColor" red="0.08235294118" green="0.35294117650000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="THp-mG-7Pq">
+                                                            <rect key="frame" x="243" y="5" width="51" height="31"/>
+                                                            <animations/>
+                                                            <color key="onTintColor" red="0.1764705882" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <connections>
+                                                                <action selector="toggleNotifications:" destination="8z8-Nr-v4b" eventType="valueChanged" id="d0W-Lj-eSf"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="54" id="GPG-Qv-AW4">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="54"/>
+                                        <rect key="frame" x="0.0" y="112" width="320" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GPG-Qv-AW4" id="d4q-ge-qp0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
@@ -762,7 +798,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="185" id="b63-Qt-Yij">
-                                        <rect key="frame" x="0.0" y="110" width="320" height="185"/>
+                                        <rect key="frame" x="0.0" y="166" width="320" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b63-Qt-Yij" id="zH7-Fy-Pft">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
@@ -886,7 +922,7 @@ Dominik Shuster</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="6Eg-bH-E4l">
-                                        <rect key="frame" x="0.0" y="295" width="320" height="64"/>
+                                        <rect key="frame" x="0.0" y="351" width="320" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Eg-bH-E4l" id="f68-um-dDF">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -929,6 +965,8 @@ Dominik Shuster</string>
                         <outlet property="developmentHeader" destination="9kx-lA-prG" id="K2i-Oq-vHQ"/>
                         <outlet property="developmentLabel" destination="84u-HP-tnR" id="hhK-Se-qM8"/>
                         <outlet property="logoutLabel" destination="jXN-MS-Yz8" id="qAw-da-Lif"/>
+                        <outlet property="notificationLabel" destination="rhc-lN-g0s" id="0VL-Na-UvI"/>
+                        <outlet property="notificationSwitch" destination="THp-mG-7Pq" id="PYj-Kl-QBs"/>
                         <outlet property="superHeroLabel" destination="7LP-wS-db9" id="JXE-tl-Dd3"/>
                         <outlet property="superHeroSwitch" destination="jbx-1M-JaU" id="tPI-37-adS"/>
                         <outlet property="versionLabel" destination="jqf-co-SiT" id="PIk-8L-ZMd"/>

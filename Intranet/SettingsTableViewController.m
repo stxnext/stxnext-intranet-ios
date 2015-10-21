@@ -10,11 +10,16 @@
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "AppDelegate+Navigation.h"
 #import "APIRequest.h"
+#import "ActionSheetPicker.h"
 
 @interface SettingsTableViewController ()
 //super hero cell
 @property (weak, nonatomic) IBOutlet UILabel *superHeroLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *superHeroSwitch;
+
+//notifications cell
+@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *notificationSwitch;
 
 //logout cell
 @property (weak, nonatomic) IBOutlet UIButton *logoutLabel;
@@ -37,6 +42,8 @@
     [super viewDidLoad];
     [self prepareUI];
     [self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
+    [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -62,7 +69,10 @@
     
     [self.view setBackgroundColor:[Branding stxLightGray]];
     [self.superHeroLabel setText:NSLocalizedString(@"I am a SuperHero!", nil)];
-    if(iOS8_PLUS) [self.superHeroSwitch setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
+    if(iOS8_PLUS) {
+        [self.superHeroSwitch setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
+        [self.notificationSwitch setTransform:CGAffineTransformMakeScale(0.75, 0.75)];
+    }
     
     [self.versionLabel setText:[NSString stringWithFormat:@"STX Intranet %@\nSTX Next Mobile Team 2015",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
     [self.logoutLabel setTitle:[NSLocalizedString(@"Logout", nil) uppercaseString] forState:UIControlStateNormal];
@@ -78,6 +88,34 @@
 - (IBAction)toggleHeroMode:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:self.superHeroSwitch.isOn forKey:kHEROMODE];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (IBAction)toggleNotifications:(id)sender {
+    if(!self.notificationSwitch.isOn) {
+        [self setEmptyNotificationTime];
+        return;
+    }
+    [ActionSheetDatePicker showPickerWithTitle:NSLocalizedString(@"Notification time", nil) datePickerMode:UIDatePickerModeTime selectedDate:[self get5pm] doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedDate forKey:kTIMEREMINDER];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } cancelBlock:^(ActionSheetDatePicker *picker) {
+        [self setEmptyNotificationTime];
+    } origin:(UIView *)sender];
+}
+
+- (void)setEmptyNotificationTime {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTIMEREMINDER];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
+    [self.notificationSwitch setOn:NO];
+}
+
+- (NSDate *)get5pm {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setMinute:0];
+    [components setHour:17];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:[NSCalendar currentCalendar].calendarIdentifier];
+    return [calendar dateFromComponents:components];
 }
 
 - (IBAction)logout:(id)sender {

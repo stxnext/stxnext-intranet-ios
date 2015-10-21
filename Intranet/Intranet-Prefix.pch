@@ -97,5 +97,6 @@
 
 #define kHEROMODE @"SuperHeroMode"
 #define kUSERHOURS @"UserHours"
+#define kTIMEREMINDER @"TimeReminder"
 
 typedef dispatch_block_t SimpleBlock;
