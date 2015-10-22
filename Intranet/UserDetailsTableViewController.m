@@ -77,8 +77,8 @@
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
         self.refreshControl.backgroundColor = [Branding stxLightGray];
-        self.refreshControl.tintColor = [Branding stxGreen];
-        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [Branding stxGreen]}];
+        self.refreshControl.tintColor = [UIColor darkGrayColor];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
     }
 }
 

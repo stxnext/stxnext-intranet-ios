@@ -49,6 +49,11 @@
         [self.notificationSwitch setOn:YES];
         [self setNotificationLabelFromTime:timeReminder];
     }
+    
+    [self checkNotificationSwitch];
+    [[NSNotificationCenter defaultCenter] addObserverForName:DID_BECOME_ACTIVE object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self checkNotificationSwitch];
+    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -91,6 +96,15 @@
 
 #pragma mark actions
 
+- (void)checkNotificationSwitch {
+    UIUserNotificationSettings *notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    if (notificationSettings.types == UIUserNotificationTypeNone) {
+        [self.notificationSwitch setEnabled:NO];
+        [self setEmptyNotificationTime];
+    }
+    else [self.notificationSwitch setEnabled:YES];
+}
+
 - (IBAction)toggleHeroMode:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:self.superHeroSwitch.isOn forKey:kHEROMODE];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -114,7 +128,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTIMEREMINDER];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
-    [self.notificationSwitch setOn:NO];
+    [self.notificationSwitch setOn:NO animated:YES];
 }
 
 - (void)setNotificationFromTime:(NSDate *)date {
