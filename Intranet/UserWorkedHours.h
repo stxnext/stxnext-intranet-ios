@@ -24,5 +24,6 @@
 
 - (NSNumber *)getQuarterDiff;
 - (NSNumber *)getQuarterSum;
+- (BOOL)hasHours;
 
 @end

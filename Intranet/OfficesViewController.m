@@ -110,7 +110,6 @@
     currentOffice = locationIndex;
     
     if(self.locationsSegment) [self.locationsSegment setSelectedSegmentIndex:locationIndex];
-    NSLog(@"x");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -188,7 +187,6 @@
 - (IBAction)segmentSelected:(id)sender {
     UISegmentedControl *segment = (UISegmentedControl *)sender;
     [self setLocation:segment.selectedSegmentIndex withAnimation:YES];
-    NSLog(@"y");
 }
 
 #pragma mark mapkit

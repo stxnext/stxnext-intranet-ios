@@ -62,7 +62,6 @@
     [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor clearColor]];
 
     [self updateGUI];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearData) name:DID_LOGOUT object:nil];
@@ -74,6 +73,7 @@
     }
     
     if ([self isMeTab]) {
+        if(![self hoursPrepared]) [self requestUserHours];
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
         self.refreshControl.backgroundColor = [Branding stxLightGray];
@@ -117,6 +117,12 @@
         userDetails = nil;
         detailsOrder = nil;
     }
+}
+
+- (BOOL)hoursPrepared
+{
+    if(![UserWorkedHours sharedHours] || ![[UserWorkedHours sharedHours] hasHours]) return NO;
+    return YES;
 }
 
 - (void)requestUserHours
@@ -463,11 +469,10 @@
 {
     UIImage *removeImage = [UIImage imageNamed:@"forbidden27"];
     UIImage *addImage = [UIImage imageNamed:@"add54"];
-    UIImage *lateImage = [UIImage imageNamed:@"clock55"];
     
     if([self isMeTab])
     {
-        [self.actionButton setImage:lateImage forState:UIControlStateNormal];
+        [self.actionButton setImage:addImage forState:UIControlStateNormal];
         return;
     }
     

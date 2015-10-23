@@ -64,10 +64,6 @@
     self.hasHours = YES;
 }
 
-- (BOOL)hasHours {
-    return self.hasHours;
-}
-
 - (NSNumber *)getTodaysArrival {
     return self.todayArrival;
 }
