@@ -45,7 +45,7 @@
 		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
 		2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2791D7C31833B82F0073C9DC /* AddressBookManager.m */; };
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
-		5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48042D1CDD9C791E0E68610E /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48042D1CDD9C791E0E68610E /* Pods.framework */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
@@ -101,11 +101,11 @@
 		D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D14AC9041B98622F008FFD58 /* UIImage+Color.m */; };
 		D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */; };
 		D17300B41BA80BA80049AD8D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D17300B61BA80BA80049AD8D /* Localizable.strings */; };
-		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; settings = {ASSET_TAGS = (); }; };
-		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; settings = {ASSET_TAGS = (); }; };
+		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; };
+		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
-		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; settings = {ASSET_TAGS = (); }; };
+		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

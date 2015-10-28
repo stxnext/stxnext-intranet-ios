@@ -74,11 +74,11 @@
     
     if ([self isMeTab]) {
         if(![self hoursPrepared]) [self requestUserHours];
-        self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
         self.refreshControl.backgroundColor = [Branding stxLightGray];
         self.refreshControl.tintColor = [UIColor darkGrayColor];
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+        [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:NO];
     }
 }
 

@@ -24,13 +24,6 @@
 //logout cell
 @property (weak, nonatomic) IBOutlet UIButton *logoutLabel;
 
-//credits cell
-@property (weak, nonatomic) IBOutlet UILabel *creditsHeader;
-@property (weak, nonatomic) IBOutlet UILabel *developmentHeader;
-@property (weak, nonatomic) IBOutlet UILabel *developmentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *designHeader;
-@property (weak, nonatomic) IBOutlet UILabel *designLabel;
-
 //version cell
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
@@ -54,6 +47,8 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:DID_BECOME_ACTIVE object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [self checkNotificationSwitch];
     }];
+    
+    [[UITableViewHeaderFooterView appearance] setTintColor:[Branding stxLightGray]];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -242,6 +237,10 @@
                                               }
                                           }];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 8.0f;
 }
 
 /*
