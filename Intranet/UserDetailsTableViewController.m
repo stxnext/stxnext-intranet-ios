@@ -784,7 +784,7 @@
             [self presentViewController:nvc animated:YES completion:nil];
             
             AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
-            form.currentRequest = (int)(buttonIndex - 1);
+            form.currentRequest = (int)(buttonIndex - 2);
             form.delegate = self;
         }
     }
