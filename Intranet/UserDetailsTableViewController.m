@@ -730,7 +730,7 @@
                                                                      delegate:self
                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                        destructiveButtonTitle:nil
-                                                            otherButtonTitles:NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
+                                                            otherButtonTitles:NSLocalizedString(@"Add hours",nil),NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
         }
@@ -743,12 +743,21 @@
     {
         if (INTERFACE_IS_PHONE)
         {
+            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddTimeEntryFormViewController"];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }
+    else if (buttonIndex == 1)
+    {
+        if (INTERFACE_IS_PHONE)
+        {
             UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LatenessFormViewControllerId"];
             
             [self presentViewController:nvc animated:YES completion:nil];
         }
     }
-    else if (buttonIndex < 3)
+    else if (buttonIndex < 4)
     {
         if (INTERFACE_IS_PHONE)
         {
