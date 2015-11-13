@@ -10,8 +10,8 @@
 
 @implementation NSString (IsNilOrEmpty)
 
-- (BOOL)isNilOrEmpty {
-    if(!self || [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
++ (BOOL)isNilOrEmpty:(NSString *)string {
+    if(!string || [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         return YES;
     }
     return NO;

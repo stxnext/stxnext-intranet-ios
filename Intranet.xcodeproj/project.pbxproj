@@ -108,7 +108,20 @@
 		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; };
 		D1EA9F421BF5FB7E00879662 /* AddHoursTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */; };
 		D1EA9F451BF6145200879662 /* NSString+IsNilOrEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */; };
+		D1EA9F501BF6382600879662 /* IntranetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F4F1BF6382600879662 /* IntranetTests.m */; };
+		D1EA9F581BF6384300879662 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F571BF6384300879662 /* StringTests.m */; };
+		D1EA9F591BF6386100879662 /* NSString+IsNilOrEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1EA9F521BF6382600879662 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CE37C41181E8ED10087C96E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CE37C48181E8ED10087C96E;
+			remoteInfo = Intranet;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0C10C4A4181E949000439D24 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -281,6 +294,10 @@
 		D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddHoursTableViewController.m; sourceTree = "<group>"; };
 		D1EA9F431BF6145200879662 /* NSString+IsNilOrEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IsNilOrEmpty.h"; sourceTree = "<group>"; };
 		D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IsNilOrEmpty.m"; sourceTree = "<group>"; };
+		D1EA9F4D1BF6382600879662 /* IntranetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntranetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1EA9F4F1BF6382600879662 /* IntranetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntranetTests.m; sourceTree = "<group>"; };
+		D1EA9F511BF6382600879662 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1EA9F571BF6384300879662 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -299,6 +316,13 @@
 				0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */,
 				0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */,
 				5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1EA9F4A1BF6382600879662 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +393,7 @@
 		0CE37C40181E8ED10087C96E = {
 			isa = PBXGroup;
 			children = (
+				D1EA9F4E1BF6382600879662 /* IntranetTests */,
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
 				0CE37C4A181E8ED10087C96E /* Products */,
@@ -380,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				0CE37C49181E8ED10087C96E /* STX Intranet.app */,
+				D1EA9F4D1BF6382600879662 /* IntranetTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -625,6 +651,16 @@
 			name = Translations;
 			sourceTree = "<group>";
 		};
+		D1EA9F4E1BF6382600879662 /* IntranetTests */ = {
+			isa = PBXGroup;
+			children = (
+				D1EA9F4F1BF6382600879662 /* IntranetTests.m */,
+				D1EA9F511BF6382600879662 /* Info.plist */,
+				D1EA9F571BF6384300879662 /* StringTests.m */,
+			);
+			path = IntranetTests;
+			sourceTree = "<group>";
+		};
 		F2BF403691DD390509BE4A42 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +693,24 @@
 			productReference = 0CE37C49181E8ED10087C96E /* STX Intranet.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D1EA9F4C1BF6382600879662 /* IntranetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1EA9F541BF6382600879662 /* Build configuration list for PBXNativeTarget "IntranetTests" */;
+			buildPhases = (
+				D1EA9F491BF6382600879662 /* Sources */,
+				D1EA9F4A1BF6382600879662 /* Frameworks */,
+				D1EA9F4B1BF6382600879662 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1EA9F531BF6382600879662 /* PBXTargetDependency */,
+			);
+			name = IntranetTests;
+			productName = IntranetTests;
+			productReference = D1EA9F4D1BF6382600879662 /* IntranetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -668,6 +722,10 @@
 				TargetAttributes = {
 					0CE37C48181E8ED10087C96E = {
 						DevelopmentTeam = B7EKJ66X5Q;
+					};
+					D1EA9F4C1BF6382600879662 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 0CE37C48181E8ED10087C96E;
 					};
 				};
 			};
@@ -686,6 +744,7 @@
 			projectRoot = "";
 			targets = (
 				0CE37C48181E8ED10087C96E /* Intranet */,
+				D1EA9F4C1BF6382600879662 /* IntranetTests */,
 			);
 		};
 /* End PBXProject section */
@@ -722,6 +781,13 @@
 				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
 				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
 				661AE46218C48CF400B7A4F5 /* Lato-Thin.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1EA9F4B1BF6382600879662 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +913,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D1EA9F491BF6382600879662 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1EA9F581BF6384300879662 /* StringTests.m in Sources */,
+				D1EA9F591BF6386100879662 /* NSString+IsNilOrEmpty.m in Sources */,
+				D1EA9F501BF6382600879662 /* IntranetTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1EA9F531BF6382600879662 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CE37C48181E8ED10087C96E /* Intranet */;
+			targetProxy = D1EA9F521BF6382600879662 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0CE37C5E181E8ED10087C96E /* Main_iPhone.storyboard */ = {
@@ -997,6 +1081,47 @@
 			};
 			name = Release;
 		};
+		D1EA9F551BF6382600879662 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = IntranetTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stxnext.ios.IntranetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/STX Intranet.app/STX Intranet";
+			};
+			name = Debug;
+		};
+		D1EA9F561BF6382600879662 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = IntranetTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stxnext.ios.IntranetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/STX Intranet.app/STX Intranet";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1017,6 +1142,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D1EA9F541BF6382600879662 /* Build configuration list for PBXNativeTarget "IntranetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1EA9F551BF6382600879662 /* Debug */,
+				D1EA9F561BF6382600879662 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

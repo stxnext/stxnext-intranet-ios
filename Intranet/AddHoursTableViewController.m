@@ -85,7 +85,7 @@
 }
 
 - (void)checkFormStatus {
-    if(!selectedProject || [self.ticketDuration.text isNilOrEmpty] || [self.ticketDescription.text isNilOrEmpty]) [self.submitButton setEnabled:NO];
+    if(!selectedProject || [NSString isNilOrEmpty:self.ticketDuration.text] || [NSString isNilOrEmpty:self.ticketDescription.text]) [self.submitButton setEnabled:NO];
     else [self.submitButton setEnabled:YES];
 }
 
@@ -102,7 +102,7 @@
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{ @"project_id" : [selectedProject objectForKey:@"id"], @"time" : [[NSString stringWithFormat:@"%0.2f",[[[NSNumberFormatter new] numberFromString:self.ticketDuration.text] floatValue]] stringByReplacingOccurrencesOfString:decimalSeparator withString:@"."], @"description" : self.ticketDescription.text, @"date" : dateString}];
-    if(![self.ticketIdentifier.text isNilOrEmpty]) [parameters setObject:self.ticketIdentifier.text forKey:@"ticket_id"];
+    if([NSString isNilOrEmpty:self.ticketIdentifier.text]) [parameters setObject:self.ticketIdentifier.text forKey:@"ticket_id"];
     
     [[HTTPClient sharedClient] startOperation:[APIRequest addHours:[parameters copy]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
