@@ -19,8 +19,10 @@
 + (AFHTTPRequestOperation *)user;
 + (AFHTTPRequestOperation *)currentUser;
 
++ (AFHTTPRequestOperation *)addHours:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)getFreeDays;
 + (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId;
++ (AFHTTPRequestOperation *)getProjectsList;
 @end

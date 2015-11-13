@@ -7,6 +7,7 @@
 //
 
 #import "UserDetailsTableViewController.h"
+#import "AddHoursTableViewController.h"
 #import "RMUser+AddressBook.h"
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "APIRequest.h"
@@ -17,6 +18,7 @@
 #import "UIImage+Color.h"
 #import "CellularRangeDetector.h"
 #import "UserWorkedHours.h"
+#import "MBProgressHUD.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -741,12 +743,28 @@
 {
     if (buttonIndex == 0)
     {
-        if (INTERFACE_IS_PHONE)
-        {
-            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddTimeEntryFormViewController"];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Requesting projects list", nil);
+        
+        [[HTTPClient sharedClient] startOperation:[APIRequest getProjectsList] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
-            [self presentViewController:nvc animated:YES completion:nil];
-        }
+            if (INTERFACE_IS_PHONE)
+            {
+                UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddTimeEntryFormViewController"];
+                AddHoursTableViewController *hoursVc = (AddHoursTableViewController *)nvc.topViewController;
+                hoursVc.projectsList = [responseObject objectForKey:@"projects"];
+                if(hoursVc.projectsList) [self presentViewController:nvc animated:YES completion:nil];
+                else {
+                    UIAlertView *failureAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Request failed", nil) message:NSLocalizedString(@"Couldn't parse projects list", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [failureAlert show];
+                }
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            UIAlertView *failureAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Request failed", nil) message:NSLocalizedString(@"Couldn't obtain projects list", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [failureAlert show];
+        }];
     }
     else if (buttonIndex == 1)
     {

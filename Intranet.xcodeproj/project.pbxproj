@@ -106,6 +106,8 @@
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; };
+		D1EA9F421BF5FB7E00879662 /* AddHoursTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */; };
+		D1EA9F451BF6145200879662 /* NSString+IsNilOrEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -275,6 +277,10 @@
 		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
 		D1C7FB3D1BD665EA0068A5B5 /* UserWorkedHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorkedHours.h; sourceTree = "<group>"; };
 		D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorkedHours.m; sourceTree = "<group>"; };
+		D1EA9F401BF5FB7E00879662 /* AddHoursTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddHoursTableViewController.h; sourceTree = "<group>"; };
+		D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddHoursTableViewController.m; sourceTree = "<group>"; };
+		D1EA9F431BF6145200879662 /* NSString+IsNilOrEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IsNilOrEmpty.h"; sourceTree = "<group>"; };
+		D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IsNilOrEmpty.m"; sourceTree = "<group>"; };
 		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -489,6 +495,7 @@
 				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
+				D1EA9F431BF6145200879662 /* NSString+IsNilOrEmpty.h */,
 				6612D00219A71A3100A5FD23 /* NSString+MyRegex.h */,
 				0C8E7D911824FF7B00B3B034 /* UIAlertView+CustomAlert.h */,
 				D14AC9031B98622F008FFD58 /* UIImage+Color.h */,
@@ -502,6 +509,7 @@
 				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
+				D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */,
 				6612D00319A71A3100A5FD23 /* NSString+MyRegex.m */,
 				0C8E7D921824FF7B00B3B034 /* UIAlertView+CustomAlert.m */,
 				D14AC9041B98622F008FFD58 /* UIImage+Color.m */,
@@ -561,9 +569,11 @@
 		6627C82618BC6FE6003893EB /* New Request */ = {
 			isa = PBXGroup;
 			children = (
+				D1EA9F401BF5FB7E00879662 /* AddHoursTableViewController.h */,
 				66A3537918BB436D00BEB043 /* AddOOOFormTableViewController.h */,
 				6627C82918BC89F2003893EB /* ExplanationViewController.h */,
 				6627C82318BC6FC3003893EB /* RequestTypeTableViewController.h */,
+				D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */,
 				66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */,
 				6627C82A18BC89F2003893EB /* ExplanationViewController.m */,
 				6627C82418BC6FC3003893EB /* RequestTypeTableViewController.m */,
@@ -800,11 +810,13 @@
 				663EEC1618A0FD8C00D5A77A /* NSObject+DelayedBlocks.m in Sources */,
 				0CE37C66181E8ED10087C96E /* LoginViewController.m in Sources */,
 				D119D2A11B945E1B009826BB /* OfficeAnnotation.m in Sources */,
+				D1EA9F421BF5FB7E00879662 /* AddHoursTableViewController.m in Sources */,
 				0C43A7A31822843000FB513D /* UIImageView+NetworkCookies.m in Sources */,
 				66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */,
 				8FE021A11BA1774B00BBB410 /* GreenSTXButton.m in Sources */,
 				0CF7FA7C1821590C0056F907 /* DatabaseManager.m in Sources */,
 				0CF7FA5C18214AAF0056F907 /* JSONSerializationHelper.m in Sources */,
+				D1EA9F451BF6145200879662 /* NSString+IsNilOrEmpty.m in Sources */,
 				66360E481A2757CC00417B75 /* RMAbsence.m in Sources */,
 				661AE46818C4902300B7A4F5 /* UILabel+TCCustomFont.m in Sources */,
 				66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */,

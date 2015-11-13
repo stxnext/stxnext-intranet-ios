@@ -419,13 +419,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="189" translatesAutoresizingMaskIntoConstraints="NO" id="l6S-jP-pRk">
-                                                    <rect key="frame" x="91" y="5" width="211" height="19.5"/>
+                                                    <rect key="frame" x="91" y="5" width="211" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paf-ZQ-fMS">
-                                                    <rect key="frame" x="91" y="24.5" width="211" height="14"/>
+                                                    <rect key="frame" x="91" y="25" width="211" height="14"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="hsi-UZ-lPD"/>
@@ -1177,10 +1177,10 @@
             </objects>
             <point key="canvasLocation" x="2445" y="1997"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Add Hours Table View Controller-->
         <scene sceneID="Yen-Al-dZf">
             <objects>
-                <tableViewController id="O4V-Vv-lcB" sceneMemberID="viewController">
+                <tableViewController id="O4V-Vv-lcB" customClass="AddHoursTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="75C-s8-1XW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1189,7 +1189,7 @@
                         <sections>
                             <tableViewSection headerTitle="Time entry" id="9IA-Cl-LNu">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="H5p-t8-fWN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="H5p-t8-fWN">
                                         <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H5p-t8-fWN" id="94D-TH-GAg">
@@ -1211,7 +1211,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Project" id="5K2-tq-73i">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="162" id="Wpi-Bc-72c">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="162" id="Wpi-Bc-72c">
                                         <rect key="frame" x="0.0" y="207.5" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wpi-Bc-72c" id="QYs-Ft-m5w">
@@ -1219,7 +1219,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bn0-zG-gTG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="161.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                                                     <animations/>
                                                 </pickerView>
                                             </subviews>
@@ -1231,7 +1231,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Description" id="YzR-7o-hSx">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AYg-yF-oGz">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="AYg-yF-oGz">
                                         <rect key="frame" x="0.0" y="419.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AYg-yF-oGz" id="riu-r6-rVA">
@@ -1249,7 +1249,7 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JRR-AX-edR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="JRR-AX-edR">
                                         <rect key="frame" x="0.0" y="463.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JRR-AX-edR" id="b8f-7M-Qyx">
@@ -1279,12 +1279,25 @@
                     <navigationItem key="navigationItem" id="Hvm-Ad-Oop">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="UQA-fF-XgR">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelForm:" destination="O4V-Vv-lcB" id="mMT-az-Ruq"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Hlt-4z-mQS">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="submitForm:" destination="O4V-Vv-lcB" id="ssz-AL-w38"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="projectPicker" destination="Bn0-zG-gTG" id="0HN-mf-t32"/>
+                        <outlet property="submitButton" destination="Hlt-4z-mQS" id="wZP-z8-NLr"/>
+                        <outlet property="ticketDescription" destination="Z3f-Dq-pP2" id="5gb-Mr-Rnw"/>
+                        <outlet property="ticketDuration" destination="gCq-cY-dw6" id="J3D-uj-TlD"/>
+                        <outlet property="ticketIdentifier" destination="lf3-Qi-zHJ" id="PH9-NT-OEX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eFw-LC-q9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
