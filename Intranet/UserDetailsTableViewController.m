@@ -19,6 +19,7 @@
 #import "CellularRangeDetector.h"
 #import "UserWorkedHours.h"
 #import "MBProgressHUD.h"
+#import "CalendarViewController.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -186,6 +187,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserDetailsTableViewCell *cell = (UserDetailsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+    if(indexPath.section == 0 && [self isMeTab]) {
+        CalendarViewController *calController = [[CalendarViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }
     
     if ([cell.header.text isEqualToString:kUSER_PHONE])
     {

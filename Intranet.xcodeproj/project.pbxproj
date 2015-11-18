@@ -104,6 +104,7 @@
 		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; };
 		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
+		D1C567111BFCD87B0026D504 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C567101BFCD87B0026D504 /* CalendarViewController.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
 		D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */; };
 		D1EA9F421BF5FB7E00879662 /* AddHoursTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1EA9F411BF5FB7E00879662 /* AddHoursTableViewController.m */; };
@@ -286,6 +287,8 @@
 		D19F94711BCD25A20039029A /* CellularRangeDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellularRangeDetector.m; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
+		D1C5670F1BFCD87B0026D504 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		D1C567101BFCD87B0026D504 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		D1C5915F1B8DA47E001DD5F5 /* Branding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Branding.h; sourceTree = "<group>"; };
 		D1C591601B8DA47E001DD5F5 /* Branding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Branding.m; sourceTree = "<group>"; };
 		D1C7FB3D1BD665EA0068A5B5 /* UserWorkedHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorkedHours.h; sourceTree = "<group>"; };
@@ -488,6 +491,7 @@
 			isa = PBXGroup;
 			children = (
 				8FE962721B999D6A00C029CD /* iPad */,
+				D1C5670F1BFCD87B0026D504 /* CalendarViewController.h */,
 				D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */,
 				66A83E261A28945D00B53A65 /* ListTableViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
@@ -498,6 +502,7 @@
 				0C7E16E31833A11400BD2AB4 /* UserDetailsSegue.h */,
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
+				D1C567101BFCD87B0026D504 /* CalendarViewController.m */,
 				D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */,
 				66A83E271A28945D00B53A65 /* ListTableViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
@@ -904,6 +909,7 @@
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,
 				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
+				D1C567111BFCD87B0026D504 /* CalendarViewController.m in Sources */,
 				8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */,
 				D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */,
 				D1C7FB3F1BD665EA0068A5B5 /* UserWorkedHours.m in Sources */,
@@ -1150,6 +1156,7 @@
 				D1EA9F561BF6382600879662 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
