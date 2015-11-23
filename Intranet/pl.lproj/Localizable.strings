@@ -42,6 +42,7 @@
 "Me" = "Ja";
 "Office" = "Miasto";
 
+"Add hours" = "Dodaj godziny";
 "I'll be late!" = "Spóźnię się!";
 "Absence/Holiday" = "Nieobecność/Urlop";
 "Out of office" = "Poza biurem";
@@ -93,9 +94,16 @@
 "Please leave information about your availability via email or phone." = "Proszę o wpisanie, czy będzie się dostępnym pod telefonem i czy będzie się miało dostęp do Internetu.";
 
 /* Notowanie czasu */
+"Requesting projects list" = "Odpytuję o listę projektów";
 "Notification time" = "Czas przypomnienia";
 "Remember to note your working hours in the Intranet!" = "Pamiętaj by zanotować swój czas pracy w Intranecie!";
 "Remind me to note my time" = "Przypomnij o zanotowaniu czasu";
+"Time entry" = "Notowanie czasu";
+"Time as float value" = "Czas jako wartość zmiennoprzecinkowa";
+"Project" = "Projekt";
+"Description" = "Opis";
+"Ticket identifier" = "ID ticketu";
+"Ticket description" = "Opis ticketu";
 
 /* Inne */
 "No Internet connection." = "Brak dostępu do Internetu.";

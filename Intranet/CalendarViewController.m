@@ -7,6 +7,7 @@
 //
 
 #import "CalendarViewController.h"
+#import "NSDate+TimePeriods.h"
 #import "FSCalendar.h"
 
 @interface CalendarViewController () <FSCalendarDataSource, FSCalendarDelegate>
@@ -21,8 +22,12 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(close)];
+    [backButton setTintColor:[UIColor whiteColor]];
+    [self.navigationItem setLeftBarButtonItem:backButton];
+    
     CGRect calendarFrame = self.view.bounds;
-    calendarFrame.size.height -= self.navigationController.navigationBar.bounds.size.height;
+    //calendarFrame.size.height -= self.navigationController.navigationBar.bounds.size.height;
     
     //setup the calendar
     FSCalendar* calendar = [[FSCalendar alloc] initWithFrame:calendarFrame];
@@ -56,36 +61,20 @@
 }
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar {
-    NSDate *quarterStart;
-    [[NSCalendar currentCalendar] rangeOfUnit: NSCalendarUnitQuarter
-                                    startDate: &quarterStart
-                                     interval: nil
-                                      forDate: [self localDateFromDate:[NSDate date]]];
-    
-    return [self localDateFromDate:quarterStart];
+    return self.startDate;
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar {
-    NSDateComponents* components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[self localDateFromDate:[NSDate date]]];
-    NSUInteger quarter = (components.month - 1) / 3 + 1;
-    NSUInteger lastQuarterMonth = quarter * 3;
-    NSUInteger nextQuarterFirstMonth = lastQuarterMonth + 1;
-    [components setMonth: nextQuarterFirstMonth];
-    [components setDay: 0];
-    
-    return [self localDateFromDate:[[NSCalendar currentCalendar] dateFromComponents: components]];
-}
-
-- (NSDate *)localDateFromDate:(NSDate *)date
-{
-    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
-    NSInteger interval = [timeZone secondsFromGMTForDate:date];
-    return [NSDate dateWithTimeInterval:interval sinceDate:date];
+    return self.endDate;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)close {
+    [self dismissViewControllerAnimated:self.navigationController completion:nil];
 }
 
 /*

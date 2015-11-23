@@ -28,9 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setDelegatesAndObservers];
+    [self.navigationItem setTitle:NSLocalizedString(@"Add hours", nil)];
     
     [self.submitButton setEnabled:NO];
     selectedProject = [self.projectsList firstObject];
+    
+    [self.ticketIdentifier setPlaceholder:NSLocalizedString(@"Ticket identifier", nil)];
+    [self.ticketDescription setPlaceholder:NSLocalizedString(@"Ticket description", nil)];
+    [self.ticketDuration setPlaceholder:NSLocalizedString(@"Time as float value", nil)];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -123,6 +128,23 @@
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"An error occurred. Please try again later.", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
     }];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return NSLocalizedString(@"Time entry", nil);
+            break;
+        case 1:
+            return NSLocalizedString(@"Project", nil);
+            break;
+        case 2:
+            return NSLocalizedString(@"Description", nil);
+            break;
+        default:
+            return @"";
+            break;
+    }
 }
 
 @end

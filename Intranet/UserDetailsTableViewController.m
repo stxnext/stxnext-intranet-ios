@@ -20,6 +20,7 @@
 #import "UserWorkedHours.h"
 #import "MBProgressHUD.h"
 #import "CalendarViewController.h"
+#import "NSDate+TimePeriods.h"
 
 #define kUSER_LOCATION @"Office"
 #define kUSER_EMAIL @"E-mail"
@@ -188,10 +189,21 @@
 {
     UserDetailsTableViewCell *cell = (UserDetailsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    if(indexPath.section == 0 && [self isMeTab]) {
-        CalendarViewController *calController = [[CalendarViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
-        [self presentViewController:navController animated:YES completion:nil];
+    if(indexPath.section == 0 && [self isMeTab] && indexPath.row != 1) {
+        NSLog(@"%@",@(indexPath.row));
+        NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
+        NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
+        if(indexPath.row == 2) {
+            requestedHoursStartDate = [NSDate firstDayOfCurrentMonth];
+            requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
+        }
+        [[HTTPClient sharedClient] startOperation:[APIRequest getUserTimesFromDate:requestedHoursStartDate toDate:requestedHoursEndDate] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            CalendarViewController *calController = [[CalendarViewController alloc] init];
+            [calController setStartDate:requestedHoursStartDate];
+            [calController setEndDate:requestedHoursEndDate];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+            [self presentViewController:navController animated:YES completion:nil];
+        } failure:nil];
     }
     
     if ([cell.header.text isEqualToString:kUSER_PHONE])
