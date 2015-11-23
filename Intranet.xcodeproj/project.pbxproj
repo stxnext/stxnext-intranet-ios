@@ -101,6 +101,7 @@
 		D14AC9051B98622F008FFD58 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D14AC9041B98622F008FFD58 /* UIImage+Color.m */; };
 		D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */; };
 		D17300B41BA80BA80049AD8D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D17300B61BA80BA80049AD8D /* Localizable.strings */; };
+		D18C93391C0354F40092978D /* NSDate+TimePeriods.m in Sources */ = {isa = PBXBuildFile; fileRef = D18C93381C0354F40092978D /* NSDate+TimePeriods.m */; };
 		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; };
 		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
@@ -281,6 +282,8 @@
 		D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LatenessViewController.h; sourceTree = "<group>"; };
 		D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LatenessViewController.m; sourceTree = "<group>"; };
 		D17300BA1BA80BDA0049AD8D /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D18C93371C0354F40092978D /* NSDate+TimePeriods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimePeriods.h"; sourceTree = "<group>"; };
+		D18C93381C0354F40092978D /* NSDate+TimePeriods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimePeriods.m"; sourceTree = "<group>"; };
 		D19F946D1BCD077E0039029A /* UIUnderlinedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUnderlinedButton.h; sourceTree = "<group>"; };
 		D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUnderlinedButton.m; sourceTree = "<group>"; };
 		D19F94701BCD25A20039029A /* CellularRangeDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellularRangeDetector.h; sourceTree = "<group>"; };
@@ -524,6 +527,7 @@
 				0CF7CACE181FF32200AAB9D4 /* AppDelegate+Modals.h */,
 				6696422D1A35BB7500E5F604 /* ControllableBlock.h */,
 				6627C82C18BCAAD9003893EB /* NSDate+Additions.h */,
+				D18C93371C0354F40092978D /* NSDate+TimePeriods.h */,
 				0CF7CAE01820103500AAB9D4 /* NSError+CustomError.h */,
 				663EEC1418A0FD8C00D5A77A /* NSObject+DelayedBlocks.h */,
 				D1EA9F431BF6145200879662 /* NSString+IsNilOrEmpty.h */,
@@ -538,6 +542,7 @@
 				0CF7CACF181FF32200AAB9D4 /* AppDelegate+Modals.m */,
 				6696422E1A35BB7500E5F604 /* ControllableBlock.m */,
 				6627C82D18BCAAD9003893EB /* NSDate+Additions.m */,
+				D18C93381C0354F40092978D /* NSDate+TimePeriods.m */,
 				0CF7CAE11820103500AAB9D4 /* NSError+CustomError.m */,
 				663EEC1518A0FD8C00D5A77A /* NSObject+DelayedBlocks.m */,
 				D1EA9F441BF6145200879662 /* NSString+IsNilOrEmpty.m */,
@@ -896,6 +901,7 @@
 				0CF7CAE21820103500AAB9D4 /* NSError+CustomError.m in Sources */,
 				0CF7FA7F182163800056F907 /* NSManagedObjectContext+Fetch.m in Sources */,
 				D119D29B1B944605009826BB /* OfficesViewController.m in Sources */,
+				D18C93391C0354F40092978D /* NSDate+TimePeriods.m in Sources */,
 				0CE37C59181E8ED10087C96E /* main.m in Sources */,
 				0C853D8218212D34008D0516 /* AFHTTPRequestOperation+Redirect.m in Sources */,
 				0CF7CAD3181FF4D100AAB9D4 /* UIModalViewController.m in Sources */,
