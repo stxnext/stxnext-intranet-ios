@@ -152,6 +152,17 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)getUserTimesFromDate:(NSDate *)startDate toDate:(NSDate *)endDate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/user_times?start_date=%@&end_date=%@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
 + (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/worked_hours?user_id=%@", userId] parameters:nil];

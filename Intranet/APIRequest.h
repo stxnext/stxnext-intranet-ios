@@ -23,6 +23,7 @@
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)sendLateness:(NSDictionary *)parameters;
 + (AFHTTPRequestOperation *)getFreeDays;
++ (AFHTTPRequestOperation *)getUserTimesFromDate:(NSDate *)startDate toDate:(NSDate *)endDate;
 + (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId;
 + (AFHTTPRequestOperation *)getProjectsList;
 @end
