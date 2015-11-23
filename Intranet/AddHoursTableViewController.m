@@ -84,6 +84,19 @@
     return YES;
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *textLabel = (id)view;
+    
+    if (!textLabel) {
+        textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [pickerView rowSizeForComponent:component].width, [pickerView rowSizeForComponent:component].height)];
+    }
+    
+    [textLabel setText:[self pickerView:pickerView titleForRow:row forComponent:component]];
+    [textLabel setFont:[UIFont systemFontOfSize:22.0f]];
+    [textLabel setTextAlignment:NSTextAlignmentCenter];
+    return textLabel;
+}
+
 - (void)checkFormStatus {
     if(!selectedProject || [NSString isNilOrEmpty:self.ticketDuration.text] || [NSString isNilOrEmpty:self.ticketDescription.text]) [self.submitButton setEnabled:NO];
     else [self.submitButton setEnabled:YES];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1196,7 +1196,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time as float value or hh:mm" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCq-cY-dw6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time as float value or hh:mm" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCq-cY-dw6">
                                                     <rect key="frame" x="8" y="7" width="304" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1204,6 +1204,12 @@
                                                 </textField>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gCq-cY-dw6" secondAttribute="trailing" constant="8" id="Jxo-yN-g2E"/>
+                                                <constraint firstItem="gCq-cY-dw6" firstAttribute="top" secondItem="94D-TH-GAg" secondAttribute="top" constant="7" id="Kqt-Ej-cpR"/>
+                                                <constraint firstItem="gCq-cY-dw6" firstAttribute="leading" secondItem="94D-TH-GAg" secondAttribute="leading" constant="8" id="l6A-qN-Fta"/>
+                                                <constraint firstAttribute="bottom" secondItem="gCq-cY-dw6" secondAttribute="bottom" constant="7" id="tmY-yQ-9tX"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
@@ -1218,12 +1224,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="161.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bn0-zG-gTG">
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bn0-zG-gTG">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                                                     <animations/>
                                                 </pickerView>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Bn0-zG-gTG" secondAttribute="trailing" id="SNB-QL-3h4"/>
+                                                <constraint firstItem="Bn0-zG-gTG" firstAttribute="top" secondItem="QYs-Ft-m5w" secondAttribute="top" id="YlJ-vY-Cd3"/>
+                                                <constraint firstItem="Bn0-zG-gTG" firstAttribute="leading" secondItem="QYs-Ft-m5w" secondAttribute="leading" id="m1h-Rv-WPw"/>
+                                                <constraint firstAttribute="bottom" secondItem="Bn0-zG-gTG" secondAttribute="bottom" id="yp8-l6-7st"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
@@ -1238,7 +1250,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ticket identifier" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lf3-Qi-zHJ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ticket identifier" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lf3-Qi-zHJ">
                                                     <rect key="frame" x="8" y="7" width="304" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1246,6 +1258,12 @@
                                                 </textField>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="lf3-Qi-zHJ" firstAttribute="top" secondItem="riu-r6-rVA" secondAttribute="top" constant="7" id="5uI-EM-2jH"/>
+                                                <constraint firstItem="lf3-Qi-zHJ" firstAttribute="leading" secondItem="riu-r6-rVA" secondAttribute="leading" constant="8" id="9Ye-K5-WJZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="lf3-Qi-zHJ" secondAttribute="trailing" constant="8" id="GxW-xh-qfz"/>
+                                                <constraint firstAttribute="bottom" secondItem="lf3-Qi-zHJ" secondAttribute="bottom" constant="7" id="H4X-Rm-Ebg"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
@@ -1256,7 +1274,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ticket description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z3f-Dq-pP2">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ticket description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z3f-Dq-pP2">
                                                     <rect key="frame" x="8" y="7" width="304" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1264,6 +1282,12 @@
                                                 </textField>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="Z3f-Dq-pP2" firstAttribute="top" secondItem="b8f-7M-Qyx" secondAttribute="top" constant="7" id="4ID-2h-M4Q"/>
+                                                <constraint firstItem="Z3f-Dq-pP2" firstAttribute="leading" secondItem="b8f-7M-Qyx" secondAttribute="leading" constant="8" id="Clr-lp-AfD"/>
+                                                <constraint firstAttribute="bottom" secondItem="Z3f-Dq-pP2" secondAttribute="bottom" constant="7" id="FGk-Tf-1CA"/>
+                                                <constraint firstAttribute="trailing" secondItem="Z3f-Dq-pP2" secondAttribute="trailing" constant="8" id="zJh-db-3JZ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
