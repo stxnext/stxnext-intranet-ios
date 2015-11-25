@@ -77,7 +77,7 @@
     }
     
     if ([self isMeTab]) {
-        if(![self hoursPrepared]) [self requestUserHours];
+        [self requestUserHours];
         [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
         self.refreshControl.backgroundColor = [Branding stxLightGray];
         self.refreshControl.tintColor = [UIColor darkGrayColor];
@@ -123,22 +123,19 @@
     }
 }
 
-- (BOOL)hoursPrepared
-{
-    if(![UserWorkedHours sharedHours] || ![[UserWorkedHours sharedHours] hasHours]) return NO;
-    return YES;
-}
-
 - (void)requestUserHours
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
     [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kUSERHOURS];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [[UserWorkedHours sharedHours] setHoursFromDictionary:responseObject];
         [self.tableView reloadData];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
     }];
 }
@@ -190,7 +187,10 @@
     UserDetailsTableViewCell *cell = (UserDetailsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
     if(indexPath.section == 0 && [self isMeTab] && indexPath.row != 1) {
-        NSLog(@"%@",@(indexPath.row));
+        if(indexPath.row == 0) {
+            [self requestUserHours];
+            return;
+        }
         NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
         NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
         if(indexPath.row == 2) {
@@ -247,6 +247,7 @@
         {
             [myCell.header setText:NSLocalizedString(@"Worked hours", nil)];
             if(workedHours.getTodaysArrival) [myCell.details setText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Today from", nil), workedHours.getTodaysArrival]];
+            [myCell setSelectionStyle:UITableViewCellSelectionStyleDefault];
             return myCell;
         }
         [myCell.header setText:self.user.name];
@@ -262,6 +263,7 @@
                     [myCell.header setText:NSLocalizedString(@"Today", nil)];
                     [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getTodaysSum, workedHours.getTodaysDiff]];
                     diff = workedHours.getTodaysDiff;
+                    [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     break;
                 case 2:
                     [myCell.header setText:NSLocalizedString(@"Month", nil)];
@@ -276,7 +278,8 @@
                 default:
                     break;
             }
-            if([diff floatValue] <= 0) [myCell.details setTextColor:[UIColor redColor]];
+            if(!diff) [myCell.details setText:@""];
+            else if([diff floatValue] <= 0) [myCell.details setTextColor:[UIColor redColor]];
             return myCell;
         }
         NSString *currentKey = [detailsOrder objectAtIndex:indexPath.row - 1];
