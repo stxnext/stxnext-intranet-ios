@@ -26,8 +26,9 @@
     [backButton setTintColor:[UIColor whiteColor]];
     [self.navigationItem setLeftBarButtonItem:backButton];
     
+    CGFloat calendarUnitHeight = (self.quarterMode) ? 600.0 : 300.0;
     CGRect calendarFrame = self.view.bounds;
-    //calendarFrame.size.height -= self.navigationController.navigationBar.bounds.size.height;
+    calendarFrame.size.height = calendarUnitHeight;
     
     //setup the calendar
     FSCalendar* calendar = [[FSCalendar alloc] initWithFrame:calendarFrame];
@@ -61,11 +62,13 @@
 }
 
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar {
-    return self.startDate;
+    if(self.quarterMode) return [NSDate firstDayOfCurrentQuarter];
+    return [NSDate firstDayOfCurrentMonth];
 }
 
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar {
-    return self.endDate;
+    if(self.quarterMode) return [NSDate lastDayOfCurrentQuarter];
+    return [NSDate lastDayOfCurrentMonth];
 }
 
 - (void)didReceiveMemoryWarning {

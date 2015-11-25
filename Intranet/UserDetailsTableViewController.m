@@ -193,14 +193,15 @@
         }
         NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
         NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
+        BOOL quarterMode = YES;
         if(indexPath.row == 2) {
             requestedHoursStartDate = [NSDate firstDayOfCurrentMonth];
             requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
+            quarterMode = NO;
         }
         [[HTTPClient sharedClient] startOperation:[APIRequest getUserTimesFromDate:requestedHoursStartDate toDate:requestedHoursEndDate] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             CalendarViewController *calController = [[CalendarViewController alloc] init];
-            [calController setStartDate:requestedHoursStartDate];
-            [calController setEndDate:requestedHoursEndDate];
+            calController.quarterMode = quarterMode;
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
             [self presentViewController:navController animated:YES completion:nil];
         } failure:nil];

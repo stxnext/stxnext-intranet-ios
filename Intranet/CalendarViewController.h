@@ -10,7 +10,6 @@
 
 @interface CalendarViewController : UIViewController
 
-@property (weak, nonatomic) NSDate *startDate;
-@property (weak, nonatomic) NSDate *endDate;
+@property BOOL quarterMode;
 
 @end
