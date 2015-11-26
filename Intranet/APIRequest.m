@@ -163,6 +163,15 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)getUserHoursForMonthInDate:(NSDate *)date {
+    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/monthly_worked_hours?user_id=%@&month=%zd.%zd", [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"], [components month], [components year]] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
 + (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/worked_hours?user_id=%@", userId] parameters:nil];
