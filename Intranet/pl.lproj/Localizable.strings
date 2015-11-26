@@ -95,6 +95,7 @@
 
 /* Notowanie czasu */
 "Requesting projects list" = "Odpytuję o listę projektów";
+"Requesting hours summary" = "Odpytuję o podsumowanie godzin";
 "Notification time" = "Czas przypomnienia";
 "Remember to note your working hours in the Intranet!" = "Pamiętaj by zanotować swój czas pracy w Intranecie!";
 "Remind me to note my time" = "Przypomnij o zanotowaniu czasu";

@@ -116,6 +116,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     if(![self isMeTab])
     {
         userDetails = nil;
@@ -199,7 +200,8 @@
             requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
             quarterMode = NO;
         }
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Requesting hours summary", nil);
         if(!quarterMode) {
             [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[NSDate firstDayOfCurrentMonth]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 CalendarViewController *calController = [[CalendarViewController alloc] init];

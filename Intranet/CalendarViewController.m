@@ -127,7 +127,7 @@
 }
 
 - (void)close {
-    [self dismissViewControllerAnimated:self.navigationController completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
