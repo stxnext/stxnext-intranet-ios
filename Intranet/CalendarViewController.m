@@ -22,13 +22,13 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(close)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(close)];
     [backButton setTintColor:[UIColor whiteColor]];
     [self.navigationItem setLeftBarButtonItem:backButton];
     [self.navigationItem setTitle:NSLocalizedString(@"Hours summary", nil)];
     
-    CGFloat calendarUnitHeight = (self.quarterMode) ? 600.0 : 300.0;
     CGRect calendarFrame = self.view.bounds;
+    CGFloat calendarUnitHeight = (self.quarterMode) ? calendarFrame.size.height - 64.0 : 300.0;
     calendarFrame.origin.x = calendarFrame.size.width * 0.05;
     calendarFrame.size.width *= 0.9;
     calendarFrame.size.height = calendarUnitHeight;
