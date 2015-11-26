@@ -11,5 +11,6 @@
 @interface CalendarViewController : UIViewController
 
 @property BOOL quarterMode;
+@property (nonatomic, strong) NSArray *hoursData;
 
 @end

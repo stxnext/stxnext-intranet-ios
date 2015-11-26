@@ -199,12 +199,43 @@
             requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
             quarterMode = NO;
         }
-        [[HTTPClient sharedClient] startOperation:[APIRequest getUserTimesFromDate:requestedHoursStartDate toDate:requestedHoursEndDate] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            CalendarViewController *calController = [[CalendarViewController alloc] init];
-            calController.quarterMode = quarterMode;
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
-            [self presentViewController:navController animated:YES completion:nil];
-        } failure:nil];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        if(!quarterMode) {
+            [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[NSDate firstDayOfCurrentMonth]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                CalendarViewController *calController = [[CalendarViewController alloc] init];
+                calController.quarterMode = quarterMode;
+                calController.hoursData = (NSArray *)responseObject;
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                [self presentViewController:navController animated:YES completion:nil];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            }];
+        }
+        else {
+            NSMutableArray *timePeriodSummary = [[NSMutableArray alloc] init];
+            [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[NSDate firstDayOfCurrentQuarter]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:[NSDate firstDayOfCurrentQuarter] options:0]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                    [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:[NSDate firstDayOfCurrentQuarter] options:0]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                        CalendarViewController *calController = [[CalendarViewController alloc] init];
+                        calController.quarterMode = quarterMode;
+                        calController.hoursData = [timePeriodSummary copy];
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        [self presentViewController:navController animated:YES completion:nil];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    }];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            }];
+        }
     }
     
     if ([cell.header.text isEqualToString:kUSER_PHONE])

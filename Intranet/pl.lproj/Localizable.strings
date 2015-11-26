@@ -104,6 +104,7 @@
 "Description" = "Opis";
 "Ticket identifier" = "ID ticketu";
 "Ticket description" = "Opis ticketu";
+"Hours summary" = "Podsumowanie godzin";
 
 /* Inne */
 "No Internet connection." = "Brak dostępu do Internetu.";

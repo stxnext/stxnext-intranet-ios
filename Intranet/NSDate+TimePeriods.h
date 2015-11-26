@@ -15,4 +15,6 @@
 + (NSDate *)lastDayOfCurrentQuarter;
 + (NSDate *)lastDayOfCurrentMonth;
 
++ (NSDate *)localDateFromDate:(NSDate *)date;
+
 @end
