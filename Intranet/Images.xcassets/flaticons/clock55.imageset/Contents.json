@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "clock55.png"
+      "filename" : "clock55.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
@@ -11,6 +11,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "clock55-1.png",
       "scale" : "3x"
     }
   ],

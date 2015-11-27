@@ -35,7 +35,7 @@
     [super viewDidLoad];
     [self prepareUI];
     [self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
-    [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
+    [self.notificationLabel setText:NSLocalizedString(@"Remind me to book working hours", nil)];
     
     NSDate *timeReminder = [[NSUserDefaults standardUserDefaults] objectForKey:kTIMEREMINDER];
     if(timeReminder) {
@@ -122,7 +122,7 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTIMEREMINDER];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.notificationLabel setText:NSLocalizedString(@"Remind me to note my time", nil)];
+    [self.notificationLabel setText:NSLocalizedString(@"Remind me to book working hours", nil)];
     [self.notificationSwitch setOn:NO animated:YES];
 }
 
@@ -146,7 +146,7 @@
     NSInteger hour = [components hour];
     NSInteger minute = [components minute];
     
-    NSString *notificationLabelText = [NSString stringWithFormat:@"%@ (%.2ld:%.2ld)", NSLocalizedString(@"Remind me to note my time", nil), (long)hour, (long)minute];
+    NSString *notificationLabelText = [NSString stringWithFormat:@"%@ (%.2ld:%.2ld)", NSLocalizedString(@"Remind me to book working hours", nil), (long)hour, (long)minute];
     [self.notificationLabel setText:notificationLabelText];
 }
 

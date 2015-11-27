@@ -44,9 +44,16 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_bg" translatesAutoresizingMaskIntoConstraints="NO" id="tx4-n1-y4g">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                    <animations/>
+                                </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superhero_none" translatesAutoresizingMaskIntoConstraints="NO" id="QYN-4S-AJj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                     <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="QYN-4S-AJj" secondAttribute="height" multiplier="8:3" id="eEU-oA-HRg"/>
+                                    </constraints>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="4Im-4X-4uN" userLabel="Employee photo">
                                     <rect key="frame" x="120" y="20" width="80" height="80"/>
@@ -73,14 +80,17 @@
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="tx4-n1-y4g" secondAttribute="bottom" constant="8" id="2dg-u4-vPW"/>
+                                <constraint firstItem="QYN-4S-AJj" firstAttribute="top" secondItem="rtU-BV-SgC" secondAttribute="top" id="64a-2V-nnZ"/>
                                 <constraint firstAttribute="bottom" secondItem="Et1-gY-1Ak" secondAttribute="bottom" id="C21-HG-odx"/>
-                                <constraint firstAttribute="bottom" secondItem="QYN-4S-AJj" secondAttribute="bottom" constant="8" id="Obw-Qm-7Kp"/>
+                                <constraint firstItem="tx4-n1-y4g" firstAttribute="leading" secondItem="rtU-BV-SgC" secondAttribute="leading" id="Gdq-eu-yhf"/>
                                 <constraint firstItem="4Im-4X-4uN" firstAttribute="top" secondItem="rtU-BV-SgC" secondAttribute="top" constant="20" id="VYf-rx-HyE"/>
+                                <constraint firstItem="tx4-n1-y4g" firstAttribute="top" secondItem="rtU-BV-SgC" secondAttribute="top" id="dFh-FW-DXl"/>
                                 <constraint firstItem="4Im-4X-4uN" firstAttribute="centerX" secondItem="rtU-BV-SgC" secondAttribute="centerX" id="eB1-DY-caD"/>
-                                <constraint firstItem="QYN-4S-AJj" firstAttribute="top" secondItem="rtU-BV-SgC" secondAttribute="top" id="f8Q-cR-qG2"/>
                                 <constraint firstAttribute="trailing" secondItem="Et1-gY-1Ak" secondAttribute="trailing" constant="11" id="i9n-dK-iwb"/>
-                                <constraint firstAttribute="trailing" secondItem="QYN-4S-AJj" secondAttribute="trailing" id="jAo-Y3-iFF"/>
-                                <constraint firstItem="QYN-4S-AJj" firstAttribute="leading" secondItem="rtU-BV-SgC" secondAttribute="leading" id="vD1-wm-ZWc"/>
+                                <constraint firstItem="QYN-4S-AJj" firstAttribute="centerX" secondItem="rtU-BV-SgC" secondAttribute="centerX" id="oWh-LS-L8c"/>
+                                <constraint firstAttribute="bottom" secondItem="QYN-4S-AJj" secondAttribute="bottom" constant="8" id="rU3-sT-dEH"/>
+                                <constraint firstAttribute="trailing" secondItem="tx4-n1-y4g" secondAttribute="trailing" id="zJa-jx-XhZ"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -1185,7 +1195,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Time entry" id="9IA-Cl-LNu">
                                 <cells>
@@ -1914,6 +1924,7 @@
         <image name="businessman243" width="24" height="24"/>
         <image name="car189" width="24" height="24"/>
         <image name="employee1" width="24" height="24"/>
+        <image name="gradient_bg" width="640" height="240"/>
         <image name="map-pointer2" width="24" height="24"/>
         <image name="office-worker2" width="24" height="24"/>
         <image name="office17" width="24" height="24"/>

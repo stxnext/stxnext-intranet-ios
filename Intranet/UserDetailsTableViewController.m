@@ -69,6 +69,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearData) name:DID_LOGOUT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestUserHours) name:kHOURSADDED object:nil];
     
     if (INTERFACE_IS_PAD) {
         UIImage *img = self.profileBackground.image;
@@ -209,7 +210,7 @@
                 calController.hoursData = (NSArray *)responseObject;
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                [self presentViewController:navController animated:YES completion:nil];
+                [self.tabBarController presentViewController:navController animated:YES completion:nil];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }];
@@ -227,7 +228,7 @@
                         calController.hoursData = [timePeriodSummary copy];
                         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
                         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                        [self presentViewController:navController animated:YES completion:nil];
+                        [self.tabBarController presentViewController:navController animated:YES completion:nil];
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                     }];
@@ -295,18 +296,18 @@
             switch (indexPath.row) {
                 case 1:
                     [myCell.header setText:NSLocalizedString(@"Today", nil)];
-                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getTodaysSum, workedHours.getTodaysDiff]];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getTodaysSum floatValue], [workedHours.getTodaysDiff floatValue]]];
                     diff = workedHours.getTodaysDiff;
                     [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     break;
                 case 2:
                     [myCell.header setText:NSLocalizedString(@"Month", nil)];
-                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getMonthSum, workedHours.getMonthDiff]];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getMonthSum floatValue], [workedHours.getMonthDiff floatValue]]];
                     diff = workedHours.getMonthDiff;
                     break;
                 case 3:
                     [myCell.header setText:NSLocalizedString(@"Quarter", nil)];
-                    [myCell.details setText:[NSString stringWithFormat:@"%@ (%@)", workedHours.getQuarterSum, workedHours.getQuarterDiff]];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getQuarterSum floatValue], [workedHours.getQuarterDiff floatValue]]];
                     diff = workedHours.getQuarterDiff;
                     break;
                 default:
@@ -810,7 +811,7 @@
                 UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddTimeEntryFormViewController"];
                 AddHoursTableViewController *hoursVc = (AddHoursTableViewController *)nvc.topViewController;
                 hoursVc.projectsList = [responseObject objectForKey:@"projects"];
-                if(hoursVc.projectsList) [self presentViewController:nvc animated:YES completion:nil];
+                if(hoursVc.projectsList) [self.tabBarController presentViewController:nvc animated:YES completion:nil];
                 else {
                     UIAlertView *failureAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Request failed", nil) message:NSLocalizedString(@"Couldn't parse projects list", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [failureAlert show];

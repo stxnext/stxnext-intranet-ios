@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "travel25-1.png"
+      "filename" : "travel25-1.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "travel25.png"
+      "filename" : "travel25.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

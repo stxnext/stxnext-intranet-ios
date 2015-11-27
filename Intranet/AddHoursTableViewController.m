@@ -123,7 +123,9 @@
     if([NSString isNilOrEmpty:self.ticketIdentifier.text]) [parameters setObject:self.ticketIdentifier.text forKey:@"ticket_id"];
     
     [[HTTPClient sharedClient] startOperation:[APIRequest addHours:[parameters copy]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHOURSADDED object:nil];
+        }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"An error occurred. Please try again later.", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];

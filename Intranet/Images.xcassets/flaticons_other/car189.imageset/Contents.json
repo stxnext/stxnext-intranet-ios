@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "car189-1.png"
+      "filename" : "car189-1.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "car189.png"
+      "filename" : "car189.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
@@ -17,7 +17,9 @@
   ],
   "info" : {
     "version" : 1,
-    "author" : "xcode",
+    "author" : "xcode"
+  },
+  "properties" : {
     "template-rendering-intent" : "template"
   }
 }
