@@ -104,6 +104,7 @@
 		D18C93391C0354F40092978D /* NSDate+TimePeriods.m in Sources */ = {isa = PBXBuildFile; fileRef = D18C93381C0354F40092978D /* NSDate+TimePeriods.m */; };
 		D19F946F1BCD077E0039029A /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */; };
 		D19F94721BCD25A20039029A /* CellularRangeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D19F94711BCD25A20039029A /* CellularRangeDetector.m */; };
+		D1A10DCB1C089AA4009B4BA3 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1A10DCA1C089AA4009B4BA3 /* CreditsViewController.m */; };
 		D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */; };
 		D1C567111BFCD87B0026D504 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C567101BFCD87B0026D504 /* CalendarViewController.m */; };
 		D1C591611B8DA47E001DD5F5 /* Branding.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C591601B8DA47E001DD5F5 /* Branding.m */; };
@@ -288,6 +289,8 @@
 		D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUnderlinedButton.m; sourceTree = "<group>"; };
 		D19F94701BCD25A20039029A /* CellularRangeDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellularRangeDetector.h; sourceTree = "<group>"; };
 		D19F94711BCD25A20039029A /* CellularRangeDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellularRangeDetector.m; sourceTree = "<group>"; };
+		D1A10DC91C089AA4009B4BA3 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		D1A10DCA1C089AA4009B4BA3 /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsTableViewCell.h; sourceTree = "<group>"; };
 		D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsTableViewCell.m; sourceTree = "<group>"; };
 		D1C5670F1BFCD87B0026D504 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
@@ -495,6 +498,7 @@
 			children = (
 				8FE962721B999D6A00C029CD /* iPad */,
 				D1C5670F1BFCD87B0026D504 /* CalendarViewController.h */,
+				D1A10DC91C089AA4009B4BA3 /* CreditsViewController.h */,
 				D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */,
 				66A83E261A28945D00B53A65 /* ListTableViewController.h */,
 				0CE37C64181E8ED10087C96E /* LoginViewController.h */,
@@ -506,6 +510,7 @@
 				66063DC9182149AF00C30C93 /* UserDetailsTableViewController.h */,
 				0CF7CAD9181FFA5900AAB9D4 /* UserListTableViewController.h */,
 				D1C567101BFCD87B0026D504 /* CalendarViewController.m */,
+				D1A10DCA1C089AA4009B4BA3 /* CreditsViewController.m */,
 				D14BF4031B9EDBF800ED3F4E /* LatenessViewController.m */,
 				66A83E271A28945D00B53A65 /* ListTableViewController.m */,
 				0CE37C65181E8ED10087C96E /* LoginViewController.m */,
@@ -910,6 +915,7 @@
 				66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */,
 				2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */,
 				6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */,
+				D1A10DCB1C089AA4009B4BA3 /* CreditsViewController.m in Sources */,
 				6627C82518BC6FC3003893EB /* RequestTypeTableViewController.m in Sources */,
 				D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,

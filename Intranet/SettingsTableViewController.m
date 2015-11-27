@@ -26,6 +26,7 @@
 
 //version cell
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *creditsButton;
 
 @end
 
@@ -36,6 +37,7 @@
     [self prepareUI];
     [self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
     [self.notificationLabel setText:NSLocalizedString(@"Remind me to book working hours", nil)];
+    [self.creditsButton setTitle:NSLocalizedString(@"Credits & Licenses", nil) forState:UIControlStateNormal];
     
     NSDate *timeReminder = [[NSUserDefaults standardUserDefaults] objectForKey:kTIMEREMINDER];
     if(timeReminder) {
