@@ -131,6 +131,7 @@
 - (void)setNotificationFromTime:(NSDate *)date {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = date;
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
     localNotification.alertBody = NSLocalizedString(@"Remember to note your working hours in the Intranet!", nil);
     localNotification.timeZone = [NSTimeZone localTimeZone];
     localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
