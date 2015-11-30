@@ -23,6 +23,11 @@
     [self.navigationItem setTitle:NSLocalizedString(@"Credits & Licenses", nil)];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.creditsTextView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+}
+
 - (void)close {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
