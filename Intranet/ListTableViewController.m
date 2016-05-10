@@ -7,6 +7,7 @@
 //
 
 #import "ListTableViewController.h"
+#import "UserWorkedHours.h"
 
 @interface ListTableViewController ()
 
@@ -18,10 +19,15 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[Branding stxLightGray]];
     self.clearsSelectionOnViewWillAppear = YES;
     
     [self.tableView hideEmptySeparators];
     [self.searchDisplayController.searchResultsTableView hideEmptySeparators];
+    
+    [self.tableView setSeparatorColor:[Branding stxGray]];
+    [self.searchDisplayController.searchResultsTableView setSeparatorColor:[Branding stxGray]];
+    [self.searchDisplayController.searchBar setPlaceholder:NSLocalizedString(@"Search", nil)];
     
     currentListState = [self nextListState];
     [self showOutViewButton];
@@ -61,6 +67,15 @@
 - (void)showLoginScreen
 {
     NSAssert(NO, @"Subclasses need to overwrite this method");
+}
+
+#pragma mark UI
+
+- (void)setUserInteractionEnabled:(BOOL)enabled
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:!enabled];
+    [self.tableView setUserInteractionEnabled:enabled];
+    if(INTERFACE_IS_PHONE) [self.tabBarController.tabBar setUserInteractionEnabled:enabled];
 }
 
 #pragma mark - Data
@@ -141,8 +156,7 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             @synchronized(self){
                 self.allUsers = nil;
-                self.tomorrowOutOffOfficePeople = nil;
-                self.todayOutOffOfficePeople = nil;
+                self.outOfOfficePeople = nil;
                 
                 [self loadUsersFromDatabase];
                 [self informStopDownloading];
@@ -205,6 +219,20 @@
                                       }];
 }
 
+//this operation is fully optional so we will continue even if it doesn't succeed...
+- (void)requestHoursData:(void (^)(NSDictionary *users))resultAction
+{
+    NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
+    [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //save the data to userdefaults, no need to use core data for storing one record...
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kUSERHOURS];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        resultAction(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        resultAction(nil);
+    }];
+}
+
 - (void)loadUsersFromAPI:(SimpleBlock)finalAction
 {
     if (isUpdating)
@@ -220,6 +248,7 @@
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
         NSLog(@"No internet");
+        [self setCachedHours];
         
         finalAction();
         
@@ -232,6 +261,17 @@
     NSMutableDictionary *downloadedData = [NSMutableDictionary new];
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.suspended = YES;
+    
+    __block ControllableBlock *getHours = [ControllableBlock blockOperationWithBlock:^{
+        NSLog(@"Block - Get hours");
+        [self requestHoursData:^(NSDictionary *users) {
+            if(users) {
+                [[UserWorkedHours sharedHours] setHoursFromDictionary:users];
+            }
+            else [self setCachedHours];
+            [getHours informIsFinished];
+        }];
+    }];
     
     __block ControllableBlock *getUsers = [ControllableBlock blockOperationWithBlock:^{
         NSLog(@"Block - Get users");
@@ -265,8 +305,13 @@
     [processData addDependency:getUsers];
     [processData addDependency:getAbsencesAndLates];
     
-    [queue addOperations:@[getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
+    [queue addOperations:@[getHours, getUsers, getAbsencesAndLates, processData] waitUntilFinished:NO];
     queue.suspended = NO;
+}
+
+- (void)setCachedHours {
+    NSDictionary *cachedHours = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kUSERHOURS];
+    if(cachedHours) [[UserWorkedHours sharedHours] setHoursFromDictionary:cachedHours];
 }
 
 - (void)reloadLates:(SimpleBlock)finalAction
@@ -346,44 +391,25 @@
             }
         }
             break;
-        case ListStateOutToday:
+        case ListStateAbsent:
+        case ListStateWorkFromHome:
+        case ListStateOutOfOffice:
         {
-            if (self.todayOutOffOfficePeople.count == 0)
+            if (self.outOfOfficePeople.count == 0)
             {
-                self.todayOutOffOfficePeople = [RMUser loadTodayOutOffOfficePeople];
+                self.outOfOfficePeople = [RMUser loadOutOffOfficePeople];
             }
             
             if (searchedString.length > 0)
             {
                 userList = [NSMutableArray arrayWithCapacity:3];
-                userList[0] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[1] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[2] = [NSMutableArray arrayWithArray:[self.todayOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[0] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[1] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
+                userList[2] = [NSMutableArray arrayWithArray:[self.outOfOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
             }
             else
             {
-                userList = [NSMutableArray arrayWithArray:self.todayOutOffOfficePeople];
-            }
-        }
-            break;
-            
-        case ListStateOutTomorrow:
-        {
-            if (self.tomorrowOutOffOfficePeople.count == 0)
-            {
-                self.tomorrowOutOffOfficePeople = [RMUser loadTomorrowOutOffOfficePeople];
-            }
-            
-            if (searchedString.length > 0)
-            {
-                userList = [NSMutableArray arrayWithCapacity:3];
-                userList[0] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[0] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[1] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[1] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-                userList[2] = [NSMutableArray arrayWithArray:[self.tomorrowOutOffOfficePeople[2] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name contains[cd] %@", searchedString]]];
-            }
-            else
-            {
-                userList = [NSMutableArray arrayWithArray:self.tomorrowOutOffOfficePeople];
+                userList = [NSMutableArray arrayWithArray:self.outOfOfficePeople];
             }
             
         }
@@ -407,7 +433,9 @@
     if (self.refreshControl == nil)
     {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refresh"];
+        refreshControl.backgroundColor = [Branding stxLightGray];
+        refreshControl.tintColor = [UIColor darkGrayColor];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
         [refreshControl addTarget:self action:@selector(startRefreshData)forControlEvents:UIControlEventValueChanged];
         
 //        _refreshControl = refreshControl;
@@ -430,7 +458,12 @@
 {
     static NSString *CellIdentifier = @"UserCell";
     
-    UserListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UserListCell *cell;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        cell = (UserListCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    } else {
+        cell = (UserListCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
     
     RMUser *user;
     NSInteger realSection = [self realSectionForNotEmptySection:indexPath.section];
@@ -445,12 +478,16 @@
     }
     
     cell.userName.text = user.name;
+    cell.userName.textColor = [Branding stxGreen];
+    cell.userRole.text = [user.roles firstObject];
     
-    [cell.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
+    [cell.userImage makeRadius:(cell.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGray]];
     
     if (!isDatabaseBusy)
     {
         __block BOOL shouldHiddeClock = YES;
+        __block BOOL shouldHideTomorrow = YES;
+        
         cell.clockView.hidden = shouldHiddeClock;
         
         NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
@@ -459,7 +496,8 @@
         NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
         latesDateFormater.dateFormat = @"HH:mm";
         
-        NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
+        cell.userReason.text = @"";
+        NSMutableAttributedString *hours = [[NSMutableAttributedString alloc] initWithString:@""];
         
         SimpleBlock setAbsences = ^{
             cell.clockView.color = MAIN_RED_COLOR;
@@ -467,18 +505,32 @@
             [user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMAbsence *absence = (RMAbsence *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [absence.isTomorrow boolValue] == NO) ||
-                    (currentListState == ListStateOutTomorrow && [absence.isTomorrow boolValue] == YES))
+                shouldHiddeClock = NO;
+                NSString *start = [absenceDateFormater stringFromDate:absence.start];
+                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                
+                if (start.length || stop.length)
                 {
-                    shouldHiddeClock = NO;
-                    NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                    NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
+                    NSString *startText = start;
+                    NSString *stopText = stop;
                     
-                    if (start.length || stop.length)
+                    if(start.length)
                     {
-                        [hours appendFormat:@" %@  -  %@\n", start.length ? start : @"...",
-                         stop.length ? stop : @"..."];
+                        NSArray *startDate = [start componentsSeparatedByString:@"-"];
+                        if([startDate count] > 2) startText = [NSString stringWithFormat:@"%@.%@",[startDate objectAtIndex:2], [startDate objectAtIndex:1]];
                     }
+                    
+                    if(stop.length)
+                    {
+                        NSArray *stopDate = [stop componentsSeparatedByString:@"-"];
+                        if([stopDate count] > 2) stopText = [NSString stringWithFormat:@"%@.%@",[stopDate objectAtIndex:2], [stopDate objectAtIndex:1]];
+                    }
+                    
+                    NSAttributedString *textToAppend = [self colorizedStringFromString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@  %@  %@  %@\n", NSLocalizedString(@"From", nil), start.length ? startText : @"...", NSLocalizedString(@"to", nil), stop.length ? stopText : @"..."]]];
+                    if([[hours string] rangeOfString:[textToAppend string]].location == NSNotFound) [hours appendAttributedString:textToAppend];
+                    
+                    if([cell.userReason.text isEqualToString:@""]) cell.userReason.text = absence.remarks;
+                    else if ([cell.userReason.text rangeOfString:absence.remarks].location == NSNotFound) cell.userReason.text = [cell.userReason.text stringByAppendingString:[NSString stringWithFormat:@"; %@", absence.remarks]];
                 }
             }];
         };
@@ -489,18 +541,20 @@
             [user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
                 RMLate *late = (RMLate *)obj;
                 
-                if ((currentListState != ListStateOutTomorrow && [late.isTomorrow boolValue] == NO) ||
-                    (currentListState == ListStateOutTomorrow && [late.isTomorrow boolValue] == YES))
+                shouldHideTomorrow = ![late.isTomorrow boolValue];
+                shouldHiddeClock = NO;
+                NSString *start = [latesDateFormater stringFromDate:late.start];
+                NSString *stop = [latesDateFormater stringFromDate:late.stop];
+                
+                BOOL properSection = (([late.isWorkingFromHome boolValue] && realSection != 2) || (![late.isWorkingFromHome boolValue] && realSection == 2));
+                
+                if ((start.length || stop.length) && properSection)
                 {
-                    shouldHiddeClock = NO;
-                    NSString *start = [latesDateFormater stringFromDate:late.start];
-                    NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                    
-                    if (start.length || stop.length)
-                    {
-                        [hours appendFormat:@" %@ - %@\n", start.length ? start : @"...",
-                         stop.length ? stop : @"..."];
-                    }
+                    NSAttributedString *textToAppend = [self colorizedStringFromString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@  %@  %@  %@\n", shouldHideTomorrow ? @"" : [NSLocalizedString(@"Tomorrow", nil) uppercaseString], NSLocalizedString(@"From", nil), start.length ? start : @"...", NSLocalizedString(@"to", nil), stop.length ? stop : @"..."]]];
+                    if([[hours string] rangeOfString:[textToAppend string]].location == NSNotFound) [hours appendAttributedString:textToAppend];
+
+                    if([cell.userReason.text isEqualToString:@""]) cell.userReason.text = late.explanation;
+                    else if ([cell.userReason.text rangeOfString:late.explanation].location == NSNotFound) cell.userReason.text = [cell.userReason.text stringByAppendingString:[NSString stringWithFormat:@"; %@", late.explanation]];
                 }
             }];
         };
@@ -527,11 +581,16 @@
                 setAbsences();
             }
         }
-        
-        [hours setString:[hours stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-        
+
         cell.clockView.hidden = shouldHiddeClock;
-        cell.warningDateLabel.text = hours;
+        
+        // remove newline character at the end of the string
+        if([[hours string] length] > 2)
+        {
+            NSAttributedString *attributedHours = [hours attributedSubstringFromRange:NSMakeRange(0, [[hours string] length] - 1)];
+            [cell.warningDateLabel setAttributedText:attributedHours];
+        }
+        else [cell.warningDateLabel setAttributedText:hours];
     }
     
     if (user.avatarURL)
@@ -568,8 +627,8 @@
     
     if (count == 0 && realSection == 0 && canShowNoResultsMessage)//show once
     {
-        [UIAlertView showWithTitle:@"Info"
-                           message:@"Nothing to show."
+        [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                           message:NSLocalizedString(@"Nothing to show.", nil)
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -586,36 +645,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (currentListState == ListStateAll)
-    {
-        return 1;
-    }
-    else
-    {
-        return [self numberOfNotEmptySections];
-    }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (currentListState != ListStateAll)
-    {
-        NSInteger realSection = [self realSectionForNotEmptySection:section];
-        
-        switch (realSection)
-        {
-            case 0:
-                return @"ABSENCE / HOLIDAY";
-                
-            case 1:
-                return @"WORK FROM HOME";
-                
-            case 2:
-                return @"OUT OF OFFICE";
-        }
-    }
-    
-    return @"";
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -629,6 +659,10 @@
     {
         return section;
     }
+    
+    if (currentListState == ListStateAbsent) return 0;
+    else if(currentListState == ListStateWorkFromHome) return 1;
+    else if (currentListState == ListStateOutOfOffice) return 2;
     
     NSInteger result = -1;
     
@@ -706,14 +740,14 @@
 {
     if (![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"No Internet connection.", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }
     else
     {
         if (INTERFACE_IS_PHONE)
         {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil), nil];
             
             [actionSheet showFromTabBar:self.tabBarController.tabBar];
             
@@ -723,7 +757,7 @@
             [self.requestActionSheet dismissWithClickedButtonIndex:20 animated:NO];
             [self.popover dismissPopoverAnimated:NO];
             
-            self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:@"New request" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Absence / Holiday", @"Out of office", nil];
+            self.requestActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil), nil];
             
             
             [self.requestActionSheet showFromBarButtonItem:self.addRequestButton animated:YES];
@@ -745,41 +779,34 @@
             form.currentRequest = (int)buttonIndex;
             form.delegate = self;
         }
-        else
-        {
-            UINavigationController *nvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
-            
-            AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
-            outOfOfficeForm.currentRequest = (int)buttonIndex;
-            outOfOfficeForm.delegate = self;
-            
-            if (INTERFACE_IS_PAD)
-            {
-                self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
-                self.popover.delegate = self;
-                
-                if (iOS8_PLUS)
-                {
-                    [self performBlockOnMainThread:^{ //hack, popover don't show on ios 8
-                        [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
-                                             permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                             animated:NO];
-                        outOfOfficeForm.popover = self.popover;
-                    } afterDelay:0];
-                }
-                else
-                {
-                    [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
-                                         permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                         animated:NO];
-                    outOfOfficeForm.popover = self.popover;
-                }
-            }
-            else
-            {
-                [self presentViewController:nvc animated:YES completion:nil];
-            }
-        }
+        // wylaczony na ipadzie
+//        else
+//        {
+//            UINavigationController *nvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+//            
+//            AddOOOFormTableViewController *outOfOfficeForm = [nvc.viewControllers firstObject];
+//            outOfOfficeForm.currentRequest = (int)buttonIndex;
+//            outOfOfficeForm.delegate = self;
+//            self.popover = [[UIPopoverController alloc] initWithContentViewController:nvc];
+//            self.popover.delegate = self;
+//            
+//            if (iOS8_PLUS)
+//            {
+//                [self performBlockOnMainThread:^{ //hack, popover don't show on ios 8
+//                    [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+//                                         permittedArrowDirections:UIPopoverArrowDirectionUp
+//                                                         animated:NO];
+//                    outOfOfficeForm.popover = self.popover;
+//                } afterDelay:0];
+//            }
+//            else
+//            {
+//                [self.popover presentPopoverFromBarButtonItem:self.addRequestButton
+//                                     permittedArrowDirections:UIPopoverArrowDirectionUp
+//                                                     animated:NO];
+//                outOfOfficeForm.popover = self.popover;
+//            }
+//        }
     }
 }
 
@@ -789,8 +816,8 @@
 {
     if ([identifier isEqualToString:@"AddOOOFormTableViewControllerId"] && ![[AFNetworkReachabilityManager sharedManager] isReachable])
     {
-        [UIAlertView showWithTitle:@"Error"
-                           message:@"No Internet connection."
+        [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                           message:NSLocalizedString(@"No Internet connection.", nil)
                              style:UIAlertViewStyleDefault
                  cancelButtonTitle:nil
                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -832,7 +859,7 @@
             viewController.user = userList[realSection][indexPath.row];
         }
         
-        viewController.isListStateTommorow = currentListState == ListStateOutTomorrow;
+        viewController.isListStateTommorow = currentListState == ListStateAbsent;
         
         if (INTERFACE_IS_PAD)
         {
@@ -870,8 +897,9 @@
             position = [userList indexOfObject:me];
             break;
             
-        case ListStateOutToday:
-        case ListStateOutTomorrow:
+        case ListStateAbsent:
+        case ListStateWorkFromHome:
+        case ListStateOutOfOffice:
             [userList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 if ([obj containsObject:me])
                 {
@@ -921,6 +949,31 @@
         
         self.splitViewController.viewControllers = @[self.splitViewController.viewControllers[0], nvc];
     }
+}
+
+#pragma mark customization
+- (NSAttributedString *)colorizedStringFromString:(NSAttributedString *)source
+{
+    NSString *hours = [source string];
+    NSMutableAttributedString *attributedHours = [source mutableCopy];
+    
+    NSRange fromRange = [hours rangeOfString:[NSString stringWithFormat:@" %@ ",NSLocalizedString(@"From", nil)]];
+    if(fromRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [Branding stxGreen] } range:fromRange];
+    }
+    NSRange toRange = [hours rangeOfString:[NSString stringWithFormat:@" %@ ",NSLocalizedString(@"to", nil)]];
+    if(fromRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [Branding stxGreen] } range:toRange];
+    }
+    NSRange tomorrowRange = [hours rangeOfString:[NSLocalizedString(@"Tomorrow", nil) uppercaseString]];
+    if(tomorrowRange.location != NSNotFound)
+    {
+        [attributedHours setAttributes:@{ NSForegroundColorAttributeName : [Branding stxGreen]} range:tomorrowRange];
+    }
+    
+    return attributedHours;
 }
 
 @end

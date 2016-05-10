@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import "ClockView.h"
+#import "AddOOOFormTableViewController.h"
 
 @protocol UserDetailsTableViewControllerDelegate;
-@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate>
+@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate, UIActionSheetDelegate, AddOOOFormTableViewControllerDelegate, UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
@@ -39,10 +40,12 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *rolesCell;
 
 @property (weak, nonatomic) IBOutlet ClockView *clockView;
+@property (strong, nonatomic) UIActionSheet *requestActionSheet;
 
 @property (strong, nonatomic) RMUser *user;
 @property (nonatomic, assign) BOOL isComeFromAbsences;
 @property (nonatomic, assign) BOOL isListStateTommorow;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
 @property (nonatomic, weak) id<UserDetailsTableViewControllerDelegate> delegate;
 

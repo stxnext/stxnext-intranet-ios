@@ -1,0 +1,180 @@
+
+/* Class = "UILabel"; text = "Absence / Holiday"; ObjectID = "03h-hr-oaZ"; */
+"03h-hr-oaZ.text" = "Absence / Holiday";
+
+/* Class = "UILabel"; text = "Design & UX"; ObjectID = "0TQ-mp-9Lt"; */
+"0TQ-mp-9Lt.text" = "Design & UX";
+
+/* Class = "UITableViewSection"; headerTitle = "Absence / Holiday:"; ObjectID = "0Ts-vs-fjb"; */
+"0Ts-vs-fjb.headerTitle" = "Absence / Holiday:";
+
+/* Class = "UINavigationController"; title = "Absences"; ObjectID = "11o-D8-hKM"; */
+"11o-D8-hKM.title" = "Absences";
+
+/* Class = "UILabel"; text = "Compassionate leave"; ObjectID = "1MN-60-cwG"; */
+"1MN-60-cwG.text" = "Compassionate leave";
+
+/* Class = "UITabBarItem"; title = "Employees"; ObjectID = "3B0-eY-fjy"; */
+"3B0-eY-fjy.title" = "Employees";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "3WX-iN-FUj"; */
+"3WX-iN-FUj.title" = "Settings";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5d9-nP-MER"; */
+"5d9-nP-MER.text" = "Label";
+
+/* Class = "UILabel"; text = "Skype:"; ObjectID = "6WW-Rn-Zsg"; */
+"6WW-Rn-Zsg.text" = "Skype:";
+
+/* Class = "UILabel"; text = "Jestem Superbohaterem!"; ObjectID = "7LP-wS-db9"; */
+"7LP-wS-db9.text" = "Jestem Superbohaterem!";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "7Mm-IC-mAc"; */
+"7Mm-IC-mAc.title" = "Cancel";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "7gk-I9-d4r"; */
+"7gk-I9-d4r.text" = "Type";
+
+/* Class = "UILabel"; text = "Karl Kristiansen\nAlex Carey\nBertram S. Jeppesen\nDominik Shuster"; ObjectID = "84u-HP-tnR"; */
+"84u-HP-tnR.text" = "Karl Kristiansen\nAlex Carey\nBertram S. Jeppesen\nDominik Shuster";
+
+/* Class = "UILabel"; text = "Start"; ObjectID = "8u0-UN-kbh"; */
+"8u0-UN-kbh.text" = "Start";
+
+/* Class = "UITextField"; placeholder = "Lateness reason"; ObjectID = "96D-cg-vzw"; */
+"96D-cg-vzw.placeholder" = "Lateness reason";
+
+/* Class = "UILabel"; text = "Development"; ObjectID = "9kx-lA-prG"; */
+"9kx-lA-prG.text" = "Development";
+
+/* Class = "UILabel"; text = "Explanation"; ObjectID = "BHt-pU-njx"; */
+"BHt-pU-njx.text" = "Explanation";
+
+/* Class = "UILabel"; text = "Imie Nazwisko"; ObjectID = "BtZ-fR-6K6"; */
+"BtZ-fR-6K6.text" = "Imie Nazwisko";
+
+/* Class = "UITableViewSection"; headerTitle = "Out of office:"; ObjectID = "CCh-M1-aTz"; */
+"CCh-M1-aTz.headerTitle" = "Out of office:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ChH-cE-gC4"; */
+"ChH-cE-gC4.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Out of Office"; ObjectID = "FUv-Qi-En5"; */
+"FUv-Qi-En5.normalTitle" = "Out of Office";
+
+/* Class = "UILabel"; text = "Leave at request"; ObjectID = "FcX-Ps-Pls"; */
+"FcX-Ps-Pls.text" = "Leave at request";
+
+/* Class = "UILabel"; text = "Credits"; ObjectID = "Fdm-Az-45G"; */
+"Fdm-Az-45G.text" = "Credits";
+
+/* Class = "UITabBarItem"; title = "Absences"; ObjectID = "GI2-Zc-m8J"; */
+"GI2-Zc-m8J.title" = "Absences";
+
+/* Class = "UILabel"; text = "Icons made by Freepik from www.flaticon.com"; ObjectID = "Hrk-Co-kVP"; */
+"Hrk-Co-kVP.text" = "Icons made by Freepik from www.flaticon.com";
+
+/* Class = "UINavigationController"; title = "Offices"; ObjectID = "LTv-PQ-Hj5"; */
+"LTv-PQ-Hj5.title" = "Offices";
+
+/* Class = "UILabel"; text = "Absence"; ObjectID = "LvM-fV-fSS"; */
+"LvM-fV-fSS.text" = "Absence";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "Lyg-nZ-Xhw"; */
+"Lyg-nZ-Xhw.text" = "To";
+
+/* Class = "UILabel"; text = "Programmer"; ObjectID = "M49-iq-cSW"; */
+"M49-iq-cSW.text" = "Programmer";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "MPi-Gz-w8l"; */
+"MPi-Gz-w8l.text" = "Date";
+
+/* Class = "UILabel"; text = "End"; ObjectID = "N3l-nd-Xai"; */
+"N3l-nd-Xai.text" = "End";
+
+/* Class = "UINavigationController"; title = "Me"; ObjectID = "N91-HD-i7s"; */
+"N91-HD-i7s.title" = "Me";
+
+/* Class = "UILabel"; text = "Illness"; ObjectID = "NHF-fE-1si"; */
+"NHF-fE-1si.text" = "Illness";
+
+/* Class = "UITabBarItem"; title = "Offices"; ObjectID = "Nq7-Cu-JOB"; */
+"Nq7-Cu-JOB.title" = "Offices";
+
+/* Class = "UINavigationController"; title = "Settings"; ObjectID = "PKd-ur-PLa"; */
+"PKd-ur-PLa.title" = "Settings";
+
+/* Class = "UILabel"; text = " "; ObjectID = "POD-FO-g9d"; */
+"POD-FO-g9d.text" = " ";
+
+/* Class = "UIBarButtonItem"; title = "Submit"; ObjectID = "Pri-va-A5v"; */
+"Pri-va-A5v.title" = "Submit";
+
+/* Class = "UIButton"; normalTitle = "Work from Home"; ObjectID = "U8r-wE-Ifa"; */
+"U8r-wE-Ifa.normalTitle" = "Work from Home";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "WNK-Nf-lln"; */
+"WNK-Nf-lln.text" = "Label";
+
+/* Class = "UILabel"; text = "Explanation"; ObjectID = "WRU-te-RQr"; */
+"WRU-te-RQr.text" = "Explanation";
+
+/* Class = "UITabBarItem"; title = "Me"; ObjectID = "Z7h-1E-pvt"; */
+"Z7h-1E-pvt.title" = "Me";
+
+/* Class = "UILabel"; text = "Logan Stevens\nDominik Shuster"; ObjectID = "Zsc-fm-rqb"; */
+"Zsc-fm-rqb.text" = "Logan Stevens\nDominik Shuster";
+
+/* Class = "UITableViewSection"; headerTitle = "Request for:"; ObjectID = "ac3-NN-ech"; */
+"ac3-NN-ech.headerTitle" = "Request for:";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "bOk-TH-mhO"; */
+"bOk-TH-mhO.text" = "Name";
+
+/* Class = "UIButton"; normalTitle = "Absences"; ObjectID = "bVI-EM-KMH"; */
+"bVI-EM-KMH.normalTitle" = "Absences";
+
+/* Class = "UILabel"; text = "13:00 - 14:30"; ObjectID = "c7n-gM-f03"; */
+"c7n-gM-f03.text" = "13:00 - 14:30";
+
+/* Class = "UILabel"; text = "Work from home"; ObjectID = "d0o-iq-PMf"; */
+"d0o-iq-PMf.text" = "Work from home";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "gX6-MZ-Ebl"; */
+"gX6-MZ-Ebl.text" = "From";
+
+/* Class = "UILabel"; text = "Move your finger!"; ObjectID = "gfD-Kq-E0t"; */
+"gfD-Kq-E0t.text" = "Move your finger!";
+
+/* Class = "UILabel"; text = "Poznań"; ObjectID = "hvL-0e-ypJ"; */
+"hvL-0e-ypJ.text" = "Poznań";
+
+/* Class = "UILabel"; text = "Icons"; ObjectID = "iBd-nd-fHp"; */
+"iBd-nd-fHp.text" = "Icons";
+
+/* Class = "UIButton"; normalTitle = "LOGOUT"; ObjectID = "jXN-MS-Yz8"; */
+"jXN-MS-Yz8.normalTitle" = "LOGOUT";
+
+/* Class = "UILabel"; text = "STX Intranet 1.5 STX Next Mobile Team 2015"; ObjectID = "jqf-co-SiT"; */
+"jqf-co-SiT.text" = "STX Intranet 1.5 STX Next Mobile Team 2015";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "l6S-jP-pRk"; */
+"l6S-jP-pRk.text" = "Name";
+
+/* Class = "UILabel"; text = "12:00"; ObjectID = "mQo-0c-LWH"; */
+"mQo-0c-LWH.text" = "12:00";
+
+/* Class = "UILabel"; text = "Out of office"; ObjectID = "mUy-5c-pYU"; */
+"mUy-5c-pYU.text" = "Out of office";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "paf-ZQ-fMS"; */
+"paf-ZQ-fMS.text" = "Label";
+
+/* Class = "UILabel"; text = "Planned leave"; ObjectID = "pro-Cd-EgY"; */
+"pro-Cd-EgY.text" = "Planned leave";
+
+/* Class = "UILabel"; text = " "; ObjectID = "v0Q-bs-Dk3"; */
+"v0Q-bs-Dk3.text" = " ";
+
+/* Class = "UISearchBar"; placeholder = "Search"; ObjectID = "v1g-Wu-eby"; */
+"v1g-Wu-eby.placeholder" = "Search";

@@ -11,4 +11,8 @@
 
 @interface OutOfOfficeTodayTableViewController : ListTableViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *absencesButton;
+@property (weak, nonatomic) IBOutlet UIButton *workFromHomeButton;
+@property (weak, nonatomic) IBOutlet UIButton *outOfOfficeButton;
+
 @end

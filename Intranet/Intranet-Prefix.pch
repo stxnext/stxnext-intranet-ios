@@ -93,5 +93,12 @@
 #define DID_START_REFRESH_PEOPLE @"didStartRefreshPeople"
 #define DID_END_REFRESH_PEOPLE @"didEndRefreshPeople"
 #define IS_REFRESH_PEOPLE @"isRefreshPeople"
+#define DID_LOGOUT @"didLogout"
+#define DID_BECOME_ACTIVE @"didBecomeActive"
+
+#define kHEROMODE @"SuperHeroMode"
+#define kUSERHOURS @"UserHours"
+#define kTIMEREMINDER @"TimeReminder"
+#define kHOURSADDED @"HoursAdded"
 
 typedef dispatch_block_t SimpleBlock;

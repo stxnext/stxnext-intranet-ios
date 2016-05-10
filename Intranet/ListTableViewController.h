@@ -18,8 +18,9 @@
 typedef NS_ENUM(NSUInteger, ListState) {
     ListStateNotSet, 
     ListStateAll,
-    ListStateOutToday,
-    ListStateOutTomorrow,
+    ListStateAbsent,
+    ListStateWorkFromHome,
+    ListStateOutOfOffice
 };
 
 @interface ListTableViewController : UITableViewController <UISearchBarDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, UserDetailsTableViewControllerDelegate, AddOOOFormTableViewControllerDelegate>
@@ -42,8 +43,7 @@ typedef NS_ENUM(NSUInteger, ListState) {
 @property (strong, nonatomic) UIActionSheet *requestActionSheet;
 
 @property (strong, nonatomic) NSArray *allUsers;
-@property (strong, nonatomic) NSArray *todayOutOffOfficePeople;
-@property (strong, nonatomic) NSArray *tomorrowOutOffOfficePeople;
+@property (strong, nonatomic) NSArray *outOfOfficePeople;
 
 - (void)hideOutViewButton;
 - (void)loadUsersFromDatabase;

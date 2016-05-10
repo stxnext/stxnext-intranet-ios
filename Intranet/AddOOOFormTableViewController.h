@@ -17,7 +17,7 @@ typedef enum
 }RequestType;
 
 @protocol AddOOOFormTableViewControllerDelegate;
-@interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate>
+@interface AddOOOFormTableViewController : UITableViewController <RequestTypeTableViewControllerDelegate, ExplanationViewControllerDelegate, NSURLConnectionDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
 
     NSInteger currentUnCollapsedPickerIndex;
@@ -49,6 +49,7 @@ typedef enum
 @property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayPickerStart;
 @property (weak, nonatomic) IBOutlet UIDatePicker *absenceHolidayPickerEnd;
 
+@property (weak, nonatomic) IBOutlet UITextView *absenceHolidayExplanation;
 
 // 2' section
 // cells
@@ -66,7 +67,9 @@ typedef enum
 @property (weak, nonatomic) IBOutlet UIDatePicker *OOOPickerFrom;
 @property (weak, nonatomic) IBOutlet UIDatePicker *OOOPickerTo;
 
+@property (weak, nonatomic) IBOutlet UITextView *OOOExplanation;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *submitCell;
 // actions
 - (IBAction)dateTimeValueChanged:(UIDatePicker *)sender;
 

@@ -1,0 +1,156 @@
+
+/* Class = "UILabel"; text = "12:00"; ObjectID = "008-A8-oGZ"; */
+"008-A8-oGZ.text" = "12:00";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2Vt-Sm-fvt"; */
+"2Vt-Sm-fvt.text" = "Label";
+
+/* Class = "UILabel"; text = "13:00 - 14:30"; ObjectID = "2d8-2l-nL7"; */
+"2d8-2l-nL7.text" = "13:00 - 14:30";
+
+/* Class = "UILabel"; text = "Reason"; ObjectID = "2ea-Zh-ccx"; */
+"2ea-Zh-ccx.text" = "Reason";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "4Hr-aJ-wjP"; */
+"4Hr-aJ-wjP.normalTitle" = "Submit";
+
+/* Class = "UIButton"; normalTitle = "Work from Home"; ObjectID = "62V-5i-uUz"; */
+"62V-5i-uUz.normalTitle" = "Work from Home";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6NP-Er-6jo"; */
+"6NP-Er-6jo.text" = "Label";
+
+/* Class = "UILabel"; text = "Jestem Superbohaterem!"; ObjectID = "7jr-g5-ZxM"; */
+"7jr-g5-ZxM.text" = "Jestem Superbohaterem!";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "84m-Yt-kYN"; */
+"84m-Yt-kYN.title" = "Item";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "9Cj-KL-Dqn"; */
+"9Cj-KL-Dqn.text" = "From";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "9Cy-zC-L0m"; */
+"9Cy-zC-L0m.normalTitle" = "Submit";
+
+/* Class = "UILabel"; text = "Logan Stevens\nDominik Shuster"; ObjectID = "9SS-eI-3ka"; */
+"9SS-eI-3ka.text" = "Logan Stevens\nDominik Shuster";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "AJE-qC-DxO"; */
+"AJE-qC-DxO.title" = "Root View Controller";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "BRh-qy-z8A"; */
+"BRh-qy-z8A.title" = "Item";
+
+/* Class = "UILabel"; text = "Out of office"; ObjectID = "BeS-bW-CTL"; */
+"BeS-bW-CTL.text" = "Out of office";
+
+/* Class = "UIButton"; normalTitle = "Out of Office"; ObjectID = "E54-px-w6G"; */
+"E54-px-w6G.normalTitle" = "Out of Office";
+
+/* Class = "UITableViewSection"; headerTitle = "Out of office:"; ObjectID = "Eq3-AI-InP"; */
+"Eq3-AI-InP.headerTitle" = "Out of office:";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "Ffz-Ny-a8h"; */
+"Ffz-Ny-a8h.title" = "Item";
+
+/* Class = "UILabel"; text = "Programmer"; ObjectID = "Hr6-wG-Fjk"; */
+"Hr6-wG-Fjk.text" = "Programmer";
+
+/* Class = "UILabel"; text = "Development"; ObjectID = "JT4-pi-F9i"; */
+"JT4-pi-F9i.text" = "Development";
+
+/* Class = "UILabel"; text = "Icons made by Freepik from www.flaticon.com"; ObjectID = "KbF-go-35G"; */
+"KbF-go-35G.text" = "Icons made by Freepik from www.flaticon.com";
+
+/* Class = "UILabel"; text = "STX Intranet 1.5 STX Next Mobile Team 2015"; ObjectID = "Lph-rL-xCh"; */
+"Lph-rL-xCh.text" = "STX Intranet 1.5 STX Next Mobile Team 2015";
+
+/* Class = "UILabel"; text = "End"; ObjectID = "OL3-Zc-NIy"; */
+"OL3-Zc-NIy.text" = "End";
+
+/* Class = "UILabel"; text = "Move your finger!"; ObjectID = "Pow-79-09f"; */
+"Pow-79-09f.text" = "Move your finger!";
+
+/* Class = "UILabel"; text = "Absence / Holiday"; ObjectID = "Q24-kc-5Yy"; */
+"Q24-kc-5Yy.text" = "Absence / Holiday";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "QX0-W9-2J5"; */
+"QX0-W9-2J5.title" = "Item";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "Qva-vP-gfb"; */
+"Qva-vP-gfb.text" = "Name";
+
+/* Class = "UITextField"; placeholder = "Lateness reason"; ObjectID = "SVu-d7-T30"; */
+"SVu-d7-T30.placeholder" = "Lateness reason";
+
+/* Class = "UILabel"; text = "Start"; ObjectID = "So0-RB-bFP"; */
+"So0-RB-bFP.text" = "Start";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "VXz-b9-Lex"; */
+"VXz-b9-Lex.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "W8l-wp-nu3"; */
+"W8l-wp-nu3.title" = "Item";
+
+/* Class = "UIButton"; normalTitle = "LOGOUT"; ObjectID = "WBg-Kq-TSz"; */
+"WBg-Kq-TSz.normalTitle" = "LOGOUT";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "WFI-QT-Sbx"; */
+"WFI-QT-Sbx.text" = "To";
+
+/* Class = "UILabel"; text = "Icons"; ObjectID = "X5Z-cF-LJr"; */
+"X5Z-cF-LJr.text" = "Icons";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "ZcM-31-2NP"; */
+"ZcM-31-2NP.text" = "Type";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bcN-AB-UB9"; */
+"bcN-AB-UB9.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "clj-cg-EcD"; */
+"clj-cg-EcD.text" = "Label";
+
+/* Class = "UILabel"; text = "Karl Kristiansen\nAlex Carey\nBertram S. Jeppesen\nDominik Shuster"; ObjectID = "el9-Gy-0fd"; */
+"el9-Gy-0fd.text" = "Karl Kristiansen\nAlex Carey\nBertram S. Jeppesen\nDominik Shuster";
+
+/* Class = "UILabel"; text = "Poznań"; ObjectID = "g08-y8-2i3"; */
+"g08-y8-2i3.text" = "Poznań";
+
+/* Class = "UILabel"; text = "Imie Nazwisko"; ObjectID = "g5z-f3-Qys"; */
+"g5z-f3-Qys.text" = "Imie Nazwisko";
+
+/* Class = "UILabel"; text = "Skype:"; ObjectID = "gxd-ev-RiI"; */
+"gxd-ev-RiI.text" = "Skype:";
+
+/* Class = "UIButton"; normalTitle = "Absences"; ObjectID = "hWQ-cZ-gD2"; */
+"hWQ-cZ-gD2.normalTitle" = "Absences";
+
+/* Class = "UISearchBar"; placeholder = "Szukaj osoby..."; ObjectID = "mNP-0a-Cd6"; */
+"mNP-0a-Cd6.placeholder" = "Szukaj osoby...";
+
+/* Class = "UILabel"; text = "Credits"; ObjectID = "mfJ-Fq-bkd"; */
+"mfJ-Fq-bkd.text" = "Credits";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "owF-LY-lHS"; */
+"owF-LY-lHS.text" = "Name";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "qqc-dr-jaV"; */
+"qqc-dr-jaV.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "rfm-Z4-esR"; */
+"rfm-Z4-esR.title" = "Item";
+
+/* Class = "UILabel"; text = "Work from home"; ObjectID = "sqf-pe-2dn"; */
+"sqf-pe-2dn.text" = "Work from home";
+
+/* Class = "UITableViewSection"; headerTitle = "Absence / Holiday:"; ObjectID = "uye-ND-Wtx"; */
+"uye-ND-Wtx.headerTitle" = "Absence / Holiday:";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "yaw-Xy-GpX"; */
+"yaw-Xy-GpX.text" = "Date";
+
+/* Class = "UITableViewSection"; headerTitle = "Request for:"; ObjectID = "ych-7T-9kE"; */
+"ych-7T-9kE.headerTitle" = "Request for:";
+
+/* Class = "UILabel"; text = "Design & UX"; ObjectID = "zJA-3q-HUO"; */
+"zJA-3q-HUO.text" = "Design & UX";

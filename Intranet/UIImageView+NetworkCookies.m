@@ -73,7 +73,7 @@ static NSString *documentDirectoryPath;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         [[HTTPClient sharedClient] addAuthCookiesToRequest:request];
         
-        [self setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"tabbar_icon_me_big"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [self setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"avatar_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
 
             [imageData writeToFile:imagePath atomically:YES];

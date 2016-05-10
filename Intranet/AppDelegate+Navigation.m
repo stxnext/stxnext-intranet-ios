@@ -8,6 +8,9 @@
 
 #import "AppDelegate+Navigation.h"
 
+#import "MainVerticalTabBarViewController.h"
+#import "ListTableViewController.h"
+
 @implementation AppDelegate (Navigation)
 
 - (void)goToTabAtIndex:(NSUInteger)index
@@ -25,14 +28,12 @@
 
 - (void)showLoginScreenForiPad
 {
-    UISplitViewController *controller = (UISplitViewController *)self.window.rootViewController;
-
-    [self.window.rootViewController.view logViewHierarchy];
+    MainVerticalTabBarViewController *controller = (MainVerticalTabBarViewController *)self.window.rootViewController;
     
-    if ([((UINavigationController *)controller.viewControllers[0]).viewControllers[0] respondsToSelector:@selector(showLoginScreen)])
-    {
-        [((UINavigationController *)controller.viewControllers[0]).viewControllers[0] performSelector:@selector(showLoginScreen)];
-    }
+    UISplitViewController *splitController = controller.embededTabBarController.viewControllers[0];
+    ListTableViewController *listVC = splitController.viewControllers[0];
+    
+    [listVC showLoginScreen];
 }
 
 @end

@@ -12,6 +12,8 @@
 @interface UserListCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *userReason;
+@property (weak, nonatomic) IBOutlet UILabel *userRole;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *warningDateLabel;
 @property (weak, nonatomic) IBOutlet ClockView *clockView;

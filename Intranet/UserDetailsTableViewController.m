@@ -7,18 +7,36 @@
 //
 
 #import "UserDetailsTableViewController.h"
+#import "AddHoursTableViewController.h"
 #import "RMUser+AddressBook.h"
 #import "AFHTTPRequestOperation+Redirect.h"
 #import "APIRequest.h"
 #import "AppDelegate+Navigation.h"
 #import "NSString+MyRegex.h"
 #import "UIImageView+Additions.h"
+#import "UserDetailsTableViewCell.h"
+#import "UIImage+Color.h"
+#import "CellularRangeDetector.h"
+#import "UserWorkedHours.h"
+#import "MBProgressHUD.h"
+#import "CalendarViewController.h"
+#import "NSDate+TimePeriods.h"
+
+#define kUSER_LOCATION @"Office"
+#define kUSER_EMAIL @"E-mail"
+#define kUSER_PHONE @"Tel"
+#define kUSER_SKYPE @"Skype"
+#define kUSER_IRC @"IRC"
 
 @interface UserDetailsTableViewController ()
 {
     BOOL isPageLoaded;
+    NSDictionary *userDetails;
+    NSArray *detailsOrder;
+    UIRefreshControl *refresh;
 }
 
+@property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) UILabel *loadingLabel;
@@ -36,16 +54,50 @@
     
     [self.tableView hideEmptySeparators];
     
-    [self resetLabels];
-    [self updateGUI];
+    if (INTERFACE_IS_PHONE) {
+        [self.view setBackgroundColor:[Branding stxLightGray]];
+    } else {
+        [self.view setBackgroundColor:[UIColor whiteColor]];
+    }
     
+    if ([self isMeTab] && !self.user.name) self.user = [RMUser me];
+    if(self.user.avatarURL) [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
+    [self.userImage makeRadius:(self.userImage.frame.size.height / 2) borderWidth:2.0 color:[Branding stxGreen]];
+    [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor clearColor]];
+
+    [self updateGUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartRefreshPeople) name:DID_START_REFRESH_PEOPLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndRefreshPeople) name:DID_END_REFRESH_PEOPLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearData) name:DID_LOGOUT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestUserHours) name:kHOURSADDED object:nil];
+    
+    if (INTERFACE_IS_PAD) {
+        UIImage *img = self.profileBackground.image;
+        img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, 3, 0, 3)];
+        self.profileBackground.image = img;
+    }
+    
+    if ([self isMeTab]) {
+        [self requestUserHours];
+        [self.refreshControl addTarget:self action:@selector(requestUserHours) forControlEvents:UIControlEventValueChanged];
+        self.refreshControl.backgroundColor = [Branding stxLightGray];
+        self.refreshControl.tintColor = [UIColor darkGrayColor];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Refresh", nil) attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+        [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:NO];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    BOOL superHeroMode = [[NSUserDefaults standardUserDefaults] boolForKey:kHEROMODE];
+    if(superHeroMode)
+    {
+        [self isFemale] ? [self.profileBackground setImage:[UIImage imageNamed:@"superhero_her"]] : [self.profileBackground setImage:[UIImage imageNamed:@"superhero_him"]];
+    }
+    else [self.profileBackground setImage:[UIImage imageNamed:@"superhero_none"]];
+    if ([self isMeTab] && !self.user.name) self.user = [RMUser me];
     
     if (![RMUser myUserId])
     {
@@ -58,37 +110,152 @@
     {
         [self updateGUI];
     }
+    
+    [self updateAddToContactsButton];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    if(![self isMeTab])
+    {
+        userDetails = nil;
+        detailsOrder = nil;
+    }
+}
+
+- (void)requestUserHours
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSNumber *personalIdentifier = [[NSUserDefaults standardUserDefaults] valueForKey:@"myUserId"];
+    [[HTTPClient sharedClient] startOperation:[APIRequest getWorkedHoursForUser:personalIdentifier] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[NSUserDefaults standardUserDefaults] setObject:responseObject forKey:kUSERHOURS];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[UserWorkedHours sharedHours] setHoursFromDictionary:responseObject];
+        [self.tableView reloadData];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.refreshControl endRefreshing];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.refreshControl endRefreshing];
+    }];
+}
+
+//check what kind of user data is available (not nil) and prepare a dictionary containing only these data which should be displayed on user page... additionally create an array of dictionary keys to maintain proper order of tableview cells (it is necessary since [userDetails allKeys] also returns keys in an array, but not in order)
+- (void)prepareUserDetails
+{
+    NSMutableDictionary *userData = [[NSMutableDictionary alloc] init];
+    NSMutableArray *availableInfo = [[NSMutableArray alloc] init];
+    
+    if(self.user.location)
+    {
+        [userData setObject:self.user.location forKey:kUSER_LOCATION];
+        [availableInfo addObject:kUSER_LOCATION];
+    }
+    if(self.user.email)
+    {
+        [userData setObject:self.user.email forKey:kUSER_EMAIL];
+        [availableInfo addObject:kUSER_EMAIL];
+    }
+    if(self.user.phone)
+    {
+        //it would be nice to have all telephone numbers in the same format
+        NSString *phoneString = [[[NSString stringWithFormat:@"%@", self.user.phone] stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        if([phoneString hasPrefix:@"+48"] && [phoneString length] > 3) phoneString = [phoneString substringFromIndex:3];
+        
+        [userData setObject:phoneString forKey:kUSER_PHONE];
+        [availableInfo addObject:kUSER_PHONE];
+    }
+    if(self.user.skype)
+    {
+        [userData setObject:self.user.skype forKey:kUSER_SKYPE];
+        [availableInfo addObject:kUSER_SKYPE];
+    }
+    if(self.user.irc)
+    {
+        [userData setObject:self.user.irc forKey:kUSER_IRC];
+        [availableInfo addObject:kUSER_IRC];
+    }
+    
+    userDetails = [userData copy];
+    detailsOrder = [availableInfo copy];
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UserDetailsTableViewCell *cell = (UserDetailsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    if (cell == self.phoneCell)
+    if(indexPath.section == 0 && [self isMeTab] && indexPath.row != 1) {
+        if(indexPath.row == 0) {
+            [self requestUserHours];
+            return;
+        }
+        NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
+        NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
+        BOOL quarterMode = YES;
+        if(indexPath.row == 2) {
+            requestedHoursStartDate = [NSDate firstDayOfCurrentMonth];
+            requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
+            quarterMode = NO;
+        }
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Requesting hours summary", nil);
+        if(!quarterMode) {
+            [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[NSDate firstDayOfCurrentMonth]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                CalendarViewController *calController = [[CalendarViewController alloc] init];
+                calController.quarterMode = quarterMode;
+                calController.hoursData = (NSArray *)responseObject;
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                [self.tabBarController presentViewController:navController animated:YES completion:nil];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            }];
+        }
+        else {
+            NSMutableArray *timePeriodSummary = [[NSMutableArray alloc] init];
+            [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[NSDate firstDayOfCurrentQuarter]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:[NSDate firstDayOfCurrentQuarter] options:0]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                    [[HTTPClient sharedClient] startOperation:[APIRequest getUserHoursForMonthInDate:[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitMonth value:2 toDate:[NSDate firstDayOfCurrentQuarter] options:0]] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [timePeriodSummary addObjectsFromArray:(NSArray *)responseObject];
+                        CalendarViewController *calController = [[CalendarViewController alloc] init];
+                        calController.quarterMode = quarterMode;
+                        calController.hoursData = [timePeriodSummary copy];
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calController];
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        [self.tabBarController presentViewController:navController animated:YES completion:nil];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    }];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            }];
+        }
+    }
+    
+    if ([cell.header.text isEqualToString:kUSER_PHONE])
     {
         [self phoneCall];
     }
-    else if (cell == self.phoneDeskCell)
-    {
-        [self phoneDeskCall];
-    }
-    else if (cell == self.emailCell)
+    else if ([cell.header.text isEqualToString:kUSER_EMAIL])
     {
         [self emailSend];
     }
-    else if (cell == self.skypeCell)
+    else if ([cell.header.text isEqualToString:kUSER_SKYPE])
     {
         [self skypeCall];
     }
-    else if (cell == self.ircCell)
+    else if ([cell.header.text isEqualToString:kUSER_IRC])
     {
         [self ircSend];
-    }
-    else if (cell == self.addToContactsCell)
-    {
-        [self addToContacts];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -96,18 +263,103 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    if([self isHeaderIndex:indexPath]) return 44.0f;
+    return 32;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellIdentifier = @"userDetailsCell";
+    if([self isHeaderIndex:indexPath]) cellIdentifier = @"userInfoCell";
+    UserWorkedHours *workedHours = [UserWorkedHours sharedHours];
+
+    UserDetailsTableViewCell *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(!myCell) myCell = [[UserDetailsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
-    if (cell == self.mainCell)
+    if([self isHeaderIndex:indexPath])
     {
-        float size = self.explanationLabel.frame.size.height + 20 + self.userName.frame.size.height + 20;
-        
-        return size > cell.frame.size.height ? size : cell.frame.size.height;
+        if([self isInHoursSection:indexPath])
+        {
+            [myCell.header setText:NSLocalizedString(@"Worked hours", nil)];
+            if(workedHours.getTodaysArrival) [myCell.details setText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Today from", nil), workedHours.getTodaysArrival]];
+            [myCell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+            return myCell;
+        }
+        [myCell.header setText:self.user.name];
+        [myCell.details setText:[[self.user.roles componentsJoinedByString:@", "] uppercaseString]];
     }
-    
-    CGFloat r = cell.isHidden ? 0 : 56;
-    
-    return r;
+    else
+    {
+        if([self isInHoursSection:indexPath])
+        {
+            NSNumber *diff = [NSNumber numberWithFloat:0.1];
+            switch (indexPath.row) {
+                case 1:
+                    [myCell.header setText:NSLocalizedString(@"Today", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getTodaysSum floatValue], [workedHours.getTodaysDiff floatValue]]];
+                    diff = workedHours.getTodaysDiff;
+                    [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    break;
+                case 2:
+                    [myCell.header setText:NSLocalizedString(@"Month", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getMonthSum floatValue], [workedHours.getMonthDiff floatValue]]];
+                    diff = workedHours.getMonthDiff;
+                    break;
+                case 3:
+                    [myCell.header setText:NSLocalizedString(@"Quarter", nil)];
+                    [myCell.details setText:[NSString stringWithFormat:@"%0.2f (%0.2f)", [workedHours.getQuarterSum floatValue], [workedHours.getQuarterDiff floatValue]]];
+                    diff = workedHours.getQuarterDiff;
+                    break;
+                default:
+                    break;
+            }
+            if(!diff) [myCell.details setText:@""];
+            else if([diff floatValue] <= 0) [myCell.details setTextColor:[UIColor redColor]];
+            return myCell;
+        }
+        NSString *currentKey = [detailsOrder objectAtIndex:indexPath.row - 1];
+        [myCell.header setText:[NSString stringWithFormat:@"%@",currentKey]];
+        [myCell.details setText:[userDetails objectForKey:currentKey]];
+        
+        //we don't want the office row to be selectable since it doesn't trigger any action
+        if([currentKey isEqualToString:kUSER_LOCATION])
+        {
+            [myCell.header setText:NSLocalizedString(@"Office", nil)];
+            [myCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+    }
+
+    return myCell;
+}
+
+- (BOOL)isInHoursSection:(NSIndexPath *)indexPath
+{
+    return (indexPath.section == 0 && [self isMeTab]);
+}
+
+- (BOOL)isHeaderIndex:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) return YES;
+    return NO;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if([self isMeTab] && section == 0) return 4;
+    [self prepareUserDetails];
+    return [[userDetails allKeys] count] + 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if([self isMeTab]) return 2;
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(section == 0) return 12.0f;
+    return 20.0f;
 }
 
 #pragma mark - GUI
@@ -116,26 +368,31 @@
 {
     if (INTERFACE_IS_PAD)
     {
+        if ([self isMeTab]) {
+            
+            self.user = [RMUser me];
+        }
+        
         if ([RMUser userLoggedType] != UserLoginTypeTrue)
         {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+            self.title = NSLocalizedString(@"Info", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(logout:)];
         }
         else if ([self isLoadedMe]) // my details
         {
-            self.title = @"Me";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+            self.title = NSLocalizedString(@"Me", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(logout:)];
         }
         else // other people
         {
-            self.title = @"Info";
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Me"
+            self.title = NSLocalizedString(@"Info", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Me", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(loadMe)];
@@ -147,7 +404,7 @@
         {
             if ([RMUser userLoggedType] != UserLoginTypeTrue)
             {
-                self.title = @"About";
+                self.title = NSLocalizedString(@"About", nil);
                 
                 NSLog(@"%@", self.tabBarController.tabBar);
                 
@@ -169,255 +426,15 @@
             }
             else
             {
-                self.title = @"Me";
+                self.title = NSLocalizedString(@"Me", nil);
                 [self.webView removeFromSuperview];
                 self.user = [RMUser me];
             }
-            
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self
-                                                                                     action:@selector(logout:)];
-            
         }
-        else
-        {
-            self.title = @"Info";
-            //            if ([[NSUserDefaults standardUserDefaults] boolForKey:IS_REFRESH_PEOPLE])
-            //            {
-            ////                if (!self.user)
-            ////                {
-            ////                    [self addActivityIndicator];
-            ////                }
-            //
-            //                return;
-            //            }
-            
-        }
+        else self.title = NSLocalizedString(@"Info", nil);
     }
-    
-    [self updateCells];
     
     [self.tableView reloadDataAnimated:NO];
-}
-
-- (void)updateCells
-{
-    if (self.user.avatarURL)
-    {
-        [self.userImage setImageUsingCookiesWithURL:[[HTTPClient sharedClient].baseURL URLByAppendingPathComponent:self.user.avatarURL] forceRefresh:NO];
-    }
-    
-    [self.userImage makeRadius:5 borderWidth:1 color:[UIColor grayColor]];
-    
-    if (self.user.name)
-    {
-        self.userName.text = self.user.name;
-        self.mainCell.hidden = NO;
-    }
-    else
-    {
-        self.mainCell.hidden = YES;
-    }
-    
-    if (self.user.phone)
-    {
-        self.phoneLabel.text = self.user.phone;
-        self.phoneCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneCell.hidden = YES;
-    }
-    
-    if (self.user.phoneDesk)
-    {
-        self.phoneDeskLabel.text = self.user.phoneDesk;
-        self.phoneDeskCell.hidden = NO;
-    }
-    else
-    {
-        self.phoneDeskCell.hidden = YES;
-    }
-    
-    if (self.user.email)
-    {
-        self.emailLabel.text = self.user.email;
-        self.emailCell.hidden = NO;
-    }
-    else
-    {
-        self.emailCell.hidden = YES;
-    }
-    
-    if (self.user.skype)
-    {
-        self.skypeLabel.text = self.user.skype;
-        self.skypeCell.hidden = NO;
-    }
-    else
-    {
-        self.skypeCell.hidden = YES;
-    }
-    
-    if (self.user.irc)
-    {
-        self.ircLabel.text = self.user.irc;
-        self.ircCell.hidden = NO;
-    }
-    else
-    {
-        self.ircCell.hidden = YES;
-    }
-    
-    if (self.user.location)
-    {
-        self.locationLabel.text = self.user.location;
-        self.locationCell.hidden = NO;
-    }
-    else
-    {
-        self.locationCell.hidden = YES;
-    }
-    
-    NSString *(^formatValues)(id) = ^(id array){
-        NSMutableString *string = [[NSMutableString alloc] initWithString:@""];
-        
-        for (NSString *value in array)
-        {
-            [string appendFormat:@"%@, ", value];
-        }
-        
-        [string  replaceCharactersInRange:NSMakeRange(string.length - 2, 2) withString:@""];
-        
-        return string;
-    };
-    
-    if ([self.user.groups count])
-    {
-        self.groupsLabel.text = formatValues(self.user.groups);
-        self.groupsCell.hidden = NO;
-    }
-    else
-    {
-        self.groupsCell.hidden = YES;
-    }
-    
-    if ([self.user.roles count])
-    {
-        self.rolesLabel.text = formatValues(self.user.roles);
-        self.rolesCell.hidden = NO;
-    }
-    else
-    {
-        self.rolesCell.hidden = YES;
-    }
-    
-    self.clockView.hidden = ((self.user.lates.count + self.user.absences.count) == 0);
-    
-    __block NSMutableString *hours = [[NSMutableString alloc] initWithString:@""];
-    
-    NSDateFormatter *absenceDateFormater = [[NSDateFormatter alloc] init];
-    absenceDateFormater.dateFormat = @"YYYY-MM-dd";
-    
-    NSDateFormatter *latesDateFormater = [[NSDateFormatter alloc] init];
-    latesDateFormater.dateFormat = @"HH:mm";
-    
-    BOOL isAbsenceAndCommingFromAbsence = (self.isComeFromAbsences && self.user.absences.count);
-    BOOL isAbsenceAndNotCommingFromAbsence = (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count);
-    
-    //    if ((self.isComeFromAbsences && self.user.absences.count) || (!self.isComeFromAbsences && !self.user.lates.count && self.user.absences.count))
-    //    if ((self.isComeFromAbsences || !self.user.lates.count) && self.user.absences.count) // prostsza wersja tego co u góry (A && B) || ( !A &&  !C && B)  >>>
-    if (isAbsenceAndCommingFromAbsence || isAbsenceAndNotCommingFromAbsence)
-    {
-        self.clockView.color = MAIN_RED_COLOR;
-        
-        [self.user.absences enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMAbsence *absence = (RMAbsence *)obj;
-            
-            if (self.isListStateTommorow == [absence.isTomorrow boolValue])
-            {
-                NSString *start = [absenceDateFormater stringFromDate:absence.start];
-                NSString *stop = [absenceDateFormater stringFromDate:absence.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@  -  %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (absence.remarks)
-                {
-                    [hours appendFormat:@" %@\n", absence.remarks];
-                }
-            }
-        }];
-    }
-    else  if (self.user.lates.count)
-    {
-        self.clockView.color = MAIN_YELLOW_COLOR;
-        
-        [self.user.lates enumerateObjectsUsingBlock:^(id obj, BOOL *_stop) {
-            RMLate *late = (RMLate *)obj;
-            
-            if (self.isListStateTommorow == [late.isTomorrow boolValue])
-            {
-                NSString *start = [latesDateFormater stringFromDate:late.start];
-                NSString *stop = [latesDateFormater stringFromDate:late.stop];
-                
-                if (start.length || stop.length)
-                {
-                    [hours appendFormat:@"%@ - %@,", start.length ? start : @"...",
-                     stop.length ? stop : @"..."];
-                }
-                
-                if (late.explanation)
-                {
-                    [hours appendFormat:@" %@\n", late.explanation];
-                }
-            }
-        }];
-    }
-    
-    [hours setString:[hours  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    
-    if (hours.length > 1)
-    {
-        [hours deleteCharactersInRange:NSMakeRange(hours.length - 1, 1)];
-    }
-    
-    self.explanationLabel.text = hours;
-    
-    if ([RMUser userLoggedType] != UserLoginTypeTrue)
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    if ([self isLoadedMe])
-    {
-        self.addToContactsCell.hidden = YES;
-    }
-    
-    [self.userName sizeToFit];
-    [self.userName layoutIfNeeded];
-    [self.explanationLabel sizeToFit];
-    
-    [self updateAddToContactsButton];
-}
-
-- (void)resetLabels
-{
-    self.phoneLabel.text = @"";
-    self.emailLabel.text = @"";
-    self.phoneDeskLabel.text = @"";
-    self.skypeLabel.text = @"";
-    self.ircLabel.text = @"";
-    self.userName.text = @"";
-    self.addToContactLabel.text = @"";
-    self.locationLabel.text = @"";
-    self.rolesLabel.text = @"";
-    self.groupsLabel.text = @"";
-    self.explanationLabel.text = @"";
 }
 
 #pragma mark - Actions
@@ -436,56 +453,61 @@
 
 - (void)phoneCall
 {
+    if(![CellularRangeDetector hasCellularCoverage]) return;
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
-    NSString *number = self.user.phone;
+    NSString *number = [userDetails objectForKey:kUSER_PHONE];
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:NSLocalizedString(@"Call app not found.", nil)];
 }
 
 - (void)phoneDeskCall
 {
+    if(![CellularRangeDetector hasCellularCoverage]) return;
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"1234567890+"];
     s = [s invertedSet];
     
     NSString *number = self.user.phoneDesk;
     number = [[number componentsSeparatedByCharactersInSet:s] componentsJoinedByString:@""];
     
-    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:@"Call app not found."];
+    [self openUrl:[NSURL URLWithString:[@"tel://" stringByAppendingString:number]] orAlertWithText:NSLocalizedString(@"Call app not found.",nil)];
 }
 
 - (void)emailSend
 {
     if ([MFMailComposeViewController canSendMail])
     {
-        NSArray *toRecipents = [NSArray arrayWithObject:self.user.email];
+        NSArray *toRecipents = [NSArray arrayWithObject:[userDetails objectForKey:kUSER_EMAIL]];
         
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        [[mc navigationBar] setTintColor:[UIColor whiteColor]];
         mc.mailComposeDelegate = self;
         [mc setToRecipients:toRecipents];
         
         // Present mail view controller on screen
-        [self presentViewController:mc animated:YES completion:NULL];
+        [self presentViewController:mc animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
     }
     else
     {
-        [UIAlertView alertWithTitle:@"Error"
-                           withText:@"Email app not found."];
+        [UIAlertView alertWithTitle:NSLocalizedString(@"Error", nil)
+                           withText:NSLocalizedString(@"Email app not found.", nil)];
     }
 }
 
 - (void)skypeCall
 {
-    [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:self.user.skype]]
-  orAlertWithText:@"Skype app not found."];
+    [self openUrl:[NSURL URLWithString:[@"skype://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_SKYPE]]]
+  orAlertWithText:NSLocalizedString(@"Skype app not found.", nil)];
 }
 
 - (void)ircSend
 {
-    [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:self.user.irc]]
-  orAlertWithText:@"IRC app not found."];
+    [self openUrl:[NSURL URLWithString:[@"irc://" stringByAppendingString:[userDetails objectForKeyedSubscript:kUSER_IRC]]]
+  orAlertWithText:NSLocalizedString(@"IRC app not found.", nil)];
 }
 
 - (void)addToContacts
@@ -504,17 +526,20 @@
 
 - (void)updateAddToContactsButton
 {
-    if ([_user isInContacts])
+    UIImage *removeImage = [UIImage imageNamed:@"forbidden27"];
+    UIImage *addImage = [UIImage imageNamed:@"add54"];
+    
+    if([self isMeTab])
     {
-        self.addToContactLabel.text = @"remove from contacts";
+        [self.actionButton setImage:addImage forState:UIControlStateNormal];
+        return;
     }
-    else
-    {
-        self.addToContactLabel.text = @"add to contacts";
-    }
+    
+    if ([_user isInContacts]) [self.actionButton setImage:removeImage forState:UIControlStateNormal];
+    else [self.actionButton setImage:addImage forState:UIControlStateNormal];
 }
 
-- (IBAction)logout:(id)sender
+- (IBAction)logout:(id)sender //left only for iPad purposes, probably will be changed or removed after new version for iPad is released
 {
     if ([RMUser userLoggedType] == UserLoginTypeFalse)
     {
@@ -571,9 +596,7 @@
                                                   
                                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                                   
-                                                  self.user = nil;
-                                                  self.webView = nil;
-                                                  isPageLoaded = NO;
+                                                  [self clearData];
                                                   
                                                   [RMUser setMyUserId:nil];
                                                   
@@ -596,6 +619,13 @@
     }
 }
 
+- (void)clearData
+{
+    self.user = nil;
+    self.webView = nil;
+    isPageLoaded = NO;
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -609,7 +639,7 @@
     isPageLoaded = NO;
     
     CGPoint center = self.loadingLabel.center;
-    self.loadingLabel.text = @"Loading error.";
+    self.loadingLabel.text = NSLocalizedString(@"Loading error.", nil);
     [self.loadingLabel sizeToFit];
     self.loadingLabel.center = center;
 }
@@ -709,6 +739,9 @@
 
 - (BOOL)isMeTab
 {
+    if (INTERFACE_IS_PAD) {
+        return [self splitViewController] ? NO : YES;
+    }
     return [[self.navigationController viewControllers] count] == 1;
 }
 
@@ -725,6 +758,93 @@
     }
     
     [self updateGUI];
+}
+
+- (BOOL)isFemale {
+    NSArray *nameSplit = [self.user.name componentsSeparatedByString:@" "];
+    if(nameSplit && nameSplit.count > 1)
+    {
+        NSString *firstName = [nameSplit firstObject];
+        if([firstName hasSuffix:@"a"]) return YES;
+    }
+    return NO;
+}
+
+#pragma mark absence/contact button actions
+
+- (IBAction)triggerAction:(id)sender {
+    if([self isMeTab]) [self showNewRequest:sender];
+    else [self addToContacts];
+}
+
+- (void)showNewRequest:(id)sender
+{
+    if (![[AFNetworkReachabilityManager sharedManager] isReachable])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No Internet connection." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    } else {
+        if (INTERFACE_IS_PHONE) {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"New request", nil)
+                                                                     delegate:self
+                                                            cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                       destructiveButtonTitle:nil
+                                                            otherButtonTitles:NSLocalizedString(@"Add hours",nil),NSLocalizedString(@"I'll be late!",nil), NSLocalizedString(@"Absence/Holiday", nil), NSLocalizedString(@"Out of office", nil) , nil];
+            
+            [actionSheet showFromTabBar:self.tabBarController.tabBar];
+        }
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Requesting projects list", nil);
+        
+        [[HTTPClient sharedClient] startOperation:[APIRequest getProjectsList] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
+            if (INTERFACE_IS_PHONE)
+            {
+                UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddTimeEntryFormViewController"];
+                AddHoursTableViewController *hoursVc = (AddHoursTableViewController *)nvc.topViewController;
+                hoursVc.projectsList = [responseObject objectForKey:@"projects"];
+                if(hoursVc.projectsList) [self.tabBarController presentViewController:nvc animated:YES completion:nil];
+                else {
+                    UIAlertView *failureAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Request failed", nil) message:NSLocalizedString(@"Couldn't parse projects list", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [failureAlert show];
+                }
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            UIAlertView *failureAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Request failed", nil) message:NSLocalizedString(@"Couldn't obtain projects list", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [failureAlert show];
+        }];
+    }
+    else if (buttonIndex == 1)
+    {
+        if (INTERFACE_IS_PHONE)
+        {
+            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LatenessFormViewControllerId"];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }
+    else if (buttonIndex < 4)
+    {
+        if (INTERFACE_IS_PHONE)
+        {
+            UINavigationController *nvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddOOOFormTableViewControllerId"];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+            
+            AddOOOFormTableViewController *form = [nvc.viewControllers firstObject];
+            form.currentRequest = (int)(buttonIndex - 2);
+            form.delegate = self;
+        }
+    }
 }
 
 @end

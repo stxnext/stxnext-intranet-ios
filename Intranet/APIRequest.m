@@ -90,6 +90,22 @@
     return request;
 }
 
++ (AFHTTPRequestOperation *)addHours:(NSDictionary *)parameters
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
+                                                                                     action:@"api/user_times"
+                                                                                 parameters:parameters];
+    
+    NSLog(@"[REQUEST URL]\n%@\n", [request.request.URL description]);
+    NSLog(@"[RESPONSE HEADERS]\n%@\n", [[request.request allHTTPHeaderFields] descriptionInStringsFileFormat]);
+    NSLog(@"[RESPONSE HTTP METHOD]\n%@\n", [request.request HTTPMethod]);
+    NSLog(@"[RESPONSE HTTP BODY]\n%@\n",[[NSString alloc] initWithData:request.request.HTTPBody encoding:NSUTF8StringEncoding]);
+    
+    [request blockRedirections];
+    
+    return request;
+}
+
 + (AFHTTPRequestOperation *)sendAbsence:(NSDictionary *)parameters
 {
     AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodPOST
@@ -133,6 +149,41 @@
     
     [request blockRedirections];
     
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getUserTimesFromDate:(NSDate *)startDate toDate:(NSDate *)endDate
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/user_times?start_date=%@&end_date=%@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getUserHoursForMonthInDate:(NSDate *)date {
+    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/monthly_worked_hours?user_id=%@&month=%zd.%zd", [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"], [components month], [components year]] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getWorkedHoursForUser:(NSNumber *)userId
+{
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/worked_hours?user_id=%@", userId] parameters:nil];
+    
+    [request blockRedirections];
+    return request;
+}
+
++ (AFHTTPRequestOperation *)getProjectsList {
+    AFHTTPRequestOperation *request = [[HTTPClient sharedClient] requestOperationWithMethod:HTTPMethodGET action:[NSString stringWithFormat:@"api/projects"] parameters:nil];
+    
+    [request blockRedirections];
     return request;
 }
 

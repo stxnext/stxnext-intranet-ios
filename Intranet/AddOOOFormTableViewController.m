@@ -11,6 +11,7 @@
 #import "AppDelegate+Navigation.h"
 
 #define NEW_MENU YES
+#define MIN_TIME_DIFF 900 //defines (in seconds) minimum time interval between ooo 'from' and 'to' dates
 
 typedef enum
 {
@@ -29,7 +30,7 @@ typedef enum
 
 - (void)viewDidLoad
 {
-    self.title = @"New Request";
+    self.title = NSLocalizedString(@"New request", nil);
     
     [super viewDidLoad];
     
@@ -38,7 +39,14 @@ typedef enum
         self.currentType = 0;
     }
     
-    self.absenceHolidayCellType.detailTextLabel.text = @"Planned leave";
+    if (INTERFACE_IS_PAD) {
+        NSString *title = self.currentRequest == RequestTypeAbsenceHoliday ? NSLocalizedString(@"Absence/Holiday", nil) : NSLocalizedString(@"Out of office", nil);
+        
+        [self.navigationItem setTitle:title];
+    }
+    
+    [self setCellLabels];
+    self.absenceHolidayCellType.detailTextLabel.text = NSLocalizedString(@"Planned leave", nil);
     
     self.OOOPickerFrom.minimumDate = self.OOOPickerTo.minimumDate = self.OOOPickerDate.minimumDate = self.absenceHolidayPickerStart.minimumDate = self.absenceHolidayPickerEnd.minimumDate = [[NSDate date] dateWithHour:0 minute:0 second:0];
     
@@ -65,7 +73,22 @@ typedef enum
         self.currentRequest = RequestTypeAbsenceHoliday;
     }
     
+    self.submitCell.backgroundColor = [UIColor clearColor];
     [self updateTableView];
+}
+
+- (void)setCellLabels
+{
+    [self.OOOCellDate.textLabel setText:NSLocalizedString(@"Date", nil)];
+    [self.OOOCellFrom.textLabel setText:NSLocalizedString(@"From", nil)];
+    [self.OOOCellTo.textLabel setText:NSLocalizedString(@"To", nil)];
+    [self.OOOCellWorkFromHome.textLabel setText:NSLocalizedString(@"Work from home", nil)];
+    [self.OOOCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];
+
+    [self.absenceHolidayCellStart.textLabel setText:NSLocalizedString(@"Start", nil)];
+    [self.absenceHolidayCellEnd.textLabel setText:NSLocalizedString(@"End", nil)];
+    [self.absenceHolidayCellType.textLabel setText:NSLocalizedString(@"Type", nil)];
+    [self.absenceHolidayCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];
 }
 
 - (IBAction)cancel:(id)sender
@@ -93,41 +116,50 @@ typedef enum
             {
                 NSString *popup_type = nil;
                 
-                if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Planned leave"])
+                if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Planned leave", nil)])
                 {
                     popup_type = @"planowany";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Leave at request"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Leave at request", nil)])
                 {
                     popup_type = @"zadanie";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Illness"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Illness", nil)])
                 {
                     popup_type = @"l4";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Compassionate leave"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Compassionate leave", nil)])
                 {
                     popup_type = @"okolicznosciowy";
                 }
-                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:@"Absence"])
+                else if ([self.absenceHolidayCellType.detailTextLabel.text isEqualToString:NSLocalizedString(@"Absence", nil)])
                 {
                     popup_type = @"inne";
                 }
                 
-                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                UITextView *tField = self.absenceHolidayExplanation;
+                NSString *explanation;
+                if (INTERFACE_IS_PAD) {
+                    explanation = [tField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                } else {
+                    explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                }
+                
                 popup_type = [popup_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *from = [self.absenceHolidayCellStart.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *to = [self.absenceHolidayCellEnd.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
-                if (from.length && to.length && popup_type.length && self.explanation.length)
+                if (from.length && to.length && popup_type.length && [explanation length])
                 {
                     if (![[from componentsSeparatedByString:@"/"][1] isEqualToString:[to componentsSeparatedByString:@"/"][1]])
                     {
-                        [UIAlertView showWithTitle:@"Info"
-                                           message:@"Please split the date into 2 months."
+                        [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                           message:NSLocalizedString(@"Please split the date into 2 months.", nil)
                                              style:UIAlertViewStyleDefault
                                  cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                 otherButtonTitles:@[@"OK"]
+                                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                  }];
                         
                         return;
@@ -136,7 +168,7 @@ typedef enum
                     NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[popup_type,
                                                                                     from,
                                                                                     to,
-                                                                                    self.explanation]
+                                                                                    explanation]
                                                                           forKeys:@[@"popup_type",
                                                                                     @"popup_date_start",
                                                                                     @"popup_date_end",
@@ -144,7 +176,8 @@ typedef enum
                     
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"absence"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON]
+                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
                         {
@@ -157,13 +190,14 @@ typedef enum
                         }
                         else
                         {
-                            [self.popover dismissPopoverAnimated:YES];
+//                            [self.popover dismissPopoverAnimated:YES];
                         }
-                        
+                                                          
+                          ((UIButton *)sender).enabled = YES;
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-                        [UIAlertView showWithTitle:@"Error"
-                                           message:@"Request has not been added. Please try again."
+                        [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                                           message:NSLocalizedString(@"Request has not been added. Please try again.", nil)
                                              style:UIAlertViewStyleDefault
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -174,8 +208,8 @@ typedef enum
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
+                    [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                       message:NSLocalizedString(@"All fields required.", nil)
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -188,28 +222,36 @@ typedef enum
                 
             case RequestTypeOutOfOffice:
             {
-                self.explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                UITextView *tField = self.OOOExplanation;
+                
+                NSString *explanation;
+                if (INTERFACE_IS_PAD) {
+                    explanation = [tField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                } else {
+                    explanation = [self.explanation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                }
+                
                 NSString *from = [self.OOOCellFrom.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *to = [self.OOOCellTo.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSString *date = [self.OOOCellDate.detailTextLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
-                if (from.length && to.length && date.length && self.explanation.length)
+                if (from.length && to.length && date.length && [explanation length] > 0)
                 {
                     NSDictionary *innerJSON = [NSDictionary dictionaryWithObjects:@[from,
                                                                                     to,
                                                                                     date,
                                                                                     [NSNumber numberWithBool:self.OOOCellWorkFromHome.accessoryType == UITableViewCellAccessoryCheckmark],
-                                                                                    self.explanation]
+                                                                                    explanation]
                                                                           forKeys:@[@"late_start",
                                                                                     @"late_end",
                                                                                     @"popup_date",
                                                                                     @"work_from_home",
                                                                                     @"popup_explanation"]];
                     
-                    
                     NSDictionary *JSON = [NSDictionary dictionaryWithObject:innerJSON forKey:@"lateness"];
                     
-                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON]
+                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
                         {
@@ -222,8 +264,9 @@ typedef enum
                         }
                         else
                         {
-                            [self.popover dismissPopoverAnimated:YES];
+//                            [self.popover dismissPopoverAnimated:YES];
                         }
+                      ((UIButton *)sender).enabled = YES;
 
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -239,8 +282,8 @@ typedef enum
                 }
                 else
                 {
-                    [UIAlertView showWithTitle:@"Info"
-                                       message:@"All fields required."
+                    [UIAlertView showWithTitle:NSLocalizedString(@"Info", nil)
+                                       message:NSLocalizedString(@"All fields required.", nil)
                                          style:UIAlertViewStyleDefault
                              cancelButtonTitle:nil
                              otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -284,6 +327,10 @@ typedef enum
         {
             return 0 ;
         }
+        else if (indexPath.row == 5 && INTERFACE_IS_PAD)
+        {
+            return 80.f;
+        }
     }
     
     if (indexPath.section == 2)
@@ -300,9 +347,54 @@ typedef enum
         {
             return 0;
         }
+        else if (indexPath.row == 7 && INTERFACE_IS_PAD)
+        {
+            return 80.f;
+        }
     }
     
     return 44;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    if (INTERFACE_IS_PAD) {
+        [self paintHeaderFooter:view OnColor:[Branding stxLightGray]];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if (INTERFACE_IS_PAD) {
+        [self paintHeaderFooter:view OnColor:[Branding stxLightGray]];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)paintHeaderFooter:(UIView *)view OnColor:(UIColor *)bcgColor
+{
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        UITableViewHeaderFooterView *hfView = (UITableViewHeaderFooterView *)view;
+        hfView.contentView.backgroundColor = bcgColor;
+        hfView.backgroundView.backgroundColor = bcgColor;
+    } else {
+        view.backgroundColor = bcgColor;
+    }
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        return nil;
+    }
+    return indexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -352,6 +444,35 @@ typedef enum
             
             [self.tableView reloadData];
         }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellType])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
+            UIActionSheet *typeActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                         delegate:self
+                                                                cancelButtonTitle:nil
+                                                           destructiveButtonTitle:nil
+                                                                otherButtonTitles:NSLocalizedString(@"Planned leave", nil), NSLocalizedString(@"Leave at request", nil), NSLocalizedString(@"Illness", nil), NSLocalizedString(@"Compassionate leave", nil), NSLocalizedString(@"Absence", nil), nil];
+            
+            if(INTERFACE_IS_PHONE) {
+                [typeActionSheet showInView:self.view];
+            } else {
+                CGRect rectCell = [tableView rectForRowAtIndexPath:indexPath];
+                CGRect rect = [tableView convertRect:rectCell toView:self.view];
+                [typeActionSheet showFromRect:rect inView:self.view animated:YES];
+            }
+        }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.absenceHolidayCellExplanation])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Remarks", nil)
+                                                                       message:NSLocalizedString(@"Please leave information about your availability via email or phone.", nil)
+                                                                      delegate:self
+                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                             otherButtonTitles:@"OK", nil];
+            
+            explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [explanationAlert show];
+        }
     }
     else if (indexPath.section == 2)
     {
@@ -364,6 +485,18 @@ typedef enum
             self.OOOCellToPicker.hidden = YES;
             
             [self.tableView reloadData];
+        }
+        else if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.OOOCellExplanation])
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            UIAlertView *explanationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Explanation", nil)
+                                                                       message:NSLocalizedString(@"Please leave your explanation below.", nil)
+                                                                      delegate:self
+                                                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                             otherButtonTitles:@"OK", nil];
+            
+            explanationAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [explanationAlert show];
         }
         else if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4)
         {
@@ -385,6 +518,30 @@ typedef enum
             
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *explanation = [[[alertView textFieldAtIndex:0] text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if(buttonIndex == 1 && [explanation length] > 0)
+    {
+        self.explanation = explanation;
+        if(self.OOOCellExplanation) self.OOOCellExplanation.detailTextLabel.text = explanation;
+        if(self.absenceHolidayCellExplanation) self.absenceHolidayCellExplanation.detailTextLabel.text = explanation;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1) [self.tableView reloadData];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex >= 0) {
+        self.currentType = buttonIndex;
+        self.absenceHolidayCellType.detailTextLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
     }
 }
 
@@ -463,7 +620,7 @@ typedef enum
         {
             if (NEW_MENU)
             {
-                return 0.01;
+                return 0.00001;
             }
             
             return 44;
@@ -526,7 +683,7 @@ typedef enum
             break;
     }
     
-    return 0.01;
+    return 0.0001;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -548,7 +705,7 @@ typedef enum
         {
             if (self.currentRequest == RequestTypeAbsenceHoliday)
             {
-                return [NSString stringWithFormat:@"ABSENCE / HOLIDAY - %@ days left", freedays?: @" "];
+                return [NSString stringWithFormat:NSLocalizedString(@"ABSENCE / HOLIDAY - %@ days left", nil), freedays?: @" "];
             }
         }
             break;
@@ -557,7 +714,7 @@ typedef enum
         {
             if (self.currentRequest == RequestTypeOutOfOffice)
             {
-                return @"OUT OF OFFICE";
+                return NSLocalizedString(@"OUT OF OFFICE", nil);
             }
         }
             break;
@@ -588,7 +745,7 @@ typedef enum
     self.absenceHolidayCellType.detailTextLabel.text = type;
 }
 
-#pragma mark -  RequestTypeTableViewControllerDelegate
+#pragma mark -  RequestTypeTableViewControllerDelegate   
 
 - (void)explanationViewController:(ExplanationViewController *)explanationViewController explanation:(NSString *)explanation
 {
@@ -665,7 +822,7 @@ typedef enum
             
             if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:MIN_TIME_DIFF] animated:YES];
                 self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];
             }
         }
@@ -675,7 +832,7 @@ typedef enum
         {
             if ([self.OOOPickerTo.date compare:self.OOOPickerFrom.date] !=  NSOrderedDescending)
             {
-                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:3600] animated:YES];
+                [self.OOOPickerTo setDate:[self.OOOPickerFrom.date dateByAddingTimeInterval:MIN_TIME_DIFF] animated:YES];
             }
             
             self.OOOCellTo.detailTextLabel.text = [dateFormater stringFromDate:self.OOOPickerTo.date];

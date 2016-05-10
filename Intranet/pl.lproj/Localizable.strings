@@ -1,0 +1,113 @@
+/* 
+  Localizable.strings
+  Intranet
+
+  Created by Paweł Urbanowicz on 15.09.2015.
+  Copyright (c) 2015 STXNext. All rights reserved.
+*/
+
+/* Ogólne */
+"Cancel" = "Anuluj";
+"Close" = "Zamknij";
+"Info" = "Informacja";
+"Error" = "Błąd";
+"Search" = "Szukaj";
+"Loading" = "Ładowanie";
+"Refresh" = "Ładowanie";
+"Submit" = "Wyślij";
+"Reminder" = "Przypomnienie";
+
+"New request" = "Nowy wniosek";
+"Loading error." = "Problem z ładowaniem";
+"Tomorrow" = "Jutro";
+"From" = "Od";
+"to" = "do";
+
+/* Karta Employees */
+"Employees" = "Pracownicy";
+
+/* Karta Absences */
+"Absences" = "Nieobecności";
+"Holiday" = "Urlop";
+"Work from Home" = "Praca zdalna";
+"Out of Office" = "Poza biurem";
+
+/* Karta offices */
+"Offices" = "Lokacje";
+"Call" = "Zadzwoń";
+"Show on map" = "Pokaż na mapie";
+"Navigate" = "Nawiguj";
+
+/* Karta ME */
+"Me" = "Ja";
+"Office" = "Miasto";
+
+"Add hours" = "Dodaj godziny";
+"I'll be late!" = "Spóźnię się!";
+"Absence/Holiday" = "Nieobecność/Urlop";
+"Out of office" = "Poza biurem";
+
+"Call app not found." = "Nie znaleziono aplikacji do połączeń.";
+"Email app not found." = "Nie znaleziono aplikacji e-mail.";
+"Skype app not found." = "Nie znaleziono aplikacji Skype.";
+"IRC app not found." = "Nie znaleziono klienta IRC.";
+"No range" = "Brak zasięgu";
+"No cellular coverage." = "Nie można połączyć z siecią komórkową.";
+
+/* Karta Settings */
+"Settings" = "Ustawienia";
+"I am a SuperHero!" = "Jestem Superbohaterem!";
+"Logout" = "Wyloguj";
+
+"Credits" = "Autorzy";
+"Development" = "Programowanie";
+"Design & UX" = "Projekt UI/UX";
+"Icons" = "Ikony";
+
+/* Karta spóźnienia */
+"Move your finger!" = "Rusz palcem!";
+"Lateness reason" = "Powód spóźnienia";
+
+/* Karta zgłaszania urlopu */
+"ABSENCE / HOLIDAY - %@ days left" = "NIEOBECNOŚĆ/URLOP - Pozostało %@ dni";
+"OUT OF OFFICE" = "POZA BIUREM";
+"Start" = "Początek";
+"End" = "Koniec";
+"Type" = "Typ";
+
+"Planned leave" = "Planowany";
+"Leave at request" = "Na żądanie";
+"Illness" = "Chorobowy";
+"Compassionate leave" = "Okolicznościowy";
+"Absence" = "Nieobecność (inne)";
+
+"Please split the date into 2 months." = "Proszę podzielić datę na dwa miesiące.";
+"Request has not been added. Please try again." = "Wniosek nie został dodany. Spróbuj później.";
+"All fields required." = "Wszystkie pola są wymagane.";
+
+"Date" = "Data";
+"To" = "Do";
+"Work from home" = "Praca zdalna";
+"Explanation" = "Wyjaśnienie";
+"Remarks" = "Uwagi";
+"Please leave your explanation below." = "Proszę wpisać wyjaśnienie poniżej.";
+"Please leave information about your availability via email or phone." = "Proszę o wpisanie, czy będzie się dostępnym pod telefonem i czy będzie się miało dostęp do Internetu.";
+
+/* Notowanie czasu */
+"Requesting projects list" = "Odpytuję o listę projektów";
+"Requesting hours summary" = "Odpytuję o podsumowanie godzin";
+"Notification time" = "Czas przypomnienia";
+"Remember to note your working hours in the Intranet!" = "Pamiętaj by zanotować swój czas pracy w Intranecie!";
+"Remind me to book working hours" = "Przypomnij o zanotowaniu czasu";
+"Time entry" = "Notowanie czasu";
+"Time as float value" = "Czas jako wartość zmiennoprzecinkowa";
+"Project" = "Projekt";
+"Description" = "Opis";
+"Ticket identifier" = "ID ticketu";
+"Ticket description" = "Opis ticketu";
+"Hours summary" = "Podsumowanie godzin";
+
+/* Inne */
+"No Internet connection." = "Brak dostępu do Internetu.";
+"Nothing to show." = "Nie ma nic do wyświetlenia.";
+"Credits & Licenses" = "Podziękowania i licencje";

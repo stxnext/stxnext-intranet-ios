@@ -7,8 +7,10 @@
 //
 
 #import "UserListTableViewController.h"
-
 #import "UIView+Screenshot.h"
+#import "MBProgressHUD.h"
+
+#import "MainVerticalTabBarViewController.h"
 
 @implementation UserListTableViewController
 {
@@ -18,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setInteractionEnabled:NO];
     
     //update data
     if ([RMUser userLoggedType] != UserLoginTypeNO)
@@ -27,13 +30,14 @@
         [self performBlockInCurrentThread:^{
             [self loadUsersFromAPI:^{
                 [self stopRefreshData];
+                [self setInteractionEnabled:YES];
             }];
         } afterDelay:1];
     }
     
     if ([RMUser userLoggedType] == UserLoginTypeFalse || [RMUser userLoggedType] == UserLoginTypeError)
     {
-        [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+        [[self.tabBarController.tabBar.items lastObject] setTitle:NSLocalizedString(@"About", nil)];
     }
 }
 
@@ -78,11 +82,10 @@
                                           if (operation.response.statusCode == 302 && cookies)
                                           {
                                               [RMUser setUserLoggedType:UserLoginTypeTrue];
-                                              
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"Me"];
-                                              
+                                                                                            
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
+                                                  [self setInteractionEnabled:YES];
                                               }];
                                           }
                                           else
@@ -90,13 +93,46 @@
                                               //error RMUser login (e.g. account not exists)
                                               [RMUser setUserLoggedType:UserLoginTypeFalse];
                                               
-                                              [[self.tabBarController.tabBar.items lastObject] setTitle:@"About"];
+                                              [[self.tabBarController.tabBar.items lastObject] setTitle:NSLocalizedString(@"About", nil)];
                                               
                                               [self loadUsersFromAPI:^{
                                                   [self stopRefreshData];
+                                                  [self setInteractionEnabled:YES];
                                               }];
                                           }
                                       }];
+}
+
+- (void)setInteractionEnabled:(BOOL)enabled
+{
+    [self.tableView setUserInteractionEnabled:enabled];
+    [self.tabBarController.tabBar setUserInteractionEnabled:enabled];
+    
+    UIView *viewForHudPlacing;
+    if (INTERFACE_IS_PHONE) {
+        viewForHudPlacing = self.view;
+    } else {
+        UIViewController *rootVC = self.splitViewController;
+        viewForHudPlacing = rootVC.view;
+    }
+    
+    if(!enabled)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewForHudPlacing animated:YES];
+        hud.labelText = NSLocalizedString(@"Loading", nil);
+    } else {
+         [MBProgressHUD hideHUDForView:viewForHudPlacing animated:YES];
+        if (INTERFACE_IS_PAD) {
+            RMUser *me = [RMUser me];
+            
+            RMLate *todayLate = [me lateForToday];
+            
+            MainVerticalTabBarViewController *mainController = (MainVerticalTabBarViewController *)[[UIApplication sharedApplication] delegate].window.rootViewController;
+            
+            [mainController presentLateDate:todayLate.stop];
+            
+        }
+    }
 }
 
 #pragma mark - Download data
@@ -109,8 +145,10 @@
     
     if (currentListState == ListStateAll)
     {
+        [self.tabBarController.tabBar setUserInteractionEnabled:NO];
         [self loadUsersFromAPI:^{
             [self stopRefreshData];
+            [self.tabBarController.tabBar setUserInteractionEnabled:YES];
         }];
     }
     else
@@ -153,24 +191,19 @@
         switch (currentListState)
         {
             case ListStateAll:
-                [self.viewSwitchButton setTitle:@"Out"];
-                self.title = @"All";
-                
+                [self.viewSwitchButton setTitle:NSLocalizedString(@"Out", nil)];
+                self.title = NSLocalizedString(@"Employees", nil);
                 break;
                 
-            case ListStateOutToday:
-                [self.viewSwitchButton setTitle:@"Tomorrow"];
-                self.title = @"Out";
-                
+            case ListStateAbsent:
+            case ListStateWorkFromHome:
+            case ListStateOutOfOffice:
+                [self.viewSwitchButton setTitle:NSLocalizedString(@"Absences", nil)];
+                self.title = NSLocalizedString(@"Absences", nil);
                 break;
-                
-            case ListStateOutTomorrow:
-                [self.viewSwitchButton setTitle:@"All"];
-                self.title = @"Tomorrow";
 
+            default:
                 break;
-                
-            default:break;
         }
         
         self.viewSwitchButton.enabled = YES;
@@ -184,15 +217,8 @@
     {
         case ListStateNotSet:
             return ListStateAll;
-            
-        case ListStateAll:
-            return ListStateOutToday;
-            
-        case ListStateOutToday:
-            return ListStateOutTomorrow;
-            
-        case ListStateOutTomorrow:
-            return ListStateAll;
+        
+        default: break;
     }
     
     return ListStateAll;

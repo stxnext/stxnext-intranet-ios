@@ -9,7 +9,7 @@
 #import "PlaningPokerViewController.h"
 #import "CardView.h"
 #import "GPUImage.h"
-#import <LBBlurredImage/UIImageView+LBBlurredImage.h>
+//#import <LBBlurredImage/UIImageView+LBBlurredImage.h>
 
 #define UnSelectedRadius 700
 #define SelectedRadius 1000
@@ -148,7 +148,7 @@
 
 - (void)showBlurBackground
 {
-    [self.backgroundImageView setImageToBlur:self.backgroundImage blurRadius:10 completionBlock:nil];
+//    [self.backgroundImageView setImageToBlur:self.backgroundImage blurRadius:10 completionBlock:nil];
     self.backgroundImageView.alpha = 0.75;
 }
 
