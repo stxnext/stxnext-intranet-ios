@@ -1046,7 +1046,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stxnext.ios.Intranet;
 				PRODUCT_NAME = "STX Intranet";
 				PROVISIONING_PROFILE = "";
@@ -1071,7 +1071,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stxnext.ios.Intranet;
 				PRODUCT_NAME = "STX Intranet";
 				PROVISIONING_PROFILE = "";

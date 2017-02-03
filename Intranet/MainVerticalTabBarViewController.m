@@ -73,11 +73,6 @@
 //    [self.view.window removeGestureRecognizer:_tapBehindGesture];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark UITableView Delegate/Data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

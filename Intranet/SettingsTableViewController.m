@@ -88,11 +88,6 @@
     [self.logoutLabel setTitle:[NSLocalizedString(@"Logout", nil) uppercaseString] forState:UIControlStateNormal];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark actions
 
 - (void)checkNotificationSwitch {

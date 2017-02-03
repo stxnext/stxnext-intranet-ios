@@ -55,11 +55,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkFormStatus) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     selectedProject = [self.projectsList objectAtIndex:row];
