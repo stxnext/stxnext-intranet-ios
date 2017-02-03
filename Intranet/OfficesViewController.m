@@ -37,7 +37,7 @@
     [self.cityLabel setTextColor:[Branding stxGreen]];
     [self.detailsLabel setTextColor:[Branding stxDarkGreen]];
     
-    [self.infoWrapper setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
+    [self.infoWrapper setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.9]]; 
     [self prepareLocations];
     
     if(self.locationsSegment) {
@@ -61,12 +61,14 @@
                                     kOFFICE_FAX : @"+48 61 610 03 18",
                                     kOFFICE_LATITUDE : @(52.394683),
                                     kOFFICE_LONGITUDE : @(16.894067) };
+    
     NSDictionary *officePila = @{ kOFFICE_CITY : @"Piła",
                                   kOFFICE_STREET : @"al. Piastów 3",
                                   kOFFICE_POSTCODE : @"64-920",
                                   kOFFICE_PHONE : @"+48 67 342 32 16",
                                   kOFFICE_LATITUDE : @(53.148584),
                                   kOFFICE_LONGITUDE : @(16.738079) };
+    
     NSDictionary *officeWroclaw = @{ kOFFICE_CITY : @"Wrocław",
                                      kOFFICE_STREET : @"ul. Aleksandra Hercena 3-5",
                                      kOFFICE_POSTCODE : @"50-316",
@@ -74,7 +76,16 @@
                                      kOFFICE_LATITUDE : @(51.102992),
                                      kOFFICE_LONGITUDE : @(17.041462) };
     
-    officeLocations = [NSArray arrayWithObjects:officePoznan, officePila, officeWroclaw, nil];
+    NSDictionary *officeLodz = @{ kOFFICE_CITY : @"Łódź",
+                                  kOFFICE_STREET : @"ul. Targowa 35",
+                                  kOFFICE_POSTCODE : @"90-043",
+                                  kOFFICE_PHONE : @"+48 42 203 10 16",
+                                  kOFFICE_LATITUDE : @(51.7615733),
+                                  kOFFICE_LONGITUDE : @(19.4699963) };
+
+    
+    
+    officeLocations = [NSArray arrayWithObjects:officePoznan, officeWroclaw, officeLodz, officePila, nil];
     [self setLocation:currentOffice withAnimation:NO];
 }
 
@@ -101,8 +112,14 @@
     for (NSInteger i=0; i<[self.locationButtons count]; i++)
     {
         UIUnderlinedButton *officeButton = (UIUnderlinedButton *)[self.locationButtons objectAtIndex:i];
-        if(i == locationIndex) [officeButton setUnderlined:YES];
-        else [officeButton setUnderlined:NO];
+        
+        if (i == locationIndex) {
+            [officeButton setUnderlined:YES];
+        }
+        else {
+            [officeButton setUnderlined:NO];
+        }
+        
         [officeButton setNeedsDisplay];
     }
     
@@ -110,11 +127,6 @@
     currentOffice = locationIndex;
     
     if(self.locationsSegment) [self.locationsSegment setSelectedSegmentIndex:locationIndex];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)swipeLocation:(id)sender {
@@ -207,15 +219,5 @@
     NSInteger index = [self.locationButtons indexOfObject:(UIButton *)sender];
     [self setLocation:index withAnimation:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
