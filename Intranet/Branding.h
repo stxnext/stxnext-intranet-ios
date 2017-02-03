@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIImage+ImageWithColor.h"
 
 @interface Branding : NSObject
 

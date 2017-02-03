@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImage+ImageWithColor.h"
 
 @interface UIImage (Color)
 

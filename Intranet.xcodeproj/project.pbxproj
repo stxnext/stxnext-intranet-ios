@@ -45,7 +45,7 @@
 		272DF89918324DD00014FBCA /* RMUser+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DF89818324DD00014FBCA /* RMUser+AddressBook.m */; };
 		2791D7C41833B82F0073C9DC /* AddressBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2791D7C31833B82F0073C9DC /* AddressBookManager.m */; };
 		27A999D3182255C60091B173 /* HTTPClient+Cookies.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A999D2182255C60091B173 /* HTTPClient+Cookies.m */; };
-		5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48042D1CDD9C791E0E68610E /* Pods.framework */; };
+		55F71169EAF0A66FD5203B04 /* Pods_Intranet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0BC6FB1D9B8E34B5489D03 /* Pods_Intranet.framework */; };
 		66063DC8182149A300C30C93 /* UserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DC7182149A300C30C93 /* UserListCell.m */; };
 		66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */; };
 		66063DCE182149C700C30C93 /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66063DCD182149C700C30C93 /* UITableView+Additions.m */; };
@@ -82,11 +82,6 @@
 		6696422F1A35BB7500E5F604 /* ControllableBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696422E1A35BB7500E5F604 /* ControllableBlock.m */; };
 		66A3537B18BB436D00BEB043 /* AddOOOFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */; };
 		66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A83E271A28945D00B53A65 /* ListTableViewController.m */; };
-		66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */; };
-		66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */; };
-		66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D318A4D0ED00049C37 /* Images.xcassets */; };
-		66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3D518A4D0ED00049C37 /* CardView.m */; };
-		66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BFF3D618A4D0ED00049C37 /* CardView.xib */; };
 		66BFF3DF18A4E6B900049C37 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */; };
 		66CA6E7A1A2DB75B00BF822F /* UIImageView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */; };
 		66E7B21F18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */; };
@@ -194,6 +189,7 @@
 		2791D7C31833B82F0073C9DC /* AddressBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookManager.m; sourceTree = "<group>"; };
 		27A999D1182255C60091B173 /* HTTPClient+Cookies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPClient+Cookies.h"; sourceTree = "<group>"; };
 		27A999D2182255C60091B173 /* HTTPClient+Cookies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+Cookies.m"; sourceTree = "<group>"; };
+		2802C4D0BCEB3E7382F459E1 /* Pods-Intranet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Intranet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Intranet/Pods-Intranet.debug.xcconfig"; sourceTree = "<group>"; };
 		48042D1CDD9C791E0E68610E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66063DC6182149A300C30C93 /* UserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListCell.h; sourceTree = "<group>"; };
 		66063DC7182149A300C30C93 /* UserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListCell.m; sourceTree = "<group>"; };
@@ -249,20 +245,12 @@
 		66A3537A18BB436D00BEB043 /* AddOOOFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOOOFormTableViewController.m; sourceTree = "<group>"; };
 		66A83E261A28945D00B53A65 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
 		66A83E271A28945D00B53A65 /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
-		66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaningPokerViewController.h; sourceTree = "<group>"; };
-		66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaningPokerViewController.m; sourceTree = "<group>"; };
-		66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaningPokerViewController.xib; sourceTree = "<group>"; };
-		66BFF3D318A4D0ED00049C37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		66BFF3D418A4D0ED00049C37 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
-		66BFF3D518A4D0ED00049C37 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
-		66BFF3D618A4D0ED00049C37 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		66BFF3DD18A4E6B900049C37 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		66BFF3DE18A4E6B900049C37 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		66CA6E781A2DB75B00BF822F /* UIImageView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Additions.h"; sourceTree = "<group>"; };
 		66CA6E791A2DB75B00BF822F /* UIImageView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Additions.m"; sourceTree = "<group>"; };
 		66E7B21D18B494C600A31D55 /* OutOfOfficeTodayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutOfOfficeTodayTableViewController.h; sourceTree = "<group>"; };
 		66E7B21E18B494C600A31D55 /* OutOfOfficeTodayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutOfOfficeTodayTableViewController.m; sourceTree = "<group>"; };
-		8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8FE0219F1BA1774B00BBB410 /* GreenSTXButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreenSTXButton.h; sourceTree = "<group>"; };
 		8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreenSTXButton.m; sourceTree = "<group>"; };
 		8FE9626F1B99950400C029CD /* UsersSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersSplitViewController.h; sourceTree = "<group>"; };
@@ -307,7 +295,8 @@
 		D1EA9F4F1BF6382600879662 /* IntranetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntranetTests.m; sourceTree = "<group>"; };
 		D1EA9F511BF6382600879662 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1EA9F571BF6384300879662 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
-		EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EA0BC6FB1D9B8E34B5489D03 /* Pods_Intranet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Intranet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA2505930C206EC943FCE19 /* Pods-Intranet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Intranet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Intranet/Pods-Intranet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,7 +313,7 @@
 				0CE37C4F181E8ED10087C96E /* CoreGraphics.framework in Frameworks */,
 				0CE37C51181E8ED10087C96E /* UIKit.framework in Frameworks */,
 				0CE37C4D181E8ED10087C96E /* Foundation.framework in Frameworks */,
-				5874766A12E6A1FA60313E99 /* Pods.framework in Frameworks */,
+				55F71169EAF0A66FD5203B04 /* Pods_Intranet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,20 +353,20 @@
 		0C43A79D1822723500FB513D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				66600E581833984600BA9DC3 /* ClockView.h */,
-				66063DC6182149A300C30C93 /* UserListCell.h */,
-				66600E591833984600BA9DC3 /* ClockView.m */,
-				66063DC7182149A300C30C93 /* UserListCell.m */,
 				D1C5915F1B8DA47E001DD5F5 /* Branding.h */,
-				D1C591601B8DA47E001DD5F5 /* Branding.m */,
-				D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */,
-				D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */,
-				8FE962761B99A77000C029CD /* TabIconTableViewCell.h */,
-				8FE962771B99A77000C029CD /* TabIconTableViewCell.m */,
+				66600E581833984600BA9DC3 /* ClockView.h */,
 				8FE0219F1BA1774B00BBB410 /* GreenSTXButton.h */,
-				8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */,
+				8FE962761B99A77000C029CD /* TabIconTableViewCell.h */,
 				D19F946D1BCD077E0039029A /* UIUnderlinedButton.h */,
+				D1AFCCD41B971F6B00E1ED4B /* UserDetailsTableViewCell.h */,
+				66063DC6182149A300C30C93 /* UserListCell.h */,
+				D1C591601B8DA47E001DD5F5 /* Branding.m */,
+				66600E591833984600BA9DC3 /* ClockView.m */,
+				8FE021A01BA1774B00BBB410 /* GreenSTXButton.m */,
+				8FE962771B99A77000C029CD /* TabIconTableViewCell.m */,
 				D19F946E1BCD077E0039029A /* UIUnderlinedButton.m */,
+				D1AFCCD51B971F6B00E1ED4B /* UserDetailsTableViewCell.m */,
+				66063DC7182149A300C30C93 /* UserListCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -387,13 +376,13 @@
 			children = (
 				0C853D8018212D34008D0516 /* AFHTTPRequestOperation+Redirect.h */,
 				0C853D7D182109DE008D0516 /* APIRequest.h */,
-				27A999D1182255C60091B173 /* HTTPClient+Cookies.h */,
 				0CF7CADC18200EAD00AAB9D4 /* HTTPClient.h */,
+				27A999D1182255C60091B173 /* HTTPClient+Cookies.h */,
 				0C43A7A11822843000FB513D /* UIImageView+NetworkCookies.h */,
 				0C853D8118212D34008D0516 /* AFHTTPRequestOperation+Redirect.m */,
 				0C853D7E182109DE008D0516 /* APIRequest.m */,
-				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
 				0CF7CADD18200EAD00AAB9D4 /* HTTPClient.m */,
+				27A999D2182255C60091B173 /* HTTPClient+Cookies.m */,
 				0C43A7A21822843000FB513D /* UIImageView+NetworkCookies.m */,
 			);
 			name = Network;
@@ -406,7 +395,7 @@
 				0CE37C4B181E8ED10087C96E /* Frameworks */,
 				0CE37C52181E8ED10087C96E /* Intranet */,
 				0CE37C4A181E8ED10087C96E /* Products */,
-				F2BF403691DD390509BE4A42 /* Pods */,
+				D1C013488631CC24167B7EBC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -422,17 +411,18 @@
 		0CE37C4B181E8ED10087C96E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D119D29C1B9446C7009826BB /* MapKit.framework */,
-				6675937D19E6BAD9004603C5 /* CoreTelephony.framework */,
 				272DF89518324D320014FBCA /* AddressBook.framework */,
 				0CF7FA7418214FB50056F907 /* CoreData.framework */,
 				0CE37C4E181E8ED10087C96E /* CoreGraphics.framework */,
+				6675937D19E6BAD9004603C5 /* CoreTelephony.framework */,
 				0CE37C4C181E8ED10087C96E /* Foundation.framework */,
+				D119D29C1B9446C7009826BB /* MapKit.framework */,
 				0C10C4A6181E949E00439D24 /* MobileCoreServices.framework */,
+				EA0BC6FB1D9B8E34B5489D03 /* Pods_Intranet.framework */,
+				48042D1CDD9C791E0E68610E /* Pods.framework */,
 				0C10C4A4181E949000439D24 /* SystemConfiguration.framework */,
 				0CE37C50181E8ED10087C96E /* UIKit.framework */,
 				0CE37C71181E8ED10087C96E /* XCTest.framework */,
-				48042D1CDD9C791E0E68610E /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -448,7 +438,6 @@
 				0CF44E87181FE49E005CC12B /* GUI */,
 				0C9E8727181EA9C900E90F5E /* Network */,
 				D119D29E1B945DF4009826BB /* Models */,
-				66BFF3CF18A4D0ED00049C37 /* Planning Poker */,
 				0CE37C53181E8ED10087C96E /* Supporting Files */,
 				0C43A79D1822723500FB513D /* Views */,
 			);
@@ -458,13 +447,13 @@
 		0CE37C53181E8ED10087C96E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D19F94701BCD25A20039029A /* CellularRangeDetector.h */,
+				D19F94711BCD25A20039029A /* CellularRangeDetector.m */,
 				0CE37C58181E8ED10087C96E /* main.m */,
 				0CE37C5A181E8ED10087C96E /* Intranet-Prefix.pch */,
 				0CE37C54181E8ED10087C96E /* Intranet-Info.plist */,
 				0CE37C6A181E8ED10087C96E /* Images.xcassets */,
 				661AE43F18C48CF400B7A4F5 /* Lato2OFL */,
-				D19F94701BCD25A20039029A /* CellularRangeDetector.h */,
-				D19F94711BCD25A20039029A /* CellularRangeDetector.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -496,7 +485,6 @@
 		0CF44E89181FE4BB005CC12B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8FE962721B999D6A00C029CD /* iPad */,
 				D1C5670F1BFCD87B0026D504 /* CalendarViewController.h */,
 				D1A10DC91C089AA4009B4BA3 /* CreditsViewController.h */,
 				D14BF4021B9EDBF800ED3F4E /* LatenessViewController.h */,
@@ -521,6 +509,7 @@
 				0C7E16E41833A11400BD2AB4 /* UserDetailsSegue.m */,
 				66063DCA182149AF00C30C93 /* UserDetailsTableViewController.m */,
 				0CF7CADA181FFA5900AAB9D4 /* UserListTableViewController.m */,
+				8FE962721B999D6A00C029CD /* iPad */,
 				6627C82618BC6FE6003893EB /* New Request */,
 			);
 			name = Controllers;
@@ -622,20 +611,6 @@
 			name = "New Request";
 			sourceTree = "<group>";
 		};
-		66BFF3CF18A4D0ED00049C37 /* Planning Poker */ = {
-			isa = PBXGroup;
-			children = (
-				66BFF3D418A4D0ED00049C37 /* CardView.h */,
-				66BFF3D018A4D0ED00049C37 /* PlaningPokerViewController.h */,
-				66BFF3D518A4D0ED00049C37 /* CardView.m */,
-				66BFF3D118A4D0ED00049C37 /* PlaningPokerViewController.m */,
-				66BFF3D318A4D0ED00049C37 /* Images.xcassets */,
-				66BFF3D618A4D0ED00049C37 /* CardView.xib */,
-				66BFF3D218A4D0ED00049C37 /* PlaningPokerViewController.xib */,
-			);
-			path = "Planning Poker";
-			sourceTree = "<group>";
-		};
 		8FE962721B999D6A00C029CD /* iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,8 +626,8 @@
 			isa = PBXGroup;
 			children = (
 				D119D29F1B945E1B009826BB /* OfficeAnnotation.h */,
-				D119D2A01B945E1B009826BB /* OfficeAnnotation.m */,
 				D1C7FB3D1BD665EA0068A5B5 /* UserWorkedHours.h */,
+				D119D2A01B945E1B009826BB /* OfficeAnnotation.m */,
 				D1C7FB3E1BD665EA0068A5B5 /* UserWorkedHours.m */,
 			);
 			name = Models;
@@ -666,23 +641,23 @@
 			name = Translations;
 			sourceTree = "<group>";
 		};
+		D1C013488631CC24167B7EBC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2802C4D0BCEB3E7382F459E1 /* Pods-Intranet.debug.xcconfig */,
+				FAA2505930C206EC943FCE19 /* Pods-Intranet.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D1EA9F4E1BF6382600879662 /* IntranetTests */ = {
 			isa = PBXGroup;
 			children = (
 				D1EA9F4F1BF6382600879662 /* IntranetTests.m */,
-				D1EA9F511BF6382600879662 /* Info.plist */,
 				D1EA9F571BF6384300879662 /* StringTests.m */,
+				D1EA9F511BF6382600879662 /* Info.plist */,
 			);
 			path = IntranetTests;
-			sourceTree = "<group>";
-		};
-		F2BF403691DD390509BE4A42 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */,
-				EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -692,12 +667,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CE37C81181E8ED10087C96E /* Build configuration list for PBXNativeTarget "Intranet" */;
 			buildPhases = (
-				FC655F2C038B40C59BD09BE0 /* Check Pods Manifest.lock */,
+				D94D3AF440C5B99236889A01 /* [CP] Check Pods Manifest.lock */,
 				0CE37C45181E8ED10087C96E /* Sources */,
 				0CE37C46181E8ED10087C96E /* Frameworks */,
 				0CE37C47181E8ED10087C96E /* Resources */,
-				48B2064B704B4D7C9DEE49AE /* Copy Pods Resources */,
-				767A239419177C72FA13A603 /* Embed Pods Frameworks */,
+				AD817603C9741C232BCC39F5 /* [CP] Embed Pods Frameworks */,
+				A6AB9672759BB9C2D82DF06E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -732,12 +707,11 @@
 		0CE37C41181E8ED10087C96E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = STXNext;
 				TargetAttributes = {
 					0CE37C48181E8ED10087C96E = {
 						DevelopmentTeam = B7EKJ66X5Q;
-						ProvisioningStyle = Automatic;
 					};
 					D1EA9F4C1BF6382600879662 = {
 						CreatedOnToolsVersion = 7.1;
@@ -773,9 +747,7 @@
 				0CE37C63181E8ED10087C96E /* Main_iPad.storyboard in Resources */,
 				661AE45B18C48CF400B7A4F5 /* Lato-Light.ttf in Resources */,
 				661AE45918C48CF400B7A4F5 /* Lato-HeavyItalic.ttf in Resources */,
-				66BFF3D918A4D0ED00049C37 /* Images.xcassets in Resources */,
 				661AE45718C48CF400B7A4F5 /* Lato-HairlineItalic.ttf in Resources */,
-				66BFF3DB18A4D0ED00049C37 /* CardView.xib in Resources */,
 				661AE45818C48CF400B7A4F5 /* Lato-Heavy.ttf in Resources */,
 				0CE37C6B181E8ED10087C96E /* Images.xcassets in Resources */,
 				661AE45318C48CF400B7A4F5 /* Lato-BlackItalic.ttf in Resources */,
@@ -792,7 +764,6 @@
 				0CF7CAD8181FF96A00AAB9D4 /* Modals_iPhone.storyboard in Resources */,
 				661AE45218C48CF400B7A4F5 /* Lato-Black.ttf in Resources */,
 				661AE46118C48CF400B7A4F5 /* Lato-SemiboldItalic.ttf in Resources */,
-				66BFF3D818A4D0ED00049C37 /* PlaningPokerViewController.xib in Resources */,
 				661AE45A18C48CF400B7A4F5 /* Lato-Italic.ttf in Resources */,
 				661AE45D18C48CF400B7A4F5 /* Lato-Medium.ttf in Resources */,
 				661AE45518C48CF400B7A4F5 /* Lato-BoldItalic.ttf in Resources */,
@@ -810,49 +781,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		48B2064B704B4D7C9DEE49AE /* Copy Pods Resources */ = {
+		A6AB9672759BB9C2D82DF06E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Intranet/Pods-Intranet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		767A239419177C72FA13A603 /* Embed Pods Frameworks */ = {
+		AD817603C9741C232BCC39F5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Intranet/Pods-Intranet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FC655F2C038B40C59BD09BE0 /* Check Pods Manifest.lock */ = {
+		D94D3AF440C5B99236889A01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -867,7 +838,6 @@
 				66063DCB182149AF00C30C93 /* UserDetailsTableViewController.m in Sources */,
 				66A83E281A28945D00B53A65 /* ListTableViewController.m in Sources */,
 				0CF7CAD0181FF32200AAB9D4 /* AppDelegate+Modals.m in Sources */,
-				66BFF3D718A4D0ED00049C37 /* PlaningPokerViewController.m in Sources */,
 				0CE37C5D181E8ED10087C96E /* AppDelegate.m in Sources */,
 				0C853D7F182109DE008D0516 /* APIRequest.m in Sources */,
 				D119D2A41B94918C009826BB /* SettingsTableViewController.m in Sources */,
@@ -921,7 +891,6 @@
 				D14BF4041B9EDBF800ED3F4E /* LatenessViewController.m in Sources */,
 				0CF7FA4A182144E20056F907 /* Database.xcdatamodeld in Sources */,
 				0CF7CADB181FFA5900AAB9D4 /* UserListTableViewController.m in Sources */,
-				66BFF3DA18A4D0ED00049C37 /* CardView.m in Sources */,
 				D1C567111BFCD87B0026D504 /* CalendarViewController.m in Sources */,
 				8FE962711B99950400C029CD /* UsersSplitViewController.m in Sources */,
 				D1AFCCD61B971F6B00E1ED4B /* UserDetailsTableViewCell.m in Sources */,
@@ -984,7 +953,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -995,20 +963,15 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
 				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1034,7 +997,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1045,19 +1007,14 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maciej Dziergwa (24CP896HJZ)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1075,14 +1032,17 @@
 		};
 		0CE37C82181E8ED10087C96E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A84FE16D540A1719B217D96 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 2802C4D0BCEB3E7382F459E1 /* Pods-Intranet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";
@@ -1090,14 +1050,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.stxnext.ios.Intranet;
 				PRODUCT_NAME = "STX Intranet";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		0CE37C83181E8ED10087C96E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF734ACB22D4EE755549A3E9 /* Pods.release.xcconfig */;
+			baseConfigurationReference = FAA2505930C206EC943FCE19 /* Pods-Intranet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1105,7 +1064,10 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Intranet/Intranet-Prefix.pch";
 				INFOPLIST_FILE = "Intranet/Intranet-Info.plist";

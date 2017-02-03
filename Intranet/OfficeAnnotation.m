@@ -11,9 +11,12 @@
 @implementation OfficeAnnotation
 
 - (id)initWithData:(NSDictionary *)officeData {
-    if(self == [super init]) {
+    self = [super init];
+    
+    if (self) {
         self.currentLocation = officeData;
     }
+    
     return self;
 }
 
