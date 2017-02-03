@@ -193,12 +193,12 @@
             [self requestUserHours];
             return;
         }
-        NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
-        NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
+//        NSDate *requestedHoursStartDate = [NSDate firstDayOfCurrentQuarter];
+//        NSDate *requestedHoursEndDate = [NSDate lastDayOfCurrentQuarter];
         BOOL quarterMode = YES;
         if(indexPath.row == 2) {
-            requestedHoursStartDate = [NSDate firstDayOfCurrentMonth];
-            requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
+//            requestedHoursStartDate = [NSDate firstDayOfCurrentMonth];
+//            requestedHoursEndDate = [NSDate lastDayOfCurrentMonth];
             quarterMode = NO;
         }
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
