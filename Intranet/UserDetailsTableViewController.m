@@ -34,6 +34,10 @@
     NSDictionary *userDetails;
     NSArray *detailsOrder;
     UIRefreshControl *refresh;
+    
+    BOOL _Authenticated;
+    NSURLRequest *_FailedRequest;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
@@ -418,8 +422,10 @@
                 
                 if (!isPageLoaded)
                 {
-                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.stxnext.pl/?set_language=en"]]];
+                    self.webView.delegate = self;
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.stxnext.com/"]];
                     
+                    [self.webView loadRequest:request];
                     [self.view addSubview:self.webView];
                     [self addActivityIndicator];
                 }
@@ -627,6 +633,7 @@
 }
 
 #pragma mark - UIWebViewDelegate
+
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -848,3 +855,5 @@
 }
 
 @end
+
+

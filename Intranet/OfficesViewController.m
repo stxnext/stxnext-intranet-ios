@@ -70,11 +70,11 @@
                                   kOFFICE_LONGITUDE : @(16.738079) };
     
     NSDictionary *officeWroclaw = @{ kOFFICE_CITY : @"Wrocław",
-                                     kOFFICE_STREET : @"ul. Aleksandra Hercena 3-5",
-                                     kOFFICE_POSTCODE : @"50-316",
+                                     kOFFICE_STREET : @"ul. Krupnicza 13",
+                                     kOFFICE_POSTCODE : @"50-075",
                                      kOFFICE_PHONE : @"+48 71 707 11 13",
-                                     kOFFICE_LATITUDE : @(51.102992),
-                                     kOFFICE_LONGITUDE : @(17.041462) };
+                                     kOFFICE_LATITUDE : @(51.1078153),
+                                     kOFFICE_LONGITUDE : @(17.0257577)};
     
     NSDictionary *officeLodz = @{ kOFFICE_CITY : @"Łódź",
                                   kOFFICE_STREET : @"ul. Targowa 35",

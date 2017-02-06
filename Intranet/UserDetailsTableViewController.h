@@ -12,7 +12,7 @@
 #import "AddOOOFormTableViewController.h"
 
 @protocol UserDetailsTableViewControllerDelegate;
-@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate, UIActionSheetDelegate, AddOOOFormTableViewControllerDelegate, UIPopoverControllerDelegate>
+@interface UserDetailsTableViewController : UITableViewController <MFMailComposeViewControllerDelegate, UIWebViewDelegate, NSURLConnectionDelegate, UIActionSheetDelegate, AddOOOFormTableViewControllerDelegate, UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
