@@ -84,7 +84,7 @@ typedef enum
     [self.OOOCellTo.textLabel setText:NSLocalizedString(@"To", nil)];
     [self.OOOCellWorkFromHome.textLabel setText:NSLocalizedString(@"Work from home", nil)];
     [self.OOOCellExplanation.textLabel setText:NSLocalizedString(@"Explanation", nil)];
-
+    
     [self.absenceHolidayCellStart.textLabel setText:NSLocalizedString(@"Start", nil)];
     [self.absenceHolidayCellEnd.textLabel setText:NSLocalizedString(@"End", nil)];
     [self.absenceHolidayCellType.textLabel setText:NSLocalizedString(@"Type", nil)];
@@ -99,7 +99,7 @@ typedef enum
     }
     else
     {
-        [self.popover dismissPopoverAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -160,7 +160,7 @@ typedef enum
                                  cancelButtonTitle:nil
                                  otherButtonTitles:@[@"OK"]
                                           tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
+                                          }];
                         
                         return;
                     }
@@ -178,33 +178,34 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendAbsence:JSON]
                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        
-                        if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
-                        {
-                            [self.delegate didFinishAddingOOO];
-                        }
-                        
-                        if (INTERFACE_IS_PHONE)
-                        {
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        }
-                        else
-                        {
-//                            [self.popover dismissPopoverAnimated:YES];
-                        }
                                                           
-                          ((UIButton *)sender).enabled = YES;
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        
-                        [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
-                                           message:NSLocalizedString(@"Request has not been added. Please try again.", nil)
-                                             style:UIAlertViewStyleDefault
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
-                        
-                        ((UIButton *)sender).enabled = YES;
-                    }];
+                                                          if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
+                                                          {
+                                                              [self.delegate didFinishAddingOOO];
+                                                          }
+                                                          
+                                                          if (INTERFACE_IS_PHONE)
+                                                          {
+                                                              [self dismissViewControllerAnimated:YES completion:nil];
+                                                          }
+                                                          else
+                                                          {
+                                                              //                            [self.popover dismissPopoverAnimated:YES];
+                                                          }
+                                                          
+                                                          ((UIButton *)sender).enabled = YES;
+                                                          
+                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                          
+                                                          [UIAlertView showWithTitle:NSLocalizedString(@"Error", nil)
+                                                                             message:NSLocalizedString(@"Request has not been added. Please try again.", nil)
+                                                                               style:UIAlertViewStyleDefault
+                                                                   cancelButtonTitle:nil
+                                                                   otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                                                   }];
+                                                          
+                                                          ((UIButton *)sender).enabled = YES;
+                                                      }];
                 }
                 else
                 {
@@ -252,33 +253,34 @@ typedef enum
                     
                     [[HTTPClient sharedClient] startOperation:[APIRequest sendLateness:JSON]
                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        
-                        if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
-                        {
-                            [self.delegate didFinishAddingOOO];
-                        }
-
-                        if (INTERFACE_IS_PHONE)
-                        {
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        }
-                        else
-                        {
-//                            [self.popover dismissPopoverAnimated:YES];
-                        }
-                      ((UIButton *)sender).enabled = YES;
-
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        
-                        [UIAlertView showWithTitle:@"Error"
-                                           message:@"Request has not been added. Please try again."
-                                             style:UIAlertViewStyleDefault
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                 }];
-                        
-                        ((UIButton *)sender).enabled = YES;
-                    }];
+                                                          
+                                                          if ([self.delegate respondsToSelector:@selector(didFinishAddingOOO)])
+                                                          {
+                                                              [self.delegate didFinishAddingOOO];
+                                                          }
+                                                          
+                                                          if (INTERFACE_IS_PHONE)
+                                                          {
+                                                              [self dismissViewControllerAnimated:YES completion:nil];
+                                                          }
+                                                          else
+                                                          {
+                                                              //                            [self.popover dismissPopoverAnimated:YES];
+                                                          }
+                                                          
+                                                          ((UIButton *)sender).enabled = YES;
+                                                          
+                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                          
+                                                          [UIAlertView showWithTitle:@"Error"
+                                                                             message:@"Request has not been added. Please try again."
+                                                                               style:UIAlertViewStyleDefault
+                                                                   cancelButtonTitle:nil
+                                                                   otherButtonTitles:@[@"OK"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                                                   }];
+                                                          
+                                                          ((UIButton *)sender).enabled = YES;
+                                                      }];
                 }
                 else
                 {
@@ -603,7 +605,7 @@ typedef enum
             self.OOOCellToPicker.hidden = YES;
             self.OOOCellWorkFromHome.hidden = NO;
             self.OOOCellExplanation.hidden = NO;
-
+            
             [self performBlockOnMainThread:^{
                 [self.tableView reloadData];
             } afterDelay:0.5];
@@ -745,7 +747,7 @@ typedef enum
     self.absenceHolidayCellType.detailTextLabel.text = type;
 }
 
-#pragma mark -  RequestTypeTableViewControllerDelegate   
+#pragma mark -  RequestTypeTableViewControllerDelegate
 
 - (void)explanationViewController:(ExplanationViewController *)explanationViewController explanation:(NSString *)explanation
 {

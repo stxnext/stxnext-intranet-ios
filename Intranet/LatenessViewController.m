@@ -136,7 +136,7 @@
 #pragma mark action buttons
 
 - (IBAction)closeForm:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)submitForm:(id)sender {

@@ -23,7 +23,7 @@ typedef enum
     NSInteger currentUnCollapsedPickerIndex;
     NSNumber *freedays;
 }
-@property (strong, nonatomic) UIPopoverController *popover;
+
 @property (weak, nonatomic) id<AddOOOFormTableViewControllerDelegate> delegate;
 
 @property (copy, nonatomic) NSString *explanation;
